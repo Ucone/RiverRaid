@@ -21,7 +21,8 @@ void setup() {
       .setFont(font)
       .setValue("Your name here...")
       .setColorBackground(0)
-      .setColorForeground(0);
+      .setColorForeground(0)
+      .setLabelVisible(false);
       
   cp5.addBang("Start")
       .setPosition(width / 2 - 100, height/2 + 100)
