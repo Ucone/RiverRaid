@@ -8,7 +8,7 @@ String playerName = "";
 PImage startImg;
 void setup() {
   size(1024, 768);
-  startImg=loadImage("http://i.imgur.com/27yNw28.png");
+  startImg=loadImage("./images/welcome.png");
   startImg.resize(1024, 768);
   font = createFont("Arial", 20, true);
   
@@ -55,7 +55,7 @@ void controlEvent(ControlEvent theEvent) {
 }
 
 void startStory(){
-  startImg=loadImage("./story/story1.png");
+  startImg=loadImage("./images/story/story1.png");
   startImg.resize(1024, 768);
   cp5.get(Textfield.class, "name_input").remove();
   cp5.get(Bang.class, "Start").remove();
