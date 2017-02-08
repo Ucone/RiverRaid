@@ -36,7 +36,16 @@ void setup() {
 }
 
 void draw() {
-   image(startImg, 0, 0);
+  switch(gameState){
+    case WELCOME:
+      image(startImg, 0, 0);
+      break;
+    
+    case STORY:
+      cp5 = null;
+      startStory();
+  }
+  
 }
 
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
@@ -57,13 +66,12 @@ void controlEvent(ControlEvent theEvent) {
   
   println("User: " + player.getName());
   
-  startStory();
+  gameState = GameState.STORY;
+  
 }
 
 void startStory(){
   startImg=loadImage("./images/story/story1.png");
   startImg.resize(1024, 768);
-  cp5.get(Textfield.class, "name_input").remove();
-  cp5.get(Bang.class, "Start").remove();
   image(startImg, 0, 0);
 }
