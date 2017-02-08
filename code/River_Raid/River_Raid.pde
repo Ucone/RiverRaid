@@ -1,10 +1,10 @@
 import controlP5.*;
-import java.awt.Dimension;
+public enum GameState {WELCOME, STORY, GAME};  //Different states of the game
 
-int gameState = 1;
 ControlP5 cp5;
 PFont font;
-String playerName = "";
+Player player;
+GameState gameState = GameState.WELCOME;
 
 PImage startImg;
 void setup() {
@@ -44,13 +44,18 @@ void draw() {
 */
 void controlEvent(ControlEvent theEvent) {
   String event_id = theEvent.getLabel();
+  String playerName = "";
   if(event_id.equals("name_input") || event_id.equals("Start")){
     playerName = cp5.get(Textfield.class, "name_input").getText();
+    
+    if(playerName.equals("")){
+      playerName = "Guest";
+    }
   }
   
-  if(playerName.equals("")){
-    playerName = "Guest";
-  }
+  player = new Player(playerName);
+  
+  println("User: " + player.getName());
   
   startStory();
 }
