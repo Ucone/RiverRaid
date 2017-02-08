@@ -1,4 +1,5 @@
 import controlP5.*;
+import java.awt.Dimension;
 
 int gameState = 1;
 ControlP5 cp5;
@@ -16,7 +17,7 @@ void setup() {
   
   /* Input field */
   cp5.addTextfield("name_input")
-      .setPosition(width / 2 - 100,  height/2 + 40)
+      .setPosition(width / 2 - 100,  height - 130)
       .setSize(200, 40)
       .setFocus(true)
       .setFont(font)
@@ -28,7 +29,7 @@ void setup() {
   
   /* Start button */
   cp5.addBang("Start")
-      .setPosition(width / 2 - 100, height/2 + 100)
+      .setPosition(width / 2 - 100, height - 70)
       .setSize(200, 40)
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
