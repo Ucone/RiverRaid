@@ -1,5 +1,5 @@
 import controlP5.*;
-public enum GameState {WELCOME, STORY, GAME};  //Different states of the game
+public enum GameState {WELCOME, STORY_1, GAME};  //Different states of the game
 
 ControlP5 cp5;
 PFont font;
@@ -41,9 +41,15 @@ void draw() {
       image(startImg, 0, 0);
       break;
     
-    case STORY:
-      cp5 = null;
+    case STORY_1:
+      cp5.remove("Start");
+      cp5.remove("name_input");
       startStory();
+      textFont(font);
+      fill(0);
+      text(this.player.getName().toUpperCase(), 385, 130);
+      
+      text("Press ENTER to continue...", width - 275, 30);
   }
   
 }
@@ -66,10 +72,11 @@ void controlEvent(ControlEvent theEvent) {
   
   println("User: " + player.getName());
   
-  gameState = GameState.STORY;
+  gameState = GameState.STORY_1;
   
 }
 
+/* Loads the first screen of the story */
 void startStory(){
   startImg=loadImage("./images/story/story1.png");
   startImg.resize(1024, 768);
