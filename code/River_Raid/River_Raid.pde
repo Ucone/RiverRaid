@@ -1,5 +1,5 @@
 import controlP5.*;
-public enum GameState {WELCOME, STORY_1, GAME};  //Different states of the game
+public enum GameState {WELCOME, STORY_1, STORY_2, GAME};  //Different states of the game
 
 ControlP5 cp5;
 PFont font;
@@ -9,9 +9,10 @@ GameState gameState = GameState.WELCOME;
 PImage startImg;
 void setup() {
   size(1024, 768);
-  startImg=loadImage("./images/welcome.png");
-  startImg.resize(1024, 768);
+  
   font = createFont("Arial", 20, true);
+  textFont(font);
+  fill(0);
   
   cp5 = new ControlP5(this);
   
@@ -38,20 +39,22 @@ void setup() {
 void draw() {
   switch(gameState){
     case WELCOME:
+      startImg=loadImage("./images/welcome.png");
+      startImg.resize(1024, 768);
       image(startImg, 0, 0);
       break;
     
     case STORY_1:
       cp5.remove("Start");
       cp5.remove("name_input");
-      startStory();
-      textFont(font);
-      fill(0);
+      loadStory();
       text(this.player.getName().toUpperCase(), 385, 130);
-      
-      text("Press ENTER to continue...", width - 275, 30);
+      break;
+    
+    case STORY_2:
+      loadStory();
+      break;
   }
-  
 }
 
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
@@ -70,15 +73,22 @@ void controlEvent(ControlEvent theEvent) {
   
   player = new Player(playerName);
   
-  println("User: " + player.getName());
-  
   gameState = GameState.STORY_1;
   
 }
 
-/* Loads the first screen of the story */
-void startStory(){
-  startImg=loadImage("./images/story/story1.png");
+/* Loads the next screen of the story */
+void loadStory(){
+  startImg=loadImage("./images/story/"+gameState+".png");
   startImg.resize(1024, 768);
   image(startImg, 0, 0);
+  text("Press any key to continue...", width - 275, 30);
+}
+
+void keyPressed(){
+  switch(gameState){
+    case STORY_1:
+      gameState = GameState.STORY_2;
+      break;
+  }
 }
