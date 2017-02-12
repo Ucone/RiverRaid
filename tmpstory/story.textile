@@ -10,7 +10,7 @@ top: 00:32, border Air Force base
 
 bottom: Pilot <playername>, to the general!
 
-!story3.png!
+!story4.png!
 
 (split over two instances of image?)
 
