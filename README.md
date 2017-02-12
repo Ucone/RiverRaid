@@ -1,7 +1,7 @@
-TIE-21106 Sowtware Engineering Methodology, Spring 2017 
-Created 22.01.2017 by Tensu. 
+# TIE-21106 Sowtware Engineering Methodology, Spring 2017 
+## Created 22.01.2017 by Tensu. 
+------
 
-This is just a text file, as such is needed at TUT GitLab Repolainen. 
+River Raid, group Cygnus 2022
 
-Havu fun with your Project Assignment game; River Raid. 
-
+NOTE: It is required the library ControlP5 (see more in: http://www.sojamo.de/libraries/controlP5/)
