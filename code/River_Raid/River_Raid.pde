@@ -1,5 +1,10 @@
 import controlP5.*;
-public enum GameState {WELCOME, STORY_1, STORY_2, GAME};  //Different states of the game
+public enum GameState {
+  WELCOME,
+  STORY_1,
+  STORY_2,
+  GAME
+};  // Different states of the game
 
 ControlP5 cp5;
 PFont font;
