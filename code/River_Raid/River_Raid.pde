@@ -5,7 +5,7 @@ public enum GameState {
   STORY_2,
   STORY_3,
   STORY_4,
-  GAME
+  GAME,
 };  // Different states of the game
 
 ControlP5 cp5;
@@ -18,6 +18,10 @@ PImage storyImg1;
 PImage storyImg2;
 PImage storyImg3;
 PImage storyImg4;
+PImage map1;
+
+int x,y;
+int speed;
 
 void setup() {
   size(1024, 768);
@@ -53,6 +57,7 @@ void setup() {
   storyImg2 = loadStoryImage(GameState.STORY_2);
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
+  map1 = loadStoryImage(GameState.GAME);
 }
 
 PImage loadStoryImage(GameState gameState)
@@ -103,6 +108,13 @@ void draw() {
       text("Yes sir, ready to serve!", x(50), y(840));
       fill(255);
       drawPressKey();
+      break;
+      
+      case GAME:
+      image(map1,x,y);
+      speed=2; //set initial speed
+      y+=speed;
+      
       break;
   }
 }
@@ -158,6 +170,10 @@ void keyPressed(){
       break;
     case STORY_3:
       gameState = GameState.STORY_4;
+      break;
+      
+    case STORY_4:
+      gameState = GameState.GAME;
       break;
   }
 }
