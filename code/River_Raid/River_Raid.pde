@@ -13,21 +13,17 @@ PFont font;
 Player player;
 GameState gameState = GameState.WELCOME;
 
-PImage startImg;
-PImage storyImg1;
-PImage storyImg2;
-PImage storyImg3;
-PImage storyImg4;
+PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 
 int x,y;
 int speed;
 
 void setup() {
-  size(1024, 768);
+  fullScreen();
   
-  font = createFont("Arial", 20, true);
-  textFont(font);
+  font = createFont("/fonts/Oceanside.ttf", 20);
+  textFont(font, 20);
   fill(0);
   
   cp5 = new ControlP5(this);
@@ -60,18 +56,11 @@ void setup() {
   map1 = loadStoryImage(GameState.GAME);
 }
 
-PImage loadStoryImage(GameState gameState)
-{
-  PImage img = loadImage("./images/story/"+gameState+".png");
-  img.resize(width, height);
-  return img;
-}
-
 void draw() {
   switch(gameState){
     case WELCOME:
       startImg=loadImage("./images/welcome.png");
-      startImg.resize(1024, 768);
+      startImg.resize(width, height);
       image(startImg, 0, 0);
       break;
     
@@ -96,17 +85,17 @@ void draw() {
     case STORY_4:
       image(storyImg4, 0, 0);
       
-      text("Yes, general!", x(50), y(50));
-      text(this.player.getName() + ", you're our best pilot.\nOur neighbors, <countryname>, \nare amassing military forces\nacross the border canyon.\nOur only hope is preemptive strike against them.\nYou will pilot an experimental prototype jet,\ndestroying all bridges...", x(600), y(80));
+      fill(255, 0, 0);
+      text(this.player.getName().charAt(0) + ": Yes, general!", x(50), y(50));
+      text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(50), y(370));
+      text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(50), y(620));
+      text(this.player.getName().charAt(0) + ": Yes sir, ready to serve!", x(50), y(840));
       
-      text("It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(50), y(370));
-      text("Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(600), y(390));
-      
-      text("Did anybody try this experimental jet yet?", x(50), y(620));
-      text("No, we can't risk warning the enemy.\n\n You're our best hope", x(600), y(640));
-      
-      text("Yes sir, ready to serve!", x(50), y(840));
-      fill(255);
+      fill(255, 255, 255);
+      text("G: " + this.player.getName() + ", you're our best pilot.\nOur neighbors, Planet Z, \nare amassing military forces\nacross the border canyon.\nOur only hope is preemptive strike against them.\nYou will pilot an experimental prototype jet,\ndestroying all bridges...", x(600), y(80));
+      text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(600), y(390));
+      text("G: No, we can't risk warning the enemy.\n\n You're our best hope", x(600), y(640));
+
       drawPressKey();
       break;
       
@@ -117,6 +106,15 @@ void draw() {
       
       break;
   }
+}
+
+/* Loads the image of the story defined by the GameState */
+/* @return The image loaded*/
+PImage loadStoryImage(GameState gameState)
+{
+  PImage img = loadImage("./images/story/"+gameState+".png");
+  img.resize(width, height);
+  return img;
 }
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
@@ -134,6 +132,7 @@ int y(int fakey)
   return (int)((float)fakey / 1000 * height);
 }
 
+/* Draws the text of "Press any key to continue" in the screen */
 void drawPressKey()
 {
    text("Press any key to continue...", width - 275, 30);
@@ -155,11 +154,10 @@ void controlEvent(ControlEvent theEvent) {
   }
   
   player = new Player(playerName);
-  
   gameState = GameState.STORY_1;
-  
 }
 
+/* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   switch(gameState){
     case STORY_1:
