@@ -44,7 +44,12 @@ public class Jet {
   }
   
   public void moveLeft(){
-      x= x-20;
+      x= x-10;
+      image(jet_image, x, y);
+  }
+   
+   public void moveRight(){
+      x= x+10;
       image(jet_image, x, y);
   }
 }
