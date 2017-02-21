@@ -126,7 +126,7 @@ void draw() {
       
       //jet implementation
       image(jet, map1.width/2, map1.height - 100);
-      //jet.resize(width/15, height/11);
+      jet.resize(width/15, height/11);
       
       break;
   }
