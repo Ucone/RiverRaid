@@ -22,7 +22,7 @@ int speed;
 void setup() {
   fullScreen();
   
-  font = loadFont("/fonts/Oceanside.ttf");
+  font = createFont("/fonts/Oceanside.ttf", 20);
   textFont(font, 20);
   fill(0);
   
