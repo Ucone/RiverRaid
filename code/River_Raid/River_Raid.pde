@@ -18,13 +18,14 @@ GameState gameState = GameState.WELCOME;
 
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
-PImage fuel_icon, jet;
+PImage fuel_icon;
 Island island;
 
 //Variables for positions
 int x,y;
 //Initial speed
 int speed = 2;
+Jet jet;
 
 void setup() {
   fullScreen();
@@ -66,9 +67,11 @@ void setup() {
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
-  jet = loadImage("./images/sprites/jet.png");
+  
   // Defines the island object
   island = new Island();
+  jet = new Jet(map1);
+
   
   //Check if we are on testing environment
   checkTesting();
@@ -136,11 +139,9 @@ void draw() {
       
       //fuel icon
       image(fuel_icon, width - 100, height - 200);
-      
+
       //jet implementation
-      image(jet, map1.width/2, map1.height - 100);
-      jet.resize(width/15, height/11);
-      
+      jet.draw();      
       break;
   }
 }
