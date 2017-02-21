@@ -25,6 +25,7 @@ Island island;
 int x,y;
 //Initial speed
 int speed = 2;
+Jet jet;
 
 void setup() {
   fullScreen();
@@ -67,11 +68,15 @@ void setup() {
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
   
+
   // Defines the island object
   island = new Island();
   
   //Check if we are on testing environment
   checkTesting();
+
+  jet = new Jet(map1);
+
 }
 
 void draw() {
@@ -136,6 +141,9 @@ void draw() {
       
       //fuel icon
       image(fuel_icon, width - 100, height - 200);
+
+      //jet implementation
+      jet.draw();      
       break;
   }
 }
@@ -191,6 +199,20 @@ void controlEvent(ControlEvent theEvent) {
 
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
+  // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
+  if (gameState == gameState.GAME){
+    if (key == CODED){
+      switch(keyCode){
+       case LEFT:
+          jet.moveLeft();
+          break;
+       case RIGHT:
+          jet.moveRight();
+          break;
+      }
+    }
+    
+  }else
   switch(gameState){
     case STORY_1:
       gameState = GameState.STORY_2;
