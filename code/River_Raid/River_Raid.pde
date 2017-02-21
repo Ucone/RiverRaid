@@ -24,7 +24,7 @@ int x,y;
 int speed;
 
 void setup() {
-  size(1024, 768);
+  fullScreen();
   
   font = createFont("Arial", 20, true);
   textFont(font);
@@ -71,7 +71,7 @@ void draw() {
   switch(gameState){
     case WELCOME:
       startImg=loadImage("./images/welcome.png");
-      startImg.resize(1024, 768);
+      startImg.resize(width, height);
       image(startImg, 0, 0);
       break;
     
