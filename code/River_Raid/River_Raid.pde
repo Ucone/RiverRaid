@@ -1,4 +1,7 @@
 import controlP5.*;
+
+boolean testing = true;
+
 public enum GameState {
   WELCOME,
   STORY_1,
@@ -64,7 +67,11 @@ void setup() {
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
   jet = loadImage("./images/sprites/jet.png");
+  // Defines the island object
   island = new Island();
+  
+  //Check if we are on testing environment
+  checkTesting();
 }
 
 void draw() {
@@ -203,5 +210,14 @@ void keyPressed(){
     case STORY_4:
       gameState = GameState.GAME;
       break;
+  }
+}  
+
+// If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
+void checkTesting(){
+  if(this.testing){
+    cp5.remove("Start");
+    cp5.remove("name_input");
+    gameState = GameState.GAME;
   }
 }
