@@ -22,8 +22,8 @@ int speed;
 void setup() {
   fullScreen();
   
-  font = createFont("Arial", 20, true);
-  textFont(font);
+  font = loadFont("/fonts/Oceanside.ttf");
+  textFont(font, 20);
   fill(0);
   
   cp5 = new ControlP5(this);
@@ -87,24 +87,14 @@ void draw() {
       
       fill(255, 0, 0);
       text(this.player.getName().charAt(0) + ": Yes, general!", x(50), y(50));
+      text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(50), y(370));
+      text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(50), y(620));
+      text(this.player.getName().charAt(0) + ": Yes sir, ready to serve!", x(50), y(840));
       
       fill(255, 255, 255);
       text("G: " + this.player.getName() + ", you're our best pilot.\nOur neighbors, Planet Z, \nare amassing military forces\nacross the border canyon.\nOur only hope is preemptive strike against them.\nYou will pilot an experimental prototype jet,\ndestroying all bridges...", x(600), y(80));
-      
-      fill(255, 0, 0);
-      text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(50), y(370));
-      
-      fill(255, 255, 255);
       text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(600), y(390));
-      
-      fill(255, 0, 0);
-      text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(50), y(620));
-      
-      fill(255, 255, 255);
       text("G: No, we can't risk warning the enemy.\n\n You're our best hope", x(600), y(640));
-      
-      fill(255, 0, 0);
-      text(this.player.getName().charAt(0) + ": Yes sir, ready to serve!", x(50), y(840));
 
       drawPressKey();
       break;
