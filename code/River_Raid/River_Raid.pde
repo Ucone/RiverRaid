@@ -13,11 +13,7 @@ PFont font;
 Player player;
 GameState gameState = GameState.WELCOME;
 
-PImage startImg;
-PImage storyImg1;
-PImage storyImg2;
-PImage storyImg3;
-PImage storyImg4;
+PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 
 int x,y;
@@ -58,13 +54,6 @@ void setup() {
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
   map1 = loadStoryImage(GameState.GAME);
-}
-
-PImage loadStoryImage(GameState gameState)
-{
-  PImage img = loadImage("./images/story/"+gameState+".png");
-  img.resize(width, height);
-  return img;
 }
 
 void draw() {
@@ -119,6 +108,15 @@ void draw() {
   }
 }
 
+/* Loads the image of the story defined by the GameState */
+/* @return The image loaded*/
+PImage loadStoryImage(GameState gameState)
+{
+  PImage img = loadImage("./images/story/"+gameState+".png");
+  img.resize(width, height);
+  return img;
+}
+
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
 int x(int fakex)
 {
@@ -134,6 +132,7 @@ int y(int fakey)
   return (int)((float)fakey / 1000 * height);
 }
 
+/* Draws the text of "Press any key to continue" in the screen */
 void drawPressKey()
 {
    text("Press any key to continue...", width - 275, 30);
@@ -155,11 +154,10 @@ void controlEvent(ControlEvent theEvent) {
   }
   
   player = new Player(playerName);
-  
   gameState = GameState.STORY_1;
-  
 }
 
+/* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   switch(gameState){
     case STORY_1:
