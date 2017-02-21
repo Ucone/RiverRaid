@@ -15,6 +15,7 @@ GameState gameState = GameState.WELCOME;
 
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
+PImage fuel_icon;
 
 //Variables for positions
 int x,y;
@@ -56,6 +57,9 @@ void setup() {
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
   map1 = loadStoryImage(GameState.GAME);
+
+  //Elements images
+  fuel_icon = loadImage("./images/sprites/fuel_icon.png");
 }
 
 void draw() {
@@ -102,7 +106,7 @@ void draw() {
       break;
       
       case GAME:
-      
+
       //Map movement
       imageMode(CORNER);
       image(map1,0, y);
@@ -115,6 +119,9 @@ void draw() {
       if (y >= map1.height){
           y=0;
       }
+      
+      //fuel icon
+      image(fuel_icon, width - 100, height - 200);
       break;
   }
 }
