@@ -57,7 +57,9 @@ void setup() {
   storyImg2 = loadStoryImage(GameState.STORY_2);
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
-  map1 = loadStoryImage(GameState.GAME);
+  
+  map1 = loadImage("./images/background.png");
+  map1.resize(width, height);
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
