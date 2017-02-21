@@ -16,8 +16,10 @@ GameState gameState = GameState.WELCOME;
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 
+//Variables for positions
 int x,y;
-int speed;
+//Initial speed
+int speed = 2;
 
 void setup() {
   fullScreen();
@@ -100,10 +102,19 @@ void draw() {
       break;
       
       case GAME:
-      image(map1,x,y);
-      speed=2; //set initial speed
-      y+=speed;
       
+      //Map movement
+      imageMode(CORNER);
+      image(map1,0, y);
+      image(map1,0, y - map1.height);
+      
+     // speedset initial speed
+      y+=speed;
+       
+      //To restart the map and make it ciclique
+      if (y >= map1.height){
+          y=0;
+      }
       break;
   }
 }
