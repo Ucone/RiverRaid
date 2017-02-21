@@ -197,6 +197,20 @@ void controlEvent(ControlEvent theEvent) {
 
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
+  // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
+  if (gameState == gameState.GAME){
+    if (key == CODED){
+      switch(keyCode){
+       case LEFT:
+          jet.moveLeft();
+          break;
+       case RIGHT:
+          jet.moveRight();
+          break;
+      }
+    }
+    
+  }else
   switch(gameState){
     case STORY_1:
       gameState = GameState.STORY_2;
