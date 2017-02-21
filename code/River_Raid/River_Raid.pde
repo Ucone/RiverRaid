@@ -16,6 +16,7 @@ GameState gameState = GameState.WELCOME;
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 PImage fuel_icon;
+Island island;
 
 //Variables for positions
 int x,y;
@@ -56,10 +57,14 @@ void setup() {
   storyImg2 = loadStoryImage(GameState.STORY_2);
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
-  map1 = loadStoryImage(GameState.GAME);
+  
+  map1 = loadImage("./images/background.png");
+  map1.resize(width, height);
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
+  
+  island = new Island();
 }
 
 void draw() {
@@ -111,6 +116,8 @@ void draw() {
       imageMode(CORNER);
       image(map1,0, y);
       image(map1,0, y - map1.height);
+      
+      island.drawIsland();
       
      // speedset initial speed
       y+=speed;
