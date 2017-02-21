@@ -11,7 +11,7 @@ public enum GameState {
 ControlP5 cp5;
 PFont font;
 Player player;
-GameState gameState = GameState.WELCOME;
+GameState gameState = GameState.GAME; //Swich to WELCOME when finish the code
 
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
@@ -28,27 +28,6 @@ void setup() {
   font = createFont("/fonts/Oceanside.ttf", 20);
   textFont(font, 20);
   fill(0);
-  
-  cp5 = new ControlP5(this);
-  
-  /* Input field */
-  cp5.addTextfield("name_input")
-      .setPosition(width / 2 - 100,  height - 130)
-      .setSize(200, 40)
-      .setFocus(true)
-      .setFont(font)
-      .setValue("Your name here...")
-      .setColorBackground(0)
-      .setColorForeground(0)
-      .setLabelVisible(false);
-  cp5.getController("name_input").getCaptionLabel().setVisible(false);
-  
-  /* Start button */
-  cp5.addBang("Start")
-      .setPosition(width / 2 - 100, height - 70)
-      .setSize(200, 40)
-      .setFont(font)
-      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
   // Load images
   // TODO: dynamically resize these
@@ -66,6 +45,28 @@ void setup() {
 void draw() {
   switch(gameState){
     case WELCOME:
+    
+      cp5 = new ControlP5(this);
+      
+      /* Input field */
+      cp5.addTextfield("name_input")
+          .setPosition(width / 2 - 100,  height - 130)
+          .setSize(200, 40)
+          .setFocus(true)
+          .setFont(font)
+          .setValue("Your name here...")
+          .setColorBackground(0)
+          .setColorForeground(0)
+          .setLabelVisible(false);
+      cp5.getController("name_input").getCaptionLabel().setVisible(false);
+      
+      /* Start button */
+      cp5.addBang("Start")
+          .setPosition(width / 2 - 100, height - 70)
+          .setSize(200, 40)
+          .setFont(font)
+          .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+    
       startImg=loadImage("./images/welcome.png");
       startImg.resize(width, height);
       image(startImg, 0, 0);
