@@ -133,6 +133,10 @@ void draw() {
       
      // speedset initial speed
       y+=speed;
+      if (changed){
+           speed= restore_speed;
+           changed = false;
+      }
        
       //To restart the map and make it ciclique
       if (y >= map1.height){
@@ -197,10 +201,13 @@ void controlEvent(ControlEvent theEvent) {
   gameState = GameState.STORY_1;
 }
 
+    int restore_speed = speed;
+    boolean changed = false;
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
   if (gameState == gameState.GAME){
+
     if (key == CODED){
       switch(keyCode){
        case LEFT:
@@ -209,7 +216,17 @@ void keyPressed(){
        case RIGHT:
           jet.moveRight();
           break;
+       case UP:
+          speed= speed+4;
+          changed = true;
+          break;
+       case DOWN:
+          speed= speed-2;
+          changed = true;
+       break;
+    
       }
+   
     }
     
   }else
