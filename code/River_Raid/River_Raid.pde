@@ -25,6 +25,9 @@ Island island;
 int x,y;
 //Initial speed
 int speed = 3;
+//fuel available
+int fuel = 200;
+
 Jet jet;
 
 void setup() {
@@ -75,6 +78,12 @@ void setup() {
   
   //Check if we are on testing environment
   checkTesting();
+  //Create the jet
+  //!! warnign, if we divide the background on 3 images
+  //we should pass to the constructor the addition of the width and heigth
+  //And also change te constructor on the Jet class
+
+
 }
 
 void draw() {
@@ -142,11 +151,17 @@ void draw() {
       }
       
       //fuel icon
-      image(fuel_icon, width - 100, height - 200);
+      image(fuel_icon, width - 90, height - 180);
 
       //jet implementation
       jet.draw();      
+      
+      //Fuel bar
+      fuel_consumption();
+      rect( width - 70, height - 400, 30, fuel );
+  
       break;
+      
   }
 }
 
@@ -198,6 +213,12 @@ void controlEvent(ControlEvent theEvent) {
   player = new Player(playerName);
   gameState = GameState.STORY_1;
 }
+
+  void fuel_consumption(){
+      
+    fuel = - ( fuel - y);
+  }
+
 
     int restore_speed = speed;
     boolean changed = false;
