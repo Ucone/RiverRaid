@@ -164,7 +164,11 @@ void draw() {
       //Fuel implementation
       fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);     
       if (fuel < 50){
-          text("FUEL WARING!!", width - 275, 30);
+        blink = ! blink;
+        if (blink)
+            text("FUEL WARING!!", width-200, height-60);
+        if (fuel <=0)
+            text("GAME OVER!!", width/2, height/2);
       }
       rect( width - 70, height - 200, 30, -fuel);
   
@@ -172,7 +176,7 @@ void draw() {
       
   }
 }
-
+boolean blink = false;
 /* Loads the image of the story defined by the GameState */
 /* @return The image loaded*/
 PImage loadStoryImage(GameState gameState)
