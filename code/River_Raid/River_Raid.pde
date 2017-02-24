@@ -162,9 +162,11 @@ void draw() {
       //jet implementation
       jet.draw();      
       
-      //Fuel bar
-      //fuel_consumption();
-      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
+      //Fuel implementation
+      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);     
+      if (fuel < 50){
+          text("FUEL WARING!!", width - 275, 30);
+      }
       rect( width - 70, height - 200, 30, -fuel);
   
       break;
