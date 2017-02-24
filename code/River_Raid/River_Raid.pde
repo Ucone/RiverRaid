@@ -24,7 +24,7 @@ Island island;
 //Variables for positions
 int x,y;
 //Initial speed
-int speed = 2;
+int speed = 3;
 Jet jet;
 
 void setup() {
