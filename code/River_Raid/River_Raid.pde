@@ -32,6 +32,8 @@ float VELOCITY_CONSUMPTION = 0.1;
 float fuel;
 float distance = y;
 
+boolean first_time = true;
+
 Jet jet;
 
 void setup() {
@@ -87,7 +89,6 @@ void setup() {
   //we should pass to the constructor the addition of the width and heigth
   //And also change te constructor on the Jet class
 
-
 }
 
 void draw() {
@@ -134,9 +135,12 @@ void draw() {
       break;
       
       case GAME:
-
+/*
+      if (first_time){
+         first_draw(); 
+      }
+*/
       //Map movement
-      imageMode(CORNER);
       image(map1,0, y);
       image(map1,0, y - map1.height);
       
@@ -164,19 +168,26 @@ void draw() {
       //Fuel implementation
       fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);     
       if (fuel < 50){
-        blink = ! blink;
-        if (blink)
             text("FUEL WARING!!", width-200, height-60);
         if (fuel <=0)
-            text("GAME OVER!!", width/2, height/2);
+            text("GAME OVER, LOOSER!!", width/2, height/2);
       }
+      fill(#FF0000);
       rect( width - 70, height - 200, 30, -fuel);
   
       break;
       
   }
 }
-boolean blink = false;
+
+/*    WE SHOULD DRAW THE FIRST THINKS OUTSIDE, but don't know how yet
+  void first_draw(){
+    fill(100);
+    rect( width - 70, height - 200, 30, -INITIAL_FUEL);
+    first_time=false;
+  }
+*/
+
 /* Loads the image of the story defined by the GameState */
 /* @return The image loaded*/
 PImage loadStoryImage(GameState gameState)
@@ -186,20 +197,7 @@ PImage loadStoryImage(GameState gameState)
   return img;
 }
 
-// Helpers to use abstract -1000 -- 1000 X/Y instead of current values
-int x(int fakex)
-{
-  if(fakex < 0)
-    fakex += 1000;
-  return (int)((float)fakex / 1000 * width);
-}
 
-int y(int fakey)
-{
-  if(fakey < 0)
-    fakey += 1000;
-  return (int)((float)fakey / 1000 * height);
-}
 
 /* Draws the text of "Press any key to continue" in the screen */
 void drawPressKey()
@@ -279,4 +277,19 @@ void checkTesting(){
     cp5.remove("name_input");
     gameState = GameState.GAME;
   }
+}
+
+// Helpers to use abstract -1000 -- 1000 X/Y instead of current values
+int x(int fakex)
+{
+  if(fakex < 0)
+    fakex += 1000;
+  return (int)((float)fakex / 1000 * width);
+}
+
+int y(int fakey)
+{
+  if(fakey < 0)
+    fakey += 1000;
+  return (int)((float)fakey / 1000 * height);
 }

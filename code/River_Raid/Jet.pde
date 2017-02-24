@@ -16,8 +16,9 @@ public class Jet {
   }
   
   public void draw(){
-    image(jet_image, x, y);
+
     jet_image.resize(width/15, height/11);  
+    image(jet_image, x, y);
   }
   /*
   public Jet (){  //Actually in the constructor should receive the map
@@ -45,6 +46,7 @@ public class Jet {
   
   public void moveLeft(){
       x= x-10;
+      //translate(x, y);
       image(jet_image, x, y);
   }
    
