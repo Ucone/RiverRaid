@@ -25,9 +25,12 @@ Island island;
 int x,y;
 //Initial speed
 int speed = 3;
-//fuel available
+
+//fuel variables
 int INITIAL_FUEL= 200;
+float VELOCITY_CONSUMPTION = 0.1;
 float fuel;
+float distance = y;
 
 Jet jet;
 
@@ -142,6 +145,7 @@ void draw() {
       
      // speedset initial speed
       y+=speed;
+      distance +=speed;
       if (changed){
            speed= restore_speed;
            changed = false;
@@ -160,7 +164,7 @@ void draw() {
       
       //Fuel bar
       //fuel_consumption();
-      fuel = (INITIAL_FUEL -y*0.1);
+      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
       rect( width - 70, height - 200, 30, -fuel);
   
       break;
@@ -216,12 +220,6 @@ void controlEvent(ControlEvent theEvent) {
   player = new Player(playerName);
   gameState = GameState.STORY_1;
 }
-/*
-  void fuel_consumption(){
-      
-    fuel = - ( fuel - y);
-  }
-*/
 
     int restore_speed = speed;
     boolean changed = false;
