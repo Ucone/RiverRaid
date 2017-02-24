@@ -166,25 +166,39 @@ void draw() {
       //jet implementation
       jet.draw();      
       
-      //Fuel implementation
-      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);     
-      if (fuel < 50){
-            text("FUEL WARING!!", width-200, height-60);
-        if (fuel <=0)
-            text("GAME OVER, LOOSER!!", width/2, height/2);
-      }
-      fill(#FF0000);
-      rect( width - 70, height - 200, 30, -fuel);
+      //fuel implementation
+      fuel_implementation();
   
       break;
       
   }
 }
 
-/*    WE SHOULD DRAW THE FIRST THINKS OUTSIDE, but don't know how yet
+  //***** FUEL IMPLEMENTATION *****
+  void fuel_implementation(){
+   
+      //Fuel frame
+      fill(255);
+      rect( width - 70, height - 200, 30, -INITIAL_FUEL);
+      
+      //Fuel consumption
+      fill(#FF0000);
+      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
+      rect( width - 70, height - 200, 30, -fuel);
+      
+      //Fuel actions
+      if (fuel < 50){
+            text("FUEL WARING!!", width-200, height-60);
+        if (fuel <=0)
+            text("GAME OVER, LOOSER!!", width/2-100, height/2);
+      }
+  }
+  
+//    WE SHOULD DRAW THE FIRST THINKS OUTSIDE, but don't know how yet
+/*
   void first_draw(){
     fill(100);
-    rect( width - 70, height - 200, 30, -INITIAL_FUEL);
+    rect( width - 70, height - 200, 60, -INITIAL_FUEL);
     first_time=false;
   }
 */
