@@ -26,7 +26,8 @@ int x,y;
 //Initial speed
 int speed = 3;
 //fuel available
-int fuel = 200;
+int INITIAL_FUEL= 200;
+float fuel;
 
 Jet jet;
 
@@ -158,8 +159,9 @@ void draw() {
       jet.draw();      
       
       //Fuel bar
-      fuel_consumption();
-      rect( width - 70, height - 400, 30, fuel );
+      //fuel_consumption();
+      fuel = (INITIAL_FUEL -y*0.1);
+      rect( width - 70, height - 200, 30, -fuel);
   
       break;
       
@@ -214,12 +216,12 @@ void controlEvent(ControlEvent theEvent) {
   player = new Player(playerName);
   gameState = GameState.STORY_1;
 }
-
+/*
   void fuel_consumption(){
       
     fuel = - ( fuel - y);
   }
-
+*/
 
     int restore_speed = speed;
     boolean changed = false;
