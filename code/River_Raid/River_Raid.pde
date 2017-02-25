@@ -39,7 +39,7 @@ Jet jet;
 void setup() {
   fullScreen();
   
-  font = createFont("/fonts/Oceanside.ttf", 20);
+  font = createFont("./fonts/Oceanside.ttf", 20);
   textFont(font, 20);
   fill(0);
   
