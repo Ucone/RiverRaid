@@ -25,6 +25,9 @@ Island island;
 int viewportW, viewportH;
 float offsetY, offsetX;
 
+// Basic font size
+int fontSize;
+
 //Variables for positions
 int x,y;
 //Initial speed
@@ -62,8 +65,10 @@ void setup() {
     offsetX = (float)(width - viewportW) / 2.;
   }
   
-  font = createFont("./fonts/Oceanside.ttf", 20);
-  textFont(font, 20);
+  fontSize = (int)(20. / 1920. * (float)viewportW);
+  
+  font = createFont("./fonts/DejaVuSansMono-Bold.ttf", fontSize);
+  textFont(font, fontSize);
   fill(0);
   
   cp5 = new ControlP5(this);
