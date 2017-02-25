@@ -72,11 +72,10 @@ void setup() {
   fill(0);
   
   cp5 = new ControlP5(this);
-  
   /* Input field */
   cp5.addTextfield("name_input")
-      .setPosition(x(500) - 100,  y(1000) - 130)
-      .setSize(200, 40)
+      .setPosition(x(500) - w(50),  y(1000) - h(130))
+      .setSize(w(100), h(40))
       .setFocus(true)
       .setFont(font)
       .setValue("Your name here...")
@@ -87,8 +86,8 @@ void setup() {
   
   /* Start button */
   cp5.addBang("Start")
-      .setPosition(x(500) - 100, y(1000) - 70)
-      .setSize(200, 40)
+      .setPosition(x(500) - w(50), y(1000) - h(70))
+      .setSize(w(100), h(40))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
@@ -338,10 +337,10 @@ int y(int fakey)
 
 int w(int fakew)
 {
-  return (int)((float)fakew * 1000.0 / viewportW);
+  return (int)((float)fakew / 1000.0 * viewportW);
 }
 
 int h(int fakeh)
 {
-  return (int)((float)fakeh * 1000.0 / viewportH);
+  return (int)((float)fakeh / 1000.0 * viewportH);
 }
