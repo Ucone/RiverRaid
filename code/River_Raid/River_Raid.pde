@@ -23,7 +23,7 @@ Island island;
 
 // Aspect ratio variables
 int viewportW, viewportH;
-int offsetY;
+float offsetY, offsetX;
 
 //Variables for positions
 int x,y;
@@ -44,12 +44,22 @@ void setup() {
   fullScreen();
   
   viewportW = width;
-  viewportH = width / 16 * 9;
+  viewportH = (int)((float)width / 16. * 9.);
+  
+  if(viewportH > height)
+  {
+    viewportH = height;
+    viewportW = (int)((float)height / 9. * 16.);
+  }
   
   if(viewportH < height)
   {
-    offsetY = (height - viewportH) / 2;
-    print("Offset = "+offsetY+"\n");
+    offsetY = (float)(height - viewportH) / 2.;
+  }
+  
+  if(viewportW < width)
+  {
+    offsetX = (float)(width - viewportW) / 2.;
   }
   
   font = createFont("./fonts/Oceanside.ttf", 20);
@@ -311,12 +321,13 @@ int x(int fakex)
 {
   if(fakex < 0)
     fakex += 1000;
-  return (int)((float)fakex / 1000 * viewportW);
+  return (int)((float)fakex / 1000. * viewportW + offsetX);
 }
 
 int y(int fakey)
 {
   if(fakey < 0)
     fakey += 1000;
-  return (int)((float)fakey / 1000 * viewportH) + offsetY;
+  return (int)((float)fakey / 1000. * viewportH + offsetY);
+}
 }
