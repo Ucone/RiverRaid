@@ -60,7 +60,7 @@ void setup() {
   
   /* Input field */
   cp5.addTextfield("name_input")
-      .setPosition(width / 2 - 100,  height - 130)
+      .setPosition(x(500) - 100,  y(1000) - 130)
       .setSize(200, 40)
       .setFocus(true)
       .setFont(font)
@@ -72,7 +72,7 @@ void setup() {
   
   /* Start button */
   cp5.addBang("Start")
-      .setPosition(width / 2 - 100, height - 70)
+      .setPosition(x(500) - 100, y(1000) - 70)
       .setSize(200, 40)
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
@@ -229,7 +229,7 @@ PImage loadStoryImage(GameState gameState)
 /* Draws the text of "Press any key to continue" in the screen */
 void drawPressKey()
 {
-   text("Press any key to continue...", width - 275, 30);
+   text("Press any key to continue...", viewportW - 275, 30);
 }
 
 
