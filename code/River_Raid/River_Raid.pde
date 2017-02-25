@@ -311,12 +311,12 @@ int x(int fakex)
 {
   if(fakex < 0)
     fakex += 1000;
-  return (int)((float)fakex / 1000 * width);
+  return (int)((float)fakex / 1000 * viewportW);
 }
 
 int y(int fakey)
 {
   if(fakey < 0)
     fakey += 1000;
-  return (int)((float)fakey / 1000 * height) + offsetY;
+  return (int)((float)fakey / 1000 * viewportH) + offsetY;
 }
