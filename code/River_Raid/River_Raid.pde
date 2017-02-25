@@ -21,6 +21,10 @@ PImage map1;
 PImage fuel_icon;
 Island island;
 
+// Aspect ratio variables
+int viewportW, viewportH;
+int offsetY;
+
 //Variables for positions
 int x,y;
 //Initial speed
@@ -38,6 +42,15 @@ Jet jet;
 
 void setup() {
   fullScreen();
+  
+  viewportW = width;
+  viewportH = width / 16 * 9;
+  
+  if(viewportH < height)
+  {
+    offsetY = (height - viewportH) / 2;
+    print("Offset = "+offsetY+"\n");
+  }
   
   font = createFont("./fonts/Oceanside.ttf", 20);
   textFont(font, 20);
@@ -72,7 +85,7 @@ void setup() {
   storyImg4 = loadStoryImage(GameState.STORY_4);
   
   map1 = loadImage("./images/background.png");
-  map1.resize(width, height);
+  map1.resize(viewportW, viewportH);
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
@@ -95,30 +108,30 @@ void draw() {
   switch(gameState){
     case WELCOME:
       startImg=loadImage("./images/welcome.png");
-      startImg.resize(width, height);
-      image(startImg, 0, 0);
+      startImg.resize(viewportW, viewportH);
+      image(startImg, x(0), y(0));
       break;
     
     case STORY_1:
       cp5.remove("Start");
       cp5.remove("name_input");
       fill(255, 0, 0);
-      image(storyImg1, 0, 0);
+      image(storyImg1, x(0), y(0));
       drawPressKey();
       break;
     
     case STORY_2:
-      image(storyImg2, 0, 0);
+      image(storyImg2, x(0), y(0));
       text("Local time: 00:32, border Air Force base", x(-500), y(-50));
       drawPressKey();
       break;
     case STORY_3:
-      image(storyImg3, 0, 0);
+      image(storyImg3, x(0), y(0));
       text("Pilot "+this.player.getName()+", to the general!", x(-200), y(-50));
       drawPressKey();
       break;
     case STORY_4:
-      image(storyImg4, 0, 0);
+      image(storyImg4, x(0), y(0));
       
       fill(255, 0, 0);
       text(this.player.getName().charAt(0) + ": Yes, general!", x(50), y(50));
@@ -207,7 +220,7 @@ void draw() {
 PImage loadStoryImage(GameState gameState)
 {
   PImage img = loadImage("./images/story/"+gameState+".png");
-  img.resize(width, height);
+  img.resize(viewportW, viewportH);
   return img;
 }
 
@@ -305,5 +318,5 @@ int y(int fakey)
 {
   if(fakey < 0)
     fakey += 1000;
-  return (int)((float)fakey / 1000 * height);
+  return (int)((float)fakey / 1000 * height) + offsetY;
 }

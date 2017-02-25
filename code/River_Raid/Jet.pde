@@ -17,7 +17,7 @@ public class Jet {
   
   public void draw(){
 
-    jet_image.resize(width/15, height/11);  
+    jet_image.resize(viewportW/15, viewportH/11);  
     image(jet_image, x, y);
   }
   /*

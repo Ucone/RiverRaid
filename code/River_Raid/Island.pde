@@ -5,7 +5,7 @@ class Island{
   
   Island(){ //<>//
     image = loadImage("./images/sprites/isle.png");
-    image.resize(width / 5, width / 5);
+    image.resize(viewportW / 5, viewportH / 5);
     updateRandomPosition();
     updateRandomSize();
   }
@@ -22,12 +22,12 @@ class Island{
   
   
   void updateRandomPosition(){
-    this.xPos = random(width/3, width-width/3-image.width);
+    this.xPos = random(viewportW/3, viewportW-viewportW/3-image.width);
     this.yPos = random(-600, -2000);
   }
   
   void updateRandomSize(){
-    int size = (int)random(width / 20, width / 5);
+    int size = (int)random(viewportW / 20, viewportW / 5);
     image.resize(size, size);
   }
 }
