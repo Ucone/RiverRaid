@@ -335,4 +335,13 @@ int y(int fakey)
     fakey += 1000;
   return (int)((float)fakey / 1000. * viewportH + offsetY);
 }
+
+int w(int fakew)
+{
+  return (int)((float)fakew * 1000.0 / viewportW);
+}
+
+int h(int fakeh)
+{
+  return (int)((float)fakeh * 1000.0 / viewportH);
 }
