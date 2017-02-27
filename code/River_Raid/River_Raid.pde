@@ -19,6 +19,7 @@ GameState gameState = GameState.WELCOME;
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 PImage fuel_icon;
+PImage scoreboard;
 Island island;
 
 //Variables for positions
@@ -32,7 +33,10 @@ float VELOCITY_CONSUMPTION = 0.1;
 float fuel;
 float distance = y;
 
-boolean first_time = true;
+//Score variables
+int score = 0;
+
+boolean first_time = true; //not used for the moment
 
 Jet jet;
 
@@ -73,6 +77,8 @@ void setup() {
   
   map1 = loadImage("./images/background.png");
   map1.resize(width, height);
+  
+  scoreboard = loadImage("./images/sprites/scoreboard.png");
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
@@ -145,6 +151,16 @@ void draw() {
       image(map1,0, y);
       image(map1,0, y - map1.height);
       
+      //implement socerboard
+      scoreboard.resize(width/7, height/5);
+      image(scoreboard, 30, height -(height/5));
+      Score(width, height); //Score method determines and paint the score
+      
+       //just to try, delete this when we can defeat enemies:
+      if (y%238 == 0){
+         score +=30; 
+      }
+      
       island.drawIsland();
       
      // speedset initial speed
@@ -173,6 +189,15 @@ void draw() {
       
   }
 }
+  
+  //***** SCORE ****
+  void Score (int width, int height){
+    fill(0);
+    //30, height -(height/5)
+    text(score, scoreboard.width/2 + 30 , height - scoreboard.height/2);
+    
+  }
+
 
   //***** FUEL IMPLEMENTATION *****
   void fuel_implementation(){
