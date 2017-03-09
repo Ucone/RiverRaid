@@ -107,7 +107,7 @@ void setup() {
   
   // Defines the island object
   island = new Island();
-  jet = new Jet(map1);
+  jet = new Jet();
 
   
   //Check if we are on testing environment

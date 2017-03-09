@@ -9,16 +9,16 @@ public class Jet {
   private int x;
   private int y;
   
-  public Jet(PImage image){
-    x= image.width/2;
-    y = image.height -100;
+  public Jet(){
+    x= 500;
+    y = 900;
 
   }
   
   public void draw(){
 
     jet_image.resize(viewportW/15, viewportH/11);  
-    image(jet_image, x, y);
+    image(jet_image, x(x), y(y));
   }
   /*
   public Jet (){  //Actually in the constructor should receive the map
