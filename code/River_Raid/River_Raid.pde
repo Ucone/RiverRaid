@@ -190,7 +190,7 @@ void draw() {
       }
       
       //fuel icon
-      image(fuel_icon, width - 90, height - 180);
+      image(fuel_icon, x(-180), y(-180));
 
       //jet implementation
       jet.draw();      
@@ -208,18 +208,18 @@ void draw() {
    
       //Fuel frame
       fill(255);
-      rect( width - 70, height - 200, 30, -INITIAL_FUEL);
+      rect(x(-140), y(-200), w(30), h(-INITIAL_FUEL));
       
       //Fuel consumption
       fill(#FF0000);
       fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
-      rect( width - 70, height - 200, 30, -fuel);
+      rect( x(-140), y(-200), w(30), h((int)-fuel));
       
       //Fuel actions
       if (fuel < 50){
-            text("FUEL WARING!!", width-200, height-60);
+            text("FUEL WARING!!", x(-400), y(-60));
         if (fuel <=0)
-            text("GAME OVER, LOOSER!!", width/2-100, height/2);
+            text("GAME OVER, LOOSER!!", x(400), y(500));
       }
   }
   
