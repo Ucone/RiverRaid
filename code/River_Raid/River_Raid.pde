@@ -69,6 +69,7 @@ void setup() {
   
   font = createFont("./fonts/DejaVuSansMono.ttf", fontSize);
   textFont(font, fontSize);
+  textAlign(CENTER);
   fill(0);
   
   cp5 = new ControlP5(this);
@@ -141,22 +142,24 @@ void draw() {
       break;
     case STORY_3:
       image(storyImg3, x(0), y(0));
-      text("Pilot "+this.player.getName()+", to the general!", x(-200), y(-50));
+      textAlign(RIGHT);
+      text("Pilot "+this.player.getName()+", to the general!", x(-50), y(-50));
+      textAlign(CENTER);
       drawPressKey();
       break;
     case STORY_4:
       image(storyImg4, x(0), y(0));
       
       fill(255, 0, 0);
-      text(this.player.getName().charAt(0) + ": Yes, general!", x(50), y(50));
-      text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(50), y(370));
-      text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(50), y(620));
-      text(this.player.getName().charAt(0) + ": Yes sir, ready to serve!", x(50), y(840));
+      text(this.player.getName().charAt(0) + ": Yes, general!", x(200), y(50));
+      text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(200), y(370));
+      text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(200), y(620));
+      text(this.player.getName().charAt(0) + ": Yes sir, ready to serve!", x(200), y(840));
       
       fill(255, 255, 255);
-      text("G: " + this.player.getName() + ", you're our best pilot.\nOur neighbors, Planet Z, \nare amassing military forces\nacross the border canyon.\nOur only hope is preemptive strike against them.\nYou will pilot an experimental prototype jet,\ndestroying all bridges...", x(600), y(80));
-      text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(600), y(390));
-      text("G: No, we can't risk warning the enemy.\n\n You're our best hope", x(600), y(640));
+      text("G: " + this.player.getName() + ", you're our best pilot.\nOur neighbors, Planet Z, \nare amassing military forces\nacross the border canyon.\nOur only hope is preemptive strike against them.\nYou will pilot an experimental prototype jet,\ndestroying all bridges...", x(800), y(80));
+      text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(800), y(390));
+      text("G: No, we can't risk warning the enemy.\n\n You're our best hope", x(800), y(640));
 
       drawPressKey();
       break;
@@ -243,7 +246,10 @@ PImage loadStoryImage(GameState gameState)
 /* Draws the text of "Press any key to continue" in the screen */
 void drawPressKey()
 {
-   text("Press any key to continue...", viewportW - 275, 30);
+   textAlign(RIGHT);
+   fill(255,0,0);
+   text("Press any key to continue...", viewportW - w(20), y(30));
+   textAlign(CENTER);
 }
 
 
