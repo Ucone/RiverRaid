@@ -67,7 +67,7 @@ void setup() {
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
   
-  font = createFont("./fonts/DejaVuSansMono-Bold.ttf", fontSize);
+  font = createFont("./fonts/DejaVuSansMono.ttf", fontSize);
   textFont(font, fontSize);
   fill(0);
   
