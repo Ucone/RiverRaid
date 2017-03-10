@@ -13,6 +13,7 @@ public enum GameState {
 
 ControlP5 cp5;
 PFont font;
+PFont monoFont;
 Player player;
 GameState gameState = GameState.WELCOME;
 
@@ -71,7 +72,8 @@ void setup() {
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
   
-  font = createFont("./fonts/DejaVuSansMono.ttf", fontSize);
+  monoFont = createFont("./fonts/DejaVuSansMono.ttf", fontSize);
+  font = createFont("./fonts/DejaVuSansCondensed.ttf", fontSize);
   textFont(font, fontSize);
   textAlign(CENTER);
   fill(0);
@@ -156,7 +158,7 @@ void draw() {
     case STORY_4:
       image(storyImg4, x(0), y(0));
       
-      fill(255, 0, 0);
+      fill(100, 255, 100);
       text(this.player.getName().charAt(0) + ": Yes, general!", x(200), y(50));
       text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(200), y(370));
       text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(200), y(620));
@@ -285,7 +287,9 @@ void drawPressKey()
 {
    textAlign(RIGHT);
    fill(255,0,0);
+   textFont(monoFont, fontSize);
    text("Press any key to continue...", viewportW - w(20), y(30));
+   textFont(font, fontSize);
    textAlign(CENTER);
 }
 
