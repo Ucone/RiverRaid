@@ -10,12 +10,10 @@ public class Jet {
   public Jet(){
     x= 500;
     y = 900;
-
+    jet_image.resize(viewportW/15, viewportH/11);  
   }
   
-  public void draw(){
-
-    jet_image.resize(viewportW/15, viewportH/11);  
+  public void draw(){    
     image(jet_image, x(x), y(y));
   }
   /*

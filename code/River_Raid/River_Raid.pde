@@ -105,12 +105,17 @@ void setup() {
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
   
+  startImg=loadImage("./images/welcome.png");
+  startImg.resize(viewportW, viewportH);
+  
   map1 = loadImage("./images/background.png");
   map1.resize(viewportW, viewportH);
   scoreboard = loadImage("./images/sprites/scoreboard.png");
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
+  
+  scoreboard.resize(viewportW/7, viewportH/5);
   
   // Defines the island object
   island = new Island();
@@ -128,8 +133,6 @@ void setup() {
 void draw() {
   switch(gameState){
     case WELCOME:
-      startImg=loadImage("./images/welcome.png");
-      startImg.resize(viewportW, viewportH);
       image(startImg, x(0), y(0));
       break;
     
@@ -183,7 +186,6 @@ void draw() {
       image(map1, x(0), y(y) - map1.height);
       
       //implement socerboard
-      scoreboard.resize(viewportW/7, viewportH/5);
       image(scoreboard, x(30), y(-200));
       drawScore(); //Score method determines and paint the score
       
