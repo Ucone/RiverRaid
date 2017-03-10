@@ -185,7 +185,7 @@ void draw() {
       //implement socerboard
       scoreboard.resize(viewportW/7, viewportH/5);
       image(scoreboard, x(30), y(-200));
-      Score(); //Score method determines and paint the score
+      drawScore(); //Score method determines and paint the score
       
        //just to try, delete this when we can defeat enemies:
       if (y%238 == 0){
@@ -235,7 +235,7 @@ void draw() {
   }
   
   //***** SCORE ****
-  void Score (){
+  void drawScore (){
     fill(0);
     text(score, x(100), y(-120));
     
