@@ -175,8 +175,8 @@ void draw() {
       }
 */
       //Map movement
-      image(map1,0, y);
-      image(map1,0, y - map1.height);
+      image(map1, x(0), y(y));
+      image(map1, x(0), y(y) - map1.height);
       
       //implement socerboard
       scoreboard.resize(viewportW/7, viewportH/5);
@@ -199,7 +199,7 @@ void draw() {
       }
        
       //To restart the map and make it ciclique
-      if (y >= map1.height){
+      if (y >= 1000){
           y=0;
       }
       
@@ -215,7 +215,20 @@ void draw() {
       break;
       
   }
+  drawBorders();
 }
+  
+  void drawBorders() {
+    fill(0);
+    // top
+    rect(0, 0, width, offsetY);
+    // bottom
+    rect(0, height - offsetY, width, offsetY);
+    // left
+    rect(0, 0, offsetX, height);
+    // right
+    rect(0, height - offsetX, offsetX, height); 
+  }
   
   //***** SCORE ****
   void Score (){
