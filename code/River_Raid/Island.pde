@@ -2,9 +2,10 @@ class Island{
   float xPos, yPos = 0;
   boolean overcome = false;
   PImage image;
-  
+  PImage originalImage;
   Island(){ //<>//
-    image = loadImage("./images/sprites/isle.png");
+    originalImage = loadImage("./images/sprites/isle.png");
+    image = originalImage.copy();
     image.resize(viewportW / 5, viewportH / 5);
     updateRandomPosition();
     updateRandomSize();
@@ -28,6 +29,7 @@ class Island{
   
   void updateRandomSize(){
     int size = (int)random(viewportW / 20, viewportW / 5);
+    image = originalImage.copy();
     image.resize(size, size);
   }
 }
