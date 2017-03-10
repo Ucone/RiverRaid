@@ -3,8 +3,6 @@ public class Jet {
   private int id;  // in case we desing more jets
   private PImage jet_image = loadImage("./images/sprites/jet.png");
   
-  private Player player;
-  
   //jet coordenates
   private int x;
   private int y;
