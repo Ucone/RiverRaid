@@ -141,12 +141,14 @@ void draw() {
     
     case STORY_2:
       image(storyImg2, x(0), y(0));
+      fill(0, 150, 0);
       text("Local time: 00:32, border Air Force base", x(-500), y(-50));
       drawPressKey();
       break;
     case STORY_3:
       image(storyImg3, x(0), y(0));
       textAlign(RIGHT);
+      fill(0, 150, 0);
       text("Pilot "+this.player.getName()+", to the general!", x(-50), y(-50));
       textAlign(CENTER);
       drawPressKey();
