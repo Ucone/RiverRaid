@@ -179,9 +179,9 @@ void draw() {
       image(map1,0, y - map1.height);
       
       //implement socerboard
-      scoreboard.resize(width/7, height/5);
-      image(scoreboard, 30, height -(height/5));
-      Score(width, height); //Score method determines and paint the score
+      scoreboard.resize(viewportW/7, viewportH/5);
+      image(scoreboard, x(30), y(-200));
+      Score(); //Score method determines and paint the score
       
        //just to try, delete this when we can defeat enemies:
       if (y%238 == 0){
@@ -218,10 +218,9 @@ void draw() {
 }
   
   //***** SCORE ****
-  void Score (int width, int height){
+  void Score (){
     fill(0);
-    //30, height -(height/5)
-    text(score, scoreboard.width/2 + 30 , height - scoreboard.height/2);
+    text(score, x(100), y(-120));
     
   }
 
