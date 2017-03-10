@@ -204,7 +204,7 @@ void draw() {
       }
       
       //fuel icon
-      image(fuel_icon, width - 90, height - 180);
+      image(fuel_icon, x(-160), y(-180));
 
       //jet implementation
       jet.draw();      
