@@ -1,15 +1,14 @@
 public class Element{
-  private PImage image;
+  public PImage image;
   
   //Coordenates
-  private int x;
-  private int y;
-  
+  float xPos = random(300, 700);
+  float yPos = 0;
+
   
   void drawElement(){
     if(yPos >= height){
       updateRandomPosition(); //<>//
-      updateRandomSize();
     }
     
     yPos += speed;
@@ -17,14 +16,8 @@ public class Element{
   }
   
   void updateRandomPosition(){
-    this.xPos = random(viewportW/3, viewportW-viewportW/3-image.width);
-    this.yPos = random(-600, -2000);
-  }
-  
-  void updateRandomSize(){
-    int size = (int)random(viewportW / 20, viewportW / 5);
-    image = originalImage.copy();
-    image.resize(size, size);
+    this.xPos = random(300, 700);
+    this.yPos = random(-2000, -5000);
   }
   
   public int getX(){

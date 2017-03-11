@@ -22,6 +22,7 @@ PImage map1;
 PImage fuel_icon, low_fuel;
 PImage scoreboard;
 Island island;
+FuelDepot fuelDepot;
 
 // Aspect ratio variables
 int viewportW, viewportH;
@@ -124,6 +125,9 @@ void setup() {
   // Defines the island object
   island = new Island();
   
+  //Creates new fuel depot
+  fuelDepot = new FuelDepot();
+  
   //Check if we are on testing environment
   checkTesting();
   //Create the jet
@@ -199,6 +203,7 @@ void draw() {
       }
       
       island.drawIsland();
+      fuelDepot.drawElement();
       
      // speedset initial speed
       y+=speed;
