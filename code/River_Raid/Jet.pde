@@ -7,10 +7,13 @@ public class Jet {
   private int x;
   private int y;
   
+  private int fuel;
+  
   public Jet(){
     x= 500;
     y = 900;
     jet_image.resize(viewportW/15, viewportH/11);  
+    fuel = INITIAL_FUEL;
   }
   
   public void draw(){    
@@ -40,6 +43,10 @@ public class Jet {
       this.y=y;
   }
   
+  public int getFuel(){
+    return fuel;
+  }
+  
   public void moveLeft(){
       x= x-10;
       translate(x, y);
@@ -50,5 +57,9 @@ public class Jet {
       x= x+10;
       translate(x, y);
       //image(jet_image, x, y);
+  }
+  
+  public void updateFuel(){
+     this.fuel = (int)(INITIAL_FUEL - distance*VELOCITY_CONSUMPTION); 
   }
 }

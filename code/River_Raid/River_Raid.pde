@@ -220,9 +220,7 @@ void draw() {
       image(fuel_icon, x(875), y(-600));
 
       //jet implementation
-      jet.draw();      
-      
-      
+      jet.draw();            
   
       break;
       
@@ -254,7 +252,9 @@ void draw() {
   void fuel_implementation(){
       //Fuel consumption
       fill(#FF0000);
-      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
+      
+      jet.updateFuel();
+      fuel = jet.getFuel();
       
       if(fuel > 0){
         rect( x(887), y(-283), w(23), h((int)-fuel));
