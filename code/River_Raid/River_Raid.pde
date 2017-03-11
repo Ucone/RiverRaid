@@ -36,7 +36,7 @@ int x,y;
 int speed = 3;
 
 //fuel variables
-int INITIAL_FUEL= 50;
+int INITIAL_FUEL= 300;
 float VELOCITY_CONSUMPTION = 0.1;
 float fuel;
 float distance = y;
@@ -213,14 +213,16 @@ void draw() {
           y=0;
       }
       
+      //fuel implementation
+      fuel_implementation();
+      
       //fuel icon
       image(fuel_icon, x(875), y(-600));
 
       //jet implementation
       jet.draw();      
       
-      //fuel implementation
-      fuel_implementation();
+      
   
       break;
       
@@ -250,20 +252,15 @@ void draw() {
 
   //***** FUEL IMPLEMENTATION *****
   void fuel_implementation(){
-   
-      //Fuel frame
-      fill(255);
-      rect(x(-140), y(-200), w(30), h(-INITIAL_FUEL));
-      
       //Fuel consumption
       fill(#FF0000);
       fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
       
       if(fuel > 0){
-        rect( x(-140), y(-200), w(30), h((int)-fuel));
+        rect( x(887), y(-283), w(23), h((int)-fuel));
       }
       //Fuel actions
-      if (fuel < 50){
+      if (fuel < INITIAL_FUEL / 3){
             image(low_fuel, x(850), y(-250));
         if (fuel <=0)
             text("GAME OVER, LOOSER!!", x(400), y(500));
