@@ -19,7 +19,7 @@ GameState gameState = GameState.WELCOME;
 
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
-PImage fuel_icon;
+PImage fuel_icon, low_fuel;
 PImage scoreboard;
 Island island;
 
@@ -114,6 +114,8 @@ void setup() {
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuel_icon.png");
+  low_fuel = loadImage("./images/sprites/lowfuel.png");
+  low_fuel.resize(viewportW/9, viewportH/5);
   
   scoreboard.resize(viewportW/7, viewportH/5);
   
@@ -258,7 +260,7 @@ void draw() {
       
       //Fuel actions
       if (fuel < 50){
-            text("FUEL WARING!!", x(-400), y(-60));
+            image(low_fuel, x(-viewportW/9), y(viewportH/5));
         if (fuel <=0)
             text("GAME OVER, LOOSER!!", x(400), y(500));
       }
