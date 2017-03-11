@@ -2,8 +2,8 @@ public class Element{
   public PImage image;
   
   //Coordenates
-  float xPos = random(300, 700);
-  float yPos = 0;
+  int xPos = (int)random(300, 700);
+  int yPos = 0;
 
   
   void drawElement(){
@@ -12,19 +12,23 @@ public class Element{
     }
     
     yPos += speed;
-    image(this.image, xPos, yPos);
+    image(this.image, x(xPos), y(yPos));
   }
   
   void updateRandomPosition(){
-    this.xPos = random(300, 700);
-    this.yPos = random(-2000, -5000);
+    this.xPos = (int)random(50, 900);
+    this.yPos = (int)random(-2000, -5000);
   }
   
   public int getX(){
-    return x;
+    return xPos;
   }
   
   public int getY(){
-    return y;
+    return yPos;
+  }
+  
+  public PImage getImage(){
+    return image;
   }
 }

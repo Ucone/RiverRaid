@@ -4,4 +4,5 @@ public class FuelDepot extends Element{
     this.image = loadImage("./images/sprites/fueldepot.png");
     image.resize(viewportW / 5, viewportH / 3);
   }
+  
 }

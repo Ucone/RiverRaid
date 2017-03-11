@@ -47,6 +47,13 @@ public class Jet {
     return fuel;
   }
   
+  public void setFuel(int fuel){
+    this.fuel = fuel;
+  }
+  public PImage getImage(){
+    return jet_image;
+  }
+  
   public void moveLeft(){
       x= x-10;
       translate(x, y);
@@ -60,6 +67,6 @@ public class Jet {
   }
   
   public void updateFuel(){
-     this.fuel = (int)(INITIAL_FUEL - distance*VELOCITY_CONSUMPTION); 
+    this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed);
   }
 }

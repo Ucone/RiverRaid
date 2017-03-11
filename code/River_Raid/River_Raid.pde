@@ -37,9 +37,8 @@ int x,y;
 int speed = 3;
 
 //fuel variables
-int INITIAL_FUEL= 300;
-float VELOCITY_CONSUMPTION = 0.1;
-float fuel;
+int INITIAL_FUEL= 600;
+float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
 
 //Score variables
@@ -225,7 +224,8 @@ void draw() {
       image(fuel_icon, x(875), y(-600));
 
       //jet implementation
-      jet.draw();            
+      jet.draw();      
+      checkRefuel();
   
       break;
       
@@ -259,15 +259,14 @@ void draw() {
       fill(#FF0000);
       
       jet.updateFuel();
-      fuel = jet.getFuel();
       
-      if(fuel > 0){
-        rect( x(887), y(-283), w(23), h((int)-fuel));
+      if(jet.getFuel() > 0){
+        rect( x(887), y(-283), w(23), h((int)-jet.getFuel()/2));
       }
       //Fuel actions
-      if (fuel < INITIAL_FUEL / 3){
+      if (jet.getFuel() < INITIAL_FUEL / 3){
             image(low_fuel, x(850), y(-250));
-        if (fuel <=0)
+        if (jet.getFuel() <=0)
             text("GAME OVER, LOOSER!!", x(400), y(500));
       }
   }
@@ -376,6 +375,20 @@ void checkTesting(){
     gameState = GameState.GAME;
   }
 }
+
+
+/*** REFUEL ***/
+public void checkRefuel(){
+  if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) ){
+      text("REFUEL : " + jet.getFuel(), x(400), y(600));
+      jet.setFuel((int)(jet.getFuel() + 1));
+      VELOCITY_CONSUMPTION = 0;
+  }else{
+      text("# NO REFUEL : " + jet.getFuel(), x(400), y(600));
+      VELOCITY_CONSUMPTION = 0.1;
+  }
+}
+
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
 int x(int fakex)
