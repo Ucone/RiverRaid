@@ -19,7 +19,7 @@ GameState gameState = GameState.WELCOME;
 
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
-PImage fuel_icon;
+PImage fuel_icon, low_fuel;
 PImage scoreboard;
 Island island;
 
@@ -36,7 +36,7 @@ int x,y;
 int speed = 3;
 
 //fuel variables
-int INITIAL_FUEL= 200;
+int INITIAL_FUEL= 300;
 float VELOCITY_CONSUMPTION = 0.1;
 float fuel;
 float distance = y;
@@ -113,7 +113,11 @@ void setup() {
   scoreboard = loadImage("./images/sprites/scoreboard.png");
 
   //Elements images
-  fuel_icon = loadImage("./images/sprites/fuel_icon.png");
+  fuel_icon = loadImage("./images/sprites/fuelgauge.png");
+  low_fuel = loadImage("./images/sprites/lowfuel.png");
+  low_fuel.resize(viewportW/9, viewportH/5);
+  fuel_icon.resize(viewportW/20, viewportH/3);
+
   
   scoreboard.resize(viewportW/7, viewportH/5);
   
@@ -209,14 +213,14 @@ void draw() {
           y=0;
       }
       
-      //fuel icon
-      image(fuel_icon, x(-160), y(-180));
-
-      //jet implementation
-      jet.draw();      
-      
       //fuel implementation
       fuel_implementation();
+      
+      //fuel icon
+      image(fuel_icon, x(875), y(-600));
+
+      //jet implementation
+      jet.draw();            
   
       break;
       
@@ -246,19 +250,18 @@ void draw() {
 
   //***** FUEL IMPLEMENTATION *****
   void fuel_implementation(){
-   
-      //Fuel frame
-      fill(255);
-      rect(x(-140), y(-200), w(30), h(-INITIAL_FUEL));
-      
       //Fuel consumption
       fill(#FF0000);
-      fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
-      rect( x(-140), y(-200), w(30), h((int)-fuel));
       
+      jet.updateFuel();
+      fuel = jet.getFuel();
+      
+      if(fuel > 0){
+        rect( x(887), y(-283), w(23), h((int)-fuel));
+      }
       //Fuel actions
-      if (fuel < 50){
-            text("FUEL WARING!!", x(-400), y(-60));
+      if (fuel < INITIAL_FUEL / 3){
+            image(low_fuel, x(850), y(-250));
         if (fuel <=0)
             text("GAME OVER, LOOSER!!", x(400), y(500));
       }
