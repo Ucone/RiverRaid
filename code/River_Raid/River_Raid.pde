@@ -256,8 +256,10 @@ void draw() {
       //Fuel consumption
       fill(#FF0000);
       fuel = (INITIAL_FUEL - distance*VELOCITY_CONSUMPTION);
-      rect( x(-140), y(-200), w(30), h((int)-fuel));
       
+      if(fuel > 0){
+        rect( x(-140), y(-200), w(30), h((int)-fuel));
+      }
       //Fuel actions
       if (fuel < 50){
             image(low_fuel, x(-viewportW/9), y(viewportH/5));
