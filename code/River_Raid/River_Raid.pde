@@ -34,6 +34,7 @@ int fontSize;
 //Variables for positions
 int x,y;
 //Initial speed
+int DEFAULT_SPEED = 3;
 int speed = 3;
 
 //fuel variables
@@ -225,7 +226,7 @@ void draw() {
 
       //jet implementation
       jet.draw();      
-      checkRefuel();
+      jet.checkRefuel(fuelDepot);
   
       break;
       
@@ -377,23 +378,6 @@ void checkTesting(){
 }
 
 
-/*** REFUEL ***/
-public void checkRefuel(){
-  int fuelDepotY = fuelDepot.getY();
-  if(fuelDepotY < 0){
-    fuelDepotY = 1000 + fuelDepotY;
-  }
-  
-  if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
-      ( (jet.getY() >= fuelDepotY) && (jet.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
-        text("# REFUEL", x(400), y(600));
-        jet.refuel();
-        VELOCITY_CONSUMPTION = 0;
-  }else{
-      text("# NO REFUEL.", x(400), y(600));
-      VELOCITY_CONSUMPTION = 0.1;
-  }
-}
 
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values

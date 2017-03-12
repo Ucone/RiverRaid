@@ -70,9 +70,31 @@ public class Jet {
     this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed);
   }
   
+  /*** REFUEL ***/
+public void checkRefuel(FuelDepot fuelDepot){
+  int fuelDepotY = fuelDepot.getY();
+  if(fuelDepotY < 0){
+    fuelDepotY = 1000 + fuelDepotY;
+  }
+  
+  if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
+      ( (jet.getY() >= fuelDepotY) && (jet.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
+        jet.refuel();
+        VELOCITY_CONSUMPTION = 0;
+  }else{
+      VELOCITY_CONSUMPTION = 0.1;
+  }
+}
+
+  
   public void refuel(){
+    int refuelSpeed = 3;
+    
+    if(speed < DEFAULT_SPEED){
+      refuelSpeed = 10;
+    }
     if(this.fuel < INITIAL_FUEL){
-      this.fuel = (int)(this.fuel + 3);
+      this.fuel = (int)(this.fuel + refuelSpeed);
     }
   }
 }
