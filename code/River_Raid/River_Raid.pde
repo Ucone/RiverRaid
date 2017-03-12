@@ -258,7 +258,7 @@ void draw() {
       //Fuel consumption
       fill(#FF0000);
       
-      jet.updateFuel();
+      jet.consume();
       
       if(jet.getFuel() > 0){
         rect( x(887), y(-283), w(23), h((int)-jet.getFuel()/2));
@@ -381,7 +381,7 @@ void checkTesting(){
 public void checkRefuel(){
   if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) ){
       text("REFUEL : " + jet.getFuel(), x(400), y(600));
-      jet.setFuel((int)(jet.getFuel() + 1));
+      jet.refuel();
       VELOCITY_CONSUMPTION = 0;
   }else{
       text("# NO REFUEL : " + jet.getFuel(), x(400), y(600));

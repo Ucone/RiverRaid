@@ -66,7 +66,13 @@ public class Jet {
       //image(jet_image, x, y);
   }
   
-  public void updateFuel(){
+  public void consume(){
     this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed);
+  }
+  
+  public void refuel(){
+    if(this.fuel < INITIAL_FUEL){
+      this.fuel = (int)(this.fuel + 1);
+    }
   }
 }
