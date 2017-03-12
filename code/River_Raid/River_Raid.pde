@@ -143,16 +143,19 @@ void setup() {
   //Create the jet
   jet = new Jet();
   
-  //for movement simultaneous. Initialization to false
-  //for (int cont=0; cont< keys.length; cont++){
-  //  keys[cont]= false;
-  //}
-  keys = new boolean[4];
-  
-  keys[0]= false;
-  keys[1]= false;
-  keys[2]= false;
-  keys[3]= false;
+  //for movement simultaneous.
+    keys = new boolean[4];  // now is 4 because of: LEFT RIGTH UP DOWN.
+    //if we include more (like spacebar for shoot), change the lentgh of the array/ or maybe not, check
+    
+  //Initialization to false
+  for (int cont=0; cont< keys.length; cont++){
+    keys[cont]= false;
+  }
+    
+  //keys[0]= false;
+  //keys[1]= false;
+  //keys[2]= false;
+  //keys[3]= false;
 
 }
 
@@ -281,7 +284,7 @@ void draw() {
           speed= speed+4;
           changed = true;
       }
-      if (keys[3]){    //DOWN
+      if (keys[3]){   //DOWN
           speed= speed-2;
           changed = true;      
       }
@@ -431,6 +434,8 @@ void checkTesting(){
   }
 }
 
+
+//For jet movement, to know when the key is released and stop movement.
 void keyReleased(){
      if (key == CODED){
         switch(keyCode){
