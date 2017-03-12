@@ -131,8 +131,8 @@ void setup() {
   //Check if we are on testing environment
   checkTesting();
   //Create the jet
-  //!! warnign, if we divide the background on 3 images
-  //we should pass to the constructor the addition of the width and heigth
+  //!! warning, if we divide the background on 3 images
+  //we should pass to the constructor the addition of the width and height
   //And also change te constructor on the Jet class
   jet = new Jet();
 
@@ -268,7 +268,7 @@ void draw() {
       if (jet.getFuel() < INITIAL_FUEL / 3){
             image(low_fuel, x(850), y(-250));
         if (jet.getFuel() <=0)
-            text("GAME OVER, LOOSER!!", x(400), y(500));
+            text("GAME OVER, LOSER!!", x(400), y(500));
       }
   }
   
