@@ -72,7 +72,7 @@ public class Jet {
   
   public void refuel(){
     if(this.fuel < INITIAL_FUEL){
-      this.fuel = (int)(this.fuel + 1);
+      this.fuel = (int)(this.fuel + 3);
     }
   }
 }

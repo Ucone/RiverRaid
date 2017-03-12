@@ -2,8 +2,8 @@ public class Element{
   public PImage image;
   
   //Coordenates
-  int xPos = x(100);
-  int yPos = y(-1000);
+  int xPos = 100;
+  int yPos = -1500;
 
   
   void drawElement(){
@@ -16,8 +16,8 @@ public class Element{
   }
   
   void updateRandomPosition(){
-    this.xPos = x(100);
-    this.yPos = y(-1000);
+    this.xPos = (int)random(200, 600);
+    this.yPos = (int)random(-2000, -3000) - this.image.height;
   }
   
   public int getX(){
