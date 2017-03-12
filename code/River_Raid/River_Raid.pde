@@ -251,7 +251,7 @@ void draw() {
   //***** FUEL IMPLEMENTATION *****
   void fuel_implementation(){
       //Fuel consumption
-      fill(#FF0000);
+      fill(#00ff4e);
       
       jet.updateFuel();
       fuel = jet.getFuel();
