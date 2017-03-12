@@ -155,14 +155,14 @@ void draw() {
     case STORY_2:
       image(storyImg2, x(0), y(0));
       fill(0, 150, 0);
-      text("Local time: 00:32, border Air Force base", x(-500), y(-50));
+      text("Local time: 00:32, border Air Force base", x(-500), y(950));
       drawPressKey();
       break;
     case STORY_3:
       image(storyImg3, x(0), y(0));
       textAlign(RIGHT);
       fill(0, 150, 0);
-      text("Pilot "+this.player.getName()+", to the general!", x(-50), y(-50));
+      text("Pilot "+this.player.getName()+", to the general!", x(950), y(950));
       textAlign(CENTER);
       drawPressKey();
       break;
@@ -194,7 +194,7 @@ void draw() {
       image(map1, x(0), y(y) - map1.height);
       
       //implement socerboard
-      image(scoreboard, x(30), y(-200));
+      image(scoreboard, x(30), y(800));
       drawScore(); //Score method determines and paint the score
       
        //just to try, delete this when we can defeat enemies:
@@ -222,7 +222,7 @@ void draw() {
       fuel_implementation();
       
       //fuel icon
-      image(fuel_icon, x(875), y(-600));
+      image(fuel_icon, x(875), y(400));
 
       //jet implementation
       jet.draw();      
@@ -249,7 +249,7 @@ void draw() {
   //***** SCORE ****
   void drawScore (){
     fill(0);
-    text(score, x(100), y(-120));
+    text(score, x(100), y(880));
     
   }
 
@@ -262,11 +262,11 @@ void draw() {
       jet.consume();
       
       if(jet.getFuel() > 0){
-        rect( x(887), y(-283), w(23), h((int)-jet.getFuel()/2));
+        rect( x(887), y(1000-283), w(23), h((int)-jet.getFuel()/2));
       }
       //Fuel actions
       if (jet.getFuel() < INITIAL_FUEL / 3){
-            image(low_fuel, x(850), y(-250));
+            image(low_fuel, x(850), y(750));
         if (jet.getFuel() <=0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
@@ -383,15 +383,11 @@ void checkTesting(){
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
 int x(int fakex)
 {
-  if(fakex < 0)
-    fakex += 1000;
   return (int)((float)fakex / 1000. * viewportW + offsetX);
 }
 
 int y(int fakey)
 {
-  if(fakey < 0)
-    fakey += 1000;
   return (int)((float)fakey / 1000. * viewportH + offsetY);
 }
 
