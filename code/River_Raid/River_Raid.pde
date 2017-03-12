@@ -21,6 +21,7 @@ PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 PImage fuel_icon, low_fuel;
 PImage scoreboard;
+PImage progressBackground, progressIndicator;
 Island island;
 FuelDepot fuelDepot;
 
@@ -47,6 +48,7 @@ int score = 0;
 
 // SECTION
 int section = 1;
+int progressValue = y;
 
 // ENEMIES
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -128,6 +130,10 @@ void setup() {
   low_fuel.resize(viewportW/9, viewportH/5);
   fuel_icon.resize(viewportW/20, viewportH/3);
 
+  progressBackground = loadImage("./images/sprites/progress_background.png");
+  progressIndicator = loadImage("./images/sprites/progress_cursor.png");
+  progressBackground.resize(w(190), h(50));
+  progressIndicator.resize(w(50), h(50));
   
   scoreboard.resize(viewportW/7, viewportH/5);
   
@@ -214,6 +220,7 @@ void draw() {
       image(scoreboard, x(30), y(800));
       drawScore(); //Score method determines and paint the score
       
+
        //just to try, delete this when we can defeat enemies:
       if (y%238 == 0){
          score +=30; 
@@ -225,12 +232,22 @@ void draw() {
      // speedset initial speed
       y+=speed;
       distance +=speed;
+      progressValue += speed;
       jet.speed = speed;
       if (changed){
            speed= restore_speed;
            changed = false;
       }
        
+      //Sections
+      image(progressBackground, x(10), y(600));
+      int aux = (int)(200*progressValue)/5000;
+      image(progressIndicator, x(aux), y(600));
+
+      if(distance / 5000 >= section){
+        section++;
+        progressValue = 0;
+      }
       //To restart the map and make it ciclique
       if (y >= 1000){
           y=0;
@@ -311,6 +328,8 @@ void draw() {
   void drawScore (){
     fill(0);
     text(score, x(100), y(880));
+    
+    text("Level: " + section, x(100), y(920));
     
   }
 
