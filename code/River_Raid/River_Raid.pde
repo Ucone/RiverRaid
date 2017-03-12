@@ -53,6 +53,9 @@ ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 boolean first_time = true; //not used for the moment
 
+//for movement simultaneous
+boolean keys [];
+
 Jet jet;
 
 void setup() {
@@ -136,11 +139,20 @@ void setup() {
   
   //Check if we are on testing environment
   checkTesting();
+  
   //Create the jet
-  //!! warning, if we divide the background on 3 images
-  //we should pass to the constructor the addition of the width and height
-  //And also change te constructor on the Jet class
   jet = new Jet();
+  
+  //for movement simultaneous. Initialization to false
+  //for (int cont=0; cont< keys.length; cont++){
+  //  keys[cont]= false;
+  //}
+  keys = new boolean[4];
+  
+  keys[0]= false;
+  keys[1]= false;
+  keys[2]= false;
+  keys[3]= false;
 
 }
 
@@ -190,11 +202,7 @@ void draw() {
       break;
       
       case GAME:
-/*
-      if (first_time){
-         first_draw(); 
-      }
-*/
+
       //Map movement
       image(map1, x(0), y(y));
       image(map1, x(0), y(y) - map1.height);
@@ -260,6 +268,23 @@ void draw() {
           i--;
         }
       }
+      
+      //Jet efficient movement
+      if (keys[0]){  //LEFT
+          jet.moveLeft();
+      }
+      if (keys[1]){  //RIGTH
+          jet.moveRight();
+      }
+      if (keys[2]){  //UP
+          speed= speed+4;
+          changed = true;
+      }
+      if (keys[3]){    //DOWN
+          speed= speed-2;
+          changed = true;      
+      }
+
       break;
       
   }
@@ -364,22 +389,18 @@ void keyPressed(){
     if (key == CODED){
       switch(keyCode){
        case LEFT:
-          jet.moveLeft();
+          keys[0]= true;
           break;
        case RIGHT:
-          jet.moveRight();
+          keys[1]= true;
           break;
        case UP:
-          speed= speed+4;
-          changed = true;
+          keys[2]= true;
           break;
        case DOWN:
-          speed= speed-2;
-          changed = true;
-       break;
-    
-      }
-   
+          keys[3]= true;
+       break;    
+      }  
     }
     
   }else
@@ -409,7 +430,24 @@ void checkTesting(){
   }
 }
 
-
+void keyReleased(){
+     if (key == CODED){
+        switch(keyCode){
+         case LEFT:
+            keys[0]= false;
+            break;
+         case RIGHT:
+            keys[1]= false;
+            break;
+         case UP:
+            keys[2]= false;
+            break;
+         case DOWN:
+            keys[3]= false;
+         break;
+        }
+     }
+}
 
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
