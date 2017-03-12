@@ -2,12 +2,12 @@ public class Element{
   public PImage image;
   
   //Coordenates
-  int xPos = (int)random(300, 700);
-  int yPos = 0;
+  int xPos = x(100);
+  int yPos = y(-1000);
 
   
   void drawElement(){
-    if(yPos >= height){
+    if(yPos >= height + image.height){
       updateRandomPosition(); //<>//
     }
     
@@ -16,8 +16,8 @@ public class Element{
   }
   
   void updateRandomPosition(){
-    this.xPos = (int)random(50, 900);
-    this.yPos = (int)random(-2000, -5000);
+    this.xPos = x(100);
+    this.yPos = y(-1000);
   }
   
   public int getX(){
