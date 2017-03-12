@@ -16,7 +16,8 @@ public class Jet {
   public Jet(){
     x= 500;
     y = 800;
-    image.resize(w(width/20), h(height/10));  
+    image.resize(w(90), h(160));  
+    imageCrashed.resize(w(90), h(160));  
     fuel = INITIAL_FUEL;
     speed = DEFAULT_SPEED;
   }
