@@ -1,31 +1,30 @@
 public class Jet {
   
   private int id;  // in case we desing more jets
-  private PImage jet_image = loadImage("./images/sprites/jet.png");
-  
+  private PImage image = loadImage("./images/sprites/jet.png");
+  private PImage imageCrashed = loadImage("./images/sprites/crash.png");
   //jet coordenates
   private int x;
   private int y;
   
   private int fuel;
   
+  private boolean crashed = false;
+  
   public Jet(){
     x= 500;
-    y = 900;
-    jet_image.resize(w(width/20), h(height/10));  
+    y = 700;
+    image.resize(w(width/20), h(height/10));  
     fuel = INITIAL_FUEL;
   }
   
-  public void draw(){    
-    image(jet_image, x(x), y(y));
+  public void draw(){   
+    if(!crashed)
+      image(image, x(x), y(y));
+    else
+      image(imageCrashed, x(x), y(y));
   }
-  /*
-  public Jet (){  //Actually in the constructor should receive the map
-  jet_image = loadImage("./images/sprites/jet.png");
-  image(jet_image, x, y);
-  jet_image.resize(width/15, height/11);  
-  }
-  */
+
   
   public int getX(){
        return x; 
@@ -51,7 +50,7 @@ public class Jet {
     this.fuel = fuel;
   }
   public PImage getImage(){
-    return jet_image;
+    return image;
   }
   
   public void moveLeft(){
@@ -71,22 +70,21 @@ public class Jet {
   }
   
   /*** REFUEL ***/
-public void checkRefuel(FuelDepot fuelDepot){
-  int fuelDepotY = fuelDepot.getY();
-  if(fuelDepotY < 0){
-    fuelDepotY = 1000 + fuelDepotY;
+  public void checkRefuel(FuelDepot fuelDepot){
+    int fuelDepotY = fuelDepot.getY();
+    if(fuelDepotY < 0){
+      fuelDepotY = 1000 + fuelDepotY;
+    }
+    
+    if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
+        ( (jet.getY() >= fuelDepotY) && (jet.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
+          jet.refuel();
+          VELOCITY_CONSUMPTION = 0;
+    }else{
+        VELOCITY_CONSUMPTION = 0.1;
+    }
   }
-  
-  if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
-      ( (jet.getY() >= fuelDepotY) && (jet.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
-        jet.refuel();
-        VELOCITY_CONSUMPTION = 0;
-  }else{
-      VELOCITY_CONSUMPTION = 0.1;
-  }
-}
 
-  
   public void refuel(){
     int refuelSpeed = 3;
     
@@ -96,5 +94,16 @@ public void checkRefuel(FuelDepot fuelDepot){
     if(this.fuel < INITIAL_FUEL){
       this.fuel = (int)(this.fuel + refuelSpeed);
     }
+  }
+  
+  
+  public void checkCollision(Element e){
+    if(((abs(this.x - e.xPos) < 60 && abs(this.y - e.yPos) < 60))  // check the collision with enemies;
+        || (this.x < 0 || this.x > width) // check the collision with map elements (need to fix);
+       /* || (abs(this.x - e.xPos) < 30 + e.size / 2 && abs(this.y - e.yPos) < 30 + e.size / 2)  // check the collision with the island;
+       */
+        ){
+        this.crashed = true;
+      }
   }
 }

@@ -254,7 +254,7 @@ void draw() {
         enemy.checkIsVisible();
         if(enemy.isVisible){
           enemy.draw();
-          //jet.checkCollision(e.island);
+          jet.checkCollision(enemy);
         }else{  //Remove invisible enemy
           enemies.remove(i);
           i--;
