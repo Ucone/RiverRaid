@@ -231,6 +231,10 @@ void draw() {
            changed = false;
       }
        
+      //Sections
+      if(distance / 5000 > section){
+        section++;
+      }
       //To restart the map and make it ciclique
       if (y >= 1000){
           y=0;
@@ -311,6 +315,8 @@ void draw() {
   void drawScore (){
     fill(0);
     text(score, x(100), y(880));
+    
+    text("Level: " + section, x(100), y(920));
     
   }
 
