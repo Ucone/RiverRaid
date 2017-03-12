@@ -54,13 +54,13 @@ public class Jet {
   }
   
   public void moveLeft(){
-      x= x-10;
-      //translate(x, y);
-      image(image, x, y);
+      x= x-7;
+      translate(x, y);
+      //image(image, x, y);
   }
    
    public void moveRight(){
-      x= x+10;
+      x= x+7;
       translate(x, y);
       //image(jet_image, x, y);
   }
