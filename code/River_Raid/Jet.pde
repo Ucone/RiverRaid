@@ -15,7 +15,7 @@ public class Jet {
   
   public Jet(){
     x= 500;
-    y = 700;
+    y = 800;
     image.resize(w(width/20), h(height/10));  
     fuel = INITIAL_FUEL;
     speed = DEFAULT_SPEED;
@@ -57,13 +57,13 @@ public class Jet {
   }
   
   public void moveLeft(){
-      x= x-10;
+      x= x-7;
       translate(x, y);
-      //image(jet_image, x, y);
+      //image(image, x, y);
   }
    
    public void moveRight(){
-      x= x+10;
+      x= x+7;
       translate(x, y);
       //image(jet_image, x, y);
   }
