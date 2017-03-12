@@ -9,6 +9,8 @@ public class Jet {
   
   private int fuel;
   
+  public int speed;
+  
   private boolean crashed = false;
   
   public Jet(){
@@ -16,6 +18,7 @@ public class Jet {
     y = 700;
     image.resize(w(width/20), h(height/10));  
     fuel = INITIAL_FUEL;
+    speed = DEFAULT_SPEED;
   }
   
   public void draw(){   
@@ -66,7 +69,7 @@ public class Jet {
   }
   
   public void consume(){
-    this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed);
+    this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*this.speed*2);
   }
   
   /*** REFUEL ***/
@@ -88,7 +91,7 @@ public class Jet {
   public void refuel(){
     int refuelSpeed = 3;
     
-    if(speed < DEFAULT_SPEED){
+    if(this.speed < DEFAULT_SPEED){
       refuelSpeed = 10;
     }
     if(this.fuel < INITIAL_FUEL){

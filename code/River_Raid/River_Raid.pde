@@ -214,6 +214,7 @@ void draw() {
      // speedset initial speed
       y+=speed;
       distance +=speed;
+      jet.speed = speed;
       if (changed){
            speed= restore_speed;
            changed = false;
