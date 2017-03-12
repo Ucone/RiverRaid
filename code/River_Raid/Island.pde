@@ -3,6 +3,8 @@ class Island{
   boolean overcome = false;
   PImage image;
   PImage originalImage;
+  int size; //<>//
+  
   Island(){ //<>//
     originalImage = loadImage("./images/sprites/isle.png");
     image = originalImage.copy();
@@ -11,7 +13,7 @@ class Island{
     updateRandomSize();
   }
   
-  void drawIsland(){
+  void drawIsland(){ //<>//
     if(yPos >= height){
       updateRandomPosition(); //<>//
       updateRandomSize();
@@ -28,7 +30,7 @@ class Island{
   }
   
   void updateRandomSize(){
-    int size = (int)random(viewportW / 20, viewportW / 5);
+    size = (int)random(viewportW / 20, viewportW / 5);
     image = originalImage.copy();
     image.resize(size, size);
   }

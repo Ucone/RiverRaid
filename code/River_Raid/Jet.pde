@@ -103,10 +103,15 @@ public class Jet {
   public void checkCollision(Element e){
     if(((abs(this.x - e.xPos) < 60 && abs(this.y - e.yPos) < 60))  // check the collision with enemies;
         || (this.x < 0 || this.x > width) // check the collision with map elements (need to fix);
-       /* || (abs(this.x - e.xPos) < 30 + e.size / 2 && abs(this.y - e.yPos) < 30 + e.size / 2)  // check the collision with the island;
-       */
+         || islandCollision()
         ){
         this.crashed = true;
       }
+  }
+  
+  private boolean islandCollision(){
+    if( (abs(this.getY() - island.yPos) <=  island.image.height * 1.5) && (abs(this.getX() - island.xPos) < 30 + island.image.width / 2))
+      return true;
+    return false;
   }
 }
