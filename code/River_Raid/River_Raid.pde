@@ -379,12 +379,13 @@ void checkTesting(){
 
 /*** REFUEL ***/
 public void checkRefuel(){
-  if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) ){
-      text("REFUEL : " + jet.getFuel(), x(400), y(600));
-      jet.refuel();
-      VELOCITY_CONSUMPTION = 0;
+  if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
+      ( (jet.getY() >= fuelDepot.getY()) && (jet.getY() <= fuelDepot.getY() + fuelDepot.getImage().height) ) ){
+        text("REFUEL. JET: " +jet.getY() + "  -  FUEL: " + fuelDepot.getY(), x(400), y(600));
+        jet.refuel();
+        VELOCITY_CONSUMPTION = 0;
   }else{
-      text("# NO REFUEL : " + jet.getFuel(), x(400), y(600));
+      text("# NO REFUEL. JET: " +jet.getY() + "  -  FUEL: " + fuelDepot.getY(), x(400), y(600));
       VELOCITY_CONSUMPTION = 0.1;
   }
 }
