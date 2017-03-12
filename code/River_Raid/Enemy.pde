@@ -49,7 +49,7 @@ public class Enemy extends Element{
       public Tanker(int section, int speed){
         super(section, speed);
         this.image = loadImage("./images/sprites/enemy_tanker.png");
-        image.resize(w(width/20), h(height/10));
+        image.resize(w(50), h(100));
         this.speed = section;
         this.score = 200;
       }
@@ -58,7 +58,7 @@ public class Enemy extends Element{
       public Helicopter(int section, int speed){
         super(section, speed);
         this.image = loadImage("./images/sprites/enemy_chopper.png");
-        image.resize(w(width/20), h(height/10));
+        image.resize(w(50), h(100));
         this.speed = 1 + section;
         this.score = 200;
       }
@@ -68,7 +68,7 @@ public class Enemy extends Element{
       public EnemyJet(int section, int speed){
         super(section, speed);
         this.image = loadImage("./images/sprites/enemy_jet.png");
-        image.resize(w(width/20), h(height/10));
+        image.resize(w(50), h(100));
         this.speed = 2 + section;
         this.score = 200;
     }

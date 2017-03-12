@@ -8,7 +8,7 @@ class Island{
   Island(){ //<>//
     originalImage = loadImage("./images/sprites/isle.png");
     image = originalImage.copy();
-    image.resize(viewportW / 5, viewportH / 5);
+    image.resize(w(200), h(200));
     updateRandomPosition();
     updateRandomSize();
   }
