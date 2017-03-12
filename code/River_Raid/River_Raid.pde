@@ -22,6 +22,7 @@ PImage map1;
 PImage fuel_icon, low_fuel;
 PImage scoreboard;
 Island island;
+FuelDepot fuelDepot;
 
 // Aspect ratio variables
 int viewportW, viewportH;
@@ -33,12 +34,12 @@ int fontSize;
 //Variables for positions
 int x,y;
 //Initial speed
+int DEFAULT_SPEED = 3;
 int speed = 3;
 
 //fuel variables
-int INITIAL_FUEL= 300;
-float VELOCITY_CONSUMPTION = 0.1;
-float fuel;
+int INITIAL_FUEL= 600;
+float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
 
 //Score variables
@@ -124,6 +125,9 @@ void setup() {
   // Defines the island object
   island = new Island();
   
+  //Creates new fuel depot
+  fuelDepot = new FuelDepot();
+  
   //Check if we are on testing environment
   checkTesting();
   //Create the jet
@@ -199,6 +203,7 @@ void draw() {
       }
       
       island.drawIsland();
+      fuelDepot.drawElement();
       
      // speedset initial speed
       y+=speed;
@@ -220,7 +225,8 @@ void draw() {
       image(fuel_icon, x(875), y(-600));
 
       //jet implementation
-      jet.draw();            
+      jet.draw();      
+      jet.checkRefuel(fuelDepot);
   
       break;
       
@@ -253,16 +259,15 @@ void draw() {
       //Fuel consumption
       fill(#00ff4e);
       
-      jet.updateFuel();
-      fuel = jet.getFuel();
+      jet.consume();
       
-      if(fuel > 0){
-        rect( x(887), y(-283), w(23), h((int)-fuel));
+      if(jet.getFuel() > 0){
+        rect( x(887), y(-283), w(23), h((int)-jet.getFuel()/2));
       }
       //Fuel actions
-      if (fuel < INITIAL_FUEL / 3){
+      if (jet.getFuel() < INITIAL_FUEL / 3){
             image(low_fuel, x(850), y(-250));
-        if (fuel <=0)
+        if (jet.getFuel() <=0)
             text("GAME OVER, LOOSER!!", x(400), y(500));
       }
   }
@@ -371,6 +376,9 @@ void checkTesting(){
     gameState = GameState.GAME;
   }
 }
+
+
+
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
 int x(int fakex)
