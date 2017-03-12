@@ -45,6 +45,12 @@ float distance = y;
 //Score variables
 int score = 0;
 
+// SECTION
+int section = 1;
+
+// ENEMIES
+ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
 boolean first_time = true; //not used for the moment
 
 Jet jet;
@@ -228,6 +234,32 @@ void draw() {
       jet.draw();      
       jet.checkRefuel(fuelDepot);
   
+  
+      /* Enemies implementation */
+      //Create new enemy
+      if(random(1) < 0.01 + section / 100){
+        float probability = random(1);
+        if(probability < 0.3){
+          enemies.add(new Tanker(section, speed));
+        }else if(probability >= 0.3 && probability < 0.6){
+          enemies.add(new Helicopter(section, speed));
+        }else{
+          enemies.add(new EnemyJet(section, speed));
+        }
+      }
+      
+      //Draw new enemy
+      for(int i=0; i<enemies.size(); i++){
+        Enemy enemy = enemies.get(i);
+        enemy.checkIsVisible();
+        if(enemy.isVisible){
+          enemy.draw();
+          //jet.checkCollision(e.island);
+        }else{  //Remove invisible enemy
+          enemies.remove(i);
+          i--;
+        }
+      }
       break;
       
   }

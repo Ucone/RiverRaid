@@ -12,7 +12,7 @@ public class Jet {
   public Jet(){
     x= 500;
     y = 900;
-    jet_image.resize(viewportW/15, viewportH/11);  
+    jet_image.resize(w(width/20), h(height/10));  
     fuel = INITIAL_FUEL;
   }
   
