@@ -34,6 +34,7 @@ int fontSize;
 
 //Variables for positions
 int x,y;
+
 //Initial speed
 int DEFAULT_SPEED = 3;
 int speed = 3;
@@ -234,9 +235,9 @@ void draw() {
       distance +=speed;
       progressValue += speed;
       jet.speed = speed;
-      if (changed){
+      if (speed_changed){
            speed= restore_speed;
-           changed = false;
+           speed_changed = false;
       }
        
       //Sections
@@ -298,12 +299,12 @@ void draw() {
           jet.moveRight();
       }
       if (keys[2]){  //UP
-          speed= speed+4;
-          changed = true;
+          speed = speed+4;
+          speed_changed = true;
       }
       if (keys[3]){   //DOWN
           speed= speed-2;
-          changed = true;      
+          speed_changed = true;      
       }
 
       break;
@@ -403,7 +404,7 @@ void controlEvent(ControlEvent theEvent) {
 }
 
     int restore_speed = speed;
-    boolean changed = false;
+    boolean speed_changed = false;
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
