@@ -3,9 +3,9 @@ class Island extends Element{
   boolean overcome = false;
  // PImage image;
   PImage originalImage;
-  int size; //<>// //<>//
+  int size; //<>// //<>// //<>//
   
-  Island(){ //<>// //<>//
+  Island(){ //<>// //<>// //<>//
     originalImage = loadImage("./images/sprites/isle.png");
     this.image = originalImage.copy();
     image.resize(w(200), h(200));
@@ -13,9 +13,9 @@ class Island extends Element{
     updateRandomSize();
   }
   
-  void drawIsland(){ //<>// //<>//
+  void drawIsland(){ //<>// //<>// //<>//
     if(yPos >= height){
-      updateRandomPosition(); //<>// //<>//
+      updateRandomPosition(); //<>// //<>// //<>//
       updateRandomSize();
     }
     

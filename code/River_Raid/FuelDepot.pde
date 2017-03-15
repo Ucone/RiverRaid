@@ -12,7 +12,7 @@ public class FuelDepot extends Element{
   
     void drawDepot(){
     if(yPos >= height + image.height){
-      updateRandomPosition(); //<>//
+      updateRandomPosition(); //<>// //<>//
     }
     
     yPos += speed;

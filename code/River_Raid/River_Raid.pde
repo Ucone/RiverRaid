@@ -40,8 +40,8 @@ int DEFAULT_SPEED = 3;
 int speed = 3;
 //Speed variables to change faster/slower
 int restore_speed = speed;
-boolean speed_changed = false;
-int ACCELERATION = 4; //fast speed = speed + ACCELERATION
+public boolean speed_changed = false;
+int ACCELERATION = 10; //fast speed = speed + ACCELERATION
 int DECELERATION = 2; //low speed = speed - DECELERATION
 
 //fuel variables
@@ -241,6 +241,7 @@ void draw() {
       distance +=speed;
       progressValue += speed;
       jet.speed = speed;
+      
       if (speed_changed){
            speed= restore_speed;
            speed_changed = false;
@@ -285,19 +286,6 @@ void draw() {
         }
       }
       
-      //Draw new enemy
-      for(int i=0; i<enemies.size(); i++){
-        Enemy enemy = enemies.get(i);
-        enemy.checkIsVisible();
-        if(enemy.isVisible){
-          enemy.draw();
-          jet.checkCollision(enemy);
-        }else{  //Remove invisible enemy
-          enemies.remove(i);
-          i--;
-        }
-      }
-      
       //Jet efficient movement
       if (keys[0]){  //LEFT
           jet.moveLeft();
@@ -313,6 +301,21 @@ void draw() {
           speed= speed - DECELERATION;
           speed_changed = true;      
       }
+      
+      //Draw new enemy
+      for(int i=0; i<enemies.size(); i++){
+        Enemy enemy = enemies.get(i);
+        enemy.checkIsVisible();
+        if(enemy.isVisible){
+          enemy.drawEnemy();
+          jet.checkCollision(enemy);
+        }else{  //Remove invisible enemy
+          enemies.remove(i);
+          i--;
+        }
+      }
+      
+
 
       break;
       
@@ -417,9 +420,11 @@ void keyPressed(){
           keys[1]= true;
           break;
        case UP:
+       //speed_changed = true;  
           keys[2]= true;
           break;
        case DOWN:
+       //speed_changed = true;  
           keys[3]= true;
        break;    
       }  

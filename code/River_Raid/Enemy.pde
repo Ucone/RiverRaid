@@ -20,10 +20,24 @@ public class Enemy extends Element{
       //this.mapSpeed = mapSpeed;
     }
     
-    public void draw(){
+    public void drawEnemy(){
 
       this.move();
-      yPos += speed;
+      //if (speed_changed){  
+      //  print("speed changed");
+      //  yPos += speed +ACCELERATION;
+      //} else{
+       
+      //}
+      if (speed_changed){
+            //Jet jet2 = new Jet();
+            //jet2.draw();
+      }else{
+        //Jet jet2 = new Jet();
+        //    jet2.draw();
+      }
+       yPos += speed;
+      
       image(image, x(xPos), y(yPos));
     }
     

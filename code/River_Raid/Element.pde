@@ -8,10 +8,10 @@ public class Element{
   int xPos = 100;
   int yPos = -1500;
 
-   //<>//
+   //<>// //<>//
   //void drawElement(){
   //  if(yPos >= height + image.height){
-  //    updateRandomPosition(); //<>//
+  //    updateRandomPosition(); //<>// //<>//
   //  }
     
   //  yPos += speed;
