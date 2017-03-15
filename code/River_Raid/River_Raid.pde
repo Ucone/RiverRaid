@@ -269,7 +269,7 @@ void draw() {
       image(fuel_icon, x(875), y(400));
 
       //jet implementation
-      jet.draw();      
+      jet.drawJet();      
       jet.checkRefuel(fuelDepot);
   
   

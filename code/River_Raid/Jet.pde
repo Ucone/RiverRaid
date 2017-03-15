@@ -22,7 +22,7 @@ public class Jet {
     speed = DEFAULT_SPEED;
   }
   
-  public void draw(){   
+  public void drawJet(){   
     if(!crashed)
       image(image, x(x), y(y));
     else
@@ -59,14 +59,14 @@ public class Jet {
   
   public void moveLeft(){
       x= x-7;
-      translate(x, y);
-      //image(image, x, y);
+      //translate(x, y);
+      image(image, x, y);
   }
    
    public void moveRight(){
       x= x+7;
-      translate(x, y);
-      //image(jet_image, x, y);
+      //translate(x, y);
+      image(image, x, y);
   }
   
   public void consume(){
