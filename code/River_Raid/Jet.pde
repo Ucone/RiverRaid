@@ -1,76 +1,37 @@
-public class Jet {
+class Jet extends Element{
   
-  private int id;  // in case we desing more jets
-  private PImage image = loadImage("./images/sprites/jet.png");
-  private PImage imageCrashed = loadImage("./images/sprites/crash.png");
-  //jet coordenates
-  private int x;
-  private int y;
-  
+  PImage imageCrashed;
   private int fuel;
-  
-  public int speed;
-  
   private boolean crashed = false;
+  int speed;
   
-  public Jet(){
-    x= 500;
-    y = 800;
-    image.resize(w(90), h(160));  
-    imageCrashed.resize(w(90), h(160));  
-    fuel = INITIAL_FUEL;
-    speed = DEFAULT_SPEED;
-  }
-  
-  public void drawJet(){   
-    if(!crashed)
-      image(image, x(x), y(y));
-    else
-      image(imageCrashed, x(x), y(y));
-  }
-
-  
-  public int getX(){
-       return x; 
-  }
-
-  public void setX(int x){
-     this.x= x; 
-  }
-  
-  public int getY(){
-     return y; 
-  }
-  
-  public void setY(int y){
-      this.y=y;
-  }
-  
-  public int getFuel(){
-    return fuel;
-  }
-  
-  public void setFuel(int fuel){
-    this.fuel = fuel;
-  }
-  public PImage getImage(){
-    return image;
-  }
-  
-  public void moveLeft(){
-      x= x-7;
-      //translate(x, y);
-      image(image, x, y);
-  }
+   Jet(){
+     this.image = loadImage("./images/sprites/jet.png");
+     this.imageCrashed = loadImage("./images/sprites/crash.png");
+     image.resize(w(90), h(160));
+     imageCrashed.resize(w(90), h(160));
+     yPos = 800;
+     xPos = 500;
+     fuel = INITIAL_FUEL;
+   }
+   
+   public void drawJet(){
+     if(!crashed)
+       image(this.image, x(xPos), y(yPos));
+     else
+       image(this.imageCrashed, x(xPos), y(yPos));
+   }
+   
+   public void moveLeft(){
+     xPos = xPos - 7;
+   }
    
    public void moveRight(){
-      x= x+7;
-      //translate(x, y);
-      image(image, x, y);
-  }
-  
-  public void consume(){
-    this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*this.speed*2);
+     xPos = xPos + 7;
+   }
+   
+   public void consume(){
+      this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2);
   }
   
   /*** REFUEL ***/
@@ -80,30 +41,30 @@ public class Jet {
       fuelDepotY = 1000 + fuelDepotY;
     }
     
-    if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
-        ( (jet.getY() >= fuelDepotY) && (jet.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
-          jet.refuel();
+    if((this.getX() >= fuelDepot.getX()) && (this.getX() + this.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
+        ( (this.getY() >= fuelDepotY) && (this.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
+          this.refuel();
           VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
     }
   }
-
+  
   public void refuel(){
     int refuelSpeed = 3;
-    
-    if(this.speed < DEFAULT_SPEED){
+    if(speed < DEFAULT_SPEED){
       refuelSpeed = 8;
     }
     if(this.fuel < INITIAL_FUEL){
       this.fuel = (int)(this.fuel + refuelSpeed);
     }
   }
-  
-  
-  public void checkCollision(Element e){
-    if(((abs(this.x - e.xPos) < 60 && abs(this.y - e.yPos) < 60))  // check the collision with enemies;
-        || (this.x < 0 || this.x > width) // check the collision with map elements (need to fix);
+   
+   
+   /* COLLISION */
+   public void checkCollision(Element e){
+    if(((abs(this.getX() - e.xPos) < 60 && abs(this.getY() - e.yPos) < 60))  // check the collision with enemies;
+        || (this.getX() < 0 || this.getY() > width) // check the collision with map elements (need to fix);
          || islandCollision()
         ){
         this.crashed = true;
@@ -115,4 +76,12 @@ public class Jet {
       return true;
     return false;
   }
+  
+   public int getFuel(){
+     return fuel;
+   }
+   
+   public void setFuel(int fuel){
+     this.fuel = fuel;
+   }
 }
