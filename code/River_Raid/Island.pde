@@ -13,35 +13,15 @@ class Island extends Element{
     updateRandomSize();
   }
   
-    //FuelDepot(){ //<>//
-    //this.image = loadImage("./images/sprites/fueldepot.png");
-    //image.resize(viewportW / 5, viewportH / 3); //<>//
-//  }
-//  
-  
-  
-  void drawIsland(){ //<>//
+  void drawIsland(){ //<>// //<>//
     if(yPos >= height){
-      updateRandomPosition(); //<>//
+      updateRandomPosition(); //<>// //<>//
       updateRandomSize();
     }
     
     yPos += speed;
     image(this.image, x(xPos), y(yPos));
   }
-  
-  //    void drawDepot(){
-  //  if(yPos >= height + image.height){
-  //    updateRandomPosition(); //<>//
-  //  }
-    
-  //  yPos += speed;
-  //  image(this.image, x(xPos), y(yPos));
-  //}
-  
-  
-  
-  
   
   void updateRandomPosition(){
     xPos = (int) random(viewportW/3, viewportW-viewportW/3-image.width);
