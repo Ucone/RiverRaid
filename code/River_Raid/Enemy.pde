@@ -8,7 +8,6 @@ public class Enemy extends Element{
     
     public boolean isVisibile = true;
     public int section;
-    //public int mapSpeed;
     public boolean direction = true; //True: right, False: left
     public boolean isVisible = true;
     public int score;
@@ -17,7 +16,6 @@ public class Enemy extends Element{
     public Enemy(int section, int mapSpeed){
       this.xPos = (int)random(width);
       this.section = section;
-      //this.mapSpeed = mapSpeed;
     }
     
     public void drawEnemy(){
