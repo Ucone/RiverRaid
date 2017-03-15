@@ -40,8 +40,8 @@ int DEFAULT_SPEED = 3;
 int speed = 3;
 //Speed variables to change faster/slower
 int restore_speed = speed;
-public boolean speed_changed = false;
-int ACCELERATION = 10; //fast speed = speed + ACCELERATION
+boolean speed_changed = false;
+int ACCELERATION = 4; //fast speed = speed + ACCELERATION
 int DECELERATION = 2; //low speed = speed - DECELERATION
 
 //fuel variables

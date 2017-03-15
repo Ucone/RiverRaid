@@ -22,20 +22,7 @@ public class Enemy extends Element{
     
     public void drawEnemy(){
 
-      this.move();
-      //if (speed_changed){  
-      //  print("speed changed");
-      //  yPos += speed +ACCELERATION;
-      //} else{
-       
-      //}
-      if (speed_changed){
-            //Jet jet2 = new Jet();
-            //jet2.draw();
-      }else{
-        //Jet jet2 = new Jet();
-        //    jet2.draw();
-      }
+       this.move();
        yPos += speed;
       
       image(image, x(xPos), y(yPos));
@@ -50,9 +37,6 @@ public class Enemy extends Element{
       else
         xPos -= lateralSpeed;
         
-      //yPos += speed;
-    //yPos += speed;
-    //image(this.image, x(xPos), y(yPos));
     }
     
     public void checkIsVisible(){
