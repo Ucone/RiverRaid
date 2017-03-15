@@ -65,6 +65,7 @@ boolean first_time = true; //not used for the moment
 boolean keys [];
 
 Jet jet;
+NewJet newjet;
 
 void setup() {
   fullScreen();
@@ -154,7 +155,7 @@ void setup() {
   
   //Create the jet
   jet = new Jet();
-  
+  newjet = new NewJet();
   //for movement simultaneous.
     keys = new boolean[4];  // now is 4 because of: LEFT RIGTH UP DOWN.
     //if we include more (like spacebar for shoot), change the lentgh of the array/ or maybe not, check
@@ -269,9 +270,9 @@ void draw() {
       image(fuel_icon, x(875), y(400));
 
       //jet implementation
-      jet.drawJet();      
-      jet.checkRefuel(fuelDepot);
-  
+        //jet.drawJet();      
+        //jet.checkRefuel(fuelDepot);
+      newjet.drawJet();
   
       /* Enemies implementation */
       //Create new enemy
