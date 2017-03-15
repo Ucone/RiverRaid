@@ -232,8 +232,9 @@ void draw() {
          score +=30; 
       }
       
+      //Drawing Fuel depots and Islands
       island.drawIsland();
-      fuelDepot.drawElement();
+      fuelDepot.drawDepot();
       
      // speedset initial speed
       y+=speed;
