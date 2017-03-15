@@ -1,17 +1,24 @@
-class Island{
-  float xPos, yPos = 0;
+class Island extends Element{
+ // int xPos, yPos = 0;
   boolean overcome = false;
-  PImage image;
+ // PImage image;
   PImage originalImage;
-  int size; //<>//
+  int size; //<>// //<>//
   
-  Island(){ //<>//
+  Island(){ //<>// //<>//
     originalImage = loadImage("./images/sprites/isle.png");
-    image = originalImage.copy();
+    this.image = originalImage.copy();
     image.resize(w(200), h(200));
     updateRandomPosition();
     updateRandomSize();
   }
+  
+    //FuelDepot(){ //<>//
+    //this.image = loadImage("./images/sprites/fueldepot.png");
+    //image.resize(viewportW / 5, viewportH / 3); //<>//
+//  }
+//  
+  
   
   void drawIsland(){ //<>//
     if(yPos >= height){
@@ -20,13 +27,25 @@ class Island{
     }
     
     yPos += speed;
-    image(this.image, xPos, yPos);
+    image(this.image, x(xPos), y(yPos));
   }
+  
+  //    void drawDepot(){
+  //  if(yPos >= height + image.height){
+  //    updateRandomPosition(); //<>//
+  //  }
+    
+  //  yPos += speed;
+  //  image(this.image, x(xPos), y(yPos));
+  //}
+  
+  
+  
   
   
   void updateRandomPosition(){
-    this.xPos = random(viewportW/3, viewportW-viewportW/3-image.width);
-    this.yPos = random(-600, -2000);
+    xPos = (int) random(viewportW/3, viewportW-viewportW/3-image.width);
+    yPos = (int)random(-600, -2000);
   }
   
   void updateRandomSize(){
