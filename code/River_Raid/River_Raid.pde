@@ -289,10 +289,10 @@ void draw() {
       
       //Jet efficient movement
       if (keys[0]){  //LEFT
-          jet.moveLeft();
+          newjet.moveLeft();
       }
       if (keys[1]){  //RIGTH
-          jet.moveRight();
+          newjet.moveRight();
       }
       if (keys[2]){  //UP
           speed = speed + ACCELERATION;
