@@ -35,9 +35,12 @@ int fontSize;
 //Variables for positions
 int x,y;
 
-//Initial speed
+//Speed variables
 int DEFAULT_SPEED = 3;
 int speed = 3;
+//Speed variables to change faster/slower
+int restore_speed = speed;
+boolean speed_changed = false;
 
 //fuel variables
 int INITIAL_FUEL= 600;
@@ -352,15 +355,8 @@ void draw() {
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
   }
-  
-//    WE SHOULD DRAW THE FIRST THINKS OUTSIDE, but don't know how yet
-/*
-  void first_draw(){
-    fill(100);
-    rect( width - 70, height - 200, 60, -INITIAL_FUEL);
-    first_time=false;
-  }
-*/
+
+
 
 /* Loads the image of the story defined by the GameState */
 /* @return The image loaded*/
@@ -403,8 +399,6 @@ void controlEvent(ControlEvent theEvent) {
   gameState = GameState.STORY_1;
 }
 
-    int restore_speed = speed;
-    boolean speed_changed = false;
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)

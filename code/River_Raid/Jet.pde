@@ -93,7 +93,7 @@ public class Jet {
     int refuelSpeed = 3;
     
     if(this.speed < DEFAULT_SPEED){
-      refuelSpeed = 10;
+      refuelSpeed = 8;
     }
     if(this.fuel < INITIAL_FUEL){
       this.fuel = (int)(this.fuel + refuelSpeed);
