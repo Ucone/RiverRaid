@@ -41,6 +41,8 @@ int speed = 3;
 //Speed variables to change faster/slower
 int restore_speed = speed;
 boolean speed_changed = false;
+int ACCELERATION = 4; //fast speed = speed + ACCELERATION
+int DECELERATION = 2; //low speed = speed - DECELERATION
 
 //fuel variables
 int INITIAL_FUEL= 600;
@@ -252,6 +254,7 @@ void draw() {
         section++;
         progressValue = 0;
       }
+      
       //To restart the map and make it ciclique
       if (y >= 1000){
           y=0;
@@ -302,11 +305,11 @@ void draw() {
           jet.moveRight();
       }
       if (keys[2]){  //UP
-          speed = speed+4;
+          speed = speed + ACCELERATION;
           speed_changed = true;
       }
       if (keys[3]){   //DOWN
-          speed= speed-2;
+          speed= speed - DECELERATION;
           speed_changed = true;      
       }
 
