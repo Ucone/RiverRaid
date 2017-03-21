@@ -31,7 +31,8 @@ class Jet extends Element{
    }
    
    public void consume(){
-      this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2);
+     if(this.fuel > 0)
+       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2);
   }
   
   /*** REFUEL ***/
