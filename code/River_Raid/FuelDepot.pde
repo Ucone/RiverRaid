@@ -3,7 +3,8 @@ public class FuelDepot extends Element{
   FuelDepot(){
     this.type = ElementType.FUEL_DEPOT;
     this.image = loadImage("./images/sprites/fueldepot.png");
-    image.resize(viewportW / 5, viewportH / 3);
+    image.resize(viewportW / 6, viewportH / 4);
+    updateRandomPosition();
   }
   
   
@@ -12,7 +13,7 @@ public class FuelDepot extends Element{
     this.yPos = (int)random(-1500, -3000) - this.image.height;
   }
 
-    void drawDepot(){
+    void drawDepot(){ //<>//
     if(yPos >= viewportH + image.height){ //<>//
       updateRandomPosition(); //<>// //<>//
     }

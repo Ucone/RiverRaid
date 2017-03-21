@@ -8,9 +8,9 @@ class Jet extends Element{
    Jet(){
      this.image = loadImage("./images/sprites/jet.png");
      this.imageCrashed = loadImage("./images/sprites/crash.png");
-     image.resize(w(90), h(160));
-     imageCrashed.resize(w(90), h(160));
-     yPos = 600;
+     image.resize(w(80), h(130));
+     imageCrashed.resize(w(80), h(130));
+     yPos = 800;
      xPos = 500;
      fuel = INITIAL_FUEL;
    }
