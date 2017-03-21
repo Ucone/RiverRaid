@@ -16,13 +16,10 @@ class Jet extends Element{
    }
    
    public void drawJet(){
-     /*
      if(!crashed)
        image(this.image, x(xPos), y(yPos));
      else
        image(this.imageCrashed, x(xPos), y(yPos));
-     */
-      image(this.image, x(xPos), y(yPos));
    }
    
    public void moveLeft(){
@@ -66,24 +63,23 @@ class Jet extends Element{
    
    /* COLLISION */
    public void checkCollision(Element e){
-    if(
-         mapCollision()
-         || islandCollision(e)
-        ){
+    if(enemyCollision(e) || mapCollision() || islandCollision(e)){
         this.crashed = true;
-      }
+    }
   }
   
   private boolean enemyCollision(Element e){
-    if((abs(this.getX() - e.xPos) < 60 && abs(this.getY() - e.yPos) < 60))
-      return true;
+    if(e.type == ElementType.ENEMY){
+      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height){
+        return true;
+      }
+    }
     return false;
   }
   
   private boolean islandCollision(Element e){
     if(e.type == ElementType.ISLAND){
-      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height){
-        text("CRASHED", x(500), y(500)); 
+      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height){ 
         return true;
       }
     }
@@ -95,7 +91,9 @@ class Jet extends Element{
       return true;
     return false;
   }
-   public int getFuel(){
+  
+  
+  public int getFuel(){
      return fuel;
    }
    
