@@ -65,7 +65,7 @@ boolean first_time = true; //not used for the moment
 //for movement simultaneous
 boolean keys [];
 
-Jet Jet;
+Jet jet;
 
 void setup() {
   fullScreen();
@@ -154,7 +154,7 @@ void setup() {
   checkTesting();
   
   //Create the jet
-  Jet = new Jet();
+  jet = new Jet();
   //for movement simultaneous.
     keys = new boolean[4];  // now is 4 because of: LEFT RIGTH UP DOWN.
     //if we include more (like spacebar for shoot), change the lentgh of the array/ or maybe not, check
@@ -234,14 +234,14 @@ void draw() {
       
       //Drawing Fuel depots and Islands
       island.drawIsland();
-      Jet.checkCollision(island);
+      jet.checkCollision(island);
       fuelDepot.drawDepot();
       
      // speedset initial speed
       y+=speed;
       distance +=speed;
       progressValue += speed;
-      Jet.speed = speed;
+      jet.speed = speed;
       
       if (speed_changed){
            speed= restore_speed;
@@ -270,8 +270,8 @@ void draw() {
       image(fuel_icon, x(875), y(400));
 
       //jet implementation
-      Jet.checkRefuel(fuelDepot);
-      Jet.drawJet();
+      jet.checkRefuel(fuelDepot);
+      jet.drawJet();
   
       /* Enemies implementation */
       //Create new enemy
@@ -288,10 +288,10 @@ void draw() {
       
       //Jet efficient movement
       if (keys[0]){  //LEFT
-          Jet.moveLeft();
+          jet.moveLeft();
       }
       if (keys[1]){  //RIGTH
-          Jet.moveRight();
+          jet.moveRight();
       }
       if (keys[2]){  //UP
           speed = speed + ACCELERATION;
@@ -308,7 +308,7 @@ void draw() {
         enemy.checkIsVisible();
         if(enemy.isVisible){
           enemy.drawEnemy();
-          Jet.checkCollision(enemy);
+          jet.checkCollision(enemy);
         }else{  //Remove invisible enemy
           enemies.remove(i);
           i--;
@@ -350,15 +350,15 @@ void draw() {
       //Fuel consumption
       fill(#00ff4e);
       
-      Jet.consume();
+      jet.consume();
       
-      if(Jet.getFuel() > 0){
-        rect( x(887), y(1000-283), w(23), h((int)-Jet.getFuel()/2));
+      if(jet.getFuel() > 0){
+        rect( x(887), y(1000-283), w(23), h((int)-jet.getFuel()/2));
       }
       //Fuel actions
-      if (Jet.getFuel() < INITIAL_FUEL / 3){
+      if (jet.getFuel() < INITIAL_FUEL / 3){
             image(low_fuel, x(850), y(750));
-        if (Jet.getFuel() <=0)
+        if (jet.getFuel() <=0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
   }
