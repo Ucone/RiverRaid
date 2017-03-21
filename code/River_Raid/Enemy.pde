@@ -29,7 +29,7 @@ public class Enemy extends Element{
     }
     
     public void move(){
-      if(xPos >= width || xPos <= 0)
+      if(xPos >= viewportW - this.image.width || xPos <= 0)
         this.direction = !direction;
       
       if(this.direction)
@@ -40,7 +40,7 @@ public class Enemy extends Element{
     }
     
     public void checkIsVisible(){
-      if(this.yPos >= height){
+      if(yPos > viewportH + this.image.height*3){
         this.isVisible = false;
       }else{
         this.isVisible = true;

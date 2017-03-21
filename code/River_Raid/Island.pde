@@ -15,7 +15,7 @@ class Island extends Element{
   }
    //<>//
   void drawIsland(){ //<>// //<>// //<>//
-    if(yPos >= height){ //<>//
+    if(yPos > viewportH + image.height*2){ //<>//
       updateRandomPosition(); //<>// //<>// //<>//
       updateRandomSize();
     }
