@@ -10,6 +10,7 @@ public enum GameState {
   STORY_4,
   GAME,
 };  // Different states of the game
+public enum ElementType {ISLAND, ENEMY, FUEL_DEPOT};
 
 ControlP5 cp5;
 PFont font;
@@ -233,6 +234,7 @@ void draw() {
       
       //Drawing Fuel depots and Islands
       island.drawIsland();
+      Jet.checkCollision(island);
       fuelDepot.drawDepot();
       
      // speedset initial speed
