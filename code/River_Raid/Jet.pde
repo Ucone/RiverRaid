@@ -63,26 +63,14 @@ class Jet extends Element{
    
    /* COLLISION */
    public void checkCollision(Element e){
-    if(enemyCollision(e) || mapCollision() || islandCollision(e)){
+    if(elementCollision(e) || mapCollision()){
         this.crashed = true;
     }
   }
-  
-  private boolean enemyCollision(Element e){
-    if(e.type == ElementType.ENEMY){
-      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height){
+
+  private boolean elementCollision(Element e){
+      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height) 
         return true;
-      }
-    }
-    return false;
-  }
-  
-  private boolean islandCollision(Element e){
-    if(e.type == ElementType.ISLAND){
-      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height){ 
-        return true;
-      }
-    }
     return false;
   }
   
