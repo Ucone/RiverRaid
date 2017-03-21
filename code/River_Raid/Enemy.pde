@@ -29,14 +29,25 @@ public class Enemy extends Element{
     }
     
     public void move(){
-      if(xPos >= viewportW - this.image.width || xPos <= 0)
+      if(xPos >= viewportW - this.image.width || xPos <= 0 || islandCollision() || fuelDepotCollision())
         this.direction = !direction;
       
       if(this.direction)
         xPos += lateralSpeed;
       else
-        xPos -= lateralSpeed;
-        
+        xPos -= lateralSpeed;    
+    }
+    
+    private boolean islandCollision(){
+       if((abs(island.getX() - this.getX()) <= island.getImage().width / 2) && abs(island.getY() - this.getY()) <= island.getImage().height)
+         return true;
+       return false;
+    }
+    
+    private boolean fuelDepotCollision(){
+      if((abs(fuelDepot.getX() - this.getX()) <= fuelDepot.getImage().width / 2) && abs(fuelDepot.getY() - this.getY()) <= fuelDepot.getImage().height)
+         return true;
+      return false;
     }
     
     public void checkIsVisible(){
