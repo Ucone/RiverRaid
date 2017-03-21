@@ -3,15 +3,15 @@ import controlP5.*;
 public class Element{
   
   public PImage image;
-  
   //Coordenates
-  int xPos = 100;
-  int yPos = -1500;
+  int xPos = 0;
+  int yPos = 0;
+  ElementType type;
 
-   //<>// //<>//
+   //<>// //<>// //<>//
   //void drawElement(){
   //  if(yPos >= height + image.height){
-  //    updateRandomPosition(); //<>// //<>//
+  //    updateRandomPosition(); //<>// //<>// //<>//
   //  }
     
   //  yPos += speed;
@@ -19,8 +19,10 @@ public class Element{
   //}
   
   void updateRandomPosition(){
-    this.xPos = (int)random(200, 600);
-    this.yPos = (int)random(-1500, -3000) - this.image.height;
+    //this.xPos = (int)random(200, 600);
+    //this.yPos = (int)random(-1500, -3000) - this.image.height;
+    this.xPos = 0;
+    this.yPos = 0;
   }
   
   public int getX(){

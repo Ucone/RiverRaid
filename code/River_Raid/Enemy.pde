@@ -14,6 +14,7 @@ public class Enemy extends Element{
     public int lateralSpeed;
     
     public Enemy(int section, int mapSpeed){
+      this.type = ElementType.ENEMY;
       this.xPos = (int)random(width);
       this.section = section;
     }
@@ -24,6 +25,7 @@ public class Enemy extends Element{
        yPos += speed;
       
       image(image, x(xPos), y(yPos));
+      
     }
     
     public void move(){
