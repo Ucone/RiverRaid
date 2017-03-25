@@ -68,7 +68,7 @@ boolean keys [];
 Jet jet;
 
 void setup() {
-  fullScreen();
+  fullScreen(P2D);
   
   viewportW = width;
   viewportH = (int)((float)width / 16. * 9.);
