@@ -189,7 +189,7 @@ int getDelta() {
 
 void draw() {
   int delta = getDelta();
-  float nD = 20.0 / delta;
+  float nD = delta / TICK_MS;
   switch(gameState){
     case WELCOME:
       image(startImg, x(0), y(0));
