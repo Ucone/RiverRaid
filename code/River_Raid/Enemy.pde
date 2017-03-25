@@ -21,13 +21,13 @@ public class Enemy extends Element{
       return (yPos <= viewportH + this.image.height*3);
     }
     
+    public void update() {
+      this.move();
+      yPos += speed;
+    }
+    
     public void drawEnemy(){
-
-       this.move();
-       yPos += speed;
-      
       image(image, x(xPos), y(yPos));
-      
     }
     
     public void move(){

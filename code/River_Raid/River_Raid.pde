@@ -309,6 +309,7 @@ void draw() {
       for(int i=0; i<enemies.size(); i++){
         Enemy enemy = enemies.get(i);
         if(enemy.isVisible()){
+          enemy.update();
           enemy.drawEnemy();
           jet.checkCollision(enemy);
         }else{  //Remove invisible enemy
