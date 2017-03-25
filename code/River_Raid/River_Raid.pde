@@ -50,6 +50,9 @@ int INITIAL_FUEL= 600;
 float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
 
+// timekeeping
+int lastmillis = -1;
+
 //Score variables
 int score = 0;
 
@@ -173,7 +176,19 @@ void setup() {
 
 }
 
+int getDelta() {
+  if(lastmillis == -1) {
+    lastmillis = millis();
+    return 0;
+  }
+  int delta = millis() - lastmillis;
+  lastmillis = millis();
+  return delta;
+}
+
 void draw() {
+  int delta = getDelta();
+  float nD = 20.0 / delta;
   switch(gameState){
     case WELCOME:
       image(startImg, x(0), y(0));

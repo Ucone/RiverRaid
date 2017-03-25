@@ -13,12 +13,12 @@ public class Enemy extends Element{
     
     public Enemy(int section, int mapSpeed){
       this.type = ElementType.ENEMY;
-      this.xPos = (int)random(width);
+      this.xPos = (int)random(1000);
       this.section = section;
     }
     
     public boolean isVisible(){
-      return (yPos <= viewportH + this.image.height*3);
+      return (y(yPos) <= viewportH + this.image.height*3);
     }
     
     public void update() {
