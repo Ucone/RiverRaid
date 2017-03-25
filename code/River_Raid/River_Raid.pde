@@ -258,6 +258,7 @@ void draw() {
       if(distance / 5000 >= section){
         section++;
         progressValue = 0;
+        jet.addReserveJet();
       }
       
       //To restart the map and make it ciclique

@@ -67,6 +67,7 @@ class Jet extends Element{
    public void checkCollision(Element e){
     if(elementCollision(e) || mapCollision()){
         this.crashed = true;
+        this.removeReserveJet();
     }
   }
 
