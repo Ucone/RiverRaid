@@ -250,8 +250,10 @@ void draw() {
       }
       
       //Drawing Fuel depots and Islands
+      island.update(nD);
       island.drawIsland();
       jet.checkCollision(island);
+      fuelDepot.update(nD);
       fuelDepot.drawDepot();
       
      // speedset initial speed
