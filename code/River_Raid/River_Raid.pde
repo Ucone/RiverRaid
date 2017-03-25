@@ -21,7 +21,7 @@ GameState gameState = GameState.WELCOME;
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 PImage fuel_icon, low_fuel;
-PImage scoreboard;
+PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
 Island island;
 FuelDepot fuelDepot;
@@ -130,6 +130,7 @@ void setup() {
   map1 = loadImage("./images/background.png");
   map1.resize(viewportW, viewportH);
   scoreboard = loadImage("./images/sprites/scoreboard.png");
+  reserve = loadImage("./images/sprites/progress_cursor.png");
 
   //Elements images
   fuel_icon = loadImage("./images/sprites/fuelgauge.png");
@@ -143,6 +144,7 @@ void setup() {
   progressIndicator.resize(w(50), h(50));
   
   scoreboard.resize(viewportW/7, viewportH/5);
+  reserve.resize(w(40), h(40));
   
   // Defines the island object
   island = new Island();
@@ -340,7 +342,10 @@ void draw() {
     fill(0);
     text(score, x(100), y(880));
     
-    text("Level: " + section, x(100), y(920));
+    text("Level: " + section, x(70), y(920));
+    
+    image(reserve, x(100), y(890));
+    text("x" + jet.getReserveJets(), x(140), y(920));
     
   }
 

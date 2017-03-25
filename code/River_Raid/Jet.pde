@@ -4,6 +4,7 @@ class Jet extends Element{
   private int fuel;
   private boolean crashed = false;
   int speed;
+  private int reserveJets = 0;
   
    Jet(){
      this.image = loadImage("./images/sprites/jet.png");
@@ -89,4 +90,17 @@ class Jet extends Element{
    public void setFuel(int fuel){
      this.fuel = fuel;
    }
+   
+  public int getReserveJets(){
+     return this.reserveJets; 
+  }
+  
+  public void addReserveJet(){
+    this.reserveJets++;
+  }
+  
+  public void removeReserveJet(){
+    if(this.reserveJets > 0)
+      this.reserveJets--;
+  }
 }
