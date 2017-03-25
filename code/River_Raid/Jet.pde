@@ -31,13 +31,13 @@ class Jet extends Element{
      xPos = xPos + 7;
    }
    
-   public void consume(){
+   public void consume(float nD){
      if(this.fuel > 0)
-       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2);
+       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2*nD);
   }
   
   /*** REFUEL ***/
-  public void checkRefuel(FuelDepot fuelDepot){
+  public void checkRefuel(FuelDepot fuelDepot, float nD){
     int fuelDepotY = fuelDepot.getY();
     if(fuelDepotY < 0){
       fuelDepotY = 1000 + fuelDepotY;
@@ -45,20 +45,20 @@ class Jet extends Element{
     
     if((this.getX() >= fuelDepot.getX()) && (this.getX() + this.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
         ( (this.getY() >= fuelDepotY) && (this.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
-          this.refuel();
+          this.refuel(nD);
           VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
     }
   }
   
-  public void refuel(){
+  public void refuel(float nD){
     int refuelSpeed = 3;
     if(speed < DEFAULT_SPEED){
       refuelSpeed = 8;
     }
     if(this.fuel < INITIAL_FUEL){
-      this.fuel = (int)(this.fuel + refuelSpeed);
+      this.fuel = (int)(this.fuel + refuelSpeed * nD);
     }
   }
    

@@ -286,11 +286,14 @@ void draw() {
       //fuel implementation
       fuel_implementation();
       
+      jet.consume(nD);
+      
       //fuel icon
       image(fuel_icon, x(875), y(400));
 
       //jet implementation
-      jet.checkRefuel(fuelDepot);
+      jet.checkRefuel(fuelDepot, nD);
+      
       jet.drawJet();
   
       /* Enemies implementation */
@@ -372,8 +375,6 @@ void draw() {
   void fuel_implementation(){
       //Fuel consumption
       fill(#00ff4e);
-      
-      jet.consume();
       
       if(jet.getFuel() > 0){
         rect( x(887), y(1000-283), w(23), h((int)-jet.getFuel()/2));
