@@ -255,7 +255,7 @@ void draw() {
       int aux = (int)(200*progressValue)/5000;
       image(progressIndicator, x(aux), y(600));
 
-      if(distance / 5000 >= section){
+      if(progressValue / 5000 >= section){
         section++;
         progressValue = 0;
         jet.addReserveJet();
@@ -278,7 +278,7 @@ void draw() {
   
       /* Enemies implementation */
       //Create new enemy
-      if(random(1) < 0.01 + section / 100){
+      if(random(1) < 0.01 + (float)section / 100){
         float probability = random(1);
         if(probability < 0.3){
           enemies.add(new Tanker(section, speed));
