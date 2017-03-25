@@ -73,7 +73,7 @@ Jet jet;
 
 void setup() {
   fullScreen();
-  
+  frameRate(60);
   viewportW = width;
   viewportH = (int)((float)width / 16. * 9.);
   
