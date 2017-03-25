@@ -18,6 +18,10 @@ public class Enemy extends Element{
       this.section = section;
     }
     
+    public boolean isVisible(){
+      return (yPos <= viewportH + this.image.height*3)
+    }
+    
     public void drawEnemy(){
 
        this.move();
@@ -49,13 +53,6 @@ public class Enemy extends Element{
       return false;
     }
     
-    public void checkIsVisible(){
-      if(yPos > viewportH + this.image.height*3){
-        this.isVisible = false;
-      }else{
-        this.isVisible = true;
-      }
-    }
 }
     class Tanker extends Enemy {
       public Tanker(int section, int speed){

@@ -308,7 +308,6 @@ void draw() {
       //Draw new enemy
       for(int i=0; i<enemies.size(); i++){
         Enemy enemy = enemies.get(i);
-        enemy.checkIsVisible();
         if(enemy.isVisible){
           enemy.drawEnemy();
           jet.checkCollision(enemy);
