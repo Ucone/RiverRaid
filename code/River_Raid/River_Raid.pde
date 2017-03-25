@@ -51,6 +51,7 @@ float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
 
 // timekeeping
+float TICK_MS = 20;
 int lastmillis = -1;
 
 //Score variables
