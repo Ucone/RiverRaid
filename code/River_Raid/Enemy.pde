@@ -8,7 +8,6 @@ public class Enemy extends Element{
     
     public int section;
     public boolean direction = true; //True: right, False: left
-    public boolean isVisible = true;
     public int score;
     public int lateralSpeed;
     
@@ -19,7 +18,7 @@ public class Enemy extends Element{
     }
     
     public boolean isVisible(){
-      return (yPos <= viewportH + this.image.height*3)
+      return (yPos <= viewportH + this.image.height*3);
     }
     
     public void drawEnemy(){
