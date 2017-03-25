@@ -255,9 +255,9 @@ void draw() {
       fuelDepot.drawDepot();
       
      // speedset initial speed
-      y+=speed;
-      distance +=speed;
-      progressValue += speed;
+      y+=speed*nD;
+      distance +=speed*nD;
+      progressValue += speed*nD;
       jet.speed = speed;
       
       if (speed_changed){
@@ -324,7 +324,7 @@ void draw() {
       for(int i=0; i<enemies.size(); i++){
         Enemy enemy = enemies.get(i);
         if(enemy.isVisible()){
-          enemy.update();
+          enemy.update(nD);
           enemy.drawEnemy();
           jet.checkCollision(enemy);
         }else{  //Remove invisible enemy

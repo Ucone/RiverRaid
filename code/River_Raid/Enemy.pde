@@ -21,21 +21,21 @@ public class Enemy extends Element{
       return (y(yPos) <= viewportH + this.image.height*3);
     }
     
-    public void update() {
-      this.move();
-      yPos += speed;
+    public void update(float nD) {
+      this.move(nD);
+      yPos += speed * nD;
     }
     
     public void drawEnemy(){
       image(image, x(xPos), y(yPos));
     }
     
-    public void move(){
-      if(xPos >= viewportW - this.image.width || xPos <= 0 || islandCollision() || fuelDepotCollision())
+    public void move(float nD){
+      if(x(xPos) >= viewportW - this.image.width || xPos <= 0 || islandCollision() || fuelDepotCollision())
         this.direction = !direction;
       
       if(this.direction)
-        xPos += lateralSpeed;
+        xPos += lateralSpeed * nD;
       else
         xPos -= lateralSpeed;    
     }
