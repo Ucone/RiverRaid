@@ -4,8 +4,8 @@ public class Element{
   
   public PImage image;
   //Coordenates
-  int xPos = 0;
-  int yPos = 0;
+  float xPos = 0;
+  float yPos = 0;
   ElementType type;
 
   void updateRandomPosition(){
@@ -15,11 +15,11 @@ public class Element{
     this.yPos = 0;
   }
   
-  public int getX(){
+  public float getX(){
     return xPos;
   }
   
-  public int getY(){
+  public float getY(){
     return yPos;
   }
   

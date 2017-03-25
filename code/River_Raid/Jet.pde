@@ -3,7 +3,7 @@ class Jet extends Element{
   PImage imageCrashed;
   private int fuel;
   private boolean crashed = false;
-  int speed;
+  float speed;
   private int reserveJets = 0;
   
    Jet(){
@@ -38,7 +38,7 @@ class Jet extends Element{
   
   /*** REFUEL ***/
   public void checkRefuel(FuelDepot fuelDepot, float nD){
-    int fuelDepotY = fuelDepot.getY();
+    float fuelDepotY = fuelDepot.getY();
     if(fuelDepotY < 0){
       fuelDepotY = 1000 + fuelDepotY;
     }

@@ -9,11 +9,11 @@ public class Enemy extends Element{
     public int section;
     public boolean direction = true; //True: right, False: left
     public int score;
-    public int lateralSpeed;
+    public float lateralSpeed;
     
-    public Enemy(int section, int mapSpeed){
+    public Enemy(int section, float mapSpeed){
       this.type = ElementType.ENEMY;
-      this.xPos = (int)random(1000);
+      this.xPos = random(1000);
       this.section = section;
     }
     
@@ -54,7 +54,7 @@ public class Enemy extends Element{
     
 }
     class Tanker extends Enemy {
-      public Tanker(int section, int speed){
+      public Tanker(int section, float speed){
         super(section, speed);
         this.image = loadImage("./images/sprites/enemy_tanker.png");
         image.resize(w(50), h(100));
@@ -63,7 +63,7 @@ public class Enemy extends Element{
       }
     }
     class Helicopter extends Enemy {
-      public Helicopter(int section, int speed){
+      public Helicopter(int section, float speed){
         super(section, speed);
         this.image = loadImage("./images/sprites/enemy_chopper.png");
         image.resize(w(50), h(100));
@@ -73,7 +73,7 @@ public class Enemy extends Element{
     }
     
     class EnemyJet extends Enemy {
-      public EnemyJet(int section, int speed){
+      public EnemyJet(int section, float speed){
         super(section, speed);
         this.image = loadImage("./images/sprites/enemy_jet.png");
         image.resize(w(50), h(100));

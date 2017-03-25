@@ -34,16 +34,16 @@ float offsetY, offsetX;
 int fontSize;
 
 //Variables for positions
-int x,y;
+float x,y;
 
 //Speed variables
-int DEFAULT_SPEED = 3;
-int speed = 3;
+float DEFAULT_SPEED = 3;
+float speed = 3;
 //Speed variables to change faster/slower
-int restore_speed = speed;
+float restore_speed = speed;
 boolean speed_changed = false;
-int ACCELERATION = 4; //fast speed = speed + ACCELERATION
-int DECELERATION = 2; //low speed = speed - DECELERATION
+float ACCELERATION = 4; //fast speed = speed + ACCELERATION
+float DECELERATION = 2; //low speed = speed - DECELERATION
 
 //fuel variables
 int INITIAL_FUEL= 600;
@@ -59,7 +59,7 @@ int score = 0;
 
 // SECTION
 int section = 1;
-int progressValue = y;
+int progressValue = (int)y;
 
 // ENEMIES
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
@@ -505,22 +505,22 @@ void keyReleased(){
 
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
-int x(int fakex)
+int x(float fakex)
 {
-  return (int)((float)fakex / 1000. * viewportW + offsetX);
+  return (int)(fakex / 1000. * viewportW + offsetX);
 }
 
-int y(int fakey)
+int y(float fakey)
 {
-  return (int)((float)fakey / 1000. * viewportH + offsetY);
+  return (int)(fakey / 1000. * viewportH + offsetY);
 }
 
 int w(int fakew)
 {
-  return (int)((float)fakew / 1000.0 * viewportW);
+  return (int)(fakew / 1000.0 * viewportW);
 }
 
 int h(int fakeh)
 {
-  return (int)((float)fakeh / 1000.0 * viewportH);
+  return (int)(fakeh / 1000.0 * viewportH);
 }
