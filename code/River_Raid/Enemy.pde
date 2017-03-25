@@ -6,7 +6,6 @@ public class Enemy extends Element{
       int yPos = -1500;
     */
     
-    public boolean isVisibile = true;
     public int section;
     public boolean direction = true; //True: right, False: left
     public boolean isVisible = true;
