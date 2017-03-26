@@ -58,8 +58,7 @@ int section = 1;
 int progressValue = y;
 
 // ENEMIES
-ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-
+Enemies enemies = new Enemies();
 boolean first_time = true; //not used for the moment
 
 //for movement simultaneous
@@ -255,7 +254,7 @@ void draw() {
       int aux = (int)(200*progressValue)/5000;
       image(progressIndicator, x(aux), y(600));
 
-      if(progressValue / 5000 >= section){
+      if(progressValue / 5000 >= 1){
         section++;
         progressValue = 0;
         jet.addReserveJet();
@@ -281,11 +280,11 @@ void draw() {
       if(random(1) < 0.01 + (float)section / 100){
         float probability = random(1);
         if(probability < 0.3){
-          enemies.add(new Tanker(section, speed));
+          enemies.addEnemy(new Tanker(section, speed));
         }else if(probability >= 0.3 && probability < 0.6){
-          enemies.add(new Helicopter(section, speed));
+          enemies.addEnemy(new Helicopter(section, speed));
         }else{
-          enemies.add(new EnemyJet(section, speed));
+          enemies.addEnemy(new EnemyJet(section, speed));
         }
       }
       
@@ -306,14 +305,14 @@ void draw() {
       }
       
       //Draw new enemy
-      for(int i=0; i<enemies.size(); i++){
-        Enemy enemy = enemies.get(i);
+      for(int i=0; i<enemies.list.size(); i++){
+        Enemy enemy = enemies.list.get(i);
         if(enemy.isVisible()){
           enemy.update();
           enemy.drawEnemy();
           jet.checkCollision(enemy);
         }else{  //Remove invisible enemy
-          enemies.remove(i);
+          enemies.list.remove(i);
           i--;
         }
       }

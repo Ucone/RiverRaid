@@ -31,7 +31,7 @@ public class Enemy extends Element{
     }
     
     public void move(){
-      if(xPos >= viewportW - this.image.width || xPos <= 0 || islandCollision() || fuelDepotCollision())
+      if(w(xPos + this.image.width) >= viewportW || xPos <= 0 || islandCollision() || fuelDepotCollision())
         this.direction = !direction;
       
       if(this.direction)
