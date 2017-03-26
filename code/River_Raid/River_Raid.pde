@@ -64,7 +64,6 @@ void setup() {
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
-  
   monoFont = createFont("./fonts/DejaVuSansMono.ttf", fontSize);
   font = createFont("./fonts/DejaVuSansCondensed.ttf", fontSize);
   textFont(font, fontSize);
@@ -186,10 +185,8 @@ void draw() {
          score +=30; 
       }
       
-      //Draw elements
+      //Draw some elements
       drawScore();
-            
-      //Drawing Fuel depots and Islands
       island.drawIsland();
       jet.checkCollision(island);
       fuelDepot.drawDepot();
@@ -205,24 +202,16 @@ void draw() {
            speed_changed = false;
       }
        
-      //Sections
+      //Draw more elements
       drawProgress();
-      
+      drawFuel();
+      jet.drawJet();
+
       //To restart the map and make it ciclique
       if (y >= 1000){
           y=0;
       }
-      
-      //fuel implementation
-      fuel_implementation();
-      
-      //fuel icon
-      image(fuel_icon, x(875), y(400));
-
-      //jet implementation
-      jet.checkRefuel(fuelDepot);
-      jet.drawJet();
-  
+        
       /* Enemies implementation */
       //Create new enemy
       if(random(1) < 0.01 + (float)section / 100){
@@ -265,10 +254,7 @@ void draw() {
         }
       }
       
-
-
       break;
-      
   }
 }
 
@@ -296,21 +282,23 @@ void draw() {
     }
   }
   //***** FUEL IMPLEMENTATION *****
-  void fuel_implementation(){
+  void drawFuel(){
+
       //Fuel consumption
       fill(#00ff4e);
-      
-      jet.consume();
       
       if(jet.getFuel() > 0){
         rect( x(887), y(1000-283), w(23), h((int)-jet.getFuel()/2));
       }
+      
       //Fuel actions
       if (jet.getFuel() < INITIAL_FUEL / 3){
             image(low_fuel, x(850), y(750));
         if (jet.getFuel() <=0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
+      
+      image(fuel_icon, x(875), y(400));
   }
 
 
@@ -359,9 +347,7 @@ void controlEvent(ControlEvent theEvent) {
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME){
-
-    if (key == CODED){
+  if (gameState == gameState.GAME && key == CODED){
       switch(keyCode){
        case LEFT:
           keys[0]= true;
@@ -377,24 +363,24 @@ void keyPressed(){
        //speed_changed = true;  
           keys[3]= true;
        break;    
-      }  
     }
     
-  }else
-  switch(gameState){
-    case STORY_1:
-      gameState = GameState.STORY_2;
-      break;
-    case STORY_2:
-      gameState = GameState.STORY_3;
-      break;
-    case STORY_3:
-      gameState = GameState.STORY_4;
-      break;
-      
-    case STORY_4:
-      gameState = GameState.GAME;
-      break;
+  }else{
+    switch(gameState){
+      case STORY_1:
+        gameState = GameState.STORY_2;
+        break;
+      case STORY_2:
+        gameState = GameState.STORY_3;
+        break;
+      case STORY_3:
+        gameState = GameState.STORY_4;
+        break;
+        
+      case STORY_4:
+        gameState = GameState.GAME;
+        break;
+    }
   }
 }  
 

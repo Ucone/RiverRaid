@@ -21,6 +21,8 @@ class Jet extends Element{
        image(this.image, x(xPos), y(yPos));
      else
        image(this.imageCrashed, x(xPos), y(yPos));
+     this.consume();
+     this.checkRefuel(fuelDepot);
    }
    
    public void moveLeft(){
