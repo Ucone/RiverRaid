@@ -36,9 +36,8 @@ int x,y;
 
 //Speed variables
 int DEFAULT_SPEED = 3;
-int speed = 3;
+int gameSpeed = DEFAULT_SPEED;
 //Speed variables to change faster/slower
-int restore_speed = speed;
 boolean speedChanged = false;
 int ACCELERATION = 4; //fast speed = speed + ACCELERATION
 int DECELERATION = 2; //low speed = speed - DECELERATION
@@ -192,13 +191,12 @@ void draw() {
       fuelDepot.drawDepot();
       
      // speedset initial speed
-      y+=speed;
-      distance +=speed;
-      progressValue += speed;
-      jet.speed = speed;
+      y += gameSpeed;
+      distance += gameSpeed;
+      progressValue += gameSpeed;
       
       if (speedChanged){
-           speed= restore_speed;
+           gameSpeed = DEFAULT_SPEED;
            speedChanged = false;
       }
        
@@ -217,11 +215,11 @@ void draw() {
       if(random(1) < 0.01 + (float)section / 100){
         float probability = random(1);
         if(probability < 0.3){
-          enemies.addEnemy(new Tanker(section, speed));
+          enemies.addEnemy(new Tanker(section));
         }else if(probability >= 0.3 && probability < 0.6){
-          enemies.addEnemy(new Helicopter(section, speed));
+          enemies.addEnemy(new Helicopter(section));
         }else{
-          enemies.addEnemy(new EnemyJet(section, speed));
+          enemies.addEnemy(new EnemyJet(section));
         }
       }
       
@@ -233,11 +231,11 @@ void draw() {
           jet.moveRight();
       }
       if (keys[2]){  //UP
-          speed = speed + ACCELERATION;
+          gameSpeed += ACCELERATION;
           speedChanged = true;
       }
       if (keys[3]){   //DOWN
-          speed= speed - DECELERATION;
+          gameSpeed -= DECELERATION;
           speedChanged = true;      
       }
       

@@ -3,7 +3,6 @@ class Jet extends Element{
   PImage imageCrashed;
   private int fuel;
   private boolean crashed = false;
-  int speed;
   private int reserveJets = 0;
   
    Jet(){
@@ -35,7 +34,7 @@ class Jet extends Element{
    
    public void consume(){
      if(this.fuel > 0)
-       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2);
+       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2);
   }
   
   /*** REFUEL ***/
@@ -56,7 +55,7 @@ class Jet extends Element{
   
   public void refuel(){
     int refuelSpeed = 3;
-    if(speed < DEFAULT_SPEED){
+    if(gameSpeed < DEFAULT_SPEED){
       refuelSpeed = 8;
     }
     if(this.fuel < INITIAL_FUEL){
