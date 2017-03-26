@@ -1,4 +1,5 @@
 import controlP5.*;
+import java.util.Iterator;
 
 boolean testing = true;
 
@@ -328,7 +329,6 @@ void draw() {
           speed_changed = true;      
       }
       if (keys[4]){   //SPACE
-        print("spaaace");
           rockets.add(new Rocket(jet.getX(), jet.getY()));
       }
       
@@ -345,13 +345,27 @@ void draw() {
         }
       }
       
-      for(int i=0; i<rockets.size(); i++){
-        Rocket rocket = rockets.get(i);
+      Iterator<Rocket> i = rockets.iterator();
+      while(i.hasNext()) {
+        Rocket rocket = i.next();
         rocket.update(nD);
-        rocket.draw();
+        if(rocket.getY() < 0) {
+          i.remove();
+        } else {
+          Iterator<Enemy> ie = enemies.iterator();
+          while(ie.hasNext()) {
+            Enemy en = ie.next();
+            if (en.collide(rocket)) {
+              ie.remove();
+              i.remove();
+              break;
+            }
+          }
+          rocket.draw();
+        }
       }
       
-
+     
 
       break;
       

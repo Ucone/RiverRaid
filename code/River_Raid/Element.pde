@@ -26,4 +26,9 @@ public class Element{
   public PImage getImage(){
     return image;
   }
+  
+  boolean collide(Element other) {
+    return (x(this.getX()) + this.image.width > x(other.getX()) && x(this.getX()) < x(other.getX()) + other.image.width) && 
+      (y(this.getY()) + this.image.height > y(other.getY()) && y(this.getY()) < y(other.getY()) + other.image.height);
+  }
 }

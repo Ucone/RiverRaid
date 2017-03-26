@@ -70,12 +70,6 @@ class Jet extends Element{
         this.removeReserveJet();
     }
   }
-
-  private boolean elementCollision(Element e){
-      if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height) 
-        return true;
-    return false;
-  }
   
   private boolean mapCollision(){
     if(this.getX() < 0 || this.getY() > width)
