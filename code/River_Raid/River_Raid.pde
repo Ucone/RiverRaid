@@ -110,8 +110,8 @@ void setup() {
   map1.resize(viewportW, viewportH);
   scoreboard.resize(viewportW/7, viewportH/5);
   reserve.resize(w(40), h(40));
-  low_fuel.resize(viewportW/9, viewportH/5);
-  fuel_icon.resize(viewportW/20, viewportH/3);
+  low_fuel.resize(w(60), h(100));
+  fuel_icon.resize(w(50), viewportH/3);
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
   
@@ -288,17 +288,17 @@ void draw() {
       fill(#00ff4e);
       
       if(jet.getFuel() > 0){
-        rect( x(887), y(1000-283), w(23), h((int)-jet.getFuel()/2));
+        rect( x(940), y(960), w(25), h((int)-jet.getFuel()/2));
       }
       
       //Fuel actions
       if (jet.getFuel() < INITIAL_FUEL / 3){
-            image(low_fuel, x(850), y(750));
-        if (jet.getFuel() <=0)
+            image(low_fuel, x(930), y(800 - fuel_icon.height));
+        if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
       
-      image(fuel_icon, x(875), y(400));
+      image(fuel_icon, x(930), y(900 - fuel_icon.height));
   }
 
 
