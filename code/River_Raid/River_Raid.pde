@@ -11,17 +11,17 @@ PFont font;
 PFont monoFont;
 int fontSize;
 
-Player player;
 GameState gameState = GameState.WELCOME;
 
-
+//Images
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 PImage fuel_icon, low_fuel;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
 
-// Elements
+// Objects
+Player player;
 Jet jet;
 Island island;
 FuelDepot fuelDepot;
@@ -181,8 +181,7 @@ void draw() {
       image(map1, x(0), y(y));
       image(map1, x(0), y(y) - map1.height);
       
-      //implement socerboard
-      image(scoreboard, x(30), y(800));
+      //Draw elements
       drawScore(); //Score method determines and paint the score
       
 
@@ -280,31 +279,18 @@ void draw() {
       break;
       
   }
-  drawBorders();
 }
-  
-  void drawBorders() {
-    fill(0);
-    // top
-    rect(0, 0, width, offsetY);
-    // bottom
-    rect(0, height - offsetY, width, offsetY);
-    // left
-    rect(0, 0, offsetX, height);
-    // right
-    rect(0, height - offsetX, offsetX, height); 
-  }
-  
-  //***** SCORE ****
+
   void drawScore (){
+    image(scoreboard, x(30), y(800));
     fill(0);
+    // Score value
     text(score, x(100), y(880));
-    
+    // Level indicator
     text("Level: " + section, x(70), y(920));
-    
+    // Reserve jets indicator
     image(reserve, x(100), y(890));
     text("x" + jet.getReserveJets(), x(140), y(920));
-    
   }
 
 
