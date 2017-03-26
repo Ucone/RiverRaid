@@ -10,7 +10,7 @@ public class Enemies{
       list.add(enemy);
     }else{
       Enemy last = list.get(list.size() - 1);
-      int newY = (int) random(0, 200) + last.image.height;
+      int newY = (int) random(10, 200) + last.image.height;
       enemy.setY(last.getY() - newY);
       list.add(enemy);
     }
