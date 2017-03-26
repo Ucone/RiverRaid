@@ -254,7 +254,7 @@ void draw() {
       int aux = (int)(200*progressValue)/5000;
       image(progressIndicator, x(aux), y(600));
 
-      if(progressValue / 5000 >= section){
+      if(progressValue / 5000 >= 1){
         section++;
         progressValue = 0;
         jet.addReserveJet();
