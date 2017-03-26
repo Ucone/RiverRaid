@@ -180,16 +180,15 @@ void draw() {
       //Map movement
       image(map1, x(0), y(y));
       image(map1, x(0), y(y) - map1.height);
-      
-      //Draw elements
-      drawScore(); //Score method determines and paint the score
-      
 
-       //just to try, delete this when we can defeat enemies:
+      //Update score, elete this when we can defeat enemies:
       if (y%238 == 0){
          score +=30; 
       }
       
+      //Draw elements
+      drawScore();
+            
       //Drawing Fuel depots and Islands
       island.drawIsland();
       jet.checkCollision(island);
@@ -207,15 +206,7 @@ void draw() {
       }
        
       //Sections
-      image(progressBackground, x(10), y(600));
-      int aux = (int)(200*progressValue)/5000;
-      image(progressIndicator, x(aux), y(600));
-
-      if(progressValue / 5000 >= 1){
-        section++;
-        progressValue = 0;
-        jet.addReserveJet();
-      }
+      drawProgress();
       
       //To restart the map and make it ciclique
       if (y >= 1000){
@@ -293,7 +284,17 @@ void draw() {
     text("x" + jet.getReserveJets(), x(140), y(920));
   }
 
+  void drawProgress(){
+    image(progressBackground, x(10), y(600));
+    int aux = (int)(200*progressValue)/5000;
+    image(progressIndicator, x(aux), y(600));
 
+    if(progressValue / 5000 >= 1){
+      section++;
+      progressValue = 0;
+      jet.addReserveJet();
+    }
+  }
   //***** FUEL IMPLEMENTATION *****
   void fuel_implementation(){
       //Fuel consumption
