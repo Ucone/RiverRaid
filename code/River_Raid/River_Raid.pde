@@ -64,6 +64,8 @@ int progressValue = (int)y;
 // ENEMIES
 ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
+ArrayList<Rocket> rockets = new ArrayList<Rocket>();
+
 boolean first_time = true; //not used for the moment
 
 //for movement simultaneous
@@ -162,7 +164,7 @@ void setup() {
   //Create the jet
   jet = new Jet();
   //for movement simultaneous.
-    keys = new boolean[4];  // now is 4 because of: LEFT RIGTH UP DOWN.
+    keys = new boolean[5];  // now is 4 because of: LEFT RIGTH UP DOWN.
     //if we include more (like spacebar for shoot), change the lentgh of the array/ or maybe not, check
     
   //Initialization to false
@@ -325,6 +327,10 @@ void draw() {
           speed= speed - DECELERATION;
           speed_changed = true;      
       }
+      if (keys[4]){   //SPACE
+        print("spaaace");
+          rockets.add(new Rocket(jet.getX(), jet.getY()));
+      }
       
       //Draw new enemy
       for(int i=0; i<enemies.size(); i++){
@@ -337,6 +343,12 @@ void draw() {
           enemies.remove(i);
           i--;
         }
+      }
+      
+      for(int i=0; i<rockets.size(); i++){
+        Rocket rocket = rockets.get(i);
+        rocket.update(nD);
+        rocket.draw();
       }
       
 
@@ -451,8 +463,14 @@ void keyPressed(){
        case DOWN:
        //speed_changed = true;  
           keys[3]= true;
-       break;    
+          break; 
       }  
+    } else {
+       switch(key){
+          case ' ':
+          keys[4]=true;
+          break;   
+       }
     }
     
   }else
@@ -500,6 +518,11 @@ void keyReleased(){
             keys[3]= false;
          break;
         }
+     } else {
+       switch(key){
+         case ' ':
+           keys[4] = false;
+       }
      }
 }
 
