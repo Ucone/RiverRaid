@@ -32,8 +32,14 @@ public class Element{
   }
   
   public boolean elementCollision(Element e){
-    if((abs(e.getX() - this.getX()) <= e.getImage().width / 2) && abs(e.getY() - this.getY()) <= e.getImage().height) 
+    if(abs(x(e.getX()) - x(this.getX())) <= e.getImage().width && abs(y(e.getY()) - y(this.getY())) <= e.getImage().height) 
         return true;
+    return false;
+  }
+  
+  public boolean mapCollision(){
+    if(this.getX() <= 0 || x(this.getX() + this.getImage().width) >= viewportW)
+      return true;
     return false;
   }
 }

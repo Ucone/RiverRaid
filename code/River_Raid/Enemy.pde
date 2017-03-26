@@ -31,7 +31,7 @@ public class Enemy extends Element{
     }
     
     public void move(){
-      if(w(xPos + this.image.width) >= viewportW || xPos <= 0 || islandCollision() || fuelDepotCollision())
+      if(mapCollision() || islandCollision() || fuelDepotCollision())
         this.direction = !direction;
       
       if(this.direction)
@@ -41,15 +41,11 @@ public class Enemy extends Element{
     }
     
     private boolean islandCollision(){
-       if((abs(island.getX() - this.getX()) <= island.getImage().width / 2) && abs(island.getY() - this.getY()) <= island.getImage().height)
-         return true;
-       return false;
+       return elementCollision(island);
     }
     
     private boolean fuelDepotCollision(){
-      if((abs(fuelDepot.getX() - this.getX()) <= fuelDepot.getImage().width / 2) && abs(fuelDepot.getY() - this.getY()) <= fuelDepot.getImage().height)
-         return true;
-      return false;
+       return elementCollision(fuelDepot);
     }
     
 }

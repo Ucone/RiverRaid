@@ -71,12 +71,6 @@ class Jet extends Element{
     }
   }
   
-  private boolean mapCollision(){
-    if(this.getX() <= 0 || x(this.getX() + this.getImage().width) >= viewportW)
-      return true;
-    return false;
-  }
-  
   
   public int getFuel(){
      return fuel;
