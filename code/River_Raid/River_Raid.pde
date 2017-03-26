@@ -69,24 +69,7 @@ Jet jet;
 void setup() {
   fullScreen(P2D);
   
-  viewportW = width;
-  viewportH = (int)((float)width / 16. * 9.);
-  
-  if(viewportH > height)
-  {
-    viewportH = height;
-    viewportW = (int)((float)height / 9. * 16.);
-  }
-  
-  if(viewportH < height)
-  {
-    offsetY = (float)(height - viewportH) / 2.;
-  }
-  
-  if(viewportW < width)
-  {
-    offsetX = (float)(width - viewportW) / 2.;
-  }
+  setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
   
@@ -503,4 +486,25 @@ int w(int fakew)
 int h(int fakeh)
 {
   return (int)((float)fakeh / 1000.0 * viewportH);
+}
+
+void setViewports(){
+    viewportW = width;
+  viewportH = (int)((float)width / 16. * 9.);
+  
+  if(viewportH > height)
+  {
+    viewportH = height;
+    viewportW = (int)((float)height / 9. * 16.);
+  }
+  
+  if(viewportH < height)
+  {
+    offsetY = (float)(height - viewportH) / 2.;
+  }
+  
+  if(viewportW < width)
+  {
+    offsetX = (float)(width - viewportW) / 2.;
+  }
 }
