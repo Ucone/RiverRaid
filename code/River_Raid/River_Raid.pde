@@ -16,7 +16,7 @@ GameState gameState = GameState.WELCOME;
 //Images
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
-PImage fuel_icon, low_fuel;
+PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
 
@@ -39,7 +39,7 @@ int DEFAULT_SPEED = 3;
 int speed = 3;
 //Speed variables to change faster/slower
 int restore_speed = speed;
-boolean speed_changed = false;
+boolean speedChanged = false;
 int ACCELERATION = 4; //fast speed = speed + ACCELERATION
 int DECELERATION = 2; //low speed = speed - DECELERATION
 
@@ -100,8 +100,8 @@ void setup() {
   map1 = loadImage("./images/background.png");
   scoreboard = loadImage("./images/sprites/scoreboard.png");
   reserve = loadImage("./images/sprites/progress_cursor.png");
-  fuel_icon = loadImage("./images/sprites/fuelgauge.png");
-  low_fuel = loadImage("./images/sprites/lowfuel.png");
+  fuelGauge = loadImage("./images/sprites/fuelgauge.png");
+  lowFuelIcon = loadImage("./images/sprites/lowfuel.png");
   progressBackground = loadImage("./images/sprites/progress_background.png");
   progressIndicator = loadImage("./images/sprites/progress_cursor.png");
   
@@ -110,8 +110,8 @@ void setup() {
   map1.resize(viewportW, viewportH);
   scoreboard.resize(viewportW/7, viewportH/5);
   reserve.resize(w(40), h(40));
-  low_fuel.resize(w(60), h(100));
-  fuel_icon.resize(w(50), viewportH/3);
+  lowFuelIcon.resize(w(60), h(100));
+  fuelGauge.resize(w(50), viewportH/3);
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
   
@@ -197,9 +197,9 @@ void draw() {
       progressValue += speed;
       jet.speed = speed;
       
-      if (speed_changed){
+      if (speedChanged){
            speed= restore_speed;
-           speed_changed = false;
+           speedChanged = false;
       }
        
       //Draw more elements
@@ -234,11 +234,11 @@ void draw() {
       }
       if (keys[2]){  //UP
           speed = speed + ACCELERATION;
-          speed_changed = true;
+          speedChanged = true;
       }
       if (keys[3]){   //DOWN
           speed= speed - DECELERATION;
-          speed_changed = true;      
+          speedChanged = true;      
       }
       
       //Draw new enemy
@@ -293,12 +293,12 @@ void draw() {
       
       //Fuel actions
       if (jet.getFuel() < INITIAL_FUEL / 3){
-            image(low_fuel, x(930), y(800 - fuel_icon.height));
+            image(lowFuelIcon, x(930), y(800 - fuelGauge.height));
         if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
       
-      image(fuel_icon, x(930), y(900 - fuel_icon.height));
+      image(fuelGauge, x(930), y(900 - fuelGauge.height));
   }
 
 
@@ -356,11 +356,11 @@ void keyPressed(){
           keys[1]= true;
           break;
        case UP:
-       //speed_changed = true;  
+       //speedChanged = true;  
           keys[2]= true;
           break;
        case DOWN:
-       //speed_changed = true;  
+       //speedChanged = true;  
           keys[3]= true;
        break;    
     }
