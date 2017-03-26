@@ -2,36 +2,34 @@ import controlP5.*;
 
 boolean testing = true;
 
-public enum GameState {
-  WELCOME,
-  STORY_1,
-  STORY_2,
-  STORY_3,
-  STORY_4,
-  GAME,
-};  // Different states of the game
+public enum GameState {WELCOME, STORY_1, STORY_2, STORY_3, STORY_4, GAME};  // Different states of the game
 public enum ElementType {ISLAND, ENEMY, FUEL_DEPOT};
 
+// Input fields and text
 ControlP5 cp5;
 PFont font;
 PFont monoFont;
+int fontSize;
+
 Player player;
 GameState gameState = GameState.WELCOME;
+
 
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
 PImage fuel_icon, low_fuel;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
+
+// Elements
+Jet jet;
 Island island;
 FuelDepot fuelDepot;
+Enemies enemies = new Enemies();
 
 // Aspect ratio variables
 int viewportW, viewportH;
 float offsetY, offsetX;
-
-// Basic font size
-int fontSize;
 
 //Variables for positions
 int x,y;
@@ -45,7 +43,7 @@ boolean speed_changed = false;
 int ACCELERATION = 4; //fast speed = speed + ACCELERATION
 int DECELERATION = 2; //low speed = speed - DECELERATION
 
-//fuel variables
+//Fuel constants
 int INITIAL_FUEL= 600;
 float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
@@ -53,18 +51,12 @@ float distance = y;
 //Score variables
 int score = 0;
 
-// SECTION
+// Section
 int section = 1;
 int progressValue = y;
 
-// ENEMIES
-Enemies enemies = new Enemies();
-boolean first_time = true; //not used for the moment
-
-//for movement simultaneous
+// For movement simultaneous
 boolean keys [];
-
-Jet jet;
 
 void setup() {
   fullScreen(P2D);
@@ -105,54 +97,38 @@ void setup() {
   storyImg2 = loadStoryImage(GameState.STORY_2);
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
-  
   startImg=loadImage("./images/welcome.png");
-  startImg.resize(viewportW, viewportH);
-  
   map1 = loadImage("./images/background.png");
-  map1.resize(viewportW, viewportH);
   scoreboard = loadImage("./images/sprites/scoreboard.png");
   reserve = loadImage("./images/sprites/progress_cursor.png");
-
-  //Elements images
   fuel_icon = loadImage("./images/sprites/fuelgauge.png");
   low_fuel = loadImage("./images/sprites/lowfuel.png");
-  low_fuel.resize(viewportW/9, viewportH/5);
-  fuel_icon.resize(viewportW/20, viewportH/3);
-
   progressBackground = loadImage("./images/sprites/progress_background.png");
   progressIndicator = loadImage("./images/sprites/progress_cursor.png");
+  
+  //Resize images
+  startImg.resize(viewportW, viewportH);
+  map1.resize(viewportW, viewportH);
+  scoreboard.resize(viewportW/7, viewportH/5);
+  reserve.resize(w(40), h(40));
+  low_fuel.resize(viewportW/9, viewportH/5);
+  fuel_icon.resize(viewportW/20, viewportH/3);
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
   
-  scoreboard.resize(viewportW/7, viewportH/5);
-  reserve.resize(w(40), h(40));
-  
-  // Defines the island object
+  // Instances of objects
   island = new Island();
-  
-  //Creates new fuel depot
   fuelDepot = new FuelDepot();
-  
-  //Check if we are on testing environment
-  checkTesting();
-  
-  //Create the jet
   jet = new Jet();
-  //for movement simultaneous.
-    keys = new boolean[4];  // now is 4 because of: LEFT RIGTH UP DOWN.
-    //if we include more (like spacebar for shoot), change the lentgh of the array/ or maybe not, check
-    
+  
+  keys = new boolean[4];  //LEFT RIGTH UP DOWN.
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
   }
-    
-  //keys[0]= false;
-  //keys[1]= false;
-  //keys[2]= false;
-  //keys[3]= false;
-
+  
+  //Check if we are on testing environment
+  checkTesting();
 }
 
 void draw() {
@@ -200,8 +176,7 @@ void draw() {
       drawPressKey();
       break;
       
-      case GAME:
-
+    case GAME:
       //Map movement
       image(map1, x(0), y(y));
       image(map1, x(0), y(y) - map1.height);
