@@ -33,6 +33,7 @@ float offsetY, offsetX;
 
 //Variables for positions
 int x,y;
+int masterY = 0;
 
 //Speed variables
 int DEFAULT_SPEED = 3;
@@ -194,6 +195,7 @@ void draw() {
       y += gameSpeed;
       distance += gameSpeed;
       progressValue += gameSpeed;
+      masterY += gameSpeed;
       
       if (speedChanged){
            gameSpeed = DEFAULT_SPEED;

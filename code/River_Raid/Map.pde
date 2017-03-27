@@ -41,7 +41,7 @@ public class Map{
   }
   
   public void repeatLevel(){
-     masterY = masterY - levelDistance;
+     //masterY = masterY - levelDistance;
      //levelDistance-= levelDistance;
   }
   
