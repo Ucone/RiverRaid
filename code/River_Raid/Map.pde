@@ -9,7 +9,7 @@ public class Map{
   int reaparitionY = 0;
   
   Block [] blocks; 
-  int numberBlocksDefined = 32;
+  int numberBlocksDefined = 10;
   
   //int initial_x=0;
    int yBlockPosition = (int) (viewportH + offsetY);
@@ -26,8 +26,8 @@ public class Map{
   // This method just happen once at the beggining.
   public void createMap(){
     for (int i=0; i<numberBlocksDefined; i+=2){
-      blocks[i]= new Block((int) random(-blockWidth + 50, -20) , yBlockPosition);
-      blocks[i+1]= new Block(1000 - ((int) random(50,blockWidth)), yBlockPosition);
+      blocks[i]= new Block((int) random(-200, 0) , yBlockPosition);
+      blocks[i+1]= new Block(1000 - ((int) random(0, 200)), yBlockPosition);
       yBlockPosition -= blocks[i].image.height;
     }
 
@@ -38,19 +38,25 @@ public class Map{
       for (int i=0; i<numberBlocksDefined; i++){
        blocks[i].drawBlock(); 
       }
+      
+      if(blocks[numberBlocksDefined-1].getY() >= 1000){
+        yBlockPosition = (int)(0 - blocks[0].image.height + offsetY);
+        nextLevel();
+      }
   }
   
   public void repeatLevel(){
+      text("REPEAT LEVEL", x(100), y(100));
+      
      //masterY = masterY - levelDistance;
      //levelDistance-= levelDistance;
   }
   
   public void nextLevel(){
-    yBlockPosition = -masterY + height;
     for (int i=0; i<numberBlocksDefined; i+=2){
-         blocks[i].xPos = ((int) random(-blockWidth + 50, -20));
+         blocks[i].xPos = x((int) random(-200, 0));
          blocks[i].yPos = yBlockPosition ;//-= masterY;//initial_y + levelDistance; 
-         blocks[i+1].xPos =width - (int) random(50,blockWidth);
+         blocks[i+1].xPos =1000 - ((int) random(0, 200));
          blocks[i+1].yPos = yBlockPosition ;//// initial_y + levelDistance; 
          yBlockPosition -= blocksHeight;
     }

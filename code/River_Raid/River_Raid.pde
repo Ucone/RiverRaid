@@ -360,11 +360,13 @@ void keyPressed(){
           break;
        case UP:
        //speedChanged = true;  
-          keys[2]= true;
+          //keys[2]= true;
+          gameSpeed += 2;
           break;
        case DOWN:
        //speedChanged = true;  
-          keys[3]= true;
+          //keys[3]= true;
+          gameSpeed -= 2;
        break;    
     }
     
