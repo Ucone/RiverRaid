@@ -20,7 +20,7 @@ class Island extends Element{
       updateRandomSize();
     }
     
-    yPos += speed;
+    yPos += gameSpeed;
     image(this.image, x(xPos), y(yPos));
   }
   

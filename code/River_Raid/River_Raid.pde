@@ -2,50 +2,47 @@ import controlP5.*;
 
 boolean testing = true;
 
-public enum GameState {
-  WELCOME,
-  STORY_1,
-  STORY_2,
-  STORY_3,
-  STORY_4,
-  GAME,
-};  // Different states of the game
+public enum GameState {WELCOME, STORY_1, STORY_2, STORY_3, STORY_4, GAME};  // Different states of the game
 public enum ElementType {ISLAND, ENEMY, FUEL_DEPOT};
 
+// Input fields and text
 ControlP5 cp5;
 PFont font;
 PFont monoFont;
-Player player;
+int fontSize;
+
 GameState gameState = GameState.WELCOME;
 
+//Images
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
 PImage map1;
-PImage fuel_icon, low_fuel;
+PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
+
+// Objects
+Player player;
+Jet jet;
 Island island;
 FuelDepot fuelDepot;
+Enemies enemies = new Enemies();
 
 // Aspect ratio variables
 int viewportW, viewportH;
 float offsetY, offsetX;
-
-// Basic font size
-int fontSize;
 
 //Variables for positions
 int x,y;
 
 //Speed variables
 int DEFAULT_SPEED = 3;
-int speed = 3;
+int gameSpeed = DEFAULT_SPEED;
 //Speed variables to change faster/slower
-int restore_speed = speed;
-boolean speed_changed = false;
+boolean speedChanged = false;
 int ACCELERATION = 4; //fast speed = speed + ACCELERATION
 int DECELERATION = 2; //low speed = speed - DECELERATION
 
-//fuel variables
+//Fuel constants
 int INITIAL_FUEL= 600;
 float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
@@ -53,43 +50,19 @@ float distance = y;
 //Score variables
 int score = 0;
 
-// SECTION
+// Section
 int section = 1;
 int progressValue = y;
 
-// ENEMIES
-Enemies enemies = new Enemies();
-boolean first_time = true; //not used for the moment
-
-//for movement simultaneous
+// For movement simultaneous
 boolean keys [];
-
-Jet jet;
 
 void setup() {
   fullScreen(P2D);
   
-  viewportW = width;
-  viewportH = (int)((float)width / 16. * 9.);
-  
-  if(viewportH > height)
-  {
-    viewportH = height;
-    viewportW = (int)((float)height / 9. * 16.);
-  }
-  
-  if(viewportH < height)
-  {
-    offsetY = (float)(height - viewportH) / 2.;
-  }
-  
-  if(viewportW < width)
-  {
-    offsetX = (float)(width - viewportW) / 2.;
-  }
+  setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
-  
   monoFont = createFont("./fonts/DejaVuSansMono.ttf", fontSize);
   font = createFont("./fonts/DejaVuSansCondensed.ttf", fontSize);
   textFont(font, fontSize);
@@ -122,54 +95,38 @@ void setup() {
   storyImg2 = loadStoryImage(GameState.STORY_2);
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
-  
   startImg=loadImage("./images/welcome.png");
-  startImg.resize(viewportW, viewportH);
-  
   map1 = loadImage("./images/background.png");
-  map1.resize(viewportW, viewportH);
   scoreboard = loadImage("./images/sprites/scoreboard.png");
   reserve = loadImage("./images/sprites/progress_cursor.png");
-
-  //Elements images
-  fuel_icon = loadImage("./images/sprites/fuelgauge.png");
-  low_fuel = loadImage("./images/sprites/lowfuel.png");
-  low_fuel.resize(viewportW/9, viewportH/5);
-  fuel_icon.resize(viewportW/20, viewportH/3);
-
+  fuelGauge = loadImage("./images/sprites/fuelgauge.png");
+  lowFuelIcon = loadImage("./images/sprites/lowfuel.png");
   progressBackground = loadImage("./images/sprites/progress_background.png");
   progressIndicator = loadImage("./images/sprites/progress_cursor.png");
+  
+  //Resize images
+  startImg.resize(viewportW, viewportH);
+  map1.resize(viewportW, viewportH);
+  scoreboard.resize(viewportW/7, viewportH/5);
+  reserve.resize(w(40), h(40));
+  lowFuelIcon.resize(w(60), h(100));
+  fuelGauge.resize(w(50), viewportH/3);
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
   
-  scoreboard.resize(viewportW/7, viewportH/5);
-  reserve.resize(w(40), h(40));
-  
-  // Defines the island object
+  // Instances of objects
   island = new Island();
-  
-  //Creates new fuel depot
   fuelDepot = new FuelDepot();
-  
-  //Check if we are on testing environment
-  checkTesting();
-  
-  //Create the jet
   jet = new Jet();
-  //for movement simultaneous.
-    keys = new boolean[4];  // now is 4 because of: LEFT RIGTH UP DOWN.
-    //if we include more (like spacebar for shoot), change the lentgh of the array/ or maybe not, check
-    
+  
+  keys = new boolean[4];  //LEFT RIGTH UP DOWN.
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
   }
-    
-  //keys[0]= false;
-  //keys[1]= false;
-  //keys[2]= false;
-  //keys[3]= false;
-
+  
+  //Check if we are on testing environment
+  checkTesting();
 }
 
 void draw() {
@@ -217,74 +174,52 @@ void draw() {
       drawPressKey();
       break;
       
-      case GAME:
-
+    case GAME:
       //Map movement
       image(map1, x(0), y(y));
       image(map1, x(0), y(y) - map1.height);
-      
-      //implement socerboard
-      image(scoreboard, x(30), y(800));
-      drawScore(); //Score method determines and paint the score
-      
 
-       //just to try, delete this when we can defeat enemies:
+      //Update score, elete this when we can defeat enemies:
       if (y%238 == 0){
          score +=30; 
       }
       
-      //Drawing Fuel depots and Islands
+      //Draw some elements
+      drawScore();
       island.drawIsland();
       jet.checkCollision(island);
       fuelDepot.drawDepot();
       
      // speedset initial speed
-      y+=speed;
-      distance +=speed;
-      progressValue += speed;
-      jet.speed = speed;
+      y += gameSpeed;
+      distance += gameSpeed;
+      progressValue += gameSpeed;
       
-      if (speed_changed){
-           speed= restore_speed;
-           speed_changed = false;
+      if (speedChanged){
+           gameSpeed = DEFAULT_SPEED;
+           speedChanged = false;
       }
        
-      //Sections
-      image(progressBackground, x(10), y(600));
-      int aux = (int)(200*progressValue)/5000;
-      image(progressIndicator, x(aux), y(600));
+      //Draw more elements
+      drawProgress();
+      drawFuel();
+      jet.drawJet();
 
-      if(progressValue / 5000 >= 1){
-        section++;
-        progressValue = 0;
-        jet.addReserveJet();
-      }
-      
       //To restart the map and make it ciclique
       if (y >= 1000){
           y=0;
       }
-      
-      //fuel implementation
-      fuel_implementation();
-      
-      //fuel icon
-      image(fuel_icon, x(875), y(400));
-
-      //jet implementation
-      jet.checkRefuel(fuelDepot);
-      jet.drawJet();
-  
+        
       /* Enemies implementation */
       //Create new enemy
       if(random(1) < 0.01 + (float)section / 100){
         float probability = random(1);
         if(probability < 0.3){
-          enemies.addEnemy(new Tanker(section, speed));
+          enemies.addEnemy(new Tanker(section));
         }else if(probability >= 0.3 && probability < 0.6){
-          enemies.addEnemy(new Helicopter(section, speed));
+          enemies.addEnemy(new Helicopter(section));
         }else{
-          enemies.addEnemy(new EnemyJet(section, speed));
+          enemies.addEnemy(new EnemyJet(section));
         }
       }
       
@@ -296,12 +231,12 @@ void draw() {
           jet.moveRight();
       }
       if (keys[2]){  //UP
-          speed = speed + ACCELERATION;
-          speed_changed = true;
+          gameSpeed += ACCELERATION;
+          speedChanged = true;
       }
       if (keys[3]){   //DOWN
-          speed= speed - DECELERATION;
-          speed_changed = true;      
+          gameSpeed -= DECELERATION;
+          speedChanged = true;      
       }
       
       //Draw new enemy
@@ -317,55 +252,51 @@ void draw() {
         }
       }
       
-
-
       break;
-      
   }
-  drawBorders();
 }
-  
-  void drawBorders() {
-    fill(0);
-    // top
-    rect(0, 0, width, offsetY);
-    // bottom
-    rect(0, height - offsetY, width, offsetY);
-    // left
-    rect(0, 0, offsetX, height);
-    // right
-    rect(0, height - offsetX, offsetX, height); 
-  }
-  
-  //***** SCORE ****
+
   void drawScore (){
+    image(scoreboard, x(30), y(800));
     fill(0);
+    // Score value
     text(score, x(100), y(880));
-    
+    // Level indicator
     text("Level: " + section, x(70), y(920));
-    
+    // Reserve jets indicator
     image(reserve, x(100), y(890));
     text("x" + jet.getReserveJets(), x(140), y(920));
-    
   }
 
+  void drawProgress(){
+    image(progressBackground, x(10), y(600));
+    int aux = (int)(200*progressValue)/5000;
+    image(progressIndicator, x(aux), y(600));
 
+    if(progressValue / 5000 >= 1){
+      section++;
+      progressValue = 0;
+      jet.addReserveJet();
+    }
+  }
   //***** FUEL IMPLEMENTATION *****
-  void fuel_implementation(){
+  void drawFuel(){
+
       //Fuel consumption
       fill(#00ff4e);
       
-      jet.consume();
-      
       if(jet.getFuel() > 0){
-        rect( x(887), y(1000-283), w(23), h((int)-jet.getFuel()/2));
+        rect( x(940), y(960), w(25), h((int)-jet.getFuel()/2));
       }
+      
       //Fuel actions
       if (jet.getFuel() < INITIAL_FUEL / 3){
-            image(low_fuel, x(850), y(750));
-        if (jet.getFuel() <=0)
+            image(lowFuelIcon, x(930), y(800 - fuelGauge.height));
+        if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
+      
+      image(fuelGauge, x(930), y(900 - fuelGauge.height));
   }
 
 
@@ -414,9 +345,7 @@ void controlEvent(ControlEvent theEvent) {
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME){
-
-    if (key == CODED){
+  if (gameState == gameState.GAME && key == CODED){
       switch(keyCode){
        case LEFT:
           keys[0]= true;
@@ -425,31 +354,31 @@ void keyPressed(){
           keys[1]= true;
           break;
        case UP:
-       //speed_changed = true;  
+       //speedChanged = true;  
           keys[2]= true;
           break;
        case DOWN:
-       //speed_changed = true;  
+       //speedChanged = true;  
           keys[3]= true;
        break;    
-      }  
     }
     
-  }else
-  switch(gameState){
-    case STORY_1:
-      gameState = GameState.STORY_2;
-      break;
-    case STORY_2:
-      gameState = GameState.STORY_3;
-      break;
-    case STORY_3:
-      gameState = GameState.STORY_4;
-      break;
-      
-    case STORY_4:
-      gameState = GameState.GAME;
-      break;
+  }else{
+    switch(gameState){
+      case STORY_1:
+        gameState = GameState.STORY_2;
+        break;
+      case STORY_2:
+        gameState = GameState.STORY_3;
+        break;
+      case STORY_3:
+        gameState = GameState.STORY_4;
+        break;
+        
+      case STORY_4:
+        gameState = GameState.GAME;
+        break;
+    }
   }
 }  
 
@@ -503,4 +432,25 @@ int w(int fakew)
 int h(int fakeh)
 {
   return (int)((float)fakeh / 1000.0 * viewportH);
+}
+
+void setViewports(){
+    viewportW = width;
+  viewportH = (int)((float)width / 16. * 9.);
+  
+  if(viewportH > height)
+  {
+    viewportH = height;
+    viewportW = (int)((float)height / 9. * 16.);
+  }
+  
+  if(viewportH < height)
+  {
+    offsetY = (float)(height - viewportH) / 2.;
+  }
+  
+  if(viewportW < width)
+  {
+    offsetX = (float)(width - viewportW) / 2.;
+  }
 }

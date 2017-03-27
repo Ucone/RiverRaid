@@ -11,7 +11,7 @@ public class Enemy extends Element{
     public int score;
     public int lateralSpeed;
     
-    public Enemy(int section, int mapSpeed){
+    public Enemy(int section){
       this.type = ElementType.ENEMY;
       this.xPos = (int)random(width);
       this.section = section;
@@ -23,7 +23,7 @@ public class Enemy extends Element{
     
     public void update() {
       this.move();
-      yPos += speed;
+      yPos += gameSpeed;
     }
     
     public void drawEnemy(){
@@ -50,8 +50,8 @@ public class Enemy extends Element{
     
 }
     class Tanker extends Enemy {
-      public Tanker(int section, int speed){
-        super(section, speed);
+      public Tanker(int section){
+        super(section);
         this.image = loadImage("./images/sprites/enemy_tanker.png");
         image.resize(w(50), h(100));
         this.lateralSpeed = section;
@@ -59,8 +59,8 @@ public class Enemy extends Element{
       }
     }
     class Helicopter extends Enemy {
-      public Helicopter(int section, int speed){
-        super(section, speed);
+      public Helicopter(int section){
+        super(section);
         this.image = loadImage("./images/sprites/enemy_chopper.png");
         image.resize(w(50), h(100));
         this.lateralSpeed = 1 + section;
@@ -69,8 +69,8 @@ public class Enemy extends Element{
     }
     
     class EnemyJet extends Enemy {
-      public EnemyJet(int section, int speed){
-        super(section, speed);
+      public EnemyJet(int section){
+        super(section);
         this.image = loadImage("./images/sprites/enemy_jet.png");
         image.resize(w(50), h(100));
         this.lateralSpeed = 2 + section;
