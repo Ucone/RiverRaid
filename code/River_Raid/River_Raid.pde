@@ -22,6 +22,7 @@ PImage progressBackground, progressIndicator;
 
 // Objects
 Player player;
+Map map;
 Jet jet;
 Island island;
 FuelDepot fuelDepot;
@@ -116,6 +117,7 @@ void setup() {
   progressIndicator.resize(w(50), h(50));
   
   // Instances of objects
+  map = new Map();
   island = new Island();
   fuelDepot = new FuelDepot();
   jet = new Jet();
@@ -179,7 +181,8 @@ void draw() {
       //Map movement
       image(map1, x(0), y(y));
       image(map1, x(0), y(y) - map1.height);
-
+      map.drawMap();
+      
       //Update score, elete this when we can defeat enemies:
       if (y%238 == 0){
          score +=30; 
