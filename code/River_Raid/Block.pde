@@ -4,7 +4,7 @@ public class Block extends Element{
   int blockInitialY;
   
   Block(int x,int y) {
-      image= loadImage("./images/sprites/block4.png");
+      image= loadImage("./images/sprites/map_block.png");
       image.resize(w(400),h(600));
       yPos = y;
       xPos = x;
@@ -13,7 +13,8 @@ public class Block extends Element{
   
   Block() {
     //WARNING, IF CHANGE THE BLOCK CHANGE THE ROUTE
-      image= loadImage("./images/sprites/block4.png");
+      image= loadImage("./images/sprites/map_block.png");
+      image.resize(w(400),h(600));
   }
 
   public void drawBlock(){
