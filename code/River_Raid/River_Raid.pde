@@ -27,6 +27,7 @@ Jet jet;
 Island island;
 FuelDepot fuelDepot;
 Enemies enemies = new Enemies();
+Bridge bridge;
 
 // Aspect ratio variables
 int viewportW, viewportH;
