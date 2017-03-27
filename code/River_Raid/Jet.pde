@@ -44,8 +44,8 @@ class Jet extends Element{
       fuelDepotY = 1000 + fuelDepotY;
     }
     
-    if((this.getX() >= fuelDepot.getX()) && (this.getX() + this.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
-        ( (this.getY() >= fuelDepotY) && (this.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
+    if(x(this.getX()) >= x(fuelDepot.getX()) && (x(this.getX()) + this.getImage().width <= x(fuelDepot.getX()) + fuelDepot.getImage().width) &&
+        ( y(this.getY()) >= fuelDepotY && (y(this.getY()) <= fuelDepotY + fuelDepot.getImage().height) ) ){
           this.refuel();
           VELOCITY_CONSUMPTION = 0;
     }else{

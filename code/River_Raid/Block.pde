@@ -18,8 +18,8 @@ public class Block extends Element{
   }
 
   public void drawBlock(){
-      //yPos += speed;
-      image(image, x(xPos), y(masterY + yPos));  
+      yPos += gameSpeed;
+      image(image, x(xPos), yPos);  
       //I don't know why if I use the next doesn't work
       //image(image, x(xPos), y(yPos));  
   }

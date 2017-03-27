@@ -12,7 +12,7 @@ public class Map{
   int numberBlocksDefined = 32;
   
   //int initial_x=0;
-   int initial_y= height ; // This variable allows to predefine all the map
+   int yBlockPosition = (int) (viewportH + offsetY);
   
   Map(){
     Block blockTest= new Block();
@@ -26,9 +26,9 @@ public class Map{
   // This method just happen once at the beggining.
   public void createMap(){
     for (int i=0; i<numberBlocksDefined; i+=2){
-      blocks[i]= new Block((int) random(-blockWidth + 50, -20) , initial_y);
-      blocks[i+1]= new Block(1000 - ((int) random(50,blockWidth)), initial_y);
-      initial_y -= 600;
+      blocks[i]= new Block((int) random(-blockWidth + 50, -20) , yBlockPosition);
+      blocks[i+1]= new Block(1000 - ((int) random(50,blockWidth)), yBlockPosition);
+      yBlockPosition -= blocks[i].image.height;
     }
 
 }
@@ -46,13 +46,13 @@ public class Map{
   }
   
   public void nextLevel(){
-    initial_y = -masterY + height;
+    yBlockPosition = -masterY + height;
     for (int i=0; i<numberBlocksDefined; i+=2){
          blocks[i].xPos = ((int) random(-blockWidth + 50, -20));
-         blocks[i].yPos = initial_y ;//-= masterY;//initial_y + levelDistance; 
+         blocks[i].yPos = yBlockPosition ;//-= masterY;//initial_y + levelDistance; 
          blocks[i+1].xPos =width - (int) random(50,blockWidth);
-         blocks[i+1].yPos = initial_y ;//// initial_y + levelDistance; 
-         initial_y -= blocksHeight;
+         blocks[i+1].yPos = yBlockPosition ;//// initial_y + levelDistance; 
+         yBlockPosition -= blocksHeight;
     }
   }
   

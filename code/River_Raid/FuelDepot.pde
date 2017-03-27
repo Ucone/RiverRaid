@@ -18,7 +18,8 @@ public class FuelDepot extends Element{
       updateRandomPosition(); //<>// //<>// //<>//
     }
     
-    image(this.image, x(xPos), y(yPos + masterY));
+    yPos += gameSpeed;
+    image(this.image, x(xPos), yPos);
   }
   
   

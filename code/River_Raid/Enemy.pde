@@ -26,7 +26,8 @@ public class Enemy extends Element{
     }
     
     public void drawEnemy(){
-      image(image, x(xPos), y(yPos + masterY));
+      yPos += gameSpeed;
+      image(image, x(xPos), yPos);
     }
     
     public void move(){
