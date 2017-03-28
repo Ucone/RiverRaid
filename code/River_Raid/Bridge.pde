@@ -7,7 +7,7 @@ class Bridge extends Element{
     this.yPos = yPos;
   }
   
-  void drawBridge(){
+  void draw(){
     image(this.image, x(xPos), yPos);
   }
   

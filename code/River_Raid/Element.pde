@@ -8,10 +8,10 @@ public class Element{
   float yPos = 0;
   ElementType type;
 
-  void updateRandomPosition(){
+  void updateRandomPosition(){ //<>//
     this.xPos = (int)random(200, 600);
     this.yPos = (int)random(-1500, -3000) - this.image.height;
-    this.xPos = 0;
+    this.xPos = 0; //<>//
     this.yPos = 0;
   }
   
@@ -47,4 +47,7 @@ public class Element{
     return (x(this.getX()) + this.image.width > x(other.getX()) && x(this.getX()) < x(other.getX()) + other.image.width) && 
       (y(this.getY()) + this.image.height > y(other.getY()) && y(this.getY()) < y(other.getY()) + other.image.height);
   }
+  
+  public void draw() {};
+  public void update(float nD) {};
 }

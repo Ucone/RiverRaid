@@ -3,6 +3,10 @@ class Jet extends Element{
   PImage imageCrashed;
   private int fuel;
   private boolean crashed = false;
+<<<<<<< HEAD
+=======
+  float speed;
+>>>>>>> dakka
   private int reserveJets = 0;
   
    Jet(){
@@ -15,11 +19,13 @@ class Jet extends Element{
      fuel = INITIAL_FUEL;
    }
    
-   public void draw(){
+   public void drawJet(){
      if(!crashed)
        image(this.image, x(xPos), y(yPos));
      else
        image(this.imageCrashed, x(xPos), y(yPos));
+     this.consume();
+     this.checkRefuel(fuelDepot);
    }
    
    public void moveLeft(){
@@ -32,7 +38,11 @@ class Jet extends Element{
    
    public void consume(float nD){
      if(this.fuel > 0)
-       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
+<<<<<<< HEAD
+       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2);
+=======
+       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*speed*2*nD);
+>>>>>>> dakka
   }
   
   /*** REFUEL ***/
@@ -42,9 +52,15 @@ class Jet extends Element{
       fuelDepotY = 1000 + fuelDepotY;
     }
     
+<<<<<<< HEAD
     if(x(this.getX()) >= x(fuelDepot.getX()) && (x(this.getX()) + this.getImage().width <= x(fuelDepot.getX()) + fuelDepot.getImage().width) &&
         ( y(this.getY()) >= fuelDepotY && (y(this.getY()) <= fuelDepotY + fuelDepot.getImage().height) ) ){
+          this.refuel();
+=======
+    if((this.getX() >= fuelDepot.getX()) && (this.getX() + this.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
+        ( (this.getY() >= fuelDepotY) && (this.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
           this.refuel(nD);
+>>>>>>> dakka
           VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
@@ -69,6 +85,15 @@ class Jet extends Element{
         this.removeReserveJet();
     }
   }
+<<<<<<< HEAD
+=======
+  
+  private boolean mapCollision(){
+    if(this.getX() < 0 || this.getY() > width)
+      return true;
+    return false;
+  }
+>>>>>>> dakka
   
   
   public int getFuel(){

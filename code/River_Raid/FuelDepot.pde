@@ -14,9 +14,10 @@ public class FuelDepot extends Element{
   }
 
   void update(float nD) {
-    yPos += gameSpeed * nD; 
+    yPos += gameSpeed * nD;
   }
-    void drawDepot(){
+  
+  void draw(){
     if(yPos >= viewportH + image.height){
       updateRandomPosition();
     }

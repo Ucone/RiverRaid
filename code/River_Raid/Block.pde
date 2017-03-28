@@ -12,7 +12,7 @@ public class Block extends Element{
       image.resize(w(350),h(300));
   }
 
-  public void drawBlock(){
+  public void draw(){
       image(image, x(xPos), y(yPos));  
   }
   

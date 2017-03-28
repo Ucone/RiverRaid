@@ -34,10 +34,10 @@ public class Map{
     setNextBridgePosition();
 }
 
-  public void drawMap(){
+  public void draw(){
       for (int i=0; i<NUM_BLOCKS; i++){
-       blocksLeft[i].drawBlock();
-       blocksRight[i].drawBlock();
+       blocksLeft[i].draw();
+       blocksRight[i].draw();
        
        if(blocksLeft[i].overcome()){
          blocksLeft[i].yPos = lastModified.yPos - blockHeight;
@@ -51,7 +51,7 @@ public class Map{
        }
       }
       
-      bridge.drawBridge();
+      bridge.draw();
       
       if(bridge.yPos > 1000)
         bridge.yPos = nextBridgePosition;

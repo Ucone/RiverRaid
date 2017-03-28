@@ -201,7 +201,7 @@ void draw() {
       //image(map1, x(0), y(y));
       //image(map1, x(0), y(y) - map1.height);
       background(0, 162, 232);
-      map.drawMap();
+      map.draw();
       
       //Update score, elete this when we can defeat enemies:
       if (y%238 == 0){
@@ -211,10 +211,10 @@ void draw() {
       //Draw some elements
       island.update(nD);
       drawScore();
-      island.drawIsland();
+      island.draw();
       jet.checkCollision(island);
       fuelDepot.update(nD);
-      fuelDepot.drawDepot();
+      fuelDepot.draw();
       
      // speedset initial speed
       y += gameSpeed*nD;
@@ -231,7 +231,7 @@ void draw() {
       drawFuel();
       jet.consume(nD);
       jet.checkRefuel(fuelDepot, nD);
-      jet.drawJet();
+      jet.draw();
 
       //To restart the map and make it ciclique
       if (y >= 1000){
@@ -277,7 +277,7 @@ void draw() {
         Enemy enemy = enemies.list.get(i);
         if(enemy.isVisible()){
           enemy.update(nD);
-          enemy.drawEnemy();
+          enemy.draw();
           jet.checkCollision(enemy);
         }else{  //Remove invisible enemy
           enemies.list.remove(i);
