@@ -4,10 +4,10 @@ public class Map{
   Block [] blocksRight;
   int NUM_BLOCKS = 12;
   int nextPositionY;  
-  int blockWidth, blockHeight;
+  float blockWidth = 350, blockHeight = 300;
   Bridge bridge;
   Block lastModified;
-  int nextBridgePosition = 0;
+  float nextBridgePosition = 0;
   
   Map(){
     blocksLeft = new Block[NUM_BLOCKS];
@@ -25,8 +25,8 @@ public class Map{
   // This method just happen once at the beggining.
   public void createMap(){     
     for(int i=0; i<NUM_BLOCKS; i++){
-      blocksLeft[i] = new Block((int) random(-200, -10), nextPositionY);
-      blocksRight[i] = new Block(1000 - (int) random(50, 300), nextPositionY);
+      blocksLeft[i] = new Block((int) random(-200, -10), nextPositionY, blockWidth, blockHeight);
+      blocksRight[i] = new Block(1000 - (int) random(50, 300), nextPositionY, blockWidth, blockHeight);
       
       nextPositionY -= blockHeight;
       lastModified = blocksLeft[i];
@@ -41,9 +41,9 @@ public class Map{
        
        if(blocksLeft[i].overcome()){
          blocksLeft[i].yPos = lastModified.yPos - blockHeight;
-         blocksLeft[i].xPos = (int) random(-200, -10);
+         blocksLeft[i].xPos = random(-200, -10);
          blocksRight[i].yPos = lastModified.yPos - blockHeight;
-         blocksRight[i].xPos = 1000 - (int) random(50, 300);
+         blocksRight[i].xPos = 1000 - random(50, 300);
          lastModified = blocksLeft[i];
          
          if(i == NUM_BLOCKS - 1)

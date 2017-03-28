@@ -13,16 +13,26 @@ public class FuelDepot extends Element{
     this.yPos = (int)random(-1500, -3000) - this.image.height;
   }
 
+<<<<<<< HEAD
+    void drawDepot(){ //<>// //<>//
+    if(yPos >= viewportH + image.height){ //<>// //<>//
+      updateRandomPosition(); //<>// //<>// //<>//
+    }
+    
+    yPos += gameSpeed;
+    image(this.image, x(xPos), yPos);
+=======
   void update(float nD) {
-    yPos += gameSpeed * nD; 
+    yPos += speed * nD; 
   }
     void drawDepot(){
     if(yPos >= viewportH + image.height){
       updateRandomPosition();
     }
     
-    yPos += gameSpeed;
-    image(this.image, x(xPos), yPos);
+    
+    image(this.image, x(xPos), y(yPos));
+>>>>>>> dakka
   }
   
   

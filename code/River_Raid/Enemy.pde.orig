@@ -11,7 +11,11 @@ public class Enemy extends Element{
     public int score;
     public float lateralSpeed;
     
+<<<<<<< HEAD
     public Enemy(int section){
+=======
+    public Enemy(int section, float mapSpeed){
+>>>>>>> dakka
       this.type = ElementType.ENEMY;
       this.xPos = random(1000);
       this.section = section;
@@ -21,9 +25,14 @@ public class Enemy extends Element{
       return (y(yPos) <= viewportH + this.image.height*3);
     }
     
+<<<<<<< HEAD
+    public void update() {
+      this.move();
+=======
     public void update(float nD) {
       this.move(nD);
-      yPos += gameSpeed * nD;
+      yPos += speed * nD;
+>>>>>>> dakka
     }
     
     public void drawEnemy(){
@@ -31,8 +40,13 @@ public class Enemy extends Element{
       image(image, x(xPos), yPos);
     }
     
-    public void move(float nD){
+<<<<<<< HEAD
+    public void move(){
       if(mapCollision() || islandCollision() || fuelDepotCollision())
+=======
+    public void move(float nD){
+      if(x(xPos) >= viewportW - this.image.width || xPos <= 0 || islandCollision() || fuelDepotCollision())
+>>>>>>> dakka
         this.direction = !direction;
       
       if(this.direction)
@@ -51,8 +65,13 @@ public class Enemy extends Element{
     
 }
     class Tanker extends Enemy {
+<<<<<<< HEAD
       public Tanker(int section){
         super(section);
+=======
+      public Tanker(int section, float speed){
+        super(section, speed);
+>>>>>>> dakka
         this.image = loadImage("./images/sprites/enemy_tanker.png");
         image.resize(w(50), h(100));
         this.lateralSpeed = section;
@@ -60,8 +79,13 @@ public class Enemy extends Element{
       }
     }
     class Helicopter extends Enemy {
+<<<<<<< HEAD
       public Helicopter(int section){
         super(section);
+=======
+      public Helicopter(int section, float speed){
+        super(section, speed);
+>>>>>>> dakka
         this.image = loadImage("./images/sprites/enemy_chopper.png");
         image.resize(w(50), h(100));
         this.lateralSpeed = 1 + section;
@@ -70,8 +94,13 @@ public class Enemy extends Element{
     }
     
     class EnemyJet extends Enemy {
+<<<<<<< HEAD
       public EnemyJet(int section){
         super(section);
+=======
+      public EnemyJet(int section, float speed){
+        super(section, speed);
+>>>>>>> dakka
         this.image = loadImage("./images/sprites/enemy_jet.png");
         image.resize(w(50), h(100));
         this.lateralSpeed = 2 + section;

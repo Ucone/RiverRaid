@@ -1,8 +1,8 @@
 public class Block extends Element{
   
-  Block(int x,int y) {
+  Block(float x, float y, float w, float h) {
       image= loadImage("./images/sprites/map_block.png");
-      image.resize(w(350),h(300));
+      image.resize(w(w),h(h));
       yPos = y;
       xPos = x;
   }
@@ -13,8 +13,11 @@ public class Block extends Element{
   }
 
   public void drawBlock(){
-      yPos += gameSpeed;
-      image(image, x(xPos), yPos);  
+      image(image, x(xPos), y(yPos));  
+  }
+  
+  public void update(float nD) {
+    yPos += gameSpeed * nD; 
   }
   
   public boolean overcome(){

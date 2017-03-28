@@ -8,10 +8,17 @@ public class Element{
   float yPos = 0;
   ElementType type;
 
+<<<<<<< HEAD
+  void updateRandomPosition(){ //<>// //<>// //<>//
+    this.xPos = (int)random(200, 600);
+    this.yPos = (int)random(-1500, -3000) - this.image.height;
+    this.xPos = 0; //<>// //<>// //<>//
+=======
   void updateRandomPosition(){
     this.xPos = (int)random(200, 600);
     this.yPos = (int)random(-1500, -3000) - this.image.height;
     this.xPos = 0;
+>>>>>>> dakka
     this.yPos = 0;
   }
   
@@ -23,7 +30,7 @@ public class Element{
     return yPos;
   }
   
-  public void setY(float y){
+  public void setY(int y){
     this.yPos = y(y);
   }
   
@@ -31,6 +38,7 @@ public class Element{
     return image;
   }
   
+<<<<<<< HEAD
   public boolean elementCollision(Element e){
     if(abs(x(e.getX()) - x(this.getX())) <= e.getImage().width && abs(y(e.getY()) - y(this.getY())) <= e.getImage().height) 
         return true;
@@ -42,9 +50,11 @@ public class Element{
       return true;
     return false;
   }
-  
+}
+=======
   boolean collide(Element other) {
     return (x(this.getX()) + this.image.width > x(other.getX()) && x(this.getX()) < x(other.getX()) + other.image.width) && 
       (y(this.getY()) + this.image.height > y(other.getY()) && y(this.getY()) < y(other.getY()) + other.image.height);
   }
 }
+>>>>>>> dakka

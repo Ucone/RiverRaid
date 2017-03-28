@@ -1,4 +1,5 @@
 import controlP5.*;
+import java.util.Iterator;
 
 boolean testing = true;
 
@@ -34,30 +35,35 @@ int viewportW, viewportH;
 float offsetY, offsetX;
 
 //Variables for positions
-int x,y;
-int masterY = 0;
+float x,y;
 
 //Speed variables
-int DEFAULT_SPEED = 3;
-int gameSpeed = DEFAULT_SPEED;
+float DEFAULT_SPEED = 3;
+float gameSpeed = DEFAULT_SPEED;
 //Speed variables to change faster/slower
 boolean speedChanged = false;
-int ACCELERATION = 4; //fast speed = speed + ACCELERATION
-int DECELERATION = 2; //low speed = speed - DECELERATION
+float ACCELERATION = 4; //fast speed = speed + ACCELERATION
+float DECELERATION = 2; //low speed = speed - DECELERATION
 
 //Fuel constants
 int INITIAL_FUEL= 600;
 float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
 
+// timekeeping
+float TICK_MS = 20;
+int lastmillis = -1;
+
 //Score variables
 int score = 0;
 
 // Section
 int section = 1;
-int progressValue = y;
+int progressValue = (int)y;
 
 // For movement simultaneous
+ArrayList<Rocket> rockets = new ArrayList<Rocket>();
+
 boolean keys [];
 
 void setup() {
@@ -122,8 +128,8 @@ void setup() {
   island = new Island();
   fuelDepot = new FuelDepot();
   jet = new Jet();
-  
-  keys = new boolean[4];  //LEFT RIGTH UP DOWN.
+    keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
+    keys = new boolean[4];  //LEFT RIGTH UP DOWN.
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
@@ -133,7 +139,19 @@ void setup() {
   checkTesting();
 }
 
+int getDelta() {
+  if(lastmillis == -1) {
+    lastmillis = millis();
+    return 0;
+  }
+  int delta = millis() - lastmillis;
+  lastmillis = millis();
+  return delta;
+}
+
 void draw() {
+  int delta = getDelta();
+  float nD = delta / TICK_MS;
   switch(gameState){
     case WELCOME:
       image(startImg, x(0), y(0));
@@ -191,16 +209,17 @@ void draw() {
       }
       
       //Draw some elements
+      island.update(nD);
       drawScore();
       island.drawIsland();
       jet.checkCollision(island);
+      fuelDepot.update(nD);
       fuelDepot.drawDepot();
       
      // speedset initial speed
-      y += gameSpeed;
-      distance += gameSpeed;
-      progressValue += gameSpeed;
-      masterY += gameSpeed;
+      y += gameSpeed*nD;
+      distance += gameSpeed*nD;
+      progressValue += gameSpeed*nD;
       
       if (speedChanged){
            gameSpeed = DEFAULT_SPEED;
@@ -210,6 +229,8 @@ void draw() {
       //Draw more elements
       drawProgress();
       drawFuel();
+      jet.consume(nD);
+      jet.checkRefuel(fuelDepot, nD);
       jet.drawJet();
 
       //To restart the map and make it ciclique
@@ -217,6 +238,8 @@ void draw() {
           y=0;
       }
         
+
+      
       /* Enemies implementation */
       //Create new enemy
       if(random(1) < 0.01 + (float)section / 100){
@@ -245,12 +268,15 @@ void draw() {
           gameSpeed -= DECELERATION;
           speedChanged = true;      
       }
+      if (keys[4]){   //SPACE
+          rockets.add(new Rocket(jet.getX(), jet.getY()));
+      }
       
       //Draw new enemy
       for(int i=0; i<enemies.list.size(); i++){
         Enemy enemy = enemies.list.get(i);
         if(enemy.isVisible()){
-          enemy.update();
+          enemy.update(nD);
           enemy.drawEnemy();
           jet.checkCollision(enemy);
         }else{  //Remove invisible enemy
@@ -259,6 +285,27 @@ void draw() {
         }
       }
       
+      Iterator<Rocket> i = rockets.iterator();
+      while(i.hasNext()) {
+        Rocket rocket = i.next();
+        rocket.update(nD);
+        if(rocket.getY() < 0) {
+          i.remove();
+        } else {
+          Iterator<Enemy> ie = enemies.list.iterator();
+          while(ie.hasNext()) {
+            Enemy en = ie.next();
+            if (en.collide(rocket)) {
+              ie.remove();
+              i.remove();
+              break;
+            }
+          }
+          rocket.draw();
+        }
+      }
+      
+     
       break;
   }
 }
@@ -352,7 +399,8 @@ void controlEvent(ControlEvent theEvent) {
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME && key == CODED){
+  if (gameState == gameState.GAME) {
+    if ( key == CODED){
       switch(keyCode){
        case LEFT:
           keys[0]= true;
@@ -367,10 +415,16 @@ void keyPressed(){
        case DOWN:
        //speedChanged = true;  
           keys[3]= true;
-       break;    
+          break; 
+      }
+    } else {
+      switch(key){
+        case ' ':
+        keys[4]=true;
+        break;   
+      }
     }
-    
-  }else{
+  } else {
     switch(gameState){
       case STORY_1:
         gameState = GameState.STORY_2;
@@ -416,29 +470,34 @@ void keyReleased(){
             keys[3]= false;
          break;
         }
+     } else {
+       switch(key){
+         case ' ':
+           keys[4] = false;
+       }
      }
 }
 
 
 // Helpers to use abstract -1000 -- 1000 X/Y instead of current values
-int x(int fakex)
+int x(float fakex)
 {
-  return (int)((float)fakex / 1000. * viewportW + offsetX);
+  return (int)(fakex / 1000. * viewportW + offsetX);
 }
 
-int y(int fakey)
+int y(float fakey)
 {
-  return (int)((float)fakey / 1000. * viewportH + offsetY);
+  return (int)(fakey / 1000. * viewportH + offsetY);
 }
 
-int w(int fakew)
+int w(float fakew)
 {
-  return (int)((float)fakew / 1000.0 * viewportW);
+  return (int)(fakew / 1000.0 * viewportW);
 }
 
-int h(int fakeh)
+int h(float fakeh)
 {
-  return (int)((float)fakeh / 1000.0 * viewportH);
+  return (int)(fakeh / 1000.0 * viewportH);
 }
 
 void setViewports(){

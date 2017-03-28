@@ -20,8 +20,6 @@ class Jet extends Element{
        image(this.image, x(xPos), y(yPos));
      else
        image(this.imageCrashed, x(xPos), y(yPos));
-     this.consume();
-     this.checkRefuel(fuelDepot);
    }
    
    public void moveLeft(){
@@ -32,34 +30,34 @@ class Jet extends Element{
      xPos = xPos + 7;
    }
    
-   public void consume(){
+   public void consume(float nD){
      if(this.fuel > 0)
-       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2);
+       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
   }
   
   /*** REFUEL ***/
-  public void checkRefuel(FuelDepot fuelDepot){
-    int fuelDepotY = fuelDepot.getY();
+  public void checkRefuel(FuelDepot fuelDepot, float nD){
+    float fuelDepotY = fuelDepot.getY();
     if(fuelDepotY < 0){
       fuelDepotY = 1000 + fuelDepotY;
     }
     
     if(x(this.getX()) >= x(fuelDepot.getX()) && (x(this.getX()) + this.getImage().width <= x(fuelDepot.getX()) + fuelDepot.getImage().width) &&
         ( y(this.getY()) >= fuelDepotY && (y(this.getY()) <= fuelDepotY + fuelDepot.getImage().height) ) ){
-          this.refuel();
+          this.refuel(nD);
           VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
     }
   }
   
-  public void refuel(){
+  public void refuel(float nD){
     int refuelSpeed = 3;
     if(gameSpeed < DEFAULT_SPEED){
       refuelSpeed = 8;
     }
     if(this.fuel < INITIAL_FUEL){
-      this.fuel = (int)(this.fuel + refuelSpeed);
+      this.fuel = (int)(this.fuel + refuelSpeed * nD);
     }
   }
    
