@@ -10,7 +10,5 @@ class Bridge extends Element{
   void drawBridge(){
     yPos += gameSpeed;
     image(this.image, x(xPos), yPos);
-    
-
   }
 }

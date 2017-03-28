@@ -2,7 +2,7 @@ public class Map{
 
   Block [] blocksLeft; 
   Block [] blocksRight;
-  int NUM_BLOCKS = 6;
+  int NUM_BLOCKS = 12;
   int nextPositionY;  
   int blockWidth, blockHeight;
   Bridge bridge;

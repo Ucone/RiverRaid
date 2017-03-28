@@ -281,7 +281,7 @@ void draw() {
     image(progressIndicator, x(aux), y(600));
 
     if(progressValue / 5000 >= 1){
-      section++;
+      //section++;
       progressValue = 0;
       jet.addReserveJet();
     }
@@ -362,13 +362,11 @@ void keyPressed(){
           break;
        case UP:
        //speedChanged = true;  
-          //keys[2]= true;
-          gameSpeed += 2;
+          keys[2]= true;
           break;
        case DOWN:
        //speedChanged = true;  
-          //keys[3]= true;
-          gameSpeed -= 2;
+          keys[3]= true;
        break;    
     }
     
