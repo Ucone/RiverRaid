@@ -1,102 +1,62 @@
 public class Map{
 
-  
-  Block [] blocks; 
-  int NUM_BLOCKS = 12;
+  Block [] blocksLeft; 
+  Block [] blocksRight;
+  int NUM_BLOCKS = 6;
   int nextPositionY;  
   int blockWidth, blockHeight;
   Bridge bridge;
-  boolean levelChanged = false;
+  Block lastModified;
+  int nextBridgePosition = 0;
   
   Map(){
-    blocks = new Block[NUM_BLOCKS];
+    blocksLeft = new Block[NUM_BLOCKS];
+    blocksRight = new Block[NUM_BLOCKS];
     Block blockTest= new Block();
+    lastModified = blockTest;
     blockWidth = blockTest.image.width;
     blockHeight = blockTest.image.height;
-    
     nextPositionY = (int) (viewportH + offsetY - blockHeight);
 
     createMap();
-    bridge = new Bridge(this.getCoordenateBridge());
+    bridge = new Bridge(nextBridgePosition);
   }
   
   // This method just happen once at the beggining.
-  public void createMap(){
-    
-    blocks[0] = new Block(0, nextPositionY);
-    blocks[1] = new Block(600, nextPositionY);
-    nextPositionY -= blockHeight;
-    
-    for(int i=2; i<NUM_BLOCKS - 2; i+=2){
-      blocks[i] = new Block((int) random(-200, 0), nextPositionY);
-      blocks[i+1] = new Block(1000 - ((int) random(0, 400)), nextPositionY);
+  public void createMap(){    
+    for(int i=0; i<NUM_BLOCKS; i++){
+      blocksLeft[i] = new Block((int) random(-200, 0), nextPositionY);
+      blocksRight[i] = new Block(1000 - (int) random(100, 400), nextPositionY);
+      
       nextPositionY -= blockHeight;
+      lastModified = blocksLeft[i];
     }
-    
-    blocks[NUM_BLOCKS - 2] = new Block(0, nextPositionY);
-    blocks[NUM_BLOCKS - 1] = new Block(600, nextPositionY);
-    nextPositionY -= blockHeight;
-    
-    /*
-    blocks[0]= new Block(-200 , nextPositionY);
-    blocks[1]= new Block(800, nextPositionY);
-    blocks[NUM_BLOCKS - 2]= new Block(-200 , nextPositionY);
-    blocks[NUM_BLOCKS - 1]= new Block(800, nextPositionY);
-    nextPositionY -= blocks[0].image.height;
-    
-    for (int i=2; i<NUM_BLOCKS - 2; i+=2){
-      blocks[i]= new Block((int) random(-200, 0) , nextPositionY);
-      blocks[i+1]= new Block(1000 - ((int) random(0, 200)), nextPositionY);
-      nextPositionY -= blocks[i].image.height;
-    }
+    setNextBridgePosition();
 
-    nextPositionY -= blocks[NUM_BLOCKS - 1].image.height;
-    */
 }
 
-  //Draw each block;
   public void drawMap(){
       for (int i=0; i<NUM_BLOCKS; i++){
-       blocks[i].drawBlock(); 
+       blocksLeft[i].drawBlock();
+       blocksRight[i].drawBlock();
+       
+       if(blocksLeft[i].overcome()){
+         blocksLeft[i].yPos = lastModified.yPos - blockHeight;
+         blocksRight[i].yPos = lastModified.yPos - blockHeight;
+         lastModified = blocksLeft[i];
+         
+         if(i == NUM_BLOCKS - 1)
+           setNextBridgePosition();
+       }
       }
       
-      if(bridge.yPos > 0 && levelChanged == false){
-        nextLevel();
-      }
-      
-      if(bridge.getY() > 1000){
-        bridge.yPos = getCoordenateBridge();
-        levelChanged = false;
-      }
       bridge.drawBridge();
-      /*
-      if(blocks[NUM_BLOCKS-1].getY() >= 1000){
-        nextPositionY = (int)(0 - blocks[0].image.height + offsetY);
-        nextLevel();
-      }
-      */
-  }
-  
-  public void repeatLevel(){
-      text("REPEAT LEVEL", x(100), y(100));
       
-     //masterY = masterY - levelDistance;
-     //levelDistance-= levelDistance;
-  }
-  
-  public void nextLevel(){
-    nextPositionY = 0 - blockHeight;
-    for (int i=0; i<NUM_BLOCKS; i+=2){
-         blocks[i].xPos = x((int) random(-200, 0));
-         blocks[i].yPos = nextPositionY ;//-= masterY;//initial_y + levelDistance; 
-         blocks[i+1].xPos =1000 - ((int) random(0, 200));
-         blocks[i+1].yPos = nextPositionY ;//// initial_y + levelDistance; 
-         nextPositionY -= blockHeight;
-    }
-    levelChanged = true;
+      if(bridge.yPos > 1000)
+        bridge.yPos = nextBridgePosition;
   }
  
-  public int getCoordenateBridge(){
-    return blocks[NUM_BLOCKS - 1].yPos;
-  }
+   private void setNextBridgePosition(){
+     this.nextBridgePosition = lastModified.yPos;
+   }
 }

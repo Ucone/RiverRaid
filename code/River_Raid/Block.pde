@@ -1,6 +1,4 @@
 public class Block extends Element{
-
-  
   
   Block(int x,int y) {
       image= loadImage("./images/sprites/map_block.png");
@@ -15,11 +13,14 @@ public class Block extends Element{
   }
 
   public void drawBlock(){
-      
       yPos += gameSpeed;
       image(image, x(xPos), yPos);  
   }
   
-   
+  public boolean overcome(){
+    if(yPos > 1000)
+      return true;
+    return false;
+  }
 
 }

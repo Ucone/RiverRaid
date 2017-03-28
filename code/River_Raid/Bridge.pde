@@ -11,8 +11,6 @@ class Bridge extends Element{
     yPos += gameSpeed;
     image(this.image, x(xPos), yPos);
     
-    if(this.getY() == 1000){
-      //map.nextLevel();
-    }
+
   }
 }
