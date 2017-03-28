@@ -6,6 +6,7 @@ public class Map{
   int nextPositionY;  
   int blockWidth, blockHeight;
   Bridge bridge;
+  boolean levelChanged = false;
   
   Map(){
     blocks = new Block[NUM_BLOCKS];
@@ -16,7 +17,7 @@ public class Map{
     nextPositionY = (int) (viewportH + offsetY - blockHeight);
 
     createMap();
-    //bridge = new Bridge(this.getCoordenateBridge());
+    bridge = new Bridge(this.getCoordenateBridge());
   }
   
   // This method just happen once at the beggining.
@@ -59,9 +60,15 @@ public class Map{
        blocks[i].drawBlock(); 
       }
       
-      if(blocks[NUM_BLOCKS - 1].yPos > 1000)
+      if(bridge.yPos > 0 && levelChanged == false){
         nextLevel();
-      //bridge.drawBridge();
+      }
+      
+      if(bridge.getY() > 1000){
+        bridge.yPos = getCoordenateBridge();
+        levelChanged = false;
+      }
+      bridge.drawBridge();
       /*
       if(blocks[NUM_BLOCKS-1].getY() >= 1000){
         nextPositionY = (int)(0 - blocks[0].image.height + offsetY);
@@ -86,9 +93,10 @@ public class Map{
          blocks[i+1].yPos = nextPositionY ;//// initial_y + levelDistance; 
          nextPositionY -= blockHeight;
     }
+    levelChanged = true;
   }
  
   public int getCoordenateBridge(){
-    return blocks[NUM_BLOCKS - 1].getY();
+    return blocks[NUM_BLOCKS - 1].yPos;
   }
 }
