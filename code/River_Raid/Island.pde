@@ -3,9 +3,9 @@ class Island extends Element{
   boolean overcome = false;
  // PImage image;
   PImage originalImage;
-  int size; //<>// //<>// //<>// //<>//
+  int size; //<>// //<>// //<>// //<>// //<>//
   
-  Island(){ //<>// //<>// //<>// //<>//
+  Island(){ //<>// //<>// //<>// //<>// //<>//
     this.type = ElementType.ISLAND;
     originalImage = loadImage("./images/sprites/isle.png");
     this.image = originalImage.copy();
@@ -13,15 +13,15 @@ class Island extends Element{
     updateRandomPosition();
     updateRandomSize();
   }
-   //<>//
-  void drawIsland(){ //<>// //<>// //<>//
-    if(yPos > viewportH + image.height*2){ //<>//
-      updateRandomPosition(); //<>// //<>// //<>//
+   //<>// //<>//
+  void drawIsland(){ //<>// //<>// //<>// //<>//
+    if(yPos > viewportH + image.height*2){ //<>// //<>//
+      updateRandomPosition(); //<>// //<>// //<>// //<>//
       updateRandomSize();
     }
     
     yPos += gameSpeed;
-    image(this.image, x(xPos), y(yPos));
+    image(this.image, x(xPos), yPos);
   }
   
   

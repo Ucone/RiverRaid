@@ -22,10 +22,12 @@ PImage progressBackground, progressIndicator;
 
 // Objects
 Player player;
+Map map;
 Jet jet;
 Island island;
 FuelDepot fuelDepot;
 Enemies enemies = new Enemies();
+Bridge bridge;
 
 // Aspect ratio variables
 int viewportW, viewportH;
@@ -33,6 +35,7 @@ float offsetY, offsetX;
 
 //Variables for positions
 int x,y;
+int masterY = 0;
 
 //Speed variables
 int DEFAULT_SPEED = 3;
@@ -115,6 +118,7 @@ void setup() {
   progressIndicator.resize(w(50), h(50));
   
   // Instances of objects
+  map = new Map();
   island = new Island();
   fuelDepot = new FuelDepot();
   jet = new Jet();
@@ -176,9 +180,11 @@ void draw() {
       
     case GAME:
       //Map movement
-      image(map1, x(0), y(y));
-      image(map1, x(0), y(y) - map1.height);
-
+      //image(map1, x(0), y(y));
+      //image(map1, x(0), y(y) - map1.height);
+      background(0, 162, 232);
+      map.drawMap();
+      
       //Update score, elete this when we can defeat enemies:
       if (y%238 == 0){
          score +=30; 
@@ -194,6 +200,7 @@ void draw() {
       y += gameSpeed;
       distance += gameSpeed;
       progressValue += gameSpeed;
+      masterY += gameSpeed;
       
       if (speedChanged){
            gameSpeed = DEFAULT_SPEED;
@@ -355,11 +362,13 @@ void keyPressed(){
           break;
        case UP:
        //speedChanged = true;  
-          keys[2]= true;
+          //keys[2]= true;
+          gameSpeed += 2;
           break;
        case DOWN:
        //speedChanged = true;  
-          keys[3]= true;
+          //keys[3]= true;
+          gameSpeed -= 2;
        break;    
     }
     

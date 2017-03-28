@@ -23,11 +23,11 @@ public class Enemy extends Element{
     
     public void update() {
       this.move();
-      yPos += gameSpeed;
     }
     
     public void drawEnemy(){
-      image(image, x(xPos), y(yPos));
+      yPos += gameSpeed;
+      image(image, x(xPos), yPos);
     }
     
     public void move(){
