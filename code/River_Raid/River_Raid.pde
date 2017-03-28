@@ -129,7 +129,6 @@ void setup() {
   fuelDepot = new FuelDepot();
   jet = new Jet();
     keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
-    keys = new boolean[4];  //LEFT RIGTH UP DOWN.
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
