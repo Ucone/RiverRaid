@@ -25,8 +25,8 @@ public class Map{
   // This method just happen once at the beggining.
   public void createMap(){     
     for(int i=0; i<NUM_BLOCKS; i++){
-      blocksLeft[i] = new Block((int) random(-200, 0), nextPositionY);
-      blocksRight[i] = new Block(1000 - (int) random(100, 400), nextPositionY);
+      blocksLeft[i] = new Block((int) random(-200, -10), nextPositionY);
+      blocksRight[i] = new Block(1000 - (int) random(50, 300), nextPositionY);
       
       nextPositionY -= blockHeight;
       lastModified = blocksLeft[i];
@@ -41,9 +41,9 @@ public class Map{
        
        if(blocksLeft[i].overcome()){
          blocksLeft[i].yPos = lastModified.yPos - blockHeight;
-         blocksLeft[i].xPos = (int) random(-200, 0);
+         blocksLeft[i].xPos = (int) random(-200, -10);
          blocksRight[i].yPos = lastModified.yPos - blockHeight;
-         blocksRight[i].xPos = 1000 - (int) random(100, 400);
+         blocksRight[i].xPos = 1000 - (int) random(50, 300);
          lastModified = blocksLeft[i];
          
          if(i == NUM_BLOCKS - 1)

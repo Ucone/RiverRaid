@@ -180,8 +180,9 @@ void draw() {
       
     case GAME:
       //Map movement
-      image(map1, x(0), y(y));
-      image(map1, x(0), y(y) - map1.height);
+      //image(map1, x(0), y(y));
+      //image(map1, x(0), y(y) - map1.height);
+      background(0, 162, 232);
       map.drawMap();
       
       //Update score, elete this when we can defeat enemies:
