@@ -1,5 +1,5 @@
 public class Enemies{
-  ArrayList<Enemy> list;
+  ;
   
   Enemies(){
     list = new ArrayList<Enemy>();

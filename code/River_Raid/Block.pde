@@ -1,15 +1,12 @@
 public class Block extends Element{
+  public static float width = 300;
+  public static float height = 300;
   
-  Block(float x, float y, float w, float h) {
+  Block(float x, float y) {
       image= loadImage("./images/sprites/map_block.png");
-      image.resize(w(w),h(h));
+      image.resize(w(Block.width),h(Block.height));
       yPos = y;
       xPos = x;
-  }
-  
-  Block(){
-      image= loadImage("./images/sprites/map_block.png");
-      image.resize(w(350),h(300));
   }
 
   public void draw(){

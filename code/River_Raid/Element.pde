@@ -4,27 +4,15 @@ public class Element{
   
   public PImage image;
   //Coordenates
-  float xPos = 0;
-  float yPos = 0;
+  public float xPos = 0;
+  public float yPos = 0;
   ElementType type;
 
-  void updateRandomPosition(){ //<>//
+  void updateRandomPosition(){
     this.xPos = (int)random(200, 600);
     this.yPos = (int)random(-1500, -3000) - this.image.height;
-    this.xPos = 0; //<>//
+    this.xPos = 0;
     this.yPos = 0;
-  }
-  
-  public float getX(){
-    return xPos;
-  }
-  
-  public float getY(){
-    return yPos;
-  }
-  
-  public void setY(float y){
-    this.yPos = y(y);
   }
   
   public PImage getImage(){
