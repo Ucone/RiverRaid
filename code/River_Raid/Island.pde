@@ -20,7 +20,7 @@ class Island extends Element{
     yPos += gameSpeed * nD;
   }
   
-  void drawIsland(){
+  void draw(){
     image(this.image, x(xPos), yPos);  
   }
 
