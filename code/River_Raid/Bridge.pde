@@ -12,6 +12,6 @@ class Bridge extends Element{
   }
   
   void update(float nD) {
-    yPos += gameSpeed(nD);
+    yPos += gameSpeed * nD;
   }
 }
