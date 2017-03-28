@@ -6,20 +6,19 @@ class Jet extends Element{
   private int reserveJets = 0;
   
    Jet(){
-     this.image = loadImage("./images/sprites/jet.png");
-     this.imageCrashed = loadImage("./images/sprites/crash.png");
-     image.resize(w(80), h(130));
+     super(80, 130, loadImage("./images/sprites/jet.png"));
+     imageCrashed = loadImage("./images/sprites/crash.png");
      imageCrashed.resize(w(80), h(130));
      yPos = 800;
      xPos = 500;
      fuel = INITIAL_FUEL;
    }
    
-   public void draw(){
+   public void draw(float yMaster){
      if(!crashed)
-       image(this.image, x(xPos), y(yPos));
+       image(this.image, x(xPos), y(yMaster + yPos));
      else
-       image(this.imageCrashed, x(xPos), y(yPos));
+       image(this.imageCrashed, x(xPos), y(yMaster + yPos));
    }
    
    public void moveLeft(){
@@ -37,18 +36,18 @@ class Jet extends Element{
   
   /*** REFUEL ***/
   public void checkRefuel(FuelDepot fuelDepot, float nD){
-    float fuelDepotY = fuelDepot.getY();
+    float fuelDepotY = fuelDepot.xPos;
     if(fuelDepotY < 0){
       fuelDepotY = 1000 + fuelDepotY;
     }
-    
+    /*
     if(x(this.getX()) >= x(fuelDepot.getX()) && (x(this.getX()) + this.getImage().width <= x(fuelDepot.getX()) + fuelDepot.getImage().width) &&
         ( y(this.getY()) >= fuelDepotY && (y(this.getY()) <= fuelDepotY + fuelDepot.getImage().height) ) ){
           this.refuel(nD);
           VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
-    }
+    }*/
   }
   
   public void refuel(float nD){
@@ -62,14 +61,14 @@ class Jet extends Element{
   }
    
    
-   /* COLLISION */
+ /*  /* COLLISION 
    public void checkCollision(Element e){
     if(elementCollision(e) || mapCollision()){
         this.crashed = true;
         this.removeReserveJet();
     }
   }
-  
+  */
   
   public int getFuel(){
      return fuel;

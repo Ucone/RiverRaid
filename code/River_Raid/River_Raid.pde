@@ -24,12 +24,8 @@ PImage progressBackground, progressIndicator;
 
 // Objects
 Player player;
-Map map;
 Jet jet;
-Island island;
-FuelDepot fuelDepot;
-Enemies enemies = new Enemies();
-Bridge bridge;
+World world;
 
 // Aspect ratio variables
 int viewportW, viewportH;
@@ -37,6 +33,8 @@ float offsetY, offsetX;
 
 //Variables for positions
 float x,y;
+
+float yMaster = 0;
 
 //Speed variables
 float DEFAULT_SPEED = 3;
@@ -125,9 +123,7 @@ void setup() {
   progressIndicator.resize(w(50), h(50));
   
   // Instances of objects
-  map = new Map();
-  island = new Island();
-  fuelDepot = new FuelDepot();
+  world = new World();
   jet = new Jet();
     keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
   //Initialization to false
@@ -201,7 +197,9 @@ void draw() {
       //image(map1, x(0), y(y));
       //image(map1, x(0), y(y) - map1.height);
       background(0, 162, 232);
-      map.draw();
+      world.update(nD);
+      yMaster += gameSpeed * nD;
+      world.draw();
       
       //Update score, elete this when we can defeat enemies:
       if (y%238 == 0){
@@ -209,12 +207,7 @@ void draw() {
       }
       
       //Draw some elements
-      island.update(nD);
       drawScore();
-      island.draw();
-      jet.checkCollision(island);
-      fuelDepot.update(nD);
-      fuelDepot.draw();
       
      // speedset initial speed
       y += gameSpeed*nD;
@@ -228,30 +221,10 @@ void draw() {
        
       //Draw more elements
       drawProgress();
-      drawFuel();
-      jet.consume(nD);
-      jet.checkRefuel(fuelDepot, nD);
-      jet.draw();
-
-      //To restart the map and make it ciclique
-      if (y >= 1000){
-          y=0;
-      }
-        
-
-      
-      /* Enemies implementation */
-      //Create new enemy
-      if(random(1) < 0.01 + (float)section / 100){
-        float probability = random(1);
-        if(probability < 0.3){
-          enemies.addEnemy(new Tanker(section));
-        }else if(probability >= 0.3 && probability < 0.6){
-          enemies.addEnemy(new Helicopter(section));
-        }else{
-          enemies.addEnemy(new EnemyJet(section));
-        }
-      }
+      drawFuel(); //<>//
+     // jet.consume(nD);
+     // jet.checkRefuel(fuelDepot, nD);
+      jet.draw(yMaster);
       
       //Jet efficient movement
       if (keys[0]){  //LEFT
@@ -269,27 +242,15 @@ void draw() {
           speedChanged = true;      
       }
       if (keys[4]){   //SPACE
-          rockets.add(new Rocket(jet.getX(), jet.getY()));
+          rockets.add(new Rocket(jet.xPos, jet.yPos));
       }
+   
       
-      //Draw new enemy
-      for(int i=0; i<enemies.list.size(); i++){
-        Enemy enemy = enemies.list.get(i);
-        if(enemy.isVisible()){
-          enemy.update(nD);
-          enemy.draw();
-          jet.checkCollision(enemy);
-        }else{  //Remove invisible enemy
-          enemies.list.remove(i);
-          i--;
-        }
-      }
-      
-      Iterator<Rocket> i = rockets.iterator();
+  /*    Iterator<Rocket> i = rockets.iterator();
       while(i.hasNext()) {
         Rocket rocket = i.next();
         rocket.update(nD);
-        if(rocket.getY() < 0) {
+        if(rocket.yPos < 0) {
           i.remove();
         } else {
           Iterator<Enemy> ie = enemies.list.iterator();
@@ -304,7 +265,7 @@ void draw() {
           rocket.draw();
         }
       }
-      
+    */  
      
       break;
   }

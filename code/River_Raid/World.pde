@@ -1,6 +1,6 @@
 public class World {
   
-  int ENEMY_COUNT = 50;
+  int ENEMY_COUNT = 20;
   int FUEL_DEPOT_COUNT = 10;
   int ISLAND_COUNT = 10;
   float SECTION_SIZE = 5000;
@@ -14,42 +14,51 @@ public class World {
   Random previousRandom;
   
   World() {
-    currentRandom = new Random(Random.long());
+    currentRandom = new Random();
     generateSection();
   }
   
   public void generateSection() {
-    previousRandom = currentRandom.clone();
+    previousRandom = currentRandom;
     
-    enemies.clear();
-    fuelDepots.clear();
-    blocks.clear();
+    enemies = new ArrayList<Enemy>();
+    fuelDepots = new ArrayList<FuelDepot>();
+    blocks = new ArrayList<Block>();
+    islands = new ArrayList<Island>();
     
-    for(float i = 0; i < SECTION_SIZE; i+= Block.height)
+    for(float i = 0; i < SECTION_SIZE; i+= new Block().height)
     {
-      Block block = new Block(-50 + currentRandom.nextFloat()*50, i);
+      Block block = new Block();
+      block.xPos = -50 + currentRandom.nextFloat()*50;
+      block.yPos = i;
       blocks.add(block);
-      block = new Block(1050 - currentRandom.nextFloat()*50, i);
+      block.xPos = 1050 - currentRandom.nextFloat()*50;
+      block.yPos = i;
       blocks.add(block);
     }
     
     for(int i = 0; i < ENEMY_COUNT; i++)
     {
       
-      enemy en;
+      Enemy en;
       do {
         int enType = currentRandom.nextInt(3);
         switch(enType) {
         case 0:
           en = new Tanker(1); // TODO: section
+          break;
         case 1:
           en = new Helicopter(1); // TODO: section
+          break;
+        default:
         case 2:
           en = new EnemyJet(1); // TODO: section
+          
         }
         en.xPos = currentRandom.nextFloat()* 1000;
         en.yPos = 1000 + currentRandom.nextFloat()*(SECTION_SIZE - 1000);
-      } while(checkCollision(en))
+      } while(checkCollision(en));
+      print("en");
       enemies.add(en);
     }
     
@@ -60,8 +69,9 @@ public class World {
         fd = new FuelDepot();
         fd.xPos = currentRandom.nextFloat()* 1000;
         fd.yPos = 1000 + currentRandom.nextFloat()*(SECTION_SIZE - 1000);
-      } while(checkCollision(fd))
-      fuelDepots.add(fD);
+      } while(checkCollision(fd));
+      fuelDepots.add(fd);
+      print("fd");
     }
     
     for(int i = 0; i < ISLAND_COUNT; i++)
@@ -71,12 +81,13 @@ public class World {
         il = new Island();
         il.xPos = currentRandom.nextFloat()* 1000;
         il.yPos = 1000 + currentRandom.nextFloat()*(SECTION_SIZE - 1000);
-      } while(checkCollision(il))
+      } while(checkCollision(il));
       islands.add(il);
+      print("il");
     }
   }
   
-  void checkCollision(Element el) {
+  boolean checkCollision(Element el) {
     for (Block th : blocks) {
       if(el.collide(th)) return true;
     }
@@ -92,4 +103,33 @@ public class World {
     return false;
   }
   
+   void update(float nD) {
+     for (Block el : blocks) {
+       el.update(nD);
+     }
+     for (FuelDepot el : fuelDepots) {
+       el.update(nD);
+     }
+     for (Island el : islands) {
+       el.update(nD);
+     }
+     for (Enemy el : enemies) {
+       el.update(nD);
+     }
+   }
+   
+   void draw() {
+     for (Block el : blocks) {
+       el.drawIfVis(yMaster);
+     }
+     for (FuelDepot el : fuelDepots) {
+       el.drawIfVis(yMaster);
+     }
+     for (Island el : islands) {
+       el.drawIfVis(yMaster);
+     }
+     for (Enemy el : enemies) {
+       el.drawIfVis(yMaster);
+     }
+   }
 }

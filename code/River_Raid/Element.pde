@@ -6,36 +6,50 @@ public class Element{
   //Coordenates
   public float xPos = 0;
   public float yPos = 0;
+  
+  public float width;
+  public float height; //<>//
+  
   ElementType type;
-
-  void updateRandomPosition(){
-    this.xPos = (int)random(200, 600);
-    this.yPos = (int)random(-1500, -3000) - this.image.height;
-    this.xPos = 0;
-    this.yPos = 0;
+/* //<>//
+  public Element() {
+    throw new Exception()
   }
-  
-  public PImage getImage(){
-    return image;
-  }
-  
-  public boolean elementCollision(Element e){
-    if(abs(x(e.getX()) - x(this.getX())) <= e.getImage().width && abs(y(e.getY()) - y(this.getY())) <= e.getImage().height) 
-        return true;
-    return false;
+*/
+  public Element(float w, float h, PImage img) {
+    image = img;
+    img.resize(w(w), h(h));
+    this.width = w;
+    this. height = h;
   }
   
   public boolean mapCollision(){
-    if(this.getX() <= 0 || x(this.getX() + this.getImage().width) >= viewportW)
+    if(this.xPos <= 0 || this.xPos + this.width >= 1000)
       return true;
     return false;
   }
   
   boolean collide(Element other) {
-    return (x(this.getX()) + this.image.width > x(other.getX()) && x(this.getX()) < x(other.getX()) + other.image.width) && 
-      (y(this.getY()) + this.image.height > y(other.getY()) && y(this.getY()) < y(other.getY()) + other.image.height);
+    return (this.xPos + this.width > other.xPos && this.xPos < other.xPos + other.width) && 
+      (this.yPos + this.height > other.yPos && this.yPos < other.yPos + other.height);
   }
   
-  public void draw() {};
+  public void draw(float yMaster) {
+      image(image, x(xPos), y(yPos - yMaster));
+  };
+  
   public void update(float nD) {};
+  
+  public boolean visible(float yMaster) { // hack-y
+    return (this.yPos - yMaster >= 0 && this.yPos - yMaster <= 1000 && this.xPos >= 0 && this.xPos <= 1000);
+  }
+  
+  public boolean drawIfVis(float yMaster) {
+    if(this.visible(yMaster)) {
+      draw(yMaster);
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
