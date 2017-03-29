@@ -224,8 +224,8 @@ void draw() {
        
       //Draw more elements
       drawProgress();
-      drawFuel(); //<>//
-     // jet.consume(nD);
+      drawFuel();
+      jet.consume(nD);
      // jet.checkRefuel(fuelDepot, nD);
       jet.yPos = yMaster+800;
       jet.draw(yMaster);
@@ -307,7 +307,7 @@ void draw() {
       fill(#00ff4e);
       
       if(jet.getFuel() > 0){
-        rect( x(940), y(960), w(25), h((int)-jet.getFuel()/2));
+        rect( x(940), y(850), w(25), h((int)-jet.getFuel()/2));
       }
       
       //Fuel actions
