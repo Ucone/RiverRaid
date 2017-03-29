@@ -199,7 +199,7 @@ void draw() {
       //Map movement
       //image(map1, x(0), y(y));
       //image(map1, x(0), y(y) - map1.height);
-      background(0, 162, 232);
+      background(#eeeeee);
       world.update(nD);
       yMaster -= gameSpeed * nD;
       world.draw();
