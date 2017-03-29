@@ -1,6 +1,6 @@
 public class World {
   
-  int ENEMY_COUNT = 20;
+  int ENEMY_COUNT = 500;
   int FUEL_DEPOT_COUNT = 10;
   int ISLAND_COUNT = 10;
   float SECTION_SIZE = 100000;
