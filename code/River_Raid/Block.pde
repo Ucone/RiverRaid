@@ -1,7 +1,7 @@
 public class Block extends Element{
   
-  Block() {
-      super("./images/sprites/map_block.png", 300, 300);
+  Block(boolean right) {
+      super("./images/sprites/side_block_" + (right ? "right" : "left")  + ".png", 300, 300);
   }
 
   public void draw(){

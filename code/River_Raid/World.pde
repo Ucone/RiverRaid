@@ -26,13 +26,13 @@ public class World {
     blocks = new ArrayList<Block>();
     islands = new ArrayList<Island>();
     
-    for(float i = 0; i > -SECTION_SIZE; i-= new Block().height)
+    for(float i = 0; i > -SECTION_SIZE; i-= new Block(true).height)
     {
-      Block block = new Block();
+      Block block = new Block(false);
       block.xPos = - 0.75*block.width + currentRandom.nextFloat()*block.width * 0.5;
       block.yPos = i;
       blocks.add(block);
-      block = new Block();
+      block = new Block(true);
       block.xPos = 1000 - 0.75* block.width + currentRandom.nextFloat()*block.width * 0.5;
       block.yPos = i;
       blocks.add(block);
