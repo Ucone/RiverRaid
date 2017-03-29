@@ -5,10 +5,10 @@ public class World {
   int ISLAND_COUNT = 10;
   float SECTION_SIZE = 100000;
   
-  ArrayList<Enemy> enemies;
-  ArrayList<FuelDepot> fuelDepots;
-  ArrayList<Island> islands;
-  ArrayList<Block> blocks;
+  public ArrayList<Enemy> enemies;
+  public ArrayList<FuelDepot> fuelDepots;
+  public ArrayList<Island> islands;
+  public ArrayList<Block> blocks;
   
   Random currentRandom;
   Random previousRandom;

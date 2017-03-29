@@ -246,18 +246,21 @@ void draw() {
           speedChanged = true;      
       }
       if (keys[4]){   //SPACE
-          rockets.add(new Rocket(jet.xPos, jet.yPos));
+          Rocket rocket = new Rocket();
+          rocket.xPos = jet.xPos;
+          rocket.yPos = jet.yPos;
+          rockets.add(rocket);
       }
    
       
-  /*    Iterator<Rocket> i = rockets.iterator();
+      Iterator<Rocket> i = rockets.iterator();
       while(i.hasNext()) {
         Rocket rocket = i.next();
         rocket.update(nD);
-        if(rocket.yPos < 0) {
+        if(!rocket.visible(yMaster)) {
           i.remove();
         } else {
-          Iterator<Enemy> ie = enemies.list.iterator();
+          Iterator<Enemy> ie = world.enemies.iterator();
           while(ie.hasNext()) {
             Enemy en = ie.next();
             if (en.collide(rocket)) {
@@ -266,10 +269,9 @@ void draw() {
               break;
             }
           }
-          rocket.draw();
+          rocket.draw(yMaster);
         }
-      }
-    */  
+      }  
      
       break;
   }
