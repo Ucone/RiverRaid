@@ -198,7 +198,7 @@ void draw() {
       //image(map1, x(0), y(y) - map1.height);
       background(0, 162, 232);
       world.update(nD);
-      yMaster += gameSpeed * nD;
+      yMaster -= gameSpeed * nD;
       world.draw();
       
       //Update score, elete this when we can defeat enemies:
