@@ -224,6 +224,7 @@ void draw() {
       drawFuel(); //<>//
      // jet.consume(nD);
      // jet.checkRefuel(fuelDepot, nD);
+      jet.yPos = yMaster+800;
       jet.draw(yMaster);
       
       //Jet efficient movement
