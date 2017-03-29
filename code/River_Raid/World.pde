@@ -85,17 +85,26 @@ public class World {
     }
   }
   
+  ArrayList<Element> getElements() {
+     ArrayList<Element> el = new  ArrayList<Element>();
+     for (Element th : blocks) {
+      el.add(th);
+     }
+     for (Element th : enemies) {
+      el.add(th);
+     }
+     for (Element th : fuelDepots) {
+      el.add(th);
+     }
+     for (Element th : islands) {
+      el.add(th);
+     }
+     return el;
+  }
+  
   boolean checkCollision(Element el) {
-    for (Block th : blocks) {
-      if(el.collide(th)) return true;
-    }
-    for (FuelDepot th : fuelDepots) {
-      if(el.collide(th)) return true;
-    }
-    for (Enemy th : enemies) {
-      if(el.collide(th)) return true;
-    }
-    for (Island th : islands) {
+    for (Element th : getElements()) {
+      if(th == el) continue;
       if(el.collide(th)) return true;
     }
     return false;
