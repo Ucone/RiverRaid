@@ -3,7 +3,7 @@ public class World {
   int ENEMY_COUNT = 20;
   int FUEL_DEPOT_COUNT = 10;
   int ISLAND_COUNT = 10;
-  float SECTION_SIZE = 5000;
+  float SECTION_SIZE = 100000;
   
   ArrayList<Enemy> enemies;
   ArrayList<FuelDepot> fuelDepots;
@@ -26,13 +26,14 @@ public class World {
     blocks = new ArrayList<Block>();
     islands = new ArrayList<Island>();
     
-    for(float i = 0; i < SECTION_SIZE; i+= new Block().height)
+    for(float i = 0; i > -SECTION_SIZE; i-= new Block().height)
     {
       Block block = new Block();
-      block.xPos = -50 + currentRandom.nextFloat()*50;
+      block.xPos = - 0.75*block.width + currentRandom.nextFloat()*block.width * 0.5;
       block.yPos = i;
       blocks.add(block);
-      block.xPos = 1050 - currentRandom.nextFloat()*50;
+      block = new Block();
+      block.xPos = 1000 - 0.75* block.width + currentRandom.nextFloat()*block.width * 0.5;
       block.yPos = i;
       blocks.add(block);
     }
@@ -56,9 +57,8 @@ public class World {
           
         }
         en.xPos = currentRandom.nextFloat()* 1000;
-        en.yPos = 1000 + currentRandom.nextFloat()*(SECTION_SIZE - 1000);
+        en.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(en));
-      print("en");
       enemies.add(en);
     }
     
@@ -68,10 +68,9 @@ public class World {
       do {
         fd = new FuelDepot();
         fd.xPos = currentRandom.nextFloat()* 1000;
-        fd.yPos = 1000 + currentRandom.nextFloat()*(SECTION_SIZE - 1000);
+        fd.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(fd));
       fuelDepots.add(fd);
-      print("fd");
     }
     
     for(int i = 0; i < ISLAND_COUNT; i++)
@@ -80,10 +79,9 @@ public class World {
       do {
         il = new Island();
         il.xPos = currentRandom.nextFloat()* 1000;
-        il.yPos = 1000 + currentRandom.nextFloat()*(SECTION_SIZE - 1000);
+        il.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(il));
       islands.add(il);
-      print("il");
     }
   }
   
