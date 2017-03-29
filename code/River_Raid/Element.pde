@@ -16,11 +16,10 @@ public class Element{
     throw new Exception()
   }
 */
-  public Element(float w, float h, PImage img) {
-    image = img;
-    img.resize(w(w), h(h));
+  public Element(String imagePath, float w, float h) {
+    image = getImage(imagePath, w(w), h(h));
     this.width = w;
-    this. height = h;
+    this.height = h;
   }
   
   public boolean mapCollision(){
@@ -41,7 +40,7 @@ public class Element{
   public void update(float nD) {};
   
   public boolean visible(float yMaster) { // hack-y
-    return (this.yPos - yMaster >= 0 && this.yPos - yMaster <= 1000 && this.xPos >= 0 && this.xPos <= 1000);
+    return (this.yPos + height >= yMaster && this.yPos <= yMaster + 1000 && this.xPos + this.width >= 0 && this.xPos <= 1000);
   }
   
   public boolean drawIfVis(float yMaster) {

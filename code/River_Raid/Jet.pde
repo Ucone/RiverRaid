@@ -6,9 +6,8 @@ class Jet extends Element{
   private int reserveJets = 0;
   
    Jet(){
-     super(80, 130, loadImage("./images/sprites/jet.png"));
-     imageCrashed = loadImage("./images/sprites/crash.png");
-     imageCrashed.resize(w(80), h(130));
+     super("./images/sprites/jet.png", 80, 130);
+     imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
      yPos = 800;
      xPos = 500;
      fuel = INITIAL_FUEL;
@@ -16,9 +15,9 @@ class Jet extends Element{
    
    public void draw(float yMaster){
      if(!crashed)
-       image(this.image, x(xPos), y(yMaster + yPos));
+       image(this.image, x(xPos), y(yPos - yMaster));
      else
-       image(this.imageCrashed, x(xPos), y(yMaster + yPos));
+       image(this.imageCrashed, x(xPos), y(yPos - yMaster));
    }
    
    public void moveLeft(){

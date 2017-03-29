@@ -5,8 +5,8 @@ public class Enemy extends Element{
     public int score;
     public float lateralSpeed;
     
-    public Enemy(float w, float h, PImage img) {
-      super(w, h, img); 
+    public Enemy(String s, float w, float h) {
+      super(s, w, h); 
     }
     
     public void update(float nD){
@@ -20,14 +20,14 @@ public class Enemy extends Element{
 }
     class Tanker extends Enemy {
       public Tanker(int section){
-        super(50, 100, loadImage("./images/sprites/enemy_tanker.png"));
+        super("./images/sprites/enemy_tanker.png", 50, 100);
         this.lateralSpeed = section;
         this.score = 200;
       }
     }
     class Helicopter extends Enemy {
       public Helicopter(int section){
-        super(50, 100, loadImage("./images/sprites/enemy_chopper.png"));
+        super("./images/sprites/enemy_chopper.png", 50, 100);
         this.lateralSpeed = 1 + section;
         this.score = 200;
       }
@@ -35,7 +35,7 @@ public class Enemy extends Element{
     
     class EnemyJet extends Enemy {
       public EnemyJet(int section){
-        super(50, 100, loadImage("./images/sprites/enemy_jet.png"));
+        super("./images/sprites/enemy_jet.png", 50, 100);
         this.lateralSpeed = 2 + section;
         this.score = 200;
     }

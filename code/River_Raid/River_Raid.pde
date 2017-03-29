@@ -1,6 +1,7 @@
 import controlP5.*;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.HashMap;
 
 boolean testing = true;
 
@@ -21,6 +22,8 @@ PImage map1;
 PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
+
+HashMap<String, PImage> imageMap = null;
 
 // Objects
 Player player;
@@ -482,3 +485,17 @@ void setViewports(){
     offsetX = (float)(width - viewportW) / 2.;
   }
 }
+
+PImage getImage(String imageName, int w, int h) {
+     String imageId = imageName + "x"+ w + "x" + h;
+     if(imageMap == null)
+       imageMap = new HashMap<String, PImage>();
+     if(imageMap.containsKey(imageId)) {
+        return imageMap.get(imageId); 
+     } else {
+       PImage img = loadImage(imageName);
+       img.resize(w, h);
+       imageMap.put(imageId, img);
+       return img;
+     }
+   }

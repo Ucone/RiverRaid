@@ -1,7 +1,7 @@
 public class Block extends Element{
   
   Block() {
-      super(300, 300, loadImage("./images/sprites/map_block.png"));
+      super("./images/sprites/map_block.png", 300, 300);
   }
 
   public void draw(){

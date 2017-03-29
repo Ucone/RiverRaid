@@ -2,7 +2,7 @@ public class Rocket extends Element {
   float SPEED = 3.0;
   
   Rocket(float x, float y) {
-    super(10, 10, loadImage("./images/sprites/rocket.png"));
+    super("./images/sprites/rocket.png", 10, 10);
   }
   
   void update(float nD) {

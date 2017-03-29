@@ -1,7 +1,7 @@
 class Bridge extends Element{
  
   Bridge(float yPos){
-    super(1000, 100, loadImage("./images/sprites/bridge.png"));
+    super("./images/sprites/bridge.png", 1000, 100);
   }
   
 }
