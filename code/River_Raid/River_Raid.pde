@@ -48,7 +48,7 @@ float ACCELERATION = 4; //fast speed = speed + ACCELERATION
 float DECELERATION = 2; //low speed = speed - DECELERATION
 
 //Fuel constants
-int INITIAL_FUEL= 600;
+int INITIAL_FUEL= 600; //normally at 600
 float VELOCITY_CONSUMPTION = 0.01;
 float distance = y;
 
@@ -64,6 +64,11 @@ int section = 1;
 
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
+
+//for blinking function
+int time=0;
+boolean booleanDelay = false;
+int timeDelay= 400;
 
 boolean keys [];
 
@@ -234,6 +239,8 @@ void draw() {
       jet.yPos = yMaster+800;
       jet.checkCollision();
       jet.draw(yMaster);
+      //blinking function
+      blinkFunction();
       
       //Jet efficient movement
       if (keys[0]){  //LEFT
@@ -311,16 +318,26 @@ void draw() {
       }
       
       //Fuel actions
-      if (jet.getFuel() < INITIAL_FUEL / 3){
+      if ((jet.getFuel() < INITIAL_FUEL / 3)&&(booleanDelay)){
             image(lowFuelIcon, x(930), y(800 - fuelGauge.height));
         if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
       
       image(fuelGauge, x(930), y(900 - fuelGauge.height));
+      
+      
   }
 
 
+  
+ public void blinkFunction(){
+   if(millis()-time>=timeDelay){
+      booleanDelay = !booleanDelay;
+      time = millis(); 
+ }
+
+ }
 
 /* Loads the image of the story defined by the GameState */
 /* @return The image loaded*/
