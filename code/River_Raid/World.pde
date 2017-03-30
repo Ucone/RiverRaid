@@ -4,6 +4,7 @@ public class World {
   static final int C_FUEL_DEPOTS = 0b10;
   static final int C_BLOCKS = 0b100;
   static final int C_ISLANDS = 0b1000;
+  static final int C_OBSTACLES = 0b1101;
   static final int C_EVERYTHING = 0b1111;
 
   int ENEMY_COUNT = 500;

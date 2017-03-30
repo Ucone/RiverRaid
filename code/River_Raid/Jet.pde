@@ -55,14 +55,13 @@ class Jet extends Element{
   }
    
    
- /*  /* COLLISION 
-   public void checkCollision(Element e){
-    if(elementCollision(e) || mapCollision()){
+   /* COLLISION  */
+   public void checkCollision(){
+    if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
         this.removeReserveJet();
     }
   }
-  */
   
   public int getFuel(){
      return fuel;

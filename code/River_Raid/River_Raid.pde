@@ -228,6 +228,7 @@ void draw() {
       jet.consume(nD);
       jet.checkRefuel(nD);
       jet.yPos = yMaster+800;
+      jet.checkCollision();
       jet.draw(yMaster);
       
       //Jet efficient movement
