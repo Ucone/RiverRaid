@@ -126,6 +126,8 @@ void setup() {
   
   // Instances of objects
   world = new World();
+  world.resetSeed();
+  world.generateSection(section);
   jet = new Jet();
     keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
   //Initialization to false
@@ -204,7 +206,9 @@ void draw() {
       if(yMaster < -world.SECTION_SIZE)
       {
         world.resetSeed();
-        world.generateSection();
+        section++;
+        jet.addReserveJet();
+        world.generateSection(section);
         yMaster = 0;
       }
       world.draw();

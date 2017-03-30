@@ -21,15 +21,13 @@ public class World {
   long seed;
   
   World() {
-    resetSeed();
-    generateSection();
   }
   
   public void resetSeed() {
      seed = (long)random(90e9); 
   }
   
-  public void generateSection() {
+  public void generateSection(int section) {
     
     randomGen = new Random(seed);
     
@@ -58,14 +56,14 @@ public class World {
         int enType = randomGen.nextInt(3);
         switch(enType) {
         case 0:
-          en = new Tanker(1); // TODO: section
+          en = new Tanker(section); // TODO: section
           break;
         case 1:
-          en = new Helicopter(1); // TODO: section
+          en = new Helicopter(section); // TODO: section
           break;
         default:
         case 2:
-          en = new EnemyJet(1); // TODO: section
+          en = new EnemyJet(section); // TODO: section
           
         }
         en.xPos = randomGen.nextFloat()* 1000;
