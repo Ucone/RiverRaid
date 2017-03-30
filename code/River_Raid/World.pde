@@ -1,5 +1,11 @@
 public class World {
-  
+ 
+  static final int C_ENEMIES = 0b1;
+  static final int C_FUEL_DEPOTS = 0b10;
+  static final int C_BLOCKS = 0b100;
+  static final int C_ISLANDS = 0b1000;
+  static final int C_EVERYTHING = 0b1111;
+
   int ENEMY_COUNT = 500;
   int FUEL_DEPOT_COUNT = 10;
   int ISLAND_COUNT = 10;
@@ -58,7 +64,7 @@ public class World {
         }
         en.xPos = currentRandom.nextFloat()* 1000;
         en.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
-      } while(checkCollision(en));
+      } while(checkCollision(en, World.C_EVERYTHING));
       enemies.add(en);
     }
     
@@ -69,7 +75,7 @@ public class World {
         fd = new FuelDepot();
         fd.xPos = currentRandom.nextFloat()* 1000;
         fd.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
-      } while(checkCollision(fd));
+      } while(checkCollision(fd, World.C_EVERYTHING));
       fuelDepots.add(fd);
     }
     
@@ -80,33 +86,33 @@ public class World {
         il = new Island();
         il.xPos = currentRandom.nextFloat()* 1000;
         il.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
-      } while(checkCollision(il));
+      } while(checkCollision(il, World.C_EVERYTHING));
       islands.add(il);
     }
   }
   
-  ArrayList<Element> getElements() {
-     ArrayList<Element> el = new  ArrayList<Element>();
-     for (Element th : blocks) {
-      el.add(th);
-     }
-     for (Element th : enemies) {
-      el.add(th);
-     }
-     for (Element th : fuelDepots) {
-      el.add(th);
-     }
-     for (Element th : islands) {
-      el.add(th);
-     }
-     return el;
-  }
   
-  boolean checkCollision(Element el) {
-    for (Element th : getElements()) {
-      if(th == el) continue;
-      if(el.collide(th)) return true;
-    }
+  boolean checkCollision(Element el, int cflag) {
+    if((cflag & C_BLOCKS) != 0)
+      for (Element th : blocks) {
+        if(th == el) continue;
+        if(el.collide(th)) return true;
+      };
+    if((cflag & C_FUEL_DEPOTS) != 0)
+      for (Element th : fuelDepots) {
+        if(th == el) continue;
+        if(el.collide(th)) return true;
+      };
+    if((cflag & C_ISLANDS) != 0)
+      for (Element th : islands) {
+        if(th == el) continue;
+        if(el.collide(th)) return true;
+      };
+    if((cflag & C_ENEMIES) != 0)
+      for (Element th : enemies) {
+        if(th == el) continue;
+        if(el.collide(th)) return true;
+      };
     return false;
   }
   

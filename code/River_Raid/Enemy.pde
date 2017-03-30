@@ -14,7 +14,7 @@ public class Enemy extends Element{
         xPos += lateralSpeed * nD;
       else
         xPos -= lateralSpeed * nD;
-      if(world.checkCollision(this)) {
+      if(world.checkCollision(this, World.C_EVERYTHING)) {
         this.direction = !this.direction;
         if(this.direction)
           xPos += lateralSpeed * nD;
