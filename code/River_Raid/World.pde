@@ -17,16 +17,16 @@ public class World {
   public ArrayList<Island> islands;
   public ArrayList<Block> blocks;
   
-  Random currentRandom;
-  Random previousRandom;
+  Random randomGen;
   
   World() {
-    currentRandom = new Random();
     generateSection();
   }
   
   public void generateSection() {
-    previousRandom = currentRandom;
+    
+    long seed = (long)random(90e9);
+    randomGen = new Random(seed);
     
     enemies = new ArrayList<Enemy>();
     fuelDepots = new ArrayList<FuelDepot>();
@@ -36,11 +36,11 @@ public class World {
     for(float i = 0; i > -SECTION_SIZE; i-= new Block(true).height)
     {
       Block block = new Block(false);
-      block.xPos = - 0.75*block.width + currentRandom.nextFloat()*block.width * 0.5;
+      block.xPos = - 0.75*block.width + randomGen.nextFloat()*block.width * 0.5;
       block.yPos = i;
       blocks.add(block);
       block = new Block(true);
-      block.xPos = 1000 - 0.75* block.width + currentRandom.nextFloat()*block.width * 0.5;
+      block.xPos = 1000 - 0.75* block.width + randomGen.nextFloat()*block.width * 0.5;
       block.yPos = i;
       blocks.add(block);
     }
@@ -50,7 +50,7 @@ public class World {
       
       Enemy en;
       do {
-        int enType = currentRandom.nextInt(3);
+        int enType = randomGen.nextInt(3);
         switch(enType) {
         case 0:
           en = new Tanker(1); // TODO: section
@@ -63,8 +63,8 @@ public class World {
           en = new EnemyJet(1); // TODO: section
           
         }
-        en.xPos = currentRandom.nextFloat()* 1000;
-        en.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
+        en.xPos = randomGen.nextFloat()* 1000;
+        en.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(en, World.C_EVERYTHING));
       enemies.add(en);
     }
@@ -74,8 +74,8 @@ public class World {
       FuelDepot fd;
       do {
         fd = new FuelDepot();
-        fd.xPos = currentRandom.nextFloat()* 1000;
-        fd.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
+        fd.xPos = randomGen.nextFloat()* 1000;
+        fd.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(fd, World.C_EVERYTHING));
       fuelDepots.add(fd);
     }
@@ -85,8 +85,8 @@ public class World {
       Island il;
       do {
         il = new Island();
-        il.xPos = currentRandom.nextFloat()* 1000;
-        il.yPos = -currentRandom.nextFloat()*(SECTION_SIZE - 1000);
+        il.xPos = randomGen.nextFloat()* 1000;
+        il.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(il, World.C_EVERYTHING));
       islands.add(il);
     }
