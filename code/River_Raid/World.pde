@@ -90,6 +90,11 @@ public class World {
       } while(checkCollision(il, World.C_EVERYTHING));
       islands.add(il);
     }
+    
+    bridge = new Bridge();
+    bridge.xPos = 0;
+    bridge.yPos = -SECTION_SIZE;
+    enemies.add(bridge);
   }
   
   

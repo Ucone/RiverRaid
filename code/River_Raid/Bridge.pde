@@ -1,6 +1,6 @@
-class Bridge extends Element{
+class Bridge extends Enemy{
  
-  Bridge(float yPos){
+  Bridge(){
     super("./images/sprites/bridge.png", 1000, 100);
   }
   
