@@ -204,11 +204,6 @@ void draw() {
       yMaster -= gameSpeed * nD;
       world.draw();
       
-      //Update score, elete this when we can defeat enemies:
-      if (y%238 == 0){
-         score +=30; 
-      }
-      
       //Draw some elements
       drawScore();
       
@@ -267,6 +262,7 @@ void draw() {
             if (en.collide(rocket)) {
               ie.remove();
               i.remove();
+              score += en.score;
               break;
             }
           }
