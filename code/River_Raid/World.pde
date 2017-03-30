@@ -7,10 +7,10 @@ public class World {
   static final int C_OBSTACLES = 0b1101;
   static final int C_EVERYTHING = 0b1111;
 
-  int ENEMY_COUNT = 30;
-  int FUEL_DEPOT_COUNT = 10;
-  int ISLAND_COUNT = 10;
-  float SECTION_SIZE = 10000;
+  public int ENEMY_COUNT = 30;
+  public int FUEL_DEPOT_COUNT = 10;
+  public int ISLAND_COUNT = 10;
+  public float SECTION_SIZE = 10000;
   
   public ArrayList<Enemy> enemies;
   public ArrayList<FuelDepot> fuelDepots;
@@ -18,14 +18,19 @@ public class World {
   public ArrayList<Block> blocks;
   
   Random randomGen;
+  long seed;
   
   World() {
+    resetSeed();
     generateSection();
+  }
+  
+  public void resetSeed() {
+     seed = (long)random(90e9); 
   }
   
   public void generateSection() {
     
-    long seed = (long)random(90e9);
     randomGen = new Random(seed);
     
     enemies = new ArrayList<Enemy>();

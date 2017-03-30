@@ -201,6 +201,12 @@ void draw() {
       background(#eeeeee);
       world.update(nD);
       yMaster -= gameSpeed * nD;
+      if(yMaster < -world.SECTION_SIZE)
+      {
+        world.resetSeed();
+        world.generateSection();
+        yMaster = 0;
+      }
       world.draw();
       
       //Draw some elements
