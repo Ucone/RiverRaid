@@ -61,7 +61,6 @@ int score = 0;
 
 // Section
 int section = 1;
-int progressValue = (int)y;
 
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
@@ -206,12 +205,7 @@ void draw() {
       
       //Draw some elements
       drawScore();
-      
-     // speedset initial speed
-      y += gameSpeed*nD;
-      distance += gameSpeed*nD;
-      progressValue += gameSpeed*nD;
-      
+         
       if (speedChanged){
            gameSpeed = DEFAULT_SPEED;
            speedChanged = false;
@@ -288,14 +282,8 @@ void draw() {
 
   void drawProgress(){
     image(progressBackground, x(10), y(600));
-    int aux = (int)(200*progressValue)/5000;
+    float aux = (150*(-yMaster))/world.SECTION_SIZE;
     image(progressIndicator, x(aux), y(600));
-
-    if(progressValue / 5000 >= 1){
-      //section++;
-      progressValue = 0;
-      jet.addReserveJet();
-    }
   }
   //***** FUEL IMPLEMENTATION *****
   void drawFuel(){
