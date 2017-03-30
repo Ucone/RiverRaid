@@ -37,7 +37,7 @@ float offsetY, offsetX;
 //Variables for positions
 float x,y;
 
-float yMaster = 0;
+float yMaster = 1000;
 
 //Speed variables
 float DEFAULT_SPEED = 3;
@@ -203,13 +203,18 @@ void draw() {
       background(#eeeeee);
       world.update(nD);
       yMaster -= gameSpeed * nD;
-      if(yMaster < -world.SECTION_SIZE)
+      if(yMaster < -world.SECTION_SIZE-1000)
       {
         world.resetSeed();
         section++;
         jet.addReserveJet();
         world.generateSection(section);
-        yMaster = 0;
+        Iterator<Rocket> i = rockets.iterator();
+        while(i.hasNext()) {
+          Rocket rocket = i.next();
+          rocket.yPos -= (yMaster - 1000);
+        }
+        yMaster = 1000;
       }
       world.draw();
       
