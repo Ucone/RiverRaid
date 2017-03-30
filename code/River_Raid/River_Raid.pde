@@ -226,7 +226,7 @@ void draw() {
       drawProgress();
       drawFuel();
       jet.consume(nD);
-     // jet.checkRefuel(fuelDepot, nD);
+      jet.checkRefuel(nD);
       jet.yPos = yMaster+800;
       jet.draw(yMaster);
       

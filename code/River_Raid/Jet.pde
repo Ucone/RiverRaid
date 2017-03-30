@@ -34,19 +34,14 @@ class Jet extends Element{
   }
   
   /*** REFUEL ***/
-  public void checkRefuel(FuelDepot fuelDepot, float nD){
-    float fuelDepotY = fuelDepot.xPos;
-    if(fuelDepotY < 0){
-      fuelDepotY = 1000 + fuelDepotY;
-    }
-    /*
-    if(x(this.getX()) >= x(fuelDepot.getX()) && (x(this.getX()) + this.getImage().width <= x(fuelDepot.getX()) + fuelDepot.getImage().width) &&
-        ( y(this.getY()) >= fuelDepotY && (y(this.getY()) <= fuelDepotY + fuelDepot.getImage().height) ) ){
-          this.refuel(nD);
-          VELOCITY_CONSUMPTION = 0;
+  public void checkRefuel(float nD){
+
+    if(world.checkCollision(this, World.C_FUEL_DEPOTS)){
+        this.refuel(nD);
+        VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
-    }*/
+    }
   }
   
   public void refuel(float nD){
