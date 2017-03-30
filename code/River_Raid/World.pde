@@ -91,7 +91,7 @@ public class World {
       islands.add(il);
     }
     
-    bridge = new Bridge();
+    Bridge bridge = new Bridge();
     bridge.xPos = 0;
     bridge.yPos = -SECTION_SIZE;
     enemies.add(bridge);
