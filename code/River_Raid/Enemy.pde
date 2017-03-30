@@ -27,7 +27,7 @@ public class Enemy extends Element{
 }
     class Tanker extends Enemy {
       public Tanker(int section){
-        super("./images/sprites/enemy_tanker.png", 50, 100);
+        super("./images/sprites/enemy_tanker.png", 50, 200);
         this.lateralSpeed = section;
         this.score = 200;
       }
