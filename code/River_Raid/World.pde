@@ -7,10 +7,10 @@ public class World {
   static final int C_OBSTACLES = 0b1101;
   static final int C_EVERYTHING = 0b1111;
 
-  int ENEMY_COUNT = 500;
+  int ENEMY_COUNT = 30;
   int FUEL_DEPOT_COUNT = 10;
   int ISLAND_COUNT = 10;
-  float SECTION_SIZE = 100000;
+  float SECTION_SIZE = 10000;
   
   public ArrayList<Enemy> enemies;
   public ArrayList<FuelDepot> fuelDepots;
