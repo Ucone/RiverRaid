@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 boolean testing = true;
 
-public enum GameState {WELCOME, STORY_1, STORY_2, STORY_3, STORY_4, GAME};  // Different states of the game
+public enum GameState {WELCOME, STORY_1, STORY_2, STORY_3, STORY_4, GAME, END};  // Different states of the game
 public enum ElementType {ISLAND, ENEMY, FUEL_DEPOT};
 
 // Input fields and text
@@ -432,7 +432,7 @@ void checkTesting(){
   if(this.testing){
     cp5.remove("Start");
     cp5.remove("name_input");
-    gameState = GameState.GAME;
+    gameState = GameState.END;
   }
 }
 
