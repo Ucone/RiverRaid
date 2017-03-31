@@ -14,13 +14,13 @@ Player [] players;
     
 
     imageTank = new Tanker(3).image;
-    imageTank.resize(w(20),h(0));
+    //imageTank.resize(w(20),h(0));
     
     helicopter = new Helicopter(3).image;
-    helicopter.resize(w(20),h(0));
+    //helicopter.resize(w(20),h(0));
     
     enemyJet = new EnemyJet(3).image;
-    enemyJet.resize(w(20),h(0));
+    //enemyJet.resize(w(20),h(0));
     
     players = new Player [5];
     

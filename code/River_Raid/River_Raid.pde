@@ -441,7 +441,7 @@ void checkTesting(){
   if(this.testing){
     cp5.remove("Start");
     cp5.remove("name_input");
-    gameState = GameState.END;
+    gameState = GameState.GAME;
   }
 }
 
