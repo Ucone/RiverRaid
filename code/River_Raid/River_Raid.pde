@@ -72,6 +72,9 @@ int timeDelay= 400;
 
 boolean keys [];
 
+//finalScreen
+ScoreScreen finalScreen;
+
 void setup() {
   fullScreen(P2D);
   
@@ -139,6 +142,9 @@ void setup() {
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
   }
+  
+  //Final ScoreBoard
+  finalScreen = new ScoreScreen();
   
   //Check if we are on testing environment
   checkTesting();
@@ -288,8 +294,7 @@ void draw() {
      
       break;
       case END:
-      
-      
+         finalScreen.drawScoreScreen();         
       break;
   }
 }
