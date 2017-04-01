@@ -42,6 +42,7 @@ float yMaster = 1000;
 //Speed variables
 float DEFAULT_SPEED = 3;
 float gameSpeed = DEFAULT_SPEED;
+
 //Speed variables to change faster/slower
 boolean speedChanged = false;
 float ACCELERATION = 4; //fast speed = speed + ACCELERATION
