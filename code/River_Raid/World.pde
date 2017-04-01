@@ -146,7 +146,7 @@ public class World {
      for (Enemy el : enemies) {
        el.update(nD);
      }
-     riverPosition += nD;
+     riverPosition += gameSpeed * 0.2* nD;
      if(riverPosition > 2000.0)
        riverPosition -= 2000.0;
    }
