@@ -56,11 +56,12 @@ public class World {
       blocks.add(block);
     }
     
+    int attempts = 0;
     for(int i = 0; i < ENEMY_COUNT; i++)
     {
-      
       Enemy en;
       do {
+        attempts++;
         int enType = randomGen.nextInt(3);
         switch(enType) {
         case 0:
@@ -79,28 +80,35 @@ public class World {
       } while(checkCollision(en, World.C_EVERYTHING));
       enemies.add(en);
     }
+    print("Generated enemies, "+ (attempts - 1) + " failed attempts\n");
     
+    attempts = 0;
     for(int i = 0; i < FUEL_DEPOT_COUNT; i++)
     {
       FuelDepot fd;
       do {
+        attempts++;
         fd = new FuelDepot();
         fd.xPos = randomGen.nextFloat()* 1000;
         fd.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(fd, World.C_EVERYTHING));
       fuelDepots.add(fd);
     }
+    print("Generated fuel depots, "+ (attempts - 1) + " failed attempts\n");
     
+    attempts = 0;
     for(int i = 0; i < ISLAND_COUNT; i++)
     {
       Island il;
       do {
+        attempts++;
         il = new Island();
         il.xPos = randomGen.nextFloat()* 1000;
         il.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
       } while(checkCollision(il, World.C_EVERYTHING));
       islands.add(il);
     }
+    print("Generated islands, "+ (attempts - 1) + " failed attempts\n");
     
     Bridge bridge = new Bridge();
     bridge.xPos = 0;
