@@ -71,6 +71,10 @@ int time=0;
 boolean booleanDelay = false;
 int timeDelay= 400;
 
+//for time between roquets
+int shootTime = 600;
+int rocketTime;
+
 boolean keys [];
 
 //finalScreen
@@ -265,10 +269,16 @@ void draw() {
           speedChanged = true;      
       }
       if (keys[4]){   //SPACE
-          Rocket rocket = new Rocket();
-          rocket.xPos = jet.xPos;
-          rocket.yPos = jet.yPos;
-          rockets.add(rocket);
+      
+            if (millis() - rocketTime > shootTime){
+              rocketTime=millis();
+              
+              Rocket rocket = new Rocket();
+              rocket.xPos = jet.xPos;
+              rocket.yPos = jet.yPos;
+              rockets.add(rocket);
+
+        }
       }
    
       
@@ -299,6 +309,8 @@ void draw() {
       break;
   }
 }
+
+
 
   void drawScore (){
     image(scoreboard, x(30), y(800));
