@@ -268,8 +268,7 @@ void draw() {
           gameSpeed -= DECELERATION;
           speedChanged = true;      
       }
-      if (keys[4]){   //SPACE
-      
+      if (keys[4]){   //SPACE      
             if (millis() - rocketTime > shootTime){
               rocketTime=millis();
               
@@ -277,7 +276,6 @@ void draw() {
               rocket.xPos = jet.xPos;
               rocket.yPos = jet.yPos;
               rockets.add(rocket);
-
         }
       }
    
@@ -310,7 +308,17 @@ void draw() {
   }
 }
 
-
+  public void resetWorld(){
+        world.generateSection(section);
+        yMaster = 0;
+        jet.crashed = false;
+        //Iterator<Rocket> i = rockets.iterator();
+        //while(i.hasNext()) {
+        //  Rocket rocket = i.next();
+        //  rocket.yPos -= (yMaster - 1000);
+        //}   
+        
+  }
 
   void drawScore (){
     image(scoreboard, x(30), y(800));
@@ -353,11 +361,11 @@ void draw() {
 
 
   
- public void blinkFunction(){
-   if(millis()-time>=timeDelay){
-      booleanDelay = !booleanDelay;
-      time = millis(); 
- }
+   public void blinkFunction(){
+     if(millis()-time>=timeDelay){
+        booleanDelay = !booleanDelay;
+        time = millis(); 
+   }
 
  }
 
