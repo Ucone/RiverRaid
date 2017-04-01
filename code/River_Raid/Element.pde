@@ -8,13 +8,8 @@ public class Element{
   public float yPos = 0;
   
   public float width;
-  public float height; //<>//
-  
-/* //<>//
-  public Element() {
-    throw new Exception()
-  }
-*/
+  public float height;
+
   public Element(String imagePath, float w, float h) {
     image = getImage(imagePath, w(w), h(h));
     this.width = w;
