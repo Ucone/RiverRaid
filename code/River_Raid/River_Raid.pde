@@ -5,7 +5,8 @@ import java.util.HashMap;
 
 boolean testing = true;
 
-public enum GameState {WELCOME, STORY_1, STORY_2, STORY_3, STORY_4, GAME, END};  // Different states of the game
+public enum GameState {WELCOME, STORY, GAME, END};  // Different states of the game
+public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
 
 // Input fields and text
 ControlP5 cp5;
@@ -16,7 +17,7 @@ int fontSize;
 GameState gameState = GameState.WELCOME;
 
 //Images
-PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
+PImage startImg;
 PImage river;
 PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
@@ -79,6 +80,8 @@ boolean keys [];
 //finalScreen
 ScoreScreen finalScreen;
 
+Story story;
+
 void setup() {
   fullScreen(P2D);
   
@@ -112,11 +115,6 @@ void setup() {
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
   // Load images
-  // TODO: dynamically resize these
-  storyImg1 = loadStoryImage(GameState.STORY_1);
-  storyImg2 = loadStoryImage(GameState.STORY_2);
-  storyImg3 = loadStoryImage(GameState.STORY_3);
-  storyImg4 = loadStoryImage(GameState.STORY_4);
   startImg=loadImage("./images/welcome.png");
   
   scoreboard = loadImage("./images/sprites/scoreboard.png");
@@ -150,6 +148,9 @@ void setup() {
   //Final ScoreBoard
   finalScreen = new ScoreScreen();
   
+  // Story
+  story = new Story();
+  
   //Check if we are on testing environment
   checkTesting();
 }
@@ -172,45 +173,10 @@ void draw() {
       image(startImg, x(0), y(0));
       break;
     
-    case STORY_1:
-      cp5.remove("Start");
-      cp5.remove("name_input");
-      fill(255, 0, 0);
-      image(storyImg1, x(0), y(0));
+    case STORY:
+      story.draw();
       drawPressKey();
       break;
-    
-    case STORY_2:
-      image(storyImg2, x(0), y(0));
-      fill(0, 150, 0);
-      text("Local time: 00:32, border Air Force base", x(-500), y(950));
-      drawPressKey();
-      break;
-    case STORY_3:
-      image(storyImg3, x(0), y(0));
-      textAlign(RIGHT);
-      fill(0, 150, 0);
-      text("Pilot "+this.player.getName()+", to the general!", x(950), y(950));
-      textAlign(CENTER);
-      drawPressKey();
-      break;
-    case STORY_4:
-      image(storyImg4, x(0), y(0));
-      
-      fill(100, 255, 100);
-      text(this.player.getName().charAt(0) + ": Yes, general!", x(200), y(50));
-      text(this.player.getName().charAt(0) + ": It's easy to shoot a bridge sir!\nIt doesn't move!\nIt also doesn't shoot back, sir!", x(200), y(370));
-      text(this.player.getName().charAt(0) + ": Did anybody try this experimental jet yet?", x(200), y(620));
-      text(this.player.getName().charAt(0) + ": Yes sir, ready to serve!", x(200), y(840));
-      
-      fill(255, 255, 255);
-      text("G: " + this.player.getName() + ", you're our best pilot.\nOur neighbors, Planet Z, \nare amassing military forces\nacross the border canyon.\nOur only hope is preemptive strike against them.\nYou will pilot an experimental prototype jet,\ndestroying all bridges...", x(800), y(80));
-      text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(800), y(390));
-      text("G: No, we can't risk warning the enemy.\n\n You're our best hope", x(800), y(640));
-
-      drawPressKey();
-      break;
-      
     case GAME:
       //Map movement
       //image(map1, x(0), y(y));
@@ -407,7 +373,9 @@ void controlEvent(ControlEvent theEvent) {
   }
   
   player = new Player(playerName);
-  gameState = GameState.STORY_1;
+  cp5.remove("Start");
+  cp5.remove("name_input");
+  gameState = GameState.STORY;
 }
 
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
@@ -440,18 +408,11 @@ void keyPressed(){
     }
   } else {
     switch(gameState){
-      case STORY_1:
-        gameState = GameState.STORY_2;
-        break;
-      case STORY_2:
-        gameState = GameState.STORY_3;
-        break;
-      case STORY_3:
-        gameState = GameState.STORY_4;
-        break;
-        
-      case STORY_4:
-        gameState = GameState.GAME;
+      case STORY:
+        story.advance();
+        if(story.over()) {
+          gameState = GameState.GAME; 
+        }
         break;
     }
   }
