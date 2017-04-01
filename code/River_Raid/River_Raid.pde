@@ -258,6 +258,12 @@ void draw() {
             if (en.collide(rocket)) {
               ie.remove();
               i.remove();
+              Decoration dec = en.getDebris();
+              if(dec != null) {
+                dec.xPos = en.xPos;
+                dec.yPos = en.yPos;
+                world.decorations.add(dec);
+              }
               score += en.score;
               break;
             }

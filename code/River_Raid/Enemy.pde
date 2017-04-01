@@ -23,7 +23,9 @@ public class Enemy extends Element{
       }
     }
     
-
+    public Decoration getDebris() {
+      return null;
+    }
 }
     class Tanker extends Enemy {
       public Tanker(int section){

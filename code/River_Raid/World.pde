@@ -17,6 +17,7 @@ public class World {
   public ArrayList<FuelDepot> fuelDepots;
   public ArrayList<Island> islands;
   public ArrayList<Block> blocks;
+  public ArrayList<Decoration> decorations;
   
   PImage river;
   
@@ -43,6 +44,7 @@ public class World {
     fuelDepots = new ArrayList<FuelDepot>();
     blocks = new ArrayList<Block>();
     islands = new ArrayList<Island>();
+    decorations = new ArrayList<Decoration>();
     
     for(float i = 0; i > -SECTION_SIZE; i-= new Block(true).height)
     {
@@ -163,7 +165,11 @@ public class World {
      image(river, x(0), y(riverPosition));
      image(river, x(0), y(2000+riverPosition));
      image(river, x(0), y(-2000+riverPosition));
+     
      for (Block el : blocks) {
+       el.drawIfVis(yMaster);
+     }
+     for (Decoration el : decorations) {
        el.drawIfVis(yMaster);
      }
      for (FuelDepot el : fuelDepots) {
