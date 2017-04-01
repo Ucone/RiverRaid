@@ -31,6 +31,10 @@ public class World {
      seed = (long)random(90e9); 
   }
   
+  public void resetBackground() {
+     riverPosition = randomGen.nextFloat()*2000; 
+  }
+  
   public void generateSection(int section) {
     
     randomGen = new Random(seed);
@@ -39,8 +43,6 @@ public class World {
     fuelDepots = new ArrayList<FuelDepot>();
     blocks = new ArrayList<Block>();
     islands = new ArrayList<Island>();
-    
-    riverPosition = randomGen.nextFloat()*2000;
     
     for(float i = 0; i > -SECTION_SIZE; i-= new Block(true).height)
     {

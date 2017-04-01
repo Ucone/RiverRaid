@@ -140,6 +140,7 @@ void setup() {
   world = new World();
   world.resetSeed();
   world.generateSection(section);
+  world.resetBackground();
   jet = new Jet();
     keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
   //Initialization to false
@@ -309,6 +310,7 @@ void draw() {
 
   public void resetWorld(){
         world.generateSection(section);
+        world.resetBackground();
         yMaster = 0;
         jet.crashed = false;
         //Iterator<Rocket> i = rockets.iterator();
