@@ -11,16 +11,20 @@ public class World {
   public int FUEL_DEPOT_COUNT = 10;
   public int ISLAND_COUNT = 10;
   public float SECTION_SIZE = 10000;
+  public float riverPosition;
   
   public ArrayList<Enemy> enemies;
   public ArrayList<FuelDepot> fuelDepots;
   public ArrayList<Island> islands;
   public ArrayList<Block> blocks;
   
+  PImage river;
+  
   Random randomGen;
   long seed;
   
   World() {
+    river = getImage("./images/sprites/river.png", w(1000), h(2000));
   }
   
   public void resetSeed() {
@@ -35,6 +39,8 @@ public class World {
     fuelDepots = new ArrayList<FuelDepot>();
     blocks = new ArrayList<Block>();
     islands = new ArrayList<Island>();
+    
+    riverPosition = randomGen.nextFloat()*2000;
     
     for(float i = 0; i > -SECTION_SIZE; i-= new Block(true).height)
     {
@@ -138,9 +144,15 @@ public class World {
      for (Enemy el : enemies) {
        el.update(nD);
      }
+     riverPosition += nD;
+     if(riverPosition > 2000.0)
+       riverPosition -= 2000.0;
    }
    
    void draw() {
+     image(river, x(0), y(riverPosition));
+     image(river, x(0), y(2000+riverPosition));
+     image(river, x(0), y(-2000+riverPosition));
      for (Block el : blocks) {
        el.drawIfVis(yMaster);
      }

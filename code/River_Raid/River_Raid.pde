@@ -18,7 +18,7 @@ GameState gameState = GameState.WELCOME;
 
 //Images
 PImage startImg, storyImg1, storyImg2, storyImg3, storyImg4;
-PImage map1;
+PImage river;
 PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
@@ -119,7 +119,7 @@ void setup() {
   storyImg3 = loadStoryImage(GameState.STORY_3);
   storyImg4 = loadStoryImage(GameState.STORY_4);
   startImg=loadImage("./images/welcome.png");
-  map1 = loadImage("./images/background.png");
+  
   scoreboard = loadImage("./images/sprites/scoreboard.png");
   reserve = loadImage("./images/sprites/progress_cursor.png");
   fuelGauge = loadImage("./images/sprites/fuelgauge.png");
@@ -129,7 +129,6 @@ void setup() {
   
   //Resize images
   startImg.resize(viewportW, viewportH);
-  map1.resize(viewportW, viewportH);
   scoreboard.resize(viewportW/7, viewportH/5);
   reserve.resize(w(40), h(40));
   lowFuelIcon.resize(w(60), h(100));
