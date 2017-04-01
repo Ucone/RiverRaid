@@ -6,7 +6,6 @@ import java.util.HashMap;
 boolean testing = true;
 
 public enum GameState {WELCOME, STORY_1, STORY_2, STORY_3, STORY_4, GAME, END};  // Different states of the game
-public enum ElementType {ISLAND, ENEMY, FUEL_DEPOT};
 
 // Input fields and text
 ControlP5 cp5;

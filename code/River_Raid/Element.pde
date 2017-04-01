@@ -10,7 +10,6 @@ public class Element{
   public float width;
   public float height; //<>//
   
-  ElementType type;
 /* //<>//
   public Element() {
     throw new Exception()
