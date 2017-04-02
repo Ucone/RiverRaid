@@ -184,18 +184,21 @@ void draw() {
       background(#eeeeee);
       world.update(nD);
       yMaster -= gameSpeed * nD;
-      if(yMaster < -world.SECTION_SIZE-1000)
-      {
-        world.resetSeed();
-        section++;
-        jet.addReserveJet();
-        world.generateSection(section);
-        Iterator<Rocket> i = rockets.iterator();
-        while(i.hasNext()) {
-          Rocket rocket = i.next();
-          rocket.yPos -= (yMaster - 1000);
+      
+      if(jet.crashed == false){
+        if(yMaster < -world.SECTION_SIZE-1000)
+        {
+          world.resetSeed();
+          section++;
+          jet.addReserveJet();
+          world.generateSection(section);
+          Iterator<Rocket> i = rockets.iterator();
+          while(i.hasNext()) {
+            Rocket rocket = i.next();
+            rocket.yPos -= (yMaster - 1000);
+          }
+          yMaster = 1000;
         }
-        yMaster = 1000;
       }
       world.draw();
       
@@ -208,12 +211,15 @@ void draw() {
       }
        
       //Draw more elements
-      drawProgress();
-      drawFuel();
-      jet.consume(nD);
-      jet.checkRefuel(nD);
+      if(jet.crashed == false){
+        drawProgress();
+        drawFuel();
+        jet.consume(nD);
+        jet.checkRefuel(nD);
+  
+        jet.checkCollision();
+      }
       jet.yPos = yMaster+800;
-      jet.checkCollision();
       jet.draw(yMaster);
       //blinking function
       blinkFunction();
@@ -271,6 +277,10 @@ void draw() {
           rocket.draw(yMaster);
         }
       }  
+      
+      if(jet.crashed){
+         resetWorld(); 
+      }
      
       break;
       case END:
@@ -279,17 +289,22 @@ void draw() {
   }
 }
 
+int timeResetWorld = 0;
+
   public void resetWorld(){
-        world.generateSection(section);
-        world.resetBackground();
-        yMaster = 0;
-        jet.crashed = false;
-        //Iterator<Rocket> i = rockets.iterator();
-        //while(i.hasNext()) {
-        //  Rocket rocket = i.next();
-        //  rocket.yPos -= (yMaster - 1000);
-        //}   
-        
+        if(millis()- timeResetWorld >= 2000){
+      
+          world.generateSection(section);
+          world.resetBackground();
+          yMaster = 0;
+          jet.crashed = false;
+          //Iterator<Rocket> i = rockets.iterator();
+          //while(i.hasNext()) {
+          //  Rocket rocket = i.next();
+          //  rocket.yPos -= (yMaster - 1000);
+          //} 
+          timeResetWorld = millis();
+        }
   }
 
   void drawScore (){

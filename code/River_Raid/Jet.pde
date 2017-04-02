@@ -60,7 +60,8 @@ class Jet extends Element{
     if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
         this.removeReserveJet();
-
+        //gameSpeed=0;
+        timeResetWorld=millis();
         resetWorld();
     }
   }
