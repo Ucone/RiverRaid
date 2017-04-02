@@ -16,6 +16,7 @@ int fontSize;
 
 GameState gameState = GameState.WELCOME;
 
+
 //Images
 PImage startImg;
 PImage river;
