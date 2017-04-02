@@ -388,16 +388,16 @@ void draw() {
       fill(#00ff4e);
       
       if(jet.getFuel() > 0){
-        rect( x(940), y(930), w(25), h((int)-jet.getFuel()/2));
+        rect( x(940), y(850), w(25), h((int)-jet.getFuel()/2));
       }
       
       //Fuel actions
       if ((jet.getFuel() < INITIAL_FUEL / 3)&&(booleanDelay)){
-            image(lowFuelIcon, x(930), y(800 - fuelGauge.height));
+            image(lowFuelIcon, x(930), y(800) - fuelGauge.height);
         if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
-      image(fuelGauge, x(930), y(900 - fuelGauge.height));
+      image(fuelGauge, x(930), y(900) - fuelGauge.height);
   }
 
 
