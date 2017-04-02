@@ -75,6 +75,9 @@ int timeDelay= 400;
 int shootTime = 600;
 int rocketTime;
 
+//for delay when reset world
+int timeResetWorld = 0;
+
 boolean keys [];
 
 //finalScreen
@@ -290,7 +293,7 @@ void draw() {
   }
 }
 
-int timeResetWorld = 0;
+
 
   public void resetWorld(){
         if(millis()- timeResetWorld >= 2000){
