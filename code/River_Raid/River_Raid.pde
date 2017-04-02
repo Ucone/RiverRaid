@@ -96,8 +96,8 @@ Sound sound, music;
 boolean isMusicOn;
 
 void setup() {
-  fullScreen(P2D);
-  
+  //fullScreen(P2D);
+  //size(1200,800);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -312,6 +312,11 @@ void draw() {
                 world.decorations.add(dec);
               }
               score += en.score;
+              player.setScore(score);
+                  if (player.getScore() % 3000 == 0){
+                     println("añado jet!");
+                     jet.addReserveJet(); 
+                  }
               break;
             }
           }
@@ -324,7 +329,7 @@ void draw() {
       }
 
 
-     
+    
       break;
       case END:
          finalScreen.drawScoreScreen();         
@@ -354,7 +359,7 @@ void draw() {
     image(scoreboard, x(30), y(800));
     fill(0);
     // Score value
-    text(score, x(100), y(880));
+    text(player.getScore(), x(100), y(880));
     // Level indicator
     text("Level: " + section, x(70), y(920));
     // Reserve jets indicator
@@ -509,6 +514,7 @@ void checkTesting(){
   if(this.testing){
     cp5.remove("Start");
     cp5.remove("name_input");
+    player = new Player("tester player");
     gameState = GameState.GAME;
   }
 }
