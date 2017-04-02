@@ -5,16 +5,15 @@ class Sound{
 	private String crashSoundFile = "sound/crash.mp3";
 	private String crossSectionSoundFile = "sound/cross.mp3";
 	private String defeatEnemyFile = "sound/defeat.mp3";
-	private String musicSoundFile = "sound/music.mp3";
 	private String shootSoundFile = "sound/shoot.mp3";
+	private String musicSoundFile = "sound/music.mp3";
 	  
 	public Sound(){
-		
+		musicPlayer = minim.loadFile(musicSoundFile);
 	} 
   
 	public void playSound(String fileName){
 		soundPlayer = minim.loadFile(fileName);
-		soundPlayer.rewind();
 		soundPlayer.play();
 	}
 
@@ -34,9 +33,15 @@ class Sound{
 		this.playSound(shootSoundFile);
 	}
 
-	public void playMusicSound(){
-		this.playSound(musicSoundFile);
+	public void toggleMusic(){
+		if(isMusicOn == true){
+			musicPlayer.pause();
+			isMusicOn = false;
+		}
+		else{
+			musicPlayer.play();
+			isMusicOn = true;
+		}
 	}
-
 
 }

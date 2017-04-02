@@ -63,7 +63,6 @@ class Jet extends Element{
         //gameSpeed=0;
         
         //sound effect
-        Sound sound = new Sound();
         sound.playCrashSound();
 
         timeResetWorld=millis();
