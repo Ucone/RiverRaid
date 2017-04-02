@@ -62,6 +62,9 @@ class Jet extends Element{
         this.removeReserveJet();
         //gameSpeed=0;
         
+        //sound effect
+        sound.playCrashSound();
+
         timeResetWorld=millis();
         //resetWorld();
     }

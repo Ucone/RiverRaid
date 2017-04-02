@@ -1,7 +1,7 @@
-import controlP5.*;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.HashMap;
+import ddf.minim.*;
 
 boolean testing = true;
 
@@ -23,6 +23,7 @@ PImage river;
 PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
+PImage musicOn, musicOff;
 
 HashMap<String, PImage> imageMap = null;
 
@@ -86,6 +87,14 @@ ScoreScreen finalScreen;
 
 Story story;
 
+//sound player
+Minim minim;
+AudioPlayer soundPlayer, musicPlayer;
+Sound sound, music;
+
+//background music
+boolean isMusicOn;
+
 void setup() {
   fullScreen(P2D);
   
@@ -127,6 +136,8 @@ void setup() {
   lowFuelIcon = loadImage("./images/sprites/lowfuel.png");
   progressBackground = loadImage("./images/sprites/progress_background.png");
   progressIndicator = loadImage("./images/sprites/progress_cursor.png");
+  musicOn = loadImage("./images/sprites/musicon.png");
+  musicOff = loadImage("./images/sprites/musicoff.png");
   
   //Resize images
   startImg.resize(viewportW, viewportH);
@@ -136,7 +147,10 @@ void setup() {
   fuelGauge.resize(w(50), viewportH/3);
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
-  
+  musicOn.resize(w(50), h(50));
+  musicOff.resize(w(50), h(50));
+
+
   // Instances of objects
   world = new World();
   world.resetSeed();
@@ -157,6 +171,16 @@ void setup() {
   
   //Check if we are on testing environment
   checkTesting();
+  
+  //sound player
+  minim = new Minim(this);
+  sound = new Sound();
+
+  //background music
+  music = new Sound();
+  isMusicOn = false;
+  music.toggleMusic();
+
 }
 
 int getDelta() {
@@ -194,6 +218,10 @@ void draw() {
         {
           world.resetSeed();
           section++;
+
+          //sound effect
+          sound.playCrossSound();
+
           jet.addReserveJet();
           world.generateSection(section);
           Iterator<Rocket> i = rockets.iterator();
@@ -208,6 +236,7 @@ void draw() {
       
       //Draw some elements
       drawScore();
+      drawMusicIcon();
          
       if (speedChanged){
            gameSpeed = DEFAULT_SPEED;
@@ -252,6 +281,9 @@ void draw() {
               rocket.xPos = jet.xPos;
               rocket.yPos = jet.yPos;
               rockets.add(rocket);
+
+              //sound effect
+              sound.playShootSound();
         }
       }
    
@@ -267,6 +299,10 @@ void draw() {
           while(ie.hasNext()) {
             Enemy en = ie.next();
             if (en.collide(rocket)) {
+
+              //sound effect
+              sound.playDefeatSound();
+
               ie.remove();
               i.remove();
               Decoration dec = en.getDebris();
@@ -286,6 +322,8 @@ void draw() {
       if(jet.crashed){
          resetWorld(); 
       }
+
+
      
       break;
       case END:
@@ -329,6 +367,16 @@ void draw() {
     float aux = (150*(-yMaster))/world.SECTION_SIZE;
     image(progressIndicator, x(aux), y(600));
   }
+
+  void drawMusicIcon(){
+    if(isMusicOn == true){
+      image(musicOn, x(940), y(10));
+    }
+    else{
+      image(musicOff, x(940), y(10));
+    }
+  }
+
   //***** FUEL IMPLEMENTATION *****
   void drawFuel(){
 
@@ -424,12 +472,17 @@ void keyPressed(){
        //speedChanged = true;  
           keys[3]= true;
           break; 
+
+
+
       }
     } else {
       switch(key){
         case ' ':
-        keys[4]=true;
-        break;   
+          keys[4]=true;
+          break;
+        case 'm':
+          music.toggleMusic();
       }
     }
   } else {
@@ -443,6 +496,13 @@ void keyPressed(){
     }
   }
 }  
+
+void mousePressed(){
+  if(mouseX > x(940) && mouseX < x(990) && mouseY > y(10) && mouseY < y(60)){
+    music.toggleMusic();
+  }
+}
+
 
 // If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
 void checkTesting(){
