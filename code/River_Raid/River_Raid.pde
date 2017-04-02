@@ -96,7 +96,7 @@ Sound sound, music;
 boolean isMusicOn;
 
 void setup() {
-  //fullScreen(P2D);
+  fullScreen(P2D);
   //size(1200,800);
   setViewports();
   
@@ -389,7 +389,7 @@ void draw() {
       fill(#00ff4e);
       
       if(jet.getFuel() > 0){
-        rect( x(940), y(850), w(25), h((int)-jet.getFuel()/2));
+        rect( x(940), y(900), w(25), h((int)-jet.getFuel()/2));
       }
       
       //Fuel actions
