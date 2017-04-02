@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
@@ -148,6 +148,8 @@ void setup() {
   checkTesting();
 
   // Instances of objects
+  player = new Player();
+  
   world = new World();
   world.resetSeed();
   world.generateSection(player.section);
@@ -446,7 +448,7 @@ void controlEvent(ControlEvent theEvent) {
     }
   }
   
-  player = new Player(playerName);
+  player.setName(playerName);
   cp5.remove("Start");
   cp5.remove("name_input");
   gameState = GameState.STORY;
