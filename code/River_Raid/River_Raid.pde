@@ -225,6 +225,9 @@ void draw() {
           yMaster = 1000;
         }
       }
+      else{
+        resetWorld();
+      }
       world.draw();
       
       //Draw some elements
@@ -311,13 +314,6 @@ void draw() {
           rocket.draw(yMaster);
         }
       }  
-      
-      if(jet.crashed){
-         resetWorld(); 
-      }
-
-
-     
       break;
       case END:
          finalScreen.drawScoreScreen();         
@@ -328,19 +324,20 @@ void draw() {
 
 
   public void resetWorld(){
-        if(millis()- timeResetWorld >= 2000){
-      
-          world.generateSection(player.section);
-          world.resetBackground();
-          yMaster = 0;
-          jet.crashed = false;
-          //Iterator<Rocket> i = rockets.iterator();
-          //while(i.hasNext()) {
-          //  Rocket rocket = i.next();
-          //  rocket.yPos -= (yMaster - 1000);
-          //} 
-          timeResetWorld = millis();
-        }
+    if(millis()- timeResetWorld >= 2000){
+      jet.removeReserveJet();
+      world.generateSection(player.section);
+      world.resetBackground();
+      yMaster = 0;
+      jet.crashed = false;
+      jet.fuel = INITIAL_FUEL;
+      //Iterator<Rocket> i = rockets.iterator();
+      //while(i.hasNext()) {
+      //  Rocket rocket = i.next();
+      //  rocket.yPos -= (yMaster - 1000);
+      //} 
+      timeResetWorld = millis();
+    }
   }
 
   void drawScore (){
@@ -386,10 +383,7 @@ void draw() {
         if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
-      
       image(fuelGauge, x(930), y(900 - fuelGauge.height));
-      
-      
   }
 
 
@@ -399,7 +393,6 @@ void draw() {
         booleanDelay = !booleanDelay;
         time = millis(); 
    }
-
  }
 
 /* Loads the image of the story defined by the GameState */
