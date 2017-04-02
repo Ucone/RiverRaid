@@ -61,8 +61,9 @@ class Jet extends Element{
         this.crashed = true;
         this.removeReserveJet();
         //gameSpeed=0;
+        
         timeResetWorld=millis();
-        resetWorld();
+        //resetWorld();
     }
   }
   

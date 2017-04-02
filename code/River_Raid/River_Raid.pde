@@ -216,11 +216,12 @@ void draw() {
         drawFuel();
         jet.consume(nD);
         jet.checkRefuel(nD);
-  
+        //jet.yPos = yMaster+800; //moved two lined below
         jet.checkCollision();
       }
       jet.yPos = yMaster+800;
       jet.draw(yMaster);
+      
       //blinking function
       blinkFunction();
       
