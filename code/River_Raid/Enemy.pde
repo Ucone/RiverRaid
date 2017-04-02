@@ -1,75 +1,50 @@
 public class Enemy extends Element{
-
-    /* EXTENDS
-      public PImage image;
-      int xPos = 100;
-      int yPos = -1500;
-    */
-    
-    public boolean isVisibile = true;
-    public int section;
-    public int mapSpeed;
+  
     public boolean direction = true; //True: right, False: left
-    public boolean isVisible = true;
     public int score;
-    public int speed;
+    public float lateralSpeed;
     
-    public Enemy(int section, int mapSpeed){
-      this.xPos = (int)random(width);
-      this.section = section;
-      this.mapSpeed = mapSpeed;
+    public Enemy(String s, float w, float h) {
+      super(s, w, h); 
     }
     
-    public void draw(){
-      image(image, x(xPos), y(yPos));
-      this.move();
-    }
-    
-    public void move(){
-      if(this.xPos >= width || this.xPos <= 0)
-        this.direction = !direction;
-      
+    public void update(float nD){
       if(this.direction)
-        this.xPos += speed;
+        xPos += lateralSpeed * nD;
       else
-        this.xPos -= speed;
-        
-      this.yPos += this.mapSpeed;
+        xPos -= lateralSpeed * nD;
+      if(world.checkCollision(this, World.C_EVERYTHING)) {
+        this.direction = !this.direction;
+        if(this.direction)
+          xPos += lateralSpeed * nD;
+        else
+          xPos -= lateralSpeed * nD;
+      }
     }
     
-    public void checkIsVisible(){
-      if(this.yPos >= height){
-        this.isVisible = false;
-      }else{
-        this.isVisible = true;
-      }
+    public Decoration getDebris() {
+      return null;
     }
 }
     class Tanker extends Enemy {
-      public Tanker(int section, int speed){
-        super(section, speed);
-        this.image = loadImage("./images/sprites/enemy_tanker.png");
-        image.resize(w(50), h(100));
-        this.speed = section;
+      public Tanker(int section){
+        super("./images/sprites/enemy_tanker.png", 50, 200);
+        this.lateralSpeed = section;
         this.score = 200;
       }
     }
     class Helicopter extends Enemy {
-      public Helicopter(int section, int speed){
-        super(section, speed);
-        this.image = loadImage("./images/sprites/enemy_chopper.png");
-        image.resize(w(50), h(100));
-        this.speed = 1 + section;
+      public Helicopter(int section){
+        super("./images/sprites/enemy_chopper.png", 50, 100);
+        this.lateralSpeed = 1 + section;
         this.score = 200;
       }
     }
     
     class EnemyJet extends Enemy {
-      public EnemyJet(int section, int speed){
-        super(section, speed);
-        this.image = loadImage("./images/sprites/enemy_jet.png");
-        image.resize(w(50), h(100));
-        this.speed = 2 + section;
+      public EnemyJet(int section){
+        super("./images/sprites/enemy_jet.png", 50, 100);
+        this.lateralSpeed = 2 + section;
         this.score = 200;
     }
 }

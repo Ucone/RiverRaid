@@ -1,118 +1,99 @@
-public class Jet {
+class Jet extends Element{
   
-  private int id;  // in case we desing more jets
-  private PImage image = loadImage("./images/sprites/jet.png");
-  private PImage imageCrashed = loadImage("./images/sprites/crash.png");
-  //jet coordenates
-  private int x;
-  private int y;
-  
+  PImage imageCrashed;
   private int fuel;
-  
-  public int speed;
-  
   private boolean crashed = false;
+  private int reserveJets = 3;
   
-  public Jet(){
-    x= 500;
-    y = 800;
-    image.resize(w(90), h(160));  
-    imageCrashed.resize(w(90), h(160));  
-    fuel = INITIAL_FUEL;
-    speed = DEFAULT_SPEED;
-  }
-  
-  public void draw(){   
-    if(!crashed)
-      image(image, x(x), y(y));
-    else
-      image(imageCrashed, x(x), y(y));
-  }
-
-  
-  public int getX(){
-       return x; 
-  }
-
-  public void setX(int x){
-     this.x= x; 
-  }
-  
-  public int getY(){
-     return y; 
-  }
-  
-  public void setY(int y){
-      this.y=y;
-  }
-  
-  public int getFuel(){
-    return fuel;
-  }
-  
-  public void setFuel(int fuel){
-    this.fuel = fuel;
-  }
-  public PImage getImage(){
-    return image;
-  }
-  
-  public void moveLeft(){
-      x= x-7;
-      translate(x, y);
-      //image(image, x, y);
-  }
+   Jet(){
+     super("./images/sprites/jet.png", 80, 130);
+     imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
+     yPos = 800;
+     xPos = 500;
+     fuel = INITIAL_FUEL;
+   }
+   
+   public void draw(float yMaster){
+     if(!crashed)
+       image(this.image, x(xPos), y(yPos - yMaster));
+     else
+       image(this.imageCrashed, x(xPos), y(yPos - yMaster));
+   }
+   
+   public void moveLeft(){
+     xPos = xPos - 7;
+   }
    
    public void moveRight(){
-      x= x+7;
-      translate(x, y);
-      //image(jet_image, x, y);
-  }
-  
-  public void consume(){
-    this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*this.speed*2);
+     xPos = xPos + 7;
+   }
+   
+   public void consume(float nD){
+     if(this.fuel > 0)
+      this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
+     else{
+      this.crashed = true;
+     }
   }
   
   /*** REFUEL ***/
-  public void checkRefuel(FuelDepot fuelDepot){
-    int fuelDepotY = fuelDepot.getY();
-    if(fuelDepotY < 0){
-      fuelDepotY = 1000 + fuelDepotY;
-    }
-    
-    if((jet.getX() >= fuelDepot.getX()) && (jet.getX() + jet.getImage().width <= fuelDepot.getX() + fuelDepot.getImage().width) &&
-        ( (jet.getY() >= fuelDepotY) && (jet.getY() <= fuelDepotY + fuelDepot.getImage().height) ) ){
-          jet.refuel();
-          VELOCITY_CONSUMPTION = 0;
+  public void checkRefuel(float nD){
+
+    if(world.checkCollision(this, World.C_FUEL_DEPOTS)){
+        this.refuel(nD);
+        VELOCITY_CONSUMPTION = 0;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
     }
   }
-
-  public void refuel(){
+  
+  public void refuel(float nD){
     int refuelSpeed = 3;
-    
-    if(this.speed < DEFAULT_SPEED){
-      refuelSpeed = 10;
+    if(gameSpeed < DEFAULT_SPEED){
+      refuelSpeed = 8;
     }
     if(this.fuel < INITIAL_FUEL){
-      this.fuel = (int)(this.fuel + refuelSpeed);
+      this.fuel = (int)(this.fuel + refuelSpeed * nD);
+    }
+  }
+   
+   
+   /* COLLISION  */
+   public void checkCollision(){
+    if(world.checkCollision(this, World.C_OBSTACLES)){
+        this.crashed = true;
+        //gameSpeed=0;
+        
+        //sound effect
+        sound.playCrashSound();
+
+        timeResetWorld=millis();
+        //resetWorld();
     }
   }
   
-  
-  public void checkCollision(Element e){
-    if(((abs(this.x - e.xPos) < 60 && abs(this.y - e.yPos) < 60))  // check the collision with enemies;
-        || (this.x < 0 || this.x > width) // check the collision with map elements (need to fix);
-         || islandCollision()
-        ){
-        this.crashed = true;
-      }
+  public int getFuel(){
+     return fuel;
+   }
+   
+   public void setFuel(int fuel){
+     this.fuel = fuel;
+   }
+   
+  public int getReserveJets(){
+     return this.reserveJets; 
   }
   
-  private boolean islandCollision(){
-    if( (abs(this.getY() - island.yPos) <=  island.image.height * 1.5) && (abs(this.getX() - island.xPos) < 30 + island.image.width / 2))
-      return true;
-    return false;
+  public void addReserveJet(){
+    this.reserveJets++;
+  }
+  
+  public void removeReserveJet(){
+    if(this.reserveJets >= 0)
+      this.reserveJets--;
+      
+    if (this.reserveJets < 0)
+      gameState = gameState.END;     
+     
   }
 }

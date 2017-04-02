@@ -1,37 +1,11 @@
-class Island{
-  float xPos, yPos = 0;
+class Island extends Element{
+ // int xPos, yPos = 0;
   boolean overcome = false;
-  PImage image;
+ // PImage image;
   PImage originalImage;
-  int size; //<>//
+  int size;
   
-  Island(){ //<>//
-    originalImage = loadImage("./images/sprites/isle.png");
-    image = originalImage.copy();
-    image.resize(w(200), h(200));
-    updateRandomPosition();
-    updateRandomSize();
-  }
-  
-  void drawIsland(){ //<>//
-    if(yPos >= height){
-      updateRandomPosition(); //<>//
-      updateRandomSize();
-    }
-    
-    yPos += speed;
-    image(this.image, xPos, yPos);
-  }
-  
-  
-  void updateRandomPosition(){
-    this.xPos = random(viewportW/3, viewportW-viewportW/3-image.width);
-    this.yPos = random(-600, -2000);
-  }
-  
-  void updateRandomSize(){
-    size = (int)random(viewportW / 20, viewportW / 5);
-    image = originalImage.copy();
-    image.resize(size, size);
+  Island(){
+    super("./images/sprites/isle.png", 90, 160);
   }
 }
