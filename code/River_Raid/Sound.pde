@@ -39,7 +39,7 @@ class Sound{
 			isMusicOn = false;
 		}
 		else{
-			musicPlayer.play();
+			musicPlayer.loop();
 			isMusicOn = true;
 		}
 	}

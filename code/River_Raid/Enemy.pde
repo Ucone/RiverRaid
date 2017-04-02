@@ -1,6 +1,5 @@
 public class Enemy extends Element{
   
-    public int section;
     public boolean direction = true; //True: right, False: left
     public int score;
     public float lateralSpeed;

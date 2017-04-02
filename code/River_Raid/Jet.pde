@@ -30,7 +30,10 @@ class Jet extends Element{
    
    public void consume(float nD){
      if(this.fuel > 0)
-       this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
+      this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
+     else{
+      this.crashed = true;
+     }
   }
   
   /*** REFUEL ***/
@@ -59,7 +62,6 @@ class Jet extends Element{
    public void checkCollision(){
     if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
-        this.removeReserveJet();
         //gameSpeed=0;
         
         //sound effect

@@ -59,12 +59,6 @@ float distance = y;
 float TICK_MS = 20;
 int lastmillis = -1;
 
-//Score variables
-int score = 0;
-
-// Section
-int section = 1;
-
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
 
@@ -150,11 +144,13 @@ void setup() {
   musicOn.resize(w(50), h(50));
   musicOff.resize(w(50), h(50));
 
+  //Check if we are on testing environment
+  checkTesting();
 
   // Instances of objects
   world = new World();
   world.resetSeed();
-  world.generateSection(section);
+  world.generateSection(player.section);
   world.resetBackground();
   jet = new Jet();
     keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
@@ -168,9 +164,6 @@ void setup() {
   
   // Story
   story = new Story();
-  
-  //Check if we are on testing environment
-  checkTesting();
   
   //sound player
   minim = new Minim(this);
@@ -217,13 +210,13 @@ void draw() {
         if(yMaster < -world.SECTION_SIZE-1000)
         {
           world.resetSeed();
-          section++;
+          player.section++;
 
           //sound effect
           sound.playCrossSound();
 
           jet.addReserveJet();
-          world.generateSection(section);
+          world.generateSection(player.section);
           Iterator<Rocket> i = rockets.iterator();
           while(i.hasNext()) {
             Rocket rocket = i.next();
@@ -231,6 +224,9 @@ void draw() {
           }
           yMaster = 1000;
         }
+      }
+      else{
+        resetWorld();
       }
       world.draw();
       
@@ -311,25 +307,25 @@ void draw() {
                 dec.yPos = en.yPos;
                 world.decorations.add(dec);
               }
-              score += en.score;
-              player.setScore(score);
+
+              player.setScore(player.getScore() + en.score);
                   if (player.getScore() % 3000 == 0){
                      println("añado jet!");
                      jet.addReserveJet(); 
                   }
+
               break;
             }
           }
           rocket.draw(yMaster);
         }
       }  
+
       
       if(jet.crashed){
          resetWorld(); 
       }
 
-
-    
       break;
       case END:
          finalScreen.drawScoreScreen();         
@@ -340,28 +336,31 @@ void draw() {
 
 
   public void resetWorld(){
-        if(millis()- timeResetWorld >= 2000){
-      
-          world.generateSection(section);
-          world.resetBackground();
-          yMaster = 0;
-          jet.crashed = false;
-          //Iterator<Rocket> i = rockets.iterator();
-          //while(i.hasNext()) {
-          //  Rocket rocket = i.next();
-          //  rocket.yPos -= (yMaster - 1000);
-          //} 
-          timeResetWorld = millis();
-        }
+    if(millis()- timeResetWorld >= 2000){
+      jet.removeReserveJet();
+      world.generateSection(player.section);
+      world.resetBackground();
+      yMaster = 0;
+      jet.crashed = false;
+      jet.fuel = INITIAL_FUEL;
+      //Iterator<Rocket> i = rockets.iterator();
+      //while(i.hasNext()) {
+      //  Rocket rocket = i.next();
+      //  rocket.yPos -= (yMaster - 1000);
+      //} 
+      timeResetWorld = millis();
+    }
   }
 
   void drawScore (){
     image(scoreboard, x(30), y(800));
     fill(0);
     // Score value
+
     text(player.getScore(), x(100), y(880));
+
     // Level indicator
-    text("Level: " + section, x(70), y(920));
+    text("Level: " + player.section, x(70), y(920));
     // Reserve jets indicator
     image(reserve, x(100), y(890));
     text("x" + jet.getReserveJets(), x(140), y(920));
@@ -398,10 +397,7 @@ void draw() {
         if (jet.getFuel() <= 0)
             text("GAME OVER, LOSER!!", x(400), y(500));
       }
-      
       image(fuelGauge, x(930), y(900 - fuelGauge.height));
-      
-      
   }
 
 
@@ -411,7 +407,6 @@ void draw() {
         booleanDelay = !booleanDelay;
         time = millis(); 
    }
-
  }
 
 /* Loads the image of the story defined by the GameState */
@@ -516,6 +511,7 @@ void checkTesting(){
     cp5.remove("name_input");
     player = new Player("tester player");
     gameState = GameState.GAME;
+    player = new Player("");
   }
 }
 

@@ -1,6 +1,8 @@
 public class Player {
   private String name;
+
   private int score = 0;;
+  public int section = 1;
   
   public Player(String name){
     this.name = name;
