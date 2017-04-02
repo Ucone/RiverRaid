@@ -1,7 +1,7 @@
-import controlP5.*;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.HashMap;
+import ddf.minim.*;
 
 boolean testing = true;
 
@@ -82,6 +82,10 @@ ScoreScreen finalScreen;
 
 Story story;
 
+//sound player
+Minim minim;
+AudioPlayer soundPlayer;
+
 void setup() {
   fullScreen(P2D);
   
@@ -153,6 +157,9 @@ void setup() {
   
   //Check if we are on testing environment
   checkTesting();
+  
+  //sound player
+   minim = new Minim(this);
 }
 
 int getDelta() {
