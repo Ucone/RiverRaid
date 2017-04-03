@@ -3,7 +3,7 @@ class Jet extends Element{
   PImage imageCrashed;
   private int fuel;
   private boolean crashed = false;
-  private int reserveJets = 3;
+  private int reserveJets = 0;
   
    Jet(){
      super("./images/sprites/jet.png", 80, 130);

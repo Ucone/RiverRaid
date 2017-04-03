@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
@@ -77,7 +77,7 @@ int timeResetWorld = 0;
 boolean keys [];
 
 //finalScreen
-ScoreScreen finalScreen;
+ScoreScreen scoreScreen;
 
 Story story;
 
@@ -147,6 +147,8 @@ void setup() {
   //Check if we are on testing environment
   checkTesting();
 
+  player = new Player("");
+
   // Instances of objects
   world = new World();
   world.resetSeed();
@@ -160,7 +162,7 @@ void setup() {
   }
   
   //Final ScoreBoard
-  finalScreen = new ScoreScreen();
+  scoreScreen = new ScoreScreen();
   
   // Story
   story = new Story();
@@ -328,7 +330,7 @@ void draw() {
 
       break;
       case END:
-         finalScreen.drawScoreScreen();         
+         scoreScreen.drawScoreScreen();         
       break;
   }
 }
@@ -447,6 +449,7 @@ void controlEvent(ControlEvent theEvent) {
   }
   
   player = new Player(playerName);
+  scoreScreen.addPlayer(player);
   cp5.remove("Start");
   cp5.remove("name_input");
   gameState = GameState.STORY;
@@ -482,7 +485,9 @@ void keyPressed(){
           keys[4]=true;
           break;
         case 'm':
+        case 'M':
           music.toggleMusic();
+        break;
       }
     }
   } else {
@@ -511,7 +516,6 @@ void checkTesting(){
     cp5.remove("name_input");
     player = new Player("tester player");
     gameState = GameState.GAME;
-    player = new Player("");
   }
 }
 

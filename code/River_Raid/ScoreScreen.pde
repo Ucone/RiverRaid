@@ -1,7 +1,9 @@
+import java.util.Collections;
+
 public class ScoreScreen{
 
 
-Player [] players;
+ArrayList<Player> players = new ArrayList<Player>();
 
   PImage backGround;
   private PImage imageTank;
@@ -22,19 +24,18 @@ Player [] players;
     enemyJet = new EnemyJet(3).image;
     //enemyJet.resize(w(20),h(0));
     
-    players = new Player [5];
+
     
-    players[0] = new Player("Tom", 1200);
-    players[1] = new Player("Iaros",1200);
-    players[2] = new Player("Likai", 800);
-    players[3] = new Player("viti", 600);
-    players[4] = new Player("Uko", 1200);
+    players.add(new Player("Tom", 1200));
+    players.add(new Player("Iaros",1200));
+    players.add(new Player("Likai", 800));
+    players.add(new Player("viti", 600));
+    //players.add(new Player("Uko", 1200));
     
   }
 
   public void addPlayer(Player player){
-    
-    
+      players.add(player);
   }
   
   public void drawScoreScreen(){
@@ -44,9 +45,9 @@ Player [] players;
     int x = 400;
     textSize(h(40));
     
-    for (int i=0; i< players.length; i++){
+    for (int i=0; i< 5 ; i++){ //just show the first 5 players
        
-      text("" + (i + 1) + ".     Player: " + players[i].name, x, y);
+      text("" + (i + 1) + ".     Player: " + players.get(i).name, x, y);
       
       //tanks defeated
       x+= 200;
@@ -64,7 +65,7 @@ Player [] players;
       text ("x7", (x + enemyJet.width +20), y);
       
       x+=200;
-      text("Total Score: " + players[i].score, x, y);
+      text("Total Score: " + players.get(i).score, x, y);
       
       
       y = y + 70;  
@@ -74,6 +75,11 @@ Player [] players;
     
   }
   
+  
+  public void orderArray(){
+
+    
+  }
   
   
 }
