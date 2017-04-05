@@ -52,7 +52,7 @@ float DECELERATION = 2; //low speed = speed - DECELERATION
 
 //Fuel constants
 int INITIAL_FUEL= 600; //normally at 600
-float VELOCITY_CONSUMPTION = 0.01;
+float VELOCITY_CONSUMPTION = 0.005;
 float distance = y;
 
 // timekeeping

@@ -1,7 +1,7 @@
 class Jet extends Element{
   
   PImage imageCrashed;
-  private int fuel;
+  private float fuel;
   private boolean crashed = false;
   private int reserveJets = 3;
   
@@ -30,7 +30,7 @@ class Jet extends Element{
    
    public void consume(float nD){
      if(this.fuel > 0)
-      this.fuel = (int)(this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
+      this.fuel = (this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
      else{
       this.crashed = true;
      }
@@ -72,7 +72,7 @@ class Jet extends Element{
     }
   }
   
-  public int getFuel(){
+  public float getFuel(){
      return fuel;
    }
    
