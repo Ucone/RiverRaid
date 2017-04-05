@@ -71,6 +71,8 @@ int timeDelay= 400;
 int shootTime = 600;
 int rocketTime;
 
+boolean firingMode = false;
+
 //for delay when reset world
 int timeResetWorld = 0;
 
@@ -274,8 +276,12 @@ void draw() {
               rocketTime=millis();
               
               Rocket rocket = new Rocket();
-              rocket.xPos = jet.xPos;
-              rocket.yPos = jet.yPos;
+              if(firingMode == true)
+                rocket.xPos = jet.xPos - w(5);
+              else
+                rocket.xPos = jet.xPos + w(35);
+              firingMode = !firingMode;
+              rocket.yPos = jet.yPos + h(10);
               rockets.add(rocket);
 
               //sound effect
