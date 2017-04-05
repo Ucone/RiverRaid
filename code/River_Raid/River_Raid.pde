@@ -141,8 +141,8 @@ void setup() {
   fuelGauge.resize(w(50), viewportH/3 + 50);
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
-  musicOn.resize(w(50), h(50));
-  musicOff.resize(w(50), h(50));
+  musicOn.resize(viewportW / 20, viewportW / 20);
+  musicOff.resize(viewportW / 20, viewportW / 20);
 
   //Check if we are on testing environment
   checkTesting();
@@ -498,7 +498,7 @@ void keyPressed(){
 }  
 
 void mousePressed(){
-  if(mouseX > x(940) && mouseX < x(990) && mouseY > y(10) && mouseY < y(60)){
+  if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
     music.toggleMusic();
   }
 }
