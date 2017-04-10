@@ -330,8 +330,12 @@ void draw() {
 
       break;
       case END:
-         scoreScreen.drawScoreScreen();         
-      break;
+         //scoreScreen.drawScoreScreen();   
+         fill(0);
+         text("pailo", 400,800);
+         rect(400, 800, 200, 50);
+         rect(400, 600, 55, 55, 7);
+
   }
 }
 
@@ -515,7 +519,7 @@ void checkTesting(){
     cp5.remove("Start");
     cp5.remove("name_input");
     player = new Player("tester player");
-    gameState = GameState.GAME;
+    gameState = GameState.END;
   }
 }
 
