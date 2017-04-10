@@ -323,8 +323,25 @@ void draw() {
               break;
             }
           }
+          
+          
+          
           rocket.draw(yMaster);
         }
+        
+        //Fuel rocket collision implementation
+          Iterator<FuelDepot> ifd = world.fuelDepots.iterator();
+          while(ifd.hasNext()) {
+                FuelDepot fd =ifd.next();
+                if (fd.collide(rocket)) {
+                    fd.removeLive();
+                    sound.playDefeatSound();
+                    i.remove();
+                    if (fd.getLives() == 0){
+                       ifd.remove(); 
+                    }
+                }
+          }
       }  
 
       
