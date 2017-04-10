@@ -66,13 +66,11 @@ class Jet extends Element{
    public void checkCollision(){
     if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
-        //gameSpeed=0;
         
         //sound effect
         sound.playCrashSound();
 
         timeResetWorld=millis();
-        //resetWorld();
     }
   }
   

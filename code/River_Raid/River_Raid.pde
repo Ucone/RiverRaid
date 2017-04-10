@@ -196,8 +196,6 @@ void draw() {
       break;
     case GAME:
       //Map movement
-      //image(map1, x(0), y(y));
-      //image(map1, x(0), y(y) - map1.height);
       background(#eeeeee);
       world.update(nD);
       yMaster -= gameSpeed * nD;
@@ -241,7 +239,6 @@ void draw() {
         drawFuel();
         jet.consume(nD);
         jet.checkRefuel(nD);
-        //jet.yPos = yMaster+800; //moved two lined below
         jet.checkCollision();
       }
       
@@ -352,11 +349,6 @@ void draw() {
       yMaster = 0;
       jet.crashed = false;
       jet.fuel = INITIAL_FUEL;
-      //Iterator<Rocket> i = rockets.iterator();
-      //while(i.hasNext()) {
-      //  Rocket rocket = i.next();
-      //  rocket.yPos -= (yMaster - 1000);
-      //} 
       timeResetWorld = millis();
     }
   }
