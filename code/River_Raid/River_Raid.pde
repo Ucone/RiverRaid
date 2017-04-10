@@ -337,6 +337,11 @@ void draw() {
                     fd.removeLive();
                     sound.playDefeatSound();
                     i.remove();
+                    
+                    if (fd.getLives() < 4){
+                       fd.damaged(); 
+                    }
+                    
                     if (fd.getLives() == 0){
                        ifd.remove(); 
                     }

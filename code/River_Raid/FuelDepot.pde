@@ -14,4 +14,7 @@ public class FuelDepot extends Element{
      return lives; 
   }
   
+  public void damaged(){
+      this.image = loadImage("./images/sprites/fueldepotDamaged.png");
+  }
 }
