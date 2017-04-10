@@ -277,11 +277,12 @@ void draw() {
               
               Rocket rocket = new Rocket();
               if(firingMode == true)
-                rocket.xPos = jet.xPos - w(5);
+                rocket.xPos = jet.xPos + jet.width - rocket.width;
               else
-                rocket.xPos = jet.xPos + w(35);
+                rocket.xPos = jet.xPos;
+              print(rocket.xPos);
               firingMode = !firingMode;
-              rocket.yPos = jet.yPos + h(10);
+              rocket.yPos = jet.yPos + 60;
               rockets.add(rocket);
 
               //sound effect
