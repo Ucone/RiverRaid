@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = false;
+boolean testing = true;
 
 public enum GameState {WELCOME, STORY, GAME, END};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}

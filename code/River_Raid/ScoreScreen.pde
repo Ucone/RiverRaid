@@ -15,8 +15,8 @@ ArrayList<Player> players = new ArrayList<Player>();
     backGround.resize(w(1000),h(1000));
     
 
-    imageTank = new Tanker(3).image;
-    //imageTank.resize(w(20),h(0));
+    this.imageTank = new Tanker(3).image;
+    this.imageTank.resize(w(20),h(0));
     
     helicopter = new Helicopter(3).image;
     //helicopter.resize(w(20),h(0));
@@ -27,10 +27,10 @@ ArrayList<Player> players = new ArrayList<Player>();
 
     
     players.add(new Player("Tom", 1200));
-    players.add(new Player("Iaros",1200));
+    players.add(new Player("Iaros", 200));
     players.add(new Player("Likai", 800));
     players.add(new Player("viti", 600));
-    //players.add(new Player("Uko", 1200));
+    players.add(new Player("Uko", 1200));
     
   }
 
@@ -40,6 +40,8 @@ ArrayList<Player> players = new ArrayList<Player>();
   
   public void drawScoreScreen(){
     
+    orderArray();
+    
     image(backGround, 0, 0);
     int y = 320;
     int x = 400;
@@ -47,6 +49,8 @@ ArrayList<Player> players = new ArrayList<Player>();
     
     for (int i=0; i< 5 ; i++){ //just show the first 5 players
        
+      fill(0);
+      
       text("" + (i + 1) + ".     Player: " + players.get(i).name, x, y);
       
       //tanks defeated
@@ -77,8 +81,24 @@ ArrayList<Player> players = new ArrayList<Player>();
   
   
   public void orderArray(){
-
+    int i; 
+    int j;
+    Player aux;
     
+    for (i=0; i< players.size(); i++){
+
+       for(j = i; j < players.size(); j++){
+
+          if (players.get(i).getScore() < players.get(j).getScore()){
+            aux = players.get(j);
+           
+            players.set(j, players.get(i));
+            players.set(i, aux);              
+          }         
+       }
+       
+      
+    }
   }
   
   
