@@ -67,12 +67,6 @@ int time=0;
 boolean booleanDelay = false;
 int timeDelay= 400;
 
-//for time between roquets
-int shootTime = 600;
-int rocketTime;
-
-boolean firingMode = false;
-
 //for delay when reset world
 int timeResetWorld = 0;
 
@@ -250,7 +244,10 @@ void draw() {
         //jet.yPos = yMaster+800; //moved two lined below
         jet.checkCollision();
       }
-      jet.yPos = yMaster+800;
+      
+      jet.update(nD);
+      
+    
       jet.draw(yMaster);
       
       //blinking function
@@ -272,22 +269,7 @@ void draw() {
           speedChanged = true;      
       }
       if (keys[4]){   //SPACE      
-            if (millis() - rocketTime > shootTime){
-              rocketTime=millis();
-              
-              Rocket rocket = new Rocket();
-              if(firingMode == true)
-                rocket.xPos = jet.xPos + jet.width - rocket.width;
-              else
-                rocket.xPos = jet.xPos;
-              print(rocket.xPos);
-              firingMode = !firingMode;
-              rocket.yPos = jet.yPos + 60;
-              rockets.add(rocket);
-
-              //sound effect
-              sound.playShootSound();
-        }
+         jet.fire();
       }
    
       

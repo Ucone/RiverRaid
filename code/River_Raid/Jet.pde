@@ -4,6 +4,10 @@ class Jet extends Element{
   private float fuel;
   private boolean crashed = false;
   private int reserveJets = 3;
+  private int lastFired = 0;
+  private final float FIRE_DELAY = 50.0;
+  public float fireCooldown = 0;
+  public boolean firingMode = false;
   
    Jet(){
      super("./images/sprites/jet.png", 80, 130);
@@ -70,6 +74,31 @@ class Jet extends Element{
         timeResetWorld=millis();
         //resetWorld();
     }
+  }
+  
+  public boolean fire() {
+     if(fireCooldown > 0) return false;
+     
+     fireCooldown += FIRE_DELAY;
+     Rocket rocket = new Rocket();
+     if(this.firingMode == true)
+       rocket.xPos = this.xPos + jet.width - rocket.width;
+     else
+       rocket.xPos = this.xPos;
+     this.firingMode = !this.firingMode;
+     rocket.yPos = this.yPos + 60;
+     rockets.add(rocket);
+
+     //sound effect
+     sound.playShootSound();
+     
+     return true;
+  }
+  
+  public void update(float nD) {
+    if(fireCooldown > 0)
+      fireCooldown -= nD;
+    jet.yPos = yMaster+800;
   }
   
   public float getFuel(){
