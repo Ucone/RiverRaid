@@ -323,9 +323,7 @@ void draw() {
               break;
             }
           }
-          
-          
-          
+              
           rocket.draw(yMaster);
         }
         
@@ -338,7 +336,7 @@ void draw() {
                     sound.playDefeatSound();
                     i.remove();
                     
-                    if (fd.getLives() < 4){
+                    if (fd.getLives() == 3){
                        fd.damaged(); 
                     }
                     

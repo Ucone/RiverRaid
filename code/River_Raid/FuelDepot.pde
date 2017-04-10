@@ -15,6 +15,9 @@ public class FuelDepot extends Element{
   }
   
   public void damaged(){
+      int newWidth = this.image.width;
+      int newHeight = this.image.height;
       this.image = loadImage("./images/sprites/fueldepotDamaged.png");
+      this.image.resize(newWidth,newHeight);
   }
 }
