@@ -330,11 +330,10 @@ void draw() {
 
       break;
       case END:
-         //scoreScreen.drawScoreScreen();   
-         fill(0);
-         text("pailo", 400,800);
-         rect(400, 800, 200, 50);
-         rect(400, 600, 55, 55, 7);
+         scoreScreen.drawScoreScreen();   
+         fill(200);
+         text("pailo", w(400),h(900));
+         rect(w(400), h(900), w(200), h(50), 7);
 
   }
 }
