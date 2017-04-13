@@ -47,4 +47,11 @@ public class Enemy extends Element{
         this.lateralSpeed = 2 + section;
         this.score = 200;
     }
+    }
+    
+    class FinalEnemy extends Enemy {
+      public FinalEnemy(){
+        super("./images/sprites/credits.png", 50, 100);
+
+    }
 }
