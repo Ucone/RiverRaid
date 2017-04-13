@@ -194,6 +194,7 @@ void draw() {
   switch(gameState){
     case WELCOME:
       image(startImg, x(0), y(0));
+      cp5.setVisible(true);
       break;
     
     case STORY:
@@ -331,9 +332,14 @@ void draw() {
       break;
       case END:
          scoreScreen.drawScoreScreen();   
-         fill(200);
-         text("pailo", w(400),h(900));
-         rect(w(400), h(900), w(200), h(50), 7);
+         fill(255);
+
+         rect(w(300), h(900), w(150), h(50), 7);
+         rect(w(550), h(900), w(150), h(50), 7);
+         fill(0);
+         text("Replay", w(365),h(940));
+         text("END", w(620),h(940));
+
 
   }
 }
@@ -453,8 +459,8 @@ void controlEvent(ControlEvent theEvent) {
   
   player = new Player(playerName);
   scoreScreen.addPlayer(player);
-  cp5.remove("Start");
-  cp5.remove("name_input");
+  cp5.setVisible(false); //remove("Start");
+  //cp5.remove("name_input");
   gameState = GameState.STORY;
 }
 
@@ -509,6 +515,19 @@ void mousePressed(){
   if(mouseX > x(940) && mouseX < x(990) && mouseY > y(10) && mouseY < y(60)){
     music.toggleMusic();
   }
+  
+  //Pres replay
+  if(gameState==gameState.END && ((mouseX > w(300) && mouseX < (w(300) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
+       text("Press any key to continue...", viewportW - w(20), y(30));
+       gameState=gameState.WELCOME;
+  }
+  
+  //Pres end
+  if(gameState==gameState.END && ((mouseX > w(550) && mouseX < (w(550) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
+
+  }
+  
+
 }
 
 
