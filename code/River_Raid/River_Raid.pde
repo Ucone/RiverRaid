@@ -385,7 +385,7 @@ void draw() {
         if(!rocket.visible(yMaster)) {
           finalRoquets.remove();
         } else {
-          Iterator<Enemy> finalEnemiIterator = world.enemies.iterator();
+          Iterator<Enemy> finalEnemiIterator = finalWorld.finalEnemies.iterator();
           while(finalEnemiIterator.hasNext()) {
             Enemy en = finalEnemiIterator.next();
             if (en.collide(rocket)) {
