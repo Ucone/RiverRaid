@@ -351,11 +351,12 @@ void draw() {
        
        case CREDITS:
          
-         yMaster = 0;
+         yMaster -= gameSpeed * nD;
          
          background(255);
          fill(255);
-         jet.draw(100);
+         jet.yPos = yMaster+800;
+          jet.draw(yMaster);
          finalWorld.draw();
          
          if (keys[0]){  //LEFT
