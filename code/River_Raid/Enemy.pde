@@ -47,4 +47,13 @@ public class Enemy extends Element{
         this.lateralSpeed = 2 + section;
         this.score = 200;
     }
+    }
+    
+    class FinalEnemy extends Enemy {
+      public FinalEnemy(String str, int x, int y){
+        super(str, 300, 200);
+        this.yPos = y;
+        this.xPos = x;
+
+    }
 }

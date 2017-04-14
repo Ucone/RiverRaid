@@ -3,11 +3,13 @@ class Jet extends Element{
   PImage imageCrashed;
   private float fuel;
   private boolean crashed = false;
+
   private int reserveJets = 3;
   private int lastFired = 0;
   private final float FIRE_DELAY = 50.0;
   public float fireCooldown = 0;
   public boolean firingMode = false;
+
   
    Jet(){
      super("./images/sprites/jet.png", 80, 130);

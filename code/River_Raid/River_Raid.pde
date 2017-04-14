@@ -3,9 +3,9 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
-public enum GameState {WELCOME, STORY, GAME, END};  // Different states of the game
+public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
 
 // Input fields and text
@@ -73,7 +73,7 @@ int timeResetWorld = 0;
 boolean keys [];
 
 //finalScreen
-ScoreScreen finalScreen;
+ScoreScreen scoreScreen;
 
 Story story;
 
@@ -84,6 +84,12 @@ Sound sound, music;
 
 //background music
 boolean isMusicOn;
+
+//Credits
+FinalCredits finalCredits;
+Enemy finalEnemy;
+
+float nD;
 
 void setup() {
   fullScreen(P2D);
@@ -143,6 +149,8 @@ void setup() {
   //Check if we are on testing environment
   checkTesting();
 
+  player = new Player("");
+
   // Instances of objects
   world = new World();
   world.resetSeed();
@@ -156,7 +164,7 @@ void setup() {
   }
   
   //Final ScoreBoard
-  finalScreen = new ScoreScreen();
+  scoreScreen = new ScoreScreen();
   
   // Story
   story = new Story();
@@ -169,6 +177,9 @@ void setup() {
   music = new Sound();
   isMusicOn = false;
   music.toggleMusic();
+  
+  //credits
+  finalCredits = new FinalCredits();
 
 }
 
@@ -184,10 +195,11 @@ int getDelta() {
 
 void draw() {
   int delta = getDelta();
-  float nD = delta / TICK_MS;
+  nD = delta / TICK_MS;
   switch(gameState){
     case WELCOME:
       image(startImg, x(0), y(0));
+      cp5.setVisible(true);
       break;
     
     case STORY:
@@ -334,12 +346,85 @@ void draw() {
 
       break;
       case END:
-         finalScreen.drawScoreScreen();         
-      break;
+         scoreScreen.drawScoreScreen();   
+         fill(255);
+
+         rect(w(300), h(900), w(150), h(50), 7);
+         rect(w(550), h(900), w(150), h(50), 7);
+         fill(0);
+         text("Replay", w(365),h(940));
+         text("END", w(620),h(940));
+
+       break;
+       
+       case CREDITS:       
+         //Credits game
+         credits();
+       break;
   }
 }
 
 
+//CREDITS METHOD
+  public void credits(){
+    
+         yMaster -= 2 * nD;
+         
+         background(0, 162, 232);
+         fill(255);
+         
+         //Draw the jet and the credits map
+         finalCredits.draw();
+         jet.yPos = yMaster+800;
+         jet.draw(yMaster);
+         
+         //Jet movement
+         if (keys[0]){  //LEFT
+            jet.moveLeft();
+          }
+          if (keys[1]){  //RIGTH
+              jet.moveRight();
+          }
+          if (keys[4]){   //SPACE      
+                if (millis() - rocketTime > shootTime){
+                  rocketTime=millis();                  
+                  Rocket rocket = new Rocket();
+                  rocket.xPos = jet.xPos;
+                  rocket.yPos = jet.yPos;
+                  rockets.add(rocket);    
+                  //sound effect
+                  sound.playShootSound();
+            }
+          }
+       
+       //Jet rockets interaction with credits
+          Iterator<Rocket> finalRoquets = rockets.iterator();
+          while(finalRoquets.hasNext()) {
+            Rocket rocket = finalRoquets.next();
+            rocket.update(nD);
+            if(!rocket.visible(yMaster)) {
+              finalRoquets.remove();
+            } else {
+              //see iterator content in finalWorld Class
+              Iterator<Enemy> finalEnemiIterator = finalCredits.finalEnemies.iterator();
+              while(finalEnemiIterator.hasNext()) {
+                Enemy en = finalEnemiIterator.next();
+                if (en.collide(rocket)) {
+                  //sound effect
+                  sound.playDefeatSound();    
+                  finalEnemiIterator.remove();
+                  finalRoquets.remove(); 
+                  break;
+                }
+              }
+              rocket.draw(yMaster);
+            }
+          }  
+       
+    
+    
+  }
+Jet finalJet;
 
   public void resetWorld(){
     if(millis()- timeResetWorld >= 2000){
@@ -448,15 +533,16 @@ void controlEvent(ControlEvent theEvent) {
   }
   
   player = new Player(playerName);
-  cp5.remove("Start");
-  cp5.remove("name_input");
+  scoreScreen.addPlayer(player);
+  cp5.setVisible(false); //remove("Start");
+  //cp5.remove("name_input");
   gameState = GameState.STORY;
 }
 
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME) {
+  if (gameState == gameState.GAME || gameState == gameState.CREDITS ) {
     if ( key == CODED){
       switch(keyCode){
        case LEFT:
@@ -483,7 +569,9 @@ void keyPressed(){
           keys[4]=true;
           break;
         case 'm':
+        case 'M':
           music.toggleMusic();
+        break;
       }
     }
   } else {
@@ -502,6 +590,22 @@ void mousePressed(){
   if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
     music.toggleMusic();
   }
+  
+  //Pres replay
+  if(gameState==gameState.END && ((mouseX > w(300) && mouseX < (w(300) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
+
+//       music.toggleMusic();
+//       gameState=gameState.WELCOME;
+//       setup();
+  }
+  
+  //Pres end
+  if(gameState==gameState.END && ((mouseX > w(550) && mouseX < (w(550) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
+        gameState = GameState.CREDITS;
+        yMaster = 0;
+  }
+  
+
 }
 
 
@@ -511,8 +615,7 @@ void checkTesting(){
     cp5.remove("Start");
     cp5.remove("name_input");
     player = new Player("tester player");
-    gameState = GameState.GAME;
-    player = new Player("");
+    gameState = GameState.END;
   }
 }
 
