@@ -90,8 +90,8 @@ Sound sound, music;
 boolean isMusicOn;
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,800);
+  fullScreen(P2D);
+  //size(1200,800);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -353,11 +353,11 @@ void draw() {
          
          yMaster -= gameSpeed * nD;
          
-         background(255);
+         background(0, 162, 232);
          fill(255);
-         jet.yPos = yMaster+800;
-          jet.draw(yMaster);
+         jet.yPos = yMaster+800;         
          finalWorld.draw();
+         jet.draw(yMaster);
          
          if (keys[0]){  //LEFT
             jet.moveLeft();
@@ -621,7 +621,7 @@ void checkTesting(){
     cp5.remove("Start");
     cp5.remove("name_input");
     player = new Player("tester player");
-    gameState = GameState.CREDITS;
+    gameState = GameState.END;
   }
 }
 

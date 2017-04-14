@@ -50,10 +50,10 @@ public class Enemy extends Element{
     }
     
     class FinalEnemy extends Enemy {
-      public FinalEnemy(String str, int y){
-        super(str, 50, 100);
+      public FinalEnemy(String str, int x, int y){
+        super(str, 300, 200);
         this.yPos = y;
-        this.xPos = 500;
+        this.xPos = x;
 
     }
 }
