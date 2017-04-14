@@ -89,6 +89,12 @@ Sound sound, music;
 //background music
 boolean isMusicOn;
 
+//Credits
+FinalCredits finalCredits;
+Enemy finalEnemy;
+
+float nD;
+
 void setup() {
   fullScreen(P2D);
   //size(1200,800);
@@ -177,13 +183,9 @@ void setup() {
   music.toggleMusic();
   
   //credits
-  //finalJet  = new Jet();
-  //finalEnemy = new FinalEnemy();
-  finalWorld = new FinalWorld();
+  finalCredits = new FinalCredits();
 
 }
-FinalWorld finalWorld;
-Enemy finalEnemy;
 
 int getDelta() {
   if(lastmillis == -1) {
@@ -197,7 +199,7 @@ int getDelta() {
 
 void draw() {
   int delta = getDelta();
-  float nD = delta / TICK_MS;
+  nD = delta / TICK_MS;
   switch(gameState){
     case WELCOME:
       image(startImg, x(0), y(0));
@@ -349,83 +351,73 @@ void draw() {
 
        break;
        
-       case CREDITS:
-         
+       case CREDITS:       
+         //Credits game
+         credits();
+       break;
+  }
+}
+
+
+//CREDITS METHOD
+  public void credits(){
+    
          yMaster -= 2 * nD;
          
          background(0, 162, 232);
          fill(255);
-         jet.yPos = yMaster+800;         
-         finalWorld.draw();
+         
+         //Draw the jet and the credits map
+         finalCredits.draw();
+         jet.yPos = yMaster+800;
          jet.draw(yMaster);
          
+         //Jet movement
          if (keys[0]){  //LEFT
             jet.moveLeft();
-        }
-        if (keys[1]){  //RIGTH
-            jet.moveRight();
-        }
-        if (keys[4]){   //SPACE      
-              if (millis() - rocketTime > shootTime){
-                rocketTime=millis();
-                
-                Rocket rocket = new Rocket();
-                rocket.xPos = jet.xPos;
-                rocket.yPos = jet.yPos;
-                rockets.add(rocket);
-  
-                //sound effect
-                sound.playShootSound();
           }
-        }
-       
-             Iterator<Rocket> finalRoquets = rockets.iterator();
-      while(finalRoquets.hasNext()) {
-        Rocket rocket = finalRoquets.next();
-        rocket.update(nD);
-        if(!rocket.visible(yMaster)) {
-          finalRoquets.remove();
-        } else {
-          Iterator<Enemy> finalEnemiIterator = finalWorld.finalEnemies.iterator();
-          while(finalEnemiIterator.hasNext()) {
-            Enemy en = finalEnemiIterator.next();
-            if (en.collide(rocket)) {
-
-              //sound effect
-              sound.playDefeatSound();
-
-              finalEnemiIterator.remove();
-              finalRoquets.remove();
-              Decoration dec = en.getDebris();
-              if(dec != null) {
-                dec.xPos = en.xPos;
-                dec.yPos = en.yPos;
-                world.decorations.add(dec);
-              }
-
-              player.setScore(player.getScore() + en.score);
-                  if (player.getScore() % 3000 == 0){
-                     println("añado jet!");
-                     jet.addReserveJet(); 
-                  }
-
-              break;
+          if (keys[1]){  //RIGTH
+              jet.moveRight();
+          }
+          if (keys[4]){   //SPACE      
+                if (millis() - rocketTime > shootTime){
+                  rocketTime=millis();                  
+                  Rocket rocket = new Rocket();
+                  rocket.xPos = jet.xPos;
+                  rocket.yPos = jet.yPos;
+                  rockets.add(rocket);    
+                  //sound effect
+                  sound.playShootSound();
             }
           }
-          rocket.draw(yMaster);
-        }
-      }  
        
+       //Jet rockets interaction with credits
+          Iterator<Rocket> finalRoquets = rockets.iterator();
+          while(finalRoquets.hasNext()) {
+            Rocket rocket = finalRoquets.next();
+            rocket.update(nD);
+            if(!rocket.visible(yMaster)) {
+              finalRoquets.remove();
+            } else {
+              //see iterator content in finalWorld Class
+              Iterator<Enemy> finalEnemiIterator = finalCredits.finalEnemies.iterator();
+              while(finalEnemiIterator.hasNext()) {
+                Enemy en = finalEnemiIterator.next();
+                if (en.collide(rocket)) {
+                  //sound effect
+                  sound.playDefeatSound();    
+                  finalEnemiIterator.remove();
+                  finalRoquets.remove(); 
+                  break;
+                }
+              }
+              rocket.draw(yMaster);
+            }
+          }  
        
-       break;
-  
-         
-        
-       
-
+    
+    
   }
-}
-
 Jet finalJet;
 
   public void resetWorld(){

@@ -1,9 +1,9 @@
-public class FinalWorld {
+public class FinalCredits {
   
   public ArrayList<Enemy> finalEnemies;
   
   
-  FinalWorld(){
+  FinalCredits(){
     finalEnemies = new ArrayList<Enemy>();
     
     FinalEnemy finalEnemy1 = new FinalEnemy("./images/credits/credits.png", 500, -500);

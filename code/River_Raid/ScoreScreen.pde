@@ -16,7 +16,7 @@ ArrayList<Player> players = new ArrayList<Player>();
     
 
     this.imageTank = new Tanker(3).image;
-    this.imageTank.resize(w(20),h(0));
+    //this.imageTank.resize(w(20),h(0));
     
     helicopter = new Helicopter(3).image;
     //helicopter.resize(w(20),h(0));
