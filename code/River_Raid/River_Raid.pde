@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = false;
+boolean testing = true;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
@@ -90,8 +90,8 @@ Sound sound, music;
 boolean isMusicOn;
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,800);
+  //fullScreen(P2D);
+  size(1200,800);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -177,11 +177,12 @@ void setup() {
   music.toggleMusic();
   
   //credits
-  finalJet  = new Jet();
-  finalEnemy = new FinalEnemy();
+  //finalJet  = new Jet();
+  //finalEnemy = new FinalEnemy();
+  finalWorld = new FinalWorld();
 
 }
-
+FinalWorld finalWorld;
 Enemy finalEnemy;
 
 int getDelta() {
@@ -349,8 +350,73 @@ void draw() {
        break;
        
        case CREDITS:
+         
+         yMaster = 0;
+         
+         background(255);
+         fill(255);
+         jet.draw(100);
+         finalWorld.draw();
+         
+         if (keys[0]){  //LEFT
+            jet.moveLeft();
+        }
+        if (keys[1]){  //RIGTH
+            jet.moveRight();
+        }
+        if (keys[4]){   //SPACE      
+              if (millis() - rocketTime > shootTime){
+                rocketTime=millis();
+                
+                Rocket rocket = new Rocket();
+                rocket.xPos = jet.xPos;
+                rocket.yPos = jet.yPos;
+                rockets.add(rocket);
+  
+                //sound effect
+                sound.playShootSound();
+          }
+        }
        
-       finalJet.draw();
+             Iterator<Rocket> finalRoquets = rockets.iterator();
+      while(finalRoquets.hasNext()) {
+        Rocket rocket = finalRoquets.next();
+        rocket.update(nD);
+        if(!rocket.visible(yMaster)) {
+          finalRoquets.remove();
+        } else {
+          Iterator<Enemy> finalEnemiIterator = world.enemies.iterator();
+          while(finalEnemiIterator.hasNext()) {
+            Enemy en = finalEnemiIterator.next();
+            if (en.collide(rocket)) {
+
+              //sound effect
+              sound.playDefeatSound();
+
+              finalEnemiIterator.remove();
+              finalRoquets.remove();
+              Decoration dec = en.getDebris();
+              if(dec != null) {
+                dec.xPos = en.xPos;
+                dec.yPos = en.yPos;
+                world.decorations.add(dec);
+              }
+
+              player.setScore(player.getScore() + en.score);
+                  if (player.getScore() % 3000 == 0){
+                     println("añado jet!");
+                     jet.addReserveJet(); 
+                  }
+
+              break;
+            }
+          }
+          rocket.draw(yMaster);
+        }
+      }  
+       
+       
+       break;
   
          
         
@@ -482,7 +548,7 @@ void controlEvent(ControlEvent theEvent) {
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME) {
+  if (gameState == gameState.GAME || gameState == gameState.CREDITS ) {
     if ( key == CODED){
       switch(keyCode){
        case LEFT:
@@ -554,7 +620,7 @@ void checkTesting(){
     cp5.remove("Start");
     cp5.remove("name_input");
     player = new Player("tester player");
-    gameState = GameState.END;
+    gameState = GameState.CREDITS;
   }
 }
 

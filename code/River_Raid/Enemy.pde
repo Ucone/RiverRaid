@@ -50,8 +50,10 @@ public class Enemy extends Element{
     }
     
     class FinalEnemy extends Enemy {
-      public FinalEnemy(){
-        super("./images/sprites/credits.png", 50, 100);
+      public FinalEnemy(String str, int y){
+        super(str, 50, 100);
+        this.yPos = y;
+        this.xPos = 500;
 
     }
 }
