@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
@@ -351,7 +351,7 @@ void draw() {
        
        case CREDITS:
          
-         yMaster -= gameSpeed * nD;
+         yMaster -= 2 * nD;
          
          background(0, 162, 232);
          fill(255);
@@ -600,15 +600,16 @@ void mousePressed(){
   
   //Pres replay
   if(gameState==gameState.END && ((mouseX > w(300) && mouseX < (w(300) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
-       text("Press any key to continue...", viewportW - w(20), y(30));
-       music.toggleMusic();
-       gameState=gameState.WELCOME;
-       setup();
+
+//       music.toggleMusic();
+//       gameState=gameState.WELCOME;
+//       setup();
   }
   
   //Pres end
   if(gameState==gameState.END && ((mouseX > w(550) && mouseX < (w(550) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
         gameState = GameState.CREDITS;
+        yMaster = 0;
   }
   
 
