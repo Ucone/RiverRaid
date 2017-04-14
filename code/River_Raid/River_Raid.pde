@@ -360,14 +360,18 @@ void draw() {
        case CREDITS:       
          //Credits game
          credits();
+         //rocketTime = millis();
        break;
   }
 }
 
+ //int rocketTime = 0;
+ //float shootTime = 0.4;
 
 //CREDITS METHOD
   public void credits(){
     
+          jet.crashed = false;
          yMaster -= 2 * nD;
          
          background(0, 162, 232);
@@ -385,17 +389,20 @@ void draw() {
           if (keys[1]){  //RIGTH
               jet.moveRight();
           }
-          if (keys[4]){   //SPACE      
-                if (millis() - rocketTime > shootTime){
-                  rocketTime=millis();                  
-                  Rocket rocket = new Rocket();
-                  rocket.xPos = jet.xPos;
-                  rocket.yPos = jet.yPos;
-                  rockets.add(rocket);    
-                  //sound effect
-                  sound.playShootSound();
+          if (keys[4]){   //SPACE     
+          
+          jet.fire();
+          
+                //if (millis() - rocketTime > shootTime){
+                //  rocketTime=millis();                  
+                //  Rocket rocket = new Rocket();
+                //  rocket.xPos = jet.xPos;
+                //  rocket.yPos = jet.yPos;
+                //  rockets.add(rocket);    
+                //  //sound effect
+                //  sound.playShootSound();
             }
-          }
+  //        }
        
        //Jet rockets interaction with credits
           Iterator<Rocket> finalRoquets = rockets.iterator();
