@@ -270,25 +270,28 @@ void draw() {
          speedChanged = false;
       }
       
-      //Jet efficient movement
-      if (keys[0]){  //LEFT
-          jet.moveLeft();
+      //Jet only response when is not crashed
+      if(!jet.crashed){
+        
+        //Jet efficient movement
+        if (keys[0]){  //LEFT        
+            jet.moveLeft();
+        }
+        if (keys[1]){  //RIGTH
+            jet.moveRight();
+        }
+        if (keys[2]){  //UP
+            gameSpeed += ACCELERATION;
+            speedChanged = true;
+        }
+        if (keys[3]){   //DOWN
+            gameSpeed -= DECELERATION;
+            speedChanged = true;      
+        }
+        if (keys[4]){   //SPACE      
+           jet.fire();
+        }
       }
-      if (keys[1]){  //RIGTH
-          jet.moveRight();
-      }
-      if (keys[2]){  //UP
-          gameSpeed += ACCELERATION;
-          speedChanged = true;
-      }
-      if (keys[3]){   //DOWN
-          gameSpeed -= DECELERATION;
-          speedChanged = true;      
-      }
-      if (keys[4]){   //SPACE      
-         jet.fire();
-      }
-   
       
       Iterator<Rocket> i = rockets.iterator();
       while(i.hasNext()) {
