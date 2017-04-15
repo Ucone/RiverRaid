@@ -23,7 +23,7 @@ class Jet extends Element{
      super("./images/sprites/jet_2.png", 80, 130);
      imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
      yPos = 800;
-     xPos = 500;
+     xPos = 300;
      fuel = INITIAL_FUEL;
    }
    
@@ -118,7 +118,7 @@ class Jet extends Element{
      return fuel;
    }
    
-   public void setFuel(int fuel){ //<>//
+   public void setFuel(int fuel){ //<>// //<>//
      this.fuel = fuel;
    }
    
