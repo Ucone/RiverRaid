@@ -118,7 +118,7 @@ class Jet extends Element{
   }
   
   public void removeReserveJet(){
-    if(this.reserveJets >= 0)
+    if(this.reserveJets >= 0) //<>//
       this.reserveJets--;
       
     if (this.reserveJets < 0)

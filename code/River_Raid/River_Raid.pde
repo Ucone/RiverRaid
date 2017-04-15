@@ -102,8 +102,8 @@ void checkTesting(){
 }
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,800);
+  //fullScreen(P2D);
+  size(1200,800);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -223,7 +223,7 @@ void draw() {
       yMaster -= gameSpeed * nD;
       
       if(jet.crashed == true){
-        resetWorld();
+        resetWorld(); //<>//
       }else 
         if(yMaster < -world.SECTION_SIZE-1000)
         {
@@ -255,7 +255,10 @@ void draw() {
            speedChanged = false;
       }
        
-       
+      jet.update(nD);
+      
+    
+      jet.draw(yMaster);
        
       //Draw more elements
       if(jet.crashed == false){
@@ -266,10 +269,7 @@ void draw() {
         jet.checkCollision();
       }
       
-      jet.update(nD);
-      
-    
-      jet.draw(yMaster);
+
       
       //blinking function
       blinkFunction();
@@ -442,13 +442,13 @@ void draw() {
   }
 Jet finalJet;
 
-  public void resetWorld(){
+  public void resetWorld(){ //<>//
     if(millis()- timeResetWorld >= 2000){
       
       world.generateSection(player.section);
       world.resetBackground();
       yMaster = 0;
-      jet.crashed = false;
+      jet.crashed = false; //<>//
       jet.fuel = INITIAL_FUEL;
       timeResetWorld = millis();
     }
