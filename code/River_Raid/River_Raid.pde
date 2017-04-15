@@ -105,8 +105,8 @@ void checkTesting(){
 
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,600);
+  //fullScreen(P2D);
+  size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -136,11 +136,11 @@ void setup() {
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
-  cp5.addButton("Two_Players")
-      .setPosition(x(300) - w(50), y(1000) - h(70))
-      .setSize(w(100), h(40))
-      .setFont(font)
-      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+  //cp5.addButton("Two_Players")
+  //    .setPosition(x(300) - w(50), y(1000) - h(70))
+  //    .setSize(w(100), h(40))
+  //    .setFont(font)
+  //    .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
     //controler fro the SCOREBOARD screen
     cpEnd = new ControlP5(this);
@@ -223,7 +223,7 @@ int getDelta() {
   if(lastmillis == -1) {
     lastmillis = millis();
     return 0;
-  } //<>// //<>//
+  } //<>// //<>// //<>//
   int delta = millis() - lastmillis;
   lastmillis = millis();
   return delta;
@@ -441,13 +441,13 @@ void draw() {
                 //  sound.playShootSound();
             }
   //        }
-        //<>//
+        //<>// //<>//
        //Jet rockets interaction with credits
           Iterator<Rocket> finalRoquets = rockets.iterator();
           while(finalRoquets.hasNext()) {
             Rocket rocket = finalRoquets.next();
             rocket.update(nD);
-            if(!rocket.visible(yMaster)) { //<>//
+            if(!rocket.visible(yMaster)) { //<>// //<>//
               finalRoquets.remove();
             } else {
               //see iterator content in finalWorld Class
@@ -579,7 +579,7 @@ void controlEvent(ControlEvent theEvent) {
 //PRESS START BUTTON ON THE WELCOME SCREEN
 public void Start() {
   //String event_id = theEvent.getLabel(); //<>//
-  String playerName = ""; //<>//
+  String playerName = ""; //<>// //<>//
   
   playerName = cp5.get(Textfield.class, "name_input").getText();
     
@@ -598,13 +598,14 @@ public void Start() {
 public void End() {
     gameState = GameState.CREDITS;
     yMaster = 0;  
-    cpEnd.setVisible(false); //<>//
+    cpEnd.setVisible(false); //<>// //<>//
 }
 
 public void Replay() {
-    gameState = GameState.WELCOME;
-    yMaster = 0;   //<>//
+
+    yMaster = 0;   //<>// //<>//
     cpEnd.setVisible(false);
+    gameState = GameState.WELCOME;
 }
 
 
