@@ -10,6 +10,7 @@ public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C,
 
 // Input fields and text
 ControlP5 cp5;
+ControlP5 cpEnd;
 PFont font;
 PFont monoFont;
 int fontSize;
@@ -129,7 +130,7 @@ void setup() {
   cp5.getController("name_input").getCaptionLabel().setVisible(false);
   
   /* Start button */
-  cp5.addBang("Start")
+  cp5.addButton("Start")
       .setPosition(x(500) - w(50), y(1000) - h(70))
       .setSize(w(100), h(40))
       .setFont(font)
@@ -141,19 +142,22 @@ void setup() {
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
-  cp5.addBang("Replay")
+    //controler fro the SCOREBOARD screen
+    cpEnd = new ControlP5(this);
+    
+    cpEnd.addButton("Replay")
       .setPosition(x(700) - w(50), y(1000) - h(70))
       .setSize(w(100), h(40))
       .setFont(font)
-      .setVisible(false)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
-   cp5.addBang("End")
+   cpEnd.addButton("End")
       .setPosition(x(700) - w(50), y(1000) - h(70))
       .setSize(w(100), h(40))
       .setFont(font)
-      .setVisible(false)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+      cpEnd.setVisible(false);
       
   // Load images
   startImg=loadImage("./images/welcome.png");
@@ -219,11 +223,11 @@ int getDelta() {
   if(lastmillis == -1) {
     lastmillis = millis();
     return 0;
-  }
+  } //<>//
   int delta = millis() - lastmillis;
   lastmillis = millis();
   return delta;
-} //<>//
+}
 
 void draw() {
   int delta = getDelta();
@@ -388,7 +392,7 @@ void draw() {
          scoreScreen.drawScoreScreen();
       
          
-         cp5.setVisible(true);
+         cpEnd.setVisible(true);
          fill(255);
 
          rect(w(300), h(900), w(150), h(50), 7);
@@ -437,17 +441,17 @@ void draw() {
           
           jet.fire();
           
-                //if (millis() - rocketTime > shootTime){
+                //if (millis() - rocketTime > shootTime){ //<>//
                 //  rocketTime=millis();                  
                 //  Rocket rocket = new Rocket();
                 //  rocket.xPos = jet.xPos;
-                //  rocket.yPos = jet.yPos; //<>//
+                //  rocket.yPos = jet.yPos;
                 //  rockets.add(rocket);    
-                //  //sound effect
+                //  //sound effect //<>//
                 //  sound.playShootSound();
             }
   //        }
-        //<>//
+       
        //Jet rockets interaction with credits
           Iterator<Rocket> finalRoquets = rockets.iterator();
           while(finalRoquets.hasNext()) {
@@ -574,25 +578,37 @@ void drawPressKey()
 
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
+  if(cp5.get(Textfield.class, "name_input").isFocus()){
+     println("focussss");  //<>//
+  }
   this.theEvent=theEvent;
 }
 
+//PRESS START BUTTON ON THE WELCOME SCREEN
 public void Start() {
-  String event_id = theEvent.getLabel();
+  //String event_id = theEvent.getLabel(); //<>//
   String playerName = "";
+  
   playerName = cp5.get(Textfield.class, "name_input").getText();
     
-  if(playerName.equals("")){
+  if(playerName.equals("")){ //<>//
       playerName = "Guest";
     }
 
-    
   player = new Player(playerName);
   scoreScreen.addPlayer(player);
   cp5.setVisible(false); //remove("Start");
   //cp5.remove("name_input");
   gameState = GameState.STORY;
 }
+
+//PRESS END BUTTON ON THE SCORE SCREEN
+public void End() {
+    gameState = GameState.CREDITS;
+    yMaster = 0;  
+    cpEnd.setVisible(false);
+}
+
 
 //void controlEvent(ControlEvent theEvent) {
 //  String event_id = theEvent.getLabel();
