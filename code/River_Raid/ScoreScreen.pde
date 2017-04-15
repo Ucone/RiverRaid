@@ -56,17 +56,17 @@ ArrayList<Player> players = new ArrayList<Player>();
       //tanks defeated
       x+= 130;
       image(imageTank, x(x), y(y - imageTank.height/2));
-      text ("x5", x(x + imageTank.width +20), y(y));
+      text ("x" + player.tanksDestroyed , x(x + imageTank.width +20), y(y));
       
       //Helicopters defeated
       x += 100;
       image(helicopter, x(x), y(y - helicopter.height));
-      text ("x12", x(x  + helicopter.width +20), y(y));
+      text ("x" + player.helicoptersDestroyed , x(x  + helicopter.width +20), y(y));
       
       //EnemyJets defeated
       x+= 100;
       image(enemyJet, x(x), y(y - enemyJet.height));
-      text ("x7", x(x + enemyJet.width +20), y(y));
+      text ("x" + player.enemyJetsDestroyed , x(x + enemyJet.width +20), y(y));
       
       x+=200;
       text("Total Score: " + players.get(i).score, x(x), y(y));

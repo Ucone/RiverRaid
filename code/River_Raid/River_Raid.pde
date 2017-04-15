@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = false;
+boolean testing = true;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -97,13 +97,13 @@ void checkTesting(){
     cp5.remove("Start");
     cp5.remove("name_input");
     player = new Player("tester player");
-    gameState = GameState.GAME;
+    gameState = GameState.END;
   }
 }
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,600);
+  //fullScreen(P2D);
+  size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -307,7 +307,16 @@ void draw() {
 
               //sound effect
               sound.playDefeatSound();
-
+              if(en.kind == "Tank"){
+                 player.tanksDestroyed ++;
+              }
+              if(en.kind == "Helicopter"){
+                 player.helicoptersDestroyed ++;
+              }
+              if(en.kind == "EnemyJet"){
+                 player.enemyJetsDestroyed ++;
+              }
+              
               ie.remove();
               i.remove();
               Decoration dec = en.getDebris();
@@ -386,10 +395,12 @@ void draw() {
          fill(255);
          
          //Draw the jet and the credits map
+         
          finalCredits.draw();
+         
          jet.yPos = yMaster+800;
          jet.draw(yMaster);
-         
+
          //Jet movement
          if (keys[0]){  //LEFT
             jet.moveLeft();
@@ -430,24 +441,24 @@ void draw() {
                   finalEnemiIterator.remove();
                   finalRoquets.remove(); 
                   break;
-                }
+                } //<>//
               }
               rocket.draw(yMaster);
             }
           }  
        
-    
+     //<>//
     
   }
 
   public void resetWorld(){ //<>//
-    if(millis()- timeResetWorld >= 2000){ //<>//
+    if(millis()- timeResetWorld >= 2000){
       
       world.generateSection(player.section);
       world.resetBackground();
       yMaster = 0;
       jet.crashed = false; //<>//
-      jet.fuel = INITIAL_FUEL; //<>//
+      jet.fuel = INITIAL_FUEL;
       timeResetWorld = millis();
     }
   }

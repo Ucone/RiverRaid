@@ -3,6 +3,7 @@ public class Enemy extends Element{
     public boolean direction = true; //True: right, False: left
     public int score;
     public float lateralSpeed;
+    public String kind;
     
     public Enemy(String s, float w, float h) {
       super(s, w, h); 
@@ -29,6 +30,7 @@ public class Enemy extends Element{
     class Tanker extends Enemy {
       public Tanker(int section){
         super("./images/sprites/enemy_tanker.png", 50, 200);
+        this.kind = "Tank";
         this.lateralSpeed = section;
         this.score = 200;
       }
@@ -36,6 +38,7 @@ public class Enemy extends Element{
     class Helicopter extends Enemy {
       public Helicopter(int section){
         super("./images/sprites/enemy_chopper.png", 50, 100);
+        this.kind = "Helicopter";
         this.lateralSpeed = 1 + section;
         this.score = 200;
       }
@@ -44,6 +47,7 @@ public class Enemy extends Element{
     class EnemyJet extends Enemy {
       public EnemyJet(int section){
         super("./images/sprites/enemy_jet.png", 50, 100);
+        this.kind = "EnemyJet";
         this.lateralSpeed = 2 + section;
         this.score = 200;
     }
@@ -52,6 +56,7 @@ public class Enemy extends Element{
     class FinalEnemy extends Enemy {
       public FinalEnemy(String str, int x, int y){
         super(str, 300, 200);
+        this.kind = "";
         this.yPos = y;
         this.xPos = x;
 
