@@ -108,8 +108,8 @@ void checkTesting(){
 
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,600);
+  fullScreen(P2D);
+  //size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -122,8 +122,8 @@ void setup() {
   cp5 = new ControlP5(this);
   /* Input field */
   cp5.addTextfield("name_input")
-      .setPosition(x(500) - w(50),  y(1000) - h(130))
-      .setSize(w(100), h(40))
+      .setPosition(x(435) - w(50),  y(1000) - h(220))
+      .setSize(w(200), h(60))
       .setFocus(true)
       .setFont(font)
       .setValue("Your name here...")
@@ -134,14 +134,14 @@ void setup() {
   
   /* Start button */
   cp5.addBang("Start")
-      .setPosition(x(500) - w(50), y(1000) - h(70))
-      .setSize(w(100), h(40))
+      .setPosition(x(435) - w(50), y(1000) - h(150))
+      .setSize(w(200), h(60))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
   cp5.addButton("Two_Players")
-      .setPosition(x(300) - w(50), y(1000) - h(70))
-      .setSize(w(100), h(40))
+      .setPosition(x(435) - w(50), y(1000) - h(70))
+      .setSize(w(200), h(60))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
@@ -223,7 +223,7 @@ void setup() {
   finalCredits = new FinalCredits();
 
 }
- //<>//
+ //<>// //<>//
 int getDelta() { //<>// //<>//
   if(lastmillis == -1) {
     lastmillis = millis();
@@ -233,8 +233,8 @@ int getDelta() { //<>// //<>//
   lastmillis = millis();
   return delta;
 }
- //<>//
-void draw() { //<>// //<>// //<>//
+ //<>// //<>//
+void draw() { //<>// //<>// //<>// //<>//
   int delta = getDelta(); //<>// //<>//
   nD = delta / TICK_MS;
   switch(gameState){
@@ -441,13 +441,13 @@ void draw() { //<>// //<>// //<>//
   }
 }
 
- //int rocketTime = 0; //<>//
+ //int rocketTime = 0; //<>// //<>//
  //float shootTime = 0.4;
 
 //CREDITS METHOD //<>//
   public void credits(){
     
-          jet.crashed = false; //<>//
+          jet.crashed = false; //<>// //<>//
          yMaster -= 2 * nD;
          
          background(0, 162, 232); //<>//
@@ -605,7 +605,7 @@ void drawPressKey()
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
 *  If the name is empty, set "Guest" as default name.
 */
- //<>//
+ //<>// //<>//
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
   if (gameState == gameState.WELCOME){ //<>//
