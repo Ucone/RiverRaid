@@ -43,37 +43,37 @@ ArrayList<Player> players = new ArrayList<Player>();
     orderArray();
     
     image(backGround, 0, 0);
-    int y = 320;
-    int x = 400;
+    int y = y(480);
+    int x = x(200);
     textSize(h(40));
     
     for (int i=0; i< 5 ; i++){ //just show the first 5 players
        
       fill(0);
       
-      text("" + (i + 1) + ".     Player: " + players.get(i).name, x, y);
+      text("" + (i + 1) + ".     Player: " + players.get(i).name, x(x), y(y));
       
       //tanks defeated
-      x+= 200;
-      image(imageTank, x, y - imageTank.height/2);
-      text ("x5", (x + imageTank.width +20), y);
+      x+= 130;
+      image(imageTank, x(x), y(y - imageTank.height/2));
+      text ("x5", x(x + imageTank.width +20), y(y));
       
       //Helicopters defeated
       x += 100;
-      image(helicopter, x, y - helicopter.height);
-      text ("x12", (x  + helicopter.width +20), y);
+      image(helicopter, x(x), y(y - helicopter.height));
+      text ("x12", x(x  + helicopter.width +20), y(y));
       
       //EnemyJets defeated
       x+= 100;
-      image(enemyJet, x, y - enemyJet.height);
-      text ("x7", (x + enemyJet.width +20), y);
+      image(enemyJet, x(x), y(y - enemyJet.height));
+      text ("x7", x(x + enemyJet.width +20), y(y));
       
       x+=200;
-      text("Total Score: " + players.get(i).score, x, y);
+      text("Total Score: " + players.get(i).score, x(x), y(y));
       
       
-      y = y + 70;  
-      x = 400;
+      y = y + 100;  
+      x = x(200);
     }
     
 
