@@ -3,10 +3,10 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
-public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
+public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
 
 // Input fields and text
 ControlP5 cp5;
@@ -223,7 +223,7 @@ void draw() {
       yMaster -= gameSpeed * nD;
       
       if(jet.crashed == true){
-        resetWorld(); //<>//
+        resetWorld(); //<>// //<>//
       }else 
         if(yMaster < -world.SECTION_SIZE-1000)
         {
@@ -439,16 +439,15 @@ void draw() {
     
     
   }
-Jet finalJet;
 
   public void resetWorld(){ //<>//
-    if(millis()- timeResetWorld >= 2000){
+    if(millis()- timeResetWorld >= 2000){ //<>//
       
       world.generateSection(player.section);
       world.resetBackground();
       yMaster = 0;
       jet.crashed = false; //<>//
-      jet.fuel = INITIAL_FUEL;
+      jet.fuel = INITIAL_FUEL; //<>//
       timeResetWorld = millis();
     }
   }
