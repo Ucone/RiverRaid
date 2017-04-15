@@ -197,7 +197,8 @@ void setup() {
   world.resetBackground();
   jet = new Jet();
   jet2 = new Jet();
-    keys = new boolean[10];  // LEFT RIGTH UP DOWN.SPACE
+  
+    keys = new boolean[10];  // LEFT RIGTH UP DOWN.SPACE + A S D W Q (2CND PLAYER)
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
@@ -222,7 +223,7 @@ void setup() {
   finalCredits = new FinalCredits();
 
 }
-
+ //<>//
 int getDelta() { //<>// //<>//
   if(lastmillis == -1) {
     lastmillis = millis();
@@ -232,8 +233,8 @@ int getDelta() { //<>// //<>//
   lastmillis = millis();
   return delta;
 }
-
-void draw() { //<>// //<>//
+ //<>//
+void draw() { //<>// //<>// //<>//
   int delta = getDelta(); //<>// //<>//
   nD = delta / TICK_MS;
   switch(gameState){
@@ -284,6 +285,7 @@ void draw() { //<>// //<>//
       jet.draw(yMaster);
       
       if(twoPlayers){
+        jet2.yPos = yMaster + 800;
        jet2.update(nD);
        jet2.draw(yMaster);
       }
@@ -425,6 +427,7 @@ void draw() { //<>// //<>//
 
       break;
       case END:
+        twoPlayers = false;
          scoreScreen.drawScoreScreen();
          //cpEND has the buttons and controllers for restart/end
          cpEnd.setVisible(true);
@@ -438,13 +441,13 @@ void draw() { //<>// //<>//
   }
 }
 
- //int rocketTime = 0;
+ //int rocketTime = 0; //<>//
  //float shootTime = 0.4;
 
 //CREDITS METHOD //<>//
   public void credits(){
     
-          jet.crashed = false;
+          jet.crashed = false; //<>//
          yMaster -= 2 * nD;
          
          background(0, 162, 232); //<>//
@@ -602,7 +605,7 @@ void drawPressKey()
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
 *  If the name is empty, set "Guest" as default name.
 */
-
+ //<>//
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
   if (gameState == gameState.WELCOME){ //<>//
@@ -631,7 +634,7 @@ public void Start() {
   gameState = GameState.STORY;
 }
 
-public void two_players(){
+public void Two_Players(){
   twoPlayers = true;
   
 }
@@ -710,18 +713,23 @@ void keyPressed(){
           break;
         //Second player keys
         case 'a':
+        case 'A':
           keys[5] = true;
         break;
         case 'd':
+        case 'D':
           keys[6] = true;
         break;
          case 's':
+         case 'S':
           keys[7] = true;
         break;
         case 'w':
+        case 'W':
           keys[8] = true;
         break;
         case 'q':
+        case 'Q':
           keys[9] = true;
         break;
       
@@ -769,18 +777,23 @@ void keyReleased(){
            keys[4] = false;
          break;
         case 'a':
+        case 'A':
           keys[5] = false;
           break;
         case 'd':
+        case 'D':
           keys[6] = false;
           break;
         case 's':
+        case 'S':
           keys[7] = false;
           break;
         case 'w':
+        case 'W':
           keys[8] = false;
           break;
         case 'q':
+        case 'Q':
           keys[9] = false;
           break;
      
