@@ -102,8 +102,8 @@ void checkTesting(){
 }
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,800);
+  fullScreen(P2D);
+  //size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -249,15 +249,8 @@ void draw() {
       //Draw some elements
       drawScore();
       drawMusicIcon();
-         
-      if (speedChanged){
-           gameSpeed = DEFAULT_SPEED;
-           speedChanged = false;
-      }
        
       jet.update(nD);
-      
-    
       jet.draw(yMaster);
        
       //Draw more elements
@@ -268,11 +261,14 @@ void draw() {
         jet.checkRefuel(nD);
         jet.checkCollision();
       }
-      
-
-      
+         
       //blinking function
       blinkFunction();
+      
+     if (speedChanged){
+         gameSpeed = DEFAULT_SPEED;
+         speedChanged = false;
+      }
       
       //Jet efficient movement
       if (keys[0]){  //LEFT
