@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -101,6 +101,8 @@ void checkTesting(){
   }
 }
 
+
+
 void setup() {
   //fullScreen(P2D);
   size(1200,600);
@@ -131,6 +133,26 @@ void setup() {
       .setPosition(x(500) - w(50), y(1000) - h(70))
       .setSize(w(100), h(40))
       .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+  cp5.addBang("Two_Players")
+      .setPosition(x(300) - w(50), y(1000) - h(70))
+      .setSize(w(100), h(40))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+  cp5.addBang("Replay")
+      .setPosition(x(700) - w(50), y(1000) - h(70))
+      .setSize(w(100), h(40))
+      .setFont(font)
+      .setVisible(false)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+   cp5.addBang("End")
+      .setPosition(x(700) - w(50), y(1000) - h(70))
+      .setSize(w(100), h(40))
+      .setFont(font)
+      .setVisible(false)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
   // Load images
@@ -201,7 +223,7 @@ int getDelta() {
   int delta = millis() - lastmillis;
   lastmillis = millis();
   return delta;
-}
+} //<>//
 
 void draw() {
   int delta = getDelta();
@@ -363,7 +385,10 @@ void draw() {
 
       break;
       case END:
-         scoreScreen.drawScoreScreen();   
+         scoreScreen.drawScoreScreen();
+      
+         
+         cp5.setVisible(true);
          fill(255);
 
          rect(w(300), h(900), w(150), h(50), 7);
@@ -416,13 +441,13 @@ void draw() {
                 //  rocketTime=millis();                  
                 //  Rocket rocket = new Rocket();
                 //  rocket.xPos = jet.xPos;
-                //  rocket.yPos = jet.yPos;
+                //  rocket.yPos = jet.yPos; //<>//
                 //  rockets.add(rocket);    
                 //  //sound effect
                 //  sound.playShootSound();
             }
   //        }
-       
+        //<>//
        //Jet rockets interaction with credits
           Iterator<Rocket> finalRoquets = rockets.iterator();
           while(finalRoquets.hasNext()) {
@@ -546,23 +571,54 @@ void drawPressKey()
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
 *  If the name is empty, set "Guest" as default name.
 */
+
+ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
+  this.theEvent=theEvent;
+}
+
+public void Start() {
   String event_id = theEvent.getLabel();
   String playerName = "";
-  if(event_id.equals("name_input") || event_id.equals("Start")){
-    playerName = cp5.get(Textfield.class, "name_input").getText();
+  playerName = cp5.get(Textfield.class, "name_input").getText();
     
-    if(playerName.equals("")){
+  if(playerName.equals("")){
       playerName = "Guest";
     }
-  }
-  
+
+    
   player = new Player(playerName);
   scoreScreen.addPlayer(player);
   cp5.setVisible(false); //remove("Start");
   //cp5.remove("name_input");
   gameState = GameState.STORY;
 }
+
+//void controlEvent(ControlEvent theEvent) {
+//  String event_id = theEvent.getLabel();
+//  String playerName = "";
+//  if(event_id.equals("name_input") || event_id.equals("Start")){
+//    playerName = cp5.get(Textfield.class, "name_input").getText();
+    
+//    if(playerName.equals("")){
+//      playerName = "Guest";
+//    }
+//  }
+    
+//    if(event_id.equals("name_input") || event_id.equals("Two Players")){
+//    playerName = cp5.get(Textfield.class, "name_input").getText();
+    
+//    if(playerName.equals("")){
+//      playerName = "Guest";
+//    }
+//  }
+  
+//  player = new Player(playerName);
+//  scoreScreen.addPlayer(player);
+//  cp5.setVisible(false); //remove("Start");
+//  //cp5.remove("name_input");
+//  gameState = GameState.STORY;
+//}
 
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
@@ -616,19 +672,19 @@ void mousePressed(){
     music.toggleMusic();
   }
   
-  //Pres replay
-  if(gameState==gameState.END && ((mouseX > w(300) && mouseX < (w(300) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
+  ////Pres replay
+  //if(gameState==gameState.END && ((mouseX > w(300) && mouseX < (w(300) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
 
-//       music.toggleMusic();
-//       gameState=gameState.WELCOME;
-//       setup();
-  }
+////       music.toggleMusic();
+////       gameState=gameState.WELCOME;
+////       setup();
+  //}
   
-  //Pres end
-  if(gameState==gameState.END && ((mouseX > w(550) && mouseX < (w(550) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
-        gameState = GameState.CREDITS;
-        yMaster = 0;
-  }
+  ////Pres end
+  //if(gameState==gameState.END && ((mouseX > w(550) && mouseX < (w(550) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
+  //      gameState = GameState.CREDITS;
+  //      yMaster = 0;
+  //}
   
 
 }
