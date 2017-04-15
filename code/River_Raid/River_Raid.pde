@@ -95,8 +95,8 @@ float nD;
 // If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
 void checkTesting(){
   if(this.testing){
-    cp5.remove("Start");
-    cp5.remove("name_input");
+    //cp5.remove("Start");
+    cp5.setVisible(false);
     player = new Player("tester player");
     gameState = GameState.END;
   }
@@ -105,8 +105,8 @@ void checkTesting(){
 
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,600);
+  fullScreen(P2D);
+  //size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -130,13 +130,13 @@ void setup() {
   cp5.getController("name_input").getCaptionLabel().setVisible(false);
   
   /* Start button */
-  cp5.addButton("Start")
+  cp5.addBang("Start")
       .setPosition(x(500) - w(50), y(1000) - h(70))
       .setSize(w(100), h(40))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
-  cp5.addBang("Two_Players")
+  cp5.addButton("Two_Players")
       .setPosition(x(300) - w(50), y(1000) - h(70))
       .setSize(w(100), h(40))
       .setFont(font)
@@ -146,14 +146,14 @@ void setup() {
     cpEnd = new ControlP5(this);
     
     cpEnd.addButton("Replay")
-      .setPosition(x(700) - w(50), y(1000) - h(70))
-      .setSize(w(100), h(40))
+      .setPosition(x(350) - w(50), y(1000) - h(100))
+      .setSize(w(150), h(60))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
    cpEnd.addButton("End")
-      .setPosition(x(700) - w(50), y(1000) - h(70))
-      .setSize(w(100), h(40))
+      .setPosition(x(600) - w(50), y(1000) - h(100))
+      .setSize(w(150), h(60))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
@@ -223,7 +223,7 @@ int getDelta() {
   if(lastmillis == -1) {
     lastmillis = millis();
     return 0;
-  } //<>//
+  } //<>// //<>//
   int delta = millis() - lastmillis;
   lastmillis = millis();
   return delta;
@@ -386,21 +386,11 @@ void draw() {
       }  
 
 
-
       break;
       case END:
          scoreScreen.drawScoreScreen();
-      
-         
+         //cpEND has the buttons and controllers for restart/end
          cpEnd.setVisible(true);
-         fill(255);
-
-         rect(w(300), h(900), w(150), h(50), 7);
-         rect(w(550), h(900), w(150), h(50), 7);
-         fill(0);
-         text("Replay", w(365),h(940));
-         text("END", w(620),h(940));
-
        break;
        
        case CREDITS:       
@@ -451,13 +441,13 @@ void draw() {
                 //  sound.playShootSound();
             }
   //        }
-       
+        //<>//
        //Jet rockets interaction with credits
           Iterator<Rocket> finalRoquets = rockets.iterator();
           while(finalRoquets.hasNext()) {
             Rocket rocket = finalRoquets.next();
             rocket.update(nD);
-            if(!rocket.visible(yMaster)) {
+            if(!rocket.visible(yMaster)) { //<>//
               finalRoquets.remove();
             } else {
               //see iterator content in finalWorld Class
@@ -578,8 +568,10 @@ void drawPressKey()
 
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
-  if(cp5.get(Textfield.class, "name_input").isFocus()){
-     println("focussss");  //<>//
+  if (gameState == gameState.WELCOME){
+    if(cp5.get(Textfield.class, "name_input").isFocus()){
+      Start();
+    }
   }
   this.theEvent=theEvent;
 }
@@ -587,7 +579,7 @@ void controlEvent(ControlEvent theEvent) {
 //PRESS START BUTTON ON THE WELCOME SCREEN
 public void Start() {
   //String event_id = theEvent.getLabel(); //<>//
-  String playerName = "";
+  String playerName = ""; //<>//
   
   playerName = cp5.get(Textfield.class, "name_input").getText();
     
@@ -606,6 +598,12 @@ public void Start() {
 public void End() {
     gameState = GameState.CREDITS;
     yMaster = 0;  
+    cpEnd.setVisible(false); //<>//
+}
+
+public void Replay() {
+    gameState = GameState.WELCOME;
+    yMaster = 0;   //<>//
     cpEnd.setVisible(false);
 }
 
@@ -687,23 +685,7 @@ void mousePressed(){
   if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
     music.toggleMusic();
   }
-  
-  ////Pres replay
-  //if(gameState==gameState.END && ((mouseX > w(300) && mouseX < (w(300) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
-
-////       music.toggleMusic();
-////       gameState=gameState.WELCOME;
-////       setup();
-  //}
-  
-  ////Pres end
-  //if(gameState==gameState.END && ((mouseX > w(550) && mouseX < (w(550) + w(150)) && mouseY > h(900) && mouseY < (h(900) + h(50))))){
-  //      gameState = GameState.CREDITS;
-  //      yMaster = 0;
-  //}
-  
-
-}
+ }
 
 
 //For jet movement, to know when the key is released and stop movement.
