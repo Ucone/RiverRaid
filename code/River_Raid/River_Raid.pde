@@ -196,7 +196,7 @@ void setup() {
   world.generateSection(player.section);
   world.resetBackground();
   jet = new Jet();
-  jet2 = new Jet();
+  jet2 = new Jet(2);
   
     keys = new boolean[10];  // LEFT RIGTH UP DOWN.SPACE + A S D W Q (2CND PLAYER)
   //Initialization to false
@@ -712,6 +712,8 @@ void keyPressed(){
           music.toggleMusic();
           break;
         //Second player keys
+      }if(twoPlayers){
+       switch(key){
         case 'a':
         case 'A':
           keys[5] = true;
@@ -732,7 +734,7 @@ void keyPressed(){
         case 'Q':
           keys[9] = true;
         break;
-      
+       }
       }
     }
   } else {
@@ -776,6 +778,8 @@ void keyReleased(){
          case ' ':
            keys[4] = false;
          break;
+       } if (twoPlayers){
+        switch(key){
         case 'a':
         case 'A':
           keys[5] = false;
@@ -796,7 +800,7 @@ void keyReleased(){
         case 'Q':
           keys[9] = false;
           break;
-     
+        }
        }
      }
 }

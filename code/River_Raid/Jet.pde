@@ -19,6 +19,14 @@ class Jet extends Element{
      fuel = INITIAL_FUEL;
    }
    
+   Jet(int jetB){
+     super("./images/sprites/jet_2.png", 80, 130);
+     imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
+     yPos = 800;
+     xPos = 500;
+     fuel = INITIAL_FUEL;
+   }
+   
    public void draw(float yMaster){
      if(!crashed)
        image(this.image, x(xPos), y(yPos - yMaster));
@@ -38,7 +46,12 @@ class Jet extends Element{
      if(this.fuel > 0)
       this.fuel = (this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
      else{
-      this.crashed = true;
+        this.crashed = true;
+        jet.removeReserveJet();
+        //sound effect
+        sound.playCrashSound();
+
+        timeResetWorld=millis();
      }
   }
   
@@ -105,7 +118,7 @@ class Jet extends Element{
      return fuel;
    }
    
-   public void setFuel(int fuel){
+   public void setFuel(int fuel){ //<>//
      this.fuel = fuel;
    }
    
