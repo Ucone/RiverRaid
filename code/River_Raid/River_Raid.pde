@@ -31,6 +31,7 @@ HashMap<String, PImage> imageMap = null;
 // Objects
 Player player;
 Jet jet;
+Jet jet2;
 World world;
 
 // Aspect ratio variables
@@ -89,6 +90,8 @@ boolean isMusicOn;
 //Credits
 FinalCredits finalCredits;
 Enemy finalEnemy;
+
+boolean twoPlayers = false;
 
 float nD;
 
@@ -193,6 +196,7 @@ void setup() {
   world.generateSection(player.section);
   world.resetBackground();
   jet = new Jet();
+  jet2 = new Jet();
     keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
@@ -219,7 +223,7 @@ void setup() {
 
 }
 
-int getDelta() {
+int getDelta() { //<>//
   if(lastmillis == -1) {
     lastmillis = millis();
     return 0;
@@ -229,8 +233,8 @@ int getDelta() {
   return delta;
 }
 
-void draw() {
-  int delta = getDelta();
+void draw() { //<>//
+  int delta = getDelta(); //<>//
   nD = delta / TICK_MS;
   switch(gameState){
     case WELCOME:
@@ -437,13 +441,13 @@ void draw() {
                 //  rocket.xPos = jet.xPos;
                 //  rocket.yPos = jet.yPos;
                 //  rockets.add(rocket);    
-                //  //sound effect //<>//
+                //  //sound effect //<>// //<>//
                 //  sound.playShootSound();
             }
   //        }
         //<>// //<>//
        //Jet rockets interaction with credits
-          Iterator<Rocket> finalRoquets = rockets.iterator();
+          Iterator<Rocket> finalRoquets = rockets.iterator(); //<>//
           while(finalRoquets.hasNext()) {
             Rocket rocket = finalRoquets.next();
             rocket.update(nD);
@@ -594,8 +598,14 @@ public void Start() {
   gameState = GameState.STORY;
 }
 
+public void two_players(){
+  twoPlayers = true;
+  
+}
+
+
 //PRESS END BUTTON ON THE SCORE SCREEN
-public void End() {
+public void End() { //<>//
     gameState = GameState.CREDITS;
     yMaster = 0;  
     cpEnd.setVisible(false); //<>// //<>//
