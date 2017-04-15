@@ -12,6 +12,8 @@ public class FinalCredits {
     finalEnemies.add(finalEnemy2);
     FinalEnemy finalEnemy3 = new FinalEnemy("./images/credits/credits.png", 600, -100);
     finalEnemies.add(finalEnemy3);
+    FinalEnemy finalEnemy4 = new FinalEnemy("./images/credits/tutLogo.jpg", 350, -800);
+    finalEnemies.add(finalEnemy4);
     
     
   }
