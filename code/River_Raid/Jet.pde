@@ -68,7 +68,7 @@ class Jet extends Element{
    public void checkCollision(){
     if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
-        
+        jet.removeReserveJet();
         //sound effect
         sound.playCrashSound();
 

@@ -91,6 +91,16 @@ Enemy finalEnemy;
 
 float nD;
 
+// If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
+void checkTesting(){
+  if(this.testing){
+    cp5.remove("Start");
+    cp5.remove("name_input");
+    player = new Player("tester player");
+    gameState = GameState.GAME;
+  }
+}
+
 void setup() {
   fullScreen(P2D);
   //size(1200,800);
@@ -212,7 +222,9 @@ void draw() {
       world.update(nD);
       yMaster -= gameSpeed * nD;
       
-      if(jet.crashed == false){
+      if(jet.crashed == true){
+        resetWorld();
+      }else 
         if(yMaster < -world.SECTION_SIZE-1000)
         {
           world.resetSeed();
@@ -230,10 +242,8 @@ void draw() {
           }
           yMaster = 1000;
         }
-      }
-      else{
-        resetWorld();
-      }
+      
+
       world.draw();
       
       //Draw some elements
@@ -244,6 +254,8 @@ void draw() {
            gameSpeed = DEFAULT_SPEED;
            speedChanged = false;
       }
+       
+       
        
       //Draw more elements
       if(jet.crashed == false){
@@ -339,10 +351,7 @@ void draw() {
           }
       }  
 
-      
-      if(jet.crashed){
-         resetWorld(); 
-      }
+
 
       break;
       case END:
@@ -435,7 +444,7 @@ Jet finalJet;
 
   public void resetWorld(){
     if(millis()- timeResetWorld >= 2000){
-      jet.removeReserveJet();
+      
       world.generateSection(player.section);
       world.resetBackground();
       yMaster = 0;
@@ -613,17 +622,6 @@ void mousePressed(){
   }
   
 
-}
-
-
-// If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
-void checkTesting(){
-  if(this.testing){
-    cp5.remove("Start");
-    cp5.remove("name_input");
-    player = new Player("tester player");
-    gameState = GameState.END;
-  }
 }
 
 
