@@ -4,7 +4,7 @@ class Jet extends Element{
   private float fuel;
   private boolean crashed = false;
 
-  private int reserveJets = 0;
+  private int reserveJets = 1;
   private int lastFired = 0;
   private final float FIRE_DELAY = 50.0;
   public float fireCooldown = 0;
@@ -118,7 +118,7 @@ class Jet extends Element{
   }
   
   public void removeReserveJet(){
-    if(this.reserveJets >= 0) //<>// //<>//
+    if(this.reserveJets >= 0) //<>// //<>// //<>//
       this.reserveJets--;
       
     if (this.reserveJets < 0)

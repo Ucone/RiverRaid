@@ -139,11 +139,11 @@ void setup() {
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
-  //cp5.addButton("Two_Players")
-  //    .setPosition(x(300) - w(50), y(1000) - h(70))
-  //    .setSize(w(100), h(40))
-  //    .setFont(font)
-  //    .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+  cp5.addButton("Two_Players")
+      .setPosition(x(300) - w(50), y(1000) - h(70))
+      .setSize(w(100), h(40))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
     //controler fro the SCOREBOARD screen
     cpEnd = new ControlP5(this);
@@ -197,7 +197,7 @@ void setup() {
   world.resetBackground();
   jet = new Jet();
   jet2 = new Jet();
-    keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
+    keys = new boolean[10];  // LEFT RIGTH UP DOWN.SPACE
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
@@ -223,7 +223,7 @@ void setup() {
 
 }
 
-int getDelta() { //<>//
+int getDelta() { //<>// //<>//
   if(lastmillis == -1) {
     lastmillis = millis();
     return 0;
@@ -233,8 +233,8 @@ int getDelta() { //<>//
   return delta;
 }
 
-void draw() { //<>//
-  int delta = getDelta(); //<>//
+void draw() { //<>// //<>//
+  int delta = getDelta(); //<>// //<>//
   nD = delta / TICK_MS;
   switch(gameState){
     case WELCOME:
@@ -252,7 +252,7 @@ void draw() { //<>//
       world.update(nD);
       yMaster -= gameSpeed * nD;
       
-      if(jet.crashed == true){
+      if(((jet.crashed == true) && !twoPlayers) || (jet.crashed == true && jet2.crashed == true)){
         resetWorld(); //<>// //<>//
       }else 
         if(yMaster < -world.SECTION_SIZE-1000)
@@ -282,6 +282,11 @@ void draw() { //<>//
        
       jet.update(nD);
       jet.draw(yMaster);
+      
+      if(twoPlayers){
+       jet2.update(nD);
+       jet2.draw(yMaster);
+      }
        
       //Draw more elements
       if(jet.crashed == false){
@@ -291,7 +296,16 @@ void draw() { //<>//
         jet.checkRefuel(nD);
         jet.checkCollision();
       }
-         
+      
+      if(twoPlayers){
+        if(jet2.crashed == false){
+          //Jet two should consume also
+            drawFuel();
+          jet2.consume(nD);
+          jet2.checkRefuel(nD);
+          jet2.checkCollision();
+        }
+      }
       //blinking function
       blinkFunction();
       
@@ -320,6 +334,25 @@ void draw() { //<>//
         }
         if (keys[4]){   //SPACE      
            jet.fire();
+        }
+        if (keys[5]){ //A
+          jet2.moveLeft();
+          
+        }
+        if (keys[6]){ //D
+          jet2.moveRight();
+          
+        }
+       if (keys[7]){    
+          gameSpeed -= DECELERATION;
+          speedChanged = true;      
+        }
+       if (keys[8]){       
+                   gameSpeed += ACCELERATION;
+          speedChanged = true;
+        }
+       if (keys[9]){        
+            jet2.fire();
         }
       }
       
@@ -408,13 +441,13 @@ void draw() { //<>//
  //int rocketTime = 0;
  //float shootTime = 0.4;
 
-//CREDITS METHOD
+//CREDITS METHOD //<>//
   public void credits(){
     
           jet.crashed = false;
          yMaster -= 2 * nD;
          
-         background(0, 162, 232);
+         background(0, 162, 232); //<>//
          fill(255);
          
          //Draw the jet and the credits map
@@ -572,7 +605,7 @@ void drawPressKey()
 
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
-  if (gameState == gameState.WELCOME){
+  if (gameState == gameState.WELCOME){ //<>//
     if(cp5.get(Textfield.class, "name_input").isFocus()){
       Start();
     }
@@ -665,9 +698,6 @@ void keyPressed(){
        //speedChanged = true;  
           keys[3]= true;
           break; 
-
-
-
       }
     } else {
       switch(key){
@@ -677,7 +707,24 @@ void keyPressed(){
         case 'm':
         case 'M':
           music.toggleMusic();
+          break;
+        //Second player keys
+        case 'a':
+          keys[5] = true;
         break;
+        case 'd':
+          keys[6] = true;
+        break;
+         case 's':
+          keys[7] = true;
+        break;
+        case 'w':
+          keys[8] = true;
+        break;
+        case 'q':
+          keys[9] = true;
+        break;
+      
       }
     }
   } else {
@@ -720,6 +767,23 @@ void keyReleased(){
        switch(key){
          case ' ':
            keys[4] = false;
+         break;
+        case 'a':
+          keys[5] = false;
+          break;
+        case 'd':
+          keys[6] = false;
+          break;
+        case 's':
+          keys[7] = false;
+          break;
+        case 'w':
+          keys[8] = false;
+          break;
+        case 'q':
+          keys[9] = false;
+          break;
+     
        }
      }
 }
