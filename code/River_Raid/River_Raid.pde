@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -236,21 +236,6 @@ int getDelta() { //<>// //<>//
   return delta; //<>//
 } //<>//
 
-  public void tutorial(){
-    
-    textSize(h(30));
-    fill(0);
-    text("Press -> to move to right", x(600), y(600));
-    text("Press <- to move to left", x(400), y(700));
-    text("SPACE BAR for shooting", x(300), y(500));
-    text("Press UP to speed Up", x(500), y(700));
-    text("Press DOWN to low down", x(500), y(970));
-    
-    if(yMaster <= -200)
-      tutorial= false;
-  }
-
-
  //<>// //<>//
 void draw() { //<>// //<>// //<>// //<>//
   background(0);
@@ -317,7 +302,8 @@ void draw() { //<>// //<>// //<>// //<>//
       if(jet.crashed == false){
         drawProgress();
         drawFuel(jet, 1);
-        jet.consume(nD);
+        if(!tutorial)
+          jet.consume(nD);
         jet.checkRefuel(nD);
         jet.checkCollision();
       }
@@ -326,7 +312,8 @@ void draw() { //<>// //<>// //<>// //<>//
         if(jet2.crashed == false){
           //Jet two should consume also
           drawFuel(jet2, 2);
-          jet2.consume(nD);
+          if(!tutorial)
+            jet2.consume(nD);
           jet2.checkRefuel(nD);
           jet2.checkCollision();
         }
@@ -441,33 +428,57 @@ void draw() { //<>// //<>// //<>// //<>//
                     if (fd.getLives() == 3){
                        fd.damaged(); 
                     }
-                     //<>//
+                    
                     if (fd.getLives() == 0){
                        ifd.remove(); 
                     }
                 }
           }
-      }   //<>//
+      }  
 
 
       break;
       case END:
         twoPlayers = false;
          scoreScreen.drawScoreScreen();
-         //cpEND has the buttons and controllers for restart/end
+         //cpEND has the buttons and controllers for restart/end //<>//
          cpEnd.setVisible(true);
        break;
        
        case CREDITS:       
          //Credits game
-         credits();
+         credits(); //<>//
          //rocketTime = millis();
        break;
   }
 } //<>//
 
- //int rocketTime = 0; //<>//
- //float shootTime = 0.4;
+  //Tutorial, just appear the first time
+  public void tutorial(){
+    int xText = 500;
+    
+    if(twoPlayers){
+      xText = 300;
+      fill(237,28,36); 
+      text("D move to right", x(xText + 150), y(800));
+      text("A move to left", x(xText - 60), y(800));
+      text("Press Q for shooting", x(xText + 40), y(500));
+      text("Press W to speed Up", x(xText + 40), y(700));
+      text("Press S to low down", x(xText + 40), y(970));
+      xText = 650;
+    }
+    
+    textSize(h(25));
+    fill(0);
+    text("-> move to right", x(xText + 150), y(800));
+    text("<- move to left", x(xText - 60), y(800));
+    text("Press SPACE BAR for shooting", x(xText + 30), y(500));
+    text("Press UP to speed Up", x(xText + 30), y(700));
+    text("Press DOWN to low down", x(xText + 40), y(970));
+    
+    if(yMaster <= -300)
+      tutorial= false;
+  }
 
 //CREDITS METHOD //<>//
   public void credits(){ //<>//
@@ -594,7 +605,7 @@ void draw() { //<>// //<>// //<>// //<>//
   }
 
 
-  
+   //<>//
    public void blinkFunction(){
      if(millis()-time>=timeDelay){
         booleanDelay = !booleanDelay;
@@ -605,7 +616,7 @@ void draw() { //<>// //<>// //<>// //<>//
 /* Loads the image of the story defined by the GameState */
 /* @return The image loaded*/
 PImage loadStoryImage(GameState gameState)
-{ //<>//
+{
   PImage img = loadImage("./images/story/"+gameState+".png");
   img.resize(viewportW, viewportH);
   return img;
