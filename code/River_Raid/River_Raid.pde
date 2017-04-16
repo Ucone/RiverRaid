@@ -235,6 +235,8 @@ int getDelta() { //<>// //<>//
 }
  //<>// //<>//
 void draw() { //<>// //<>// //<>// //<>//
+  background(0);
+
   int delta = getDelta(); //<>// //<>//
   nD = delta / TICK_MS;
   switch(gameState){
@@ -439,18 +441,22 @@ void draw() { //<>// //<>// //<>// //<>//
          //rocketTime = millis();
        break;
   }
-}
+} //<>//
 
- //int rocketTime = 0; //<>// //<>//
+ //int rocketTime = 0; //<>//
  //float shootTime = 0.4;
 
 //CREDITS METHOD //<>//
-  public void credits(){
+  public void credits(){ //<>//
     
-          jet.crashed = false; //<>// //<>//
+         tint(255, 80); 
+         image(startImg, x(0), y(0));
+         
+         tint(255);
+         jet.crashed = false; //<>//
          yMaster -= 2 * nD;
          
-         background(0, 162, 232); //<>//
+         //background(0, 162, 232); //<>//
          fill(255);
          
          //Draw the jet and the credits map
@@ -499,9 +505,6 @@ void draw() { //<>// //<>// //<>// //<>//
               rocket.draw(yMaster);
             }
           }  
-       
-     //<>//
-    
   }
 
   public void resetWorld(){ //<>//
@@ -602,10 +605,10 @@ void drawPressKey()
  //<>//
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
-  if (gameState == gameState.WELCOME){ //<>//
+  if (gameState == gameState.WELCOME){ //<>// //<>//
     if(cp5.get(Textfield.class, "name_input").isFocus()){
       Start();
-    } //<>//
+    }
   }
   this.theEvent=theEvent;
 }
