@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -295,7 +295,7 @@ void draw() { //<>// //<>// //<>// //<>//
       //Draw more elements
       if(jet.crashed == false){
         drawProgress();
-        drawFuel();
+        drawFuel(jet, 1);
         jet.consume(nD);
         jet.checkRefuel(nD);
         jet.checkCollision();
@@ -304,7 +304,7 @@ void draw() { //<>// //<>// //<>// //<>//
       if(twoPlayers){
         if(jet2.crashed == false){
           //Jet two should consume also
-            drawFuel();
+          drawFuel(jet2, 2);
           jet2.consume(nD);
           jet2.checkRefuel(nD);
           jet2.checkCollision();
@@ -549,22 +549,25 @@ void draw() { //<>// //<>// //<>// //<>//
   }
 
   //***** FUEL IMPLEMENTATION *****
-  void drawFuel(){
+  void drawFuel(Jet jet, int player){
 
       //Fuel consumption
       fill(#00ff4e);
+      int xDepot = 940;
+      int yDepot = 700;
       
+      if (player == 2){        
+         xDepot = 60;
+      }
       if(jet.getFuel() > 0){
-        rect( x(940), y(850), w(25), h((int)-jet.getFuel()/2));
+        rect( x(xDepot), y(yDepot), w(25), h((int)-jet.getFuel()/2));
       }
       
       //Fuel actions
       if ((jet.getFuel() < INITIAL_FUEL / 3)&&(booleanDelay)){
-            image(lowFuelIcon, x(930), y(800) - fuelGauge.height);
-        if (jet.getFuel() <= 0)
-            text("GAME OVER, LOSER!!", x(400), y(500));
+            image(lowFuelIcon, x(xDepot-10), y(yDepot-50) - fuelGauge.height);
       }
-      image(fuelGauge, x(930), y(900) - fuelGauge.height);
+      image(fuelGauge, x(xDepot -10), y(yDepot + 50) - fuelGauge.height);
   }
 
 
@@ -602,10 +605,10 @@ void drawPressKey()
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
 *  If the name is empty, set "Guest" as default name.
 */
- //<>//
+ //<>// //<>//
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
-  if (gameState == gameState.WELCOME){ //<>// //<>//
+  if (gameState == gameState.WELCOME){ //<>//
     if(cp5.get(Textfield.class, "name_input").isFocus()){
       Start();
     }
