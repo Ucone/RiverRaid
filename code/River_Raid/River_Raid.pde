@@ -223,7 +223,7 @@ void setup() {
   finalCredits = new FinalCredits();
 
 }
- //<>// //<>//
+ //<>// //<>// //<>//
 int getDelta() { //<>// //<>//
   if(lastmillis == -1) {
     lastmillis = millis();
@@ -233,8 +233,8 @@ int getDelta() { //<>// //<>//
   lastmillis = millis();
   return delta;
 }
- //<>// //<>//
-void draw() { //<>// //<>// //<>// //<>//
+ //<>// //<>// //<>//
+void draw() { //<>// //<>// //<>// //<>// //<>//
   background(0);
 
   int delta = getDelta(); //<>// //<>//
@@ -339,6 +339,8 @@ void draw() { //<>// //<>// //<>// //<>//
         if (keys[4]){   //SPACE      
            jet.fire();
         }
+      }
+      if(!jet2.crashed){
         if (keys[5]){ //A
           jet2.moveLeft();
           
@@ -352,7 +354,7 @@ void draw() { //<>// //<>// //<>// //<>//
           speedChanged = true;      
         }
        if (keys[8]){       
-                   gameSpeed += ACCELERATION;
+          gameSpeed += ACCELERATION;
           speedChanged = true;
         }
        if (keys[9]){        
@@ -439,13 +441,13 @@ void draw() { //<>// //<>// //<>// //<>//
          //Credits game
          credits();
          //rocketTime = millis();
-       break;
+       break; //<>//
   }
 } //<>//
 
  //int rocketTime = 0; //<>//
  //float shootTime = 0.4;
-
+ //<>//
 //CREDITS METHOD //<>//
   public void credits(){ //<>//
     
@@ -603,7 +605,7 @@ void drawPressKey()
 
 
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
-*  If the name is empty, set "Guest" as default name.
+*  If the name is empty, set "Guest" as default name. //<>//
 */
  //<>// //<>//
 ControlEvent theEvent;
