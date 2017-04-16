@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = false;
+boolean testing = true;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -108,8 +108,8 @@ void checkTesting(){
 
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,600);
+  //fullScreen(P2D);
+  size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -457,6 +457,7 @@ void draw() { //<>// //<>// //<>// //<>//
          
          finalCredits.draw();
          
+         jet.update(nD);
          jet.yPos = yMaster+800;
          jet.draw(yMaster);
 
@@ -467,21 +468,14 @@ void draw() { //<>// //<>// //<>// //<>//
           if (keys[1]){  //RIGTH
               jet.moveRight();
           }
+          //if (keys[2]){  //UP
+          //    yMaster -= ACCELERATION;
+          //    speedChanged = true;
+          //}
           if (keys[4]){   //SPACE     
-          
-          jet.fire();
-          
-                //if (millis() - rocketTime > shootTime){ //<>//
-                //  rocketTime=millis();                  
-                //  Rocket rocket = new Rocket();
-                //  rocket.xPos = jet.xPos;
-                //  rocket.yPos = jet.yPos;
-                //  rockets.add(rocket);    
-                //  //sound effect //<>// //<>//
-                //  sound.playShootSound();
-            }
-  //        }
-        //<>// //<>//
+              jet.fire();
+          }
+
        //Jet rockets interaction with credits
           Iterator<Rocket> finalRoquets = rockets.iterator(); //<>//
           while(finalRoquets.hasNext()) {
@@ -605,13 +599,13 @@ void drawPressKey()
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
 *  If the name is empty, set "Guest" as default name.
 */
- //<>// //<>//
+ //<>//
 ControlEvent theEvent;
 void controlEvent(ControlEvent theEvent) {
   if (gameState == gameState.WELCOME){ //<>//
     if(cp5.get(Textfield.class, "name_input").isFocus()){
       Start();
-    }
+    } //<>//
   }
   this.theEvent=theEvent;
 }

@@ -6,7 +6,7 @@ class Jet extends Element{
 
   private int reserveJets = 1;
   private int lastFired = 0;
-  private final float FIRE_DELAY = 50.0;
+  private final float FIRE_DELAY = 40.0;
   public float fireCooldown = 0;
   public boolean firingMode = false;
 
