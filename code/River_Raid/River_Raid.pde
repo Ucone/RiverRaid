@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = false;
+boolean testing = true;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -93,6 +93,8 @@ Enemy finalEnemy;
 
 boolean twoPlayers = false;
 
+boolean tutorial = true;
+
 float nD;
 
 // If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
@@ -101,15 +103,15 @@ void checkTesting(){
     //cp5.remove("Start");
     cp5.setVisible(false);
     player = new Player("tester player");
-    gameState = GameState.END;
+    gameState = GameState.GAME;
   }
 }
 
 
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,600);
+  fullScreen(P2D);
+  //size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -221,9 +223,9 @@ void setup() {
   
   //credits
   finalCredits = new FinalCredits();
-
+ //<>//
 }
- //<>// //<>// //<>//
+ //<>// //<>//
 int getDelta() { //<>// //<>//
   if(lastmillis == -1) {
     lastmillis = millis();
@@ -231,10 +233,26 @@ int getDelta() { //<>// //<>//
   } //<>// //<>// //<>//
   int delta = millis() - lastmillis;
   lastmillis = millis();
-  return delta;
-}
- //<>// //<>// //<>//
-void draw() { //<>// //<>// //<>// //<>// //<>//
+  return delta; //<>//
+} //<>//
+
+  public void tutorial(){
+    
+    textSize(h(30));
+    fill(0);
+    text("Press -> to move to right", x(600), y(600));
+    text("Press <- to move to left", x(400), y(700));
+    text("SPACE BAR for shooting", x(300), y(500));
+    text("Press UP to speed Up", x(500), y(700));
+    text("Press DOWN to low down", x(500), y(970));
+    
+    if(yMaster <= -200)
+      tutorial= false;
+  }
+
+
+ //<>// //<>//
+void draw() { //<>// //<>// //<>// //<>//
   background(0);
 
   int delta = getDelta(); //<>// //<>//
@@ -278,6 +296,9 @@ void draw() { //<>// //<>// //<>// //<>// //<>//
       
 
       world.draw();
+      
+     if(tutorial)
+          tutorial();
       
       //Draw some elements
       drawScore();
@@ -420,13 +441,13 @@ void draw() { //<>// //<>// //<>// //<>// //<>//
                     if (fd.getLives() == 3){
                        fd.damaged(); 
                     }
-                    
+                     //<>//
                     if (fd.getLives() == 0){
                        ifd.remove(); 
                     }
                 }
           }
-      }  
+      }   //<>//
 
 
       break;
@@ -441,13 +462,13 @@ void draw() { //<>// //<>// //<>// //<>// //<>//
          //Credits game
          credits();
          //rocketTime = millis();
-       break; //<>//
+       break;
   }
 } //<>//
 
  //int rocketTime = 0; //<>//
  //float shootTime = 0.4;
- //<>//
+
 //CREDITS METHOD //<>//
   public void credits(){ //<>//
     
@@ -584,7 +605,7 @@ void draw() { //<>// //<>// //<>// //<>// //<>//
 /* Loads the image of the story defined by the GameState */
 /* @return The image loaded*/
 PImage loadStoryImage(GameState gameState)
-{
+{ //<>//
   PImage img = loadImage("./images/story/"+gameState+".png");
   img.resize(viewportW, viewportH);
   return img;
@@ -605,7 +626,7 @@ void drawPressKey()
 
 
 /* When the "enter key" or "Start" button is pressed, gets the name of the user.
-*  If the name is empty, set "Guest" as default name. //<>//
+*  If the name is empty, set "Guest" as default name.
 */
  //<>// //<>//
 ControlEvent theEvent;
