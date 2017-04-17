@@ -14,10 +14,15 @@ public class FuelDepot extends Element{
      return lives; 
   }
   
-  public void damaged(){
+  public void damaged(int i){
       int newWidth = this.image.width;
       int newHeight = this.image.height;
-      this.image = loadImage("./images/sprites/fueldepotDamaged.png");
+      if(i == 1){
+      this.image = loadImage("./images/sprites/fuelDepotDamaged1.png");
       this.image.resize(newWidth,newHeight);
+      }else{
+      this.image = loadImage("./images/sprites/fuelDepotDamaged2.png");
+      this.image.resize(newWidth,newHeight);        
+      }
   }
 }

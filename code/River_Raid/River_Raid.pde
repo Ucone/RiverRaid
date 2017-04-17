@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
 
-boolean testing = true;
+boolean testing = false;
 
 public enum GameState {WELCOME, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
@@ -110,8 +110,8 @@ void checkTesting(){
 
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,600);
+  fullScreen(P2D);
+  //size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -425,10 +425,12 @@ void draw() { //<>// //<>// //<>// //<>//
                     sound.playDefeatSound();
                     i.remove();
                     
-                    if (fd.getLives() == 3){
-                       fd.damaged(); 
+                    if (fd.getLives() == 4){
+                       fd.damaged(1); 
                     }
-                    
+                    if (fd.getLives() == 2){
+                       fd.damaged(2); 
+                    }
                     if (fd.getLives() == 0){
                        ifd.remove(); 
                     }
@@ -439,15 +441,15 @@ void draw() { //<>// //<>// //<>// //<>//
 
       break;
       case END:
-        twoPlayers = false;
+        twoPlayers = false; //<>//
          scoreScreen.drawScoreScreen();
-         //cpEND has the buttons and controllers for restart/end //<>// //<>//
+         //cpEND has the buttons and controllers for restart/end //<>//
          cpEnd.setVisible(true);
        break;
        
-       case CREDITS:       
+       case CREDITS:        //<>//
          //Credits game
-         credits(); //<>// //<>//
+         credits(); //<>//
          //rocketTime = millis();
        break;
   }
@@ -603,9 +605,9 @@ void draw() { //<>// //<>// //<>// //<>//
       }
       image(fuelGauge, x(xDepot -10), y(yDepot + 50) - fuelGauge.height);
   }
+ //<>//
 
-
-   //<>// //<>//
+   //<>//
    public void blinkFunction(){
      if(millis()-time>=timeDelay){
         booleanDelay = !booleanDelay;
