@@ -6,15 +6,6 @@ public class FinalCredits {
   FinalCredits(){
     finalEnemies = new ArrayList<Enemy>();
     
-    //FinalEnemy finalEnemy1 = new FinalEnemy("./images/credits/credits.png", 500, -500);
-    //finalEnemies.add(finalEnemy1);
-    //FinalEnemy finalEnemy2 = new FinalEnemy("./images/credits/credits2.png", 200, -200);
-    //finalEnemies.add(finalEnemy2);
-    //FinalEnemy finalEnemy3 = new FinalEnemy("./images/credits/credits.png", 600, -100);
-    //finalEnemies.add(finalEnemy3);
-    //FinalEnemy finalEnemy4 = new FinalEnemy("./images/credits/tutLogo.jpg", 350, -800);
-    //finalEnemies.add(finalEnemy4);
-    
     //game design
     FinalEnemy finalEnemy1 = new FinalEnemy("./images/credits/Game_Design.png", 350, -100);
     finalEnemies.add(finalEnemy1);
@@ -51,8 +42,6 @@ public class FinalCredits {
     //The end
     FinalEnemy finalEnemy12 = new FinalEnemy("./images/credits/The_End.png", 350, -3400);
     finalEnemies.add(finalEnemy12);
-    
-    
     
   }
   
