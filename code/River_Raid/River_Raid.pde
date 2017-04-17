@@ -103,7 +103,7 @@ void checkTesting(){
     //cp5.remove("Start");
     cp5.setVisible(false);
     player = new Player("tester player");
-    gameState = GameState.END;
+    gameState = GameState.GAME;
   }
 }
 
@@ -221,20 +221,26 @@ void setup() {
   isMusicOn = false;
   music.toggleMusic();
   
+  depotTutorial = new FuelDepot();
+  depotTutorial.yPos = 400;
+  depotTutorial.xPos = 400; //<>//
+  world.fuelDepots.add(depotTutorial);
+  //ifd.add(depotTutorial);
+  
   //credits
   finalCredits = new FinalCredits();
- //<>// //<>//
+ //<>//
 }
  //<>// //<>//
 int getDelta() { //<>// //<>//
-  if(lastmillis == -1) {
-    lastmillis = millis();
+  if(lastmillis == -1) { //<>//
+    lastmillis = millis(); //<>//
     return 0;
   } //<>// //<>// //<>//
   int delta = millis() - lastmillis;
   lastmillis = millis();
-  return delta; //<>// //<>//
-} //<>// //<>//
+  return delta; //<>//
+} //<>//
 
  //<>// //<>//
 void draw() { //<>// //<>// //<>// //<>//
@@ -293,16 +299,16 @@ void draw() { //<>// //<>// //<>// //<>//
       jet.draw(yMaster);
       
       if(twoPlayers){
-        jet2.yPos = yMaster + 800;
-       jet2.update(nD);
-       jet2.draw(yMaster);
+         jet2.yPos = yMaster + 800;
+         jet2.update(nD);
+         jet2.draw(yMaster);
       }
        
       //Draw more elements
       if(jet.crashed == false){
         drawProgress();
         drawFuel(jet, 1);
-        if(!tutorial)
+        //if(!tutorial)
           jet.consume(nD);
         jet.checkRefuel(nD);
         jet.checkCollision();
@@ -312,7 +318,7 @@ void draw() { //<>// //<>// //<>// //<>//
         if(jet2.crashed == false){
           //Jet two should consume also
           drawFuel(jet2, 2);
-          if(!tutorial)
+          //if(!tutorial)
             jet2.consume(nD);
           jet2.checkRefuel(nD);
           jet2.checkCollision();
@@ -435,7 +441,7 @@ void draw() { //<>// //<>// //<>// //<>//
                        ifd.remove(); 
                     }
                 }
-          }
+          } //<>//
       }  
 
 
@@ -447,7 +453,7 @@ void draw() { //<>// //<>// //<>// //<>//
          cpEnd.setVisible(true);
        break;
        
-       case CREDITS:        //<>//
+       case CREDITS:       
          //Credits game
          credits(); //<>//
          //rocketTime = millis();
@@ -455,32 +461,60 @@ void draw() { //<>// //<>// //<>// //<>//
   }
 } //<>//
 
+
+
   //Tutorial, just appear the first time
   public void tutorial(){
-    int xText = 500;
     
-    if(twoPlayers){
-      xText = 300;
-      fill(237,28,36); 
-      text("D move to right", x(xText + 150), y(800));
-      text("A move to left", x(xText - 60), y(800));
-      text("Press Q for shooting", x(xText + 40), y(500));
-      text("Press W to speed Up", x(xText + 40), y(700));
-      text("Press S to low down", x(xText + 40), y(970));
-      xText = 650;
+    gameSpeed = 1;
+    fill(0);
+    
+    int xText = 500;
+    if(yMaster >= 400){      
+      if(twoPlayers){
+        xText = 300;
+        fill(237,28,36); 
+        text("D move to right", x(xText + 150), y(800));
+        text("A move to left", x(xText - 60), y(800));
+        text("Press Q for shooting", x(xText + 40), y(500));
+        text("Press W to speed Up", x(xText + 40), y(700));
+        text("Press S to low down", x(xText + 40), y(970));
+        xText = 650;
+      }
+      
+      textSize(h(25));
+      fill(0);
+      text("-> move to right", x(xText + 150), y(800));
+      text("<- move to left", x(xText - 60), y(800));
+      text("Press SPACE BAR for shooting", x(xText + 30), y(500));
+      text("Press UP to speed Up", x(xText + 30), y(700));
+      text("Press DOWN to low down", x(xText + 40), y(970));
+      
+    }
+    depotTutorial.draw(yMaster);
+    
+    if(yMaster <= 400 && yMaster > 200){ 
+        //depotTutorial.yPos = 700;
+        //depotTutorial.draw(y(200));
+        text("This is a fuel depot", x(500), y(600));
+        text("BE CAREFOUL, you can damage it with the rockets", x(500), y(700));
+    }
+            
+    if(yMaster<=200){
+      gameSpeed = DEFAULT_SPEED;
+      text("Go slowly trhough it to charge more fuel", x(500),  y(600));
+      //depotTutorial.draw(yMaster);
+      
     }
     
-    textSize(h(25));
-    fill(0);
-    text("-> move to right", x(xText + 150), y(800));
-    text("<- move to left", x(xText - 60), y(800));
-    text("Press SPACE BAR for shooting", x(xText + 30), y(500));
-    text("Press UP to speed Up", x(xText + 30), y(700));
-    text("Press DOWN to low down", x(xText + 40), y(970));
     
-    if(yMaster <= -300)
+    if(yMaster <= -400){
       tutorial= false;
+      
+    }
   }
+  
+  FuelDepot depotTutorial;
 
 //CREDITS METHOD //<>//
   public void credits(){ //<>//
@@ -571,7 +605,7 @@ void draw() { //<>// //<>// //<>// //<>//
 
   void drawProgress(){
     image(progressBackground, x(10), y(600));
-    float aux = (150*(-yMaster))/world.SECTION_SIZE;
+    float aux = (150*(-yMaster))/world.SECTION_SIZE; //<>//
     image(progressIndicator, x(aux), y(600));
   }
 
@@ -605,7 +639,7 @@ void draw() { //<>// //<>// //<>// //<>//
       }
       image(fuelGauge, x(xDepot -10), y(yDepot + 50) - fuelGauge.height);
   }
- //<>//
+
 
    //<>//
    public void blinkFunction(){

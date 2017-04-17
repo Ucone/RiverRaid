@@ -4,7 +4,7 @@ class Jet extends Element{
   private float fuel;
   private boolean crashed = false;
 
-  private int reserveJets = 1;
+  private int reserveJets = 3;
   private int lastFired = 0;
   private final float FIRE_DELAY = 40.0;
   public float fireCooldown = 0;
@@ -118,7 +118,7 @@ class Jet extends Element{
   
   public float getFuel(){
      return fuel;
-   } //<>//
+   } //<>// //<>//
    
    public void setFuel(int fuel){ //<>// //<>//
      this.fuel = fuel;
