@@ -498,11 +498,13 @@ void draw() { //<>// //<>// //<>// //<>//
         //depotTutorial.draw(y(200));
         text("This is a fuel depot", x(500), y(600));
         text("BE CAREFOUL, you can damage it with the rockets", x(500), y(700));
+        text("Check here\n the fuel level", x(850), y(600));
     }
             
     if(yMaster<=200){
       gameSpeed = DEFAULT_SPEED;
       text("Go slowly trhough it to charge more fuel", x(500),  y(600));
+      text("Check here\n the fuel level", x(850), y(600));
       //depotTutorial.draw(yMaster);
       
     }
