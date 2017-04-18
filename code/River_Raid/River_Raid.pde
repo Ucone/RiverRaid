@@ -484,11 +484,11 @@ void draw() { //<>// //<>// //<>// //<>//
       
       textSize(h(25));
       fill(0);
-      text("-> move to right", x(xText + 150), y(800));
-      text("<- move to left", x(xText - 60), y(800));
+      text("→ move to right", x(xText + 150), y(800));
+      text("← move to left", x(xText - 60), y(800));
       text("Press SPACE BAR for shooting", x(xText + 30), y(500));
-      text("Press UP to speed Up", x(xText + 30), y(700));
-      text("Press DOWN to low down", x(xText + 40), y(970));
+      text("Press ↑ to speed Up", x(xText + 30), y(700));
+      text("Press ↓ to low down", x(xText + 40), y(970));
       
     }
     depotTutorial.draw(yMaster);
@@ -498,13 +498,13 @@ void draw() { //<>// //<>// //<>// //<>//
         //depotTutorial.draw(y(200));
         text("This is a fuel depot", x(500), y(600));
         text("BE CAREFOUL, you can damage it with the rockets", x(500), y(700));
-        text("Check here\n the fuel level", x(850), y(600));
+        text("Check here\n the fuel level →", x(850), y(450));
     }
             
     if(yMaster<=200){
       gameSpeed = DEFAULT_SPEED;
       text("Go slowly trhough it to charge more fuel", x(500),  y(600));
-      text("Check here\n the fuel level", x(850), y(600));
+      text("Check here\n the fuel level →", x(850), y(450));
       //depotTutorial.draw(yMaster);
       
     }
