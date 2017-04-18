@@ -221,6 +221,9 @@ void setup() {
   isMusicOn = false;
   music.toggleMusic();
   
+  if(!testing)
+     music.toggleMusic();
+  
   depotTutorial = new FuelDepot();
   depotTutorial.yPos = 400;
   depotTutorial.xPos = 400; //<>//
@@ -288,8 +291,9 @@ void draw() { //<>// //<>// //<>// //<>//
 
       world.draw();
       
-     if(tutorial)
+     if(tutorial){
           tutorial();
+     }
       
       //Draw some elements
       drawScore();
@@ -512,6 +516,7 @@ void draw() { //<>// //<>// //<>// //<>//
     
     if(yMaster <= -400){
       tutorial= false;
+      println("fin tutorial");
       
     }
   }
@@ -708,6 +713,7 @@ public void Start() {
 
 public void Two_Players(){
   twoPlayers = true;
+  jet.xPos = 650;
   
 }
 

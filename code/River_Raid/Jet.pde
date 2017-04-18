@@ -15,9 +15,7 @@ class Jet extends Element{
      super("./images/sprites/jet.png", 80, 130);
      imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
      yPos = 800;
-     xPos = 500;     
-     if(twoPlayers)
-         xPos = 650;           
+     xPos = 500;
      fuel = INITIAL_FUEL;
    }
    
