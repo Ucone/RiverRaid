@@ -592,7 +592,9 @@ void draw() {
       world.resetBackground();
       yMaster = 0;
       jet.crashed = false; 
-      jet.fuel = INITIAL_FUEL; 
+      jet.fuel = INITIAL_FUEL;
+      jet2.crashed = false; 
+      jet2.fuel = INITIAL_FUEL; 
       timeResetWorld = millis();
     }
   }
