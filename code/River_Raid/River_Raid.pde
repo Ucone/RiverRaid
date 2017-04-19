@@ -113,8 +113,8 @@ void checkTesting(){
 
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,600);
+  fullScreen(P2D);
+  //size(1200,600);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
