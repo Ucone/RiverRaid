@@ -15,8 +15,8 @@ ArrayList<Player> players = new ArrayList<Player>();
     backGround.resize(w(1000),h(1000));
     
 
-    this.imageTank = new Tanker(3).image;
-    //this.imageTank.resize(w(20),h(0));
+    this.imageTank = new Tanker(3).image.copy();
+    this.imageTank.resize(w(20),h(0));
     
     helicopter = new Helicopter(3).image;
     //helicopter.resize(w(20),h(0));
@@ -42,15 +42,16 @@ ArrayList<Player> players = new ArrayList<Player>();
     
     orderArray();
     
-    image(backGround, 0, 0);
-    int y = y(480);
-    int x = x(200);
+    image(backGround, x(0), y(0));
+    float y = 480;
+    float x = 200;
     textSize(h(40));
     
     for (int i=0; i< 5 ; i++){ //just show the first 5 players
        
       fill(0);
       
+      textAlign(LEFT);
       text("" + (i + 1) + ".     Player: " + players.get(i).name, x(x), y(y));
       
       //tanks defeated
@@ -73,7 +74,7 @@ ArrayList<Player> players = new ArrayList<Player>();
       
       
       y = y + 100;  
-      x = x(200);
+      x = 200;
     }
     
 
