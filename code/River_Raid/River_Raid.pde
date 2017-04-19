@@ -139,7 +139,7 @@ void setup() {
   cp5.getController("name_input").getCaptionLabel().setVisible(false);
   
   /* Start button */
-  cp5.addBang("Start")
+  cp5.addButton("Start")
       .setPosition(x(435) - w(50), y(1000) - h(150))
       .setSize(w(200), h(60))
       .setFont(font)
