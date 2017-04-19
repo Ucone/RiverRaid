@@ -480,21 +480,21 @@ void draw() {
       if(twoPlayers){
         xText = 300;
         fill(237,28,36); 
-        text("D move to right", x(xText + 150), y(800));
-        text("A move to left", x(xText - 60), y(800));
-        text("Press Q for shooting", x(xText + 40), y(500));
-        text("Press W to speed Up", x(xText + 40), y(700));
-        text("Press S to low down", x(xText + 40), y(970));
+        text("D: move to right", x(xText + 150), y(800));
+        text("A: move to left", x(xText - 60), y(800));
+        text("Q: shoot", x(xText + 40), y(500));
+        text("W: speed up", x(xText + 40), y(700));
+        text("S: slow down", x(xText + 40), y(970));
         xText = 650;
       }
       
       textSize(h(25));
       fill(0);
-      text("→ move to right", x(xText + 150), y(800));
-      text("← move to left", x(xText - 60), y(800));
-      text("Press SPACE BAR for shooting", x(xText + 30), y(500));
-      text("Press ↑ to speed Up", x(xText + 30), y(700));
-      text("Press ↓ to low down", x(xText + 40), y(970));
+      text("→: move to right", x(xText + 150), y(800));
+      text("←: move to left", x(xText - 60), y(800));
+      text("SPACE BAR: shoot", x(xText + 30), y(500));
+      text("↑: speed up", x(xText + 30), y(700));
+      text("↓: slow down", x(xText + 40), y(970));
       
     }
     depotTutorial.draw(yMaster);
@@ -503,13 +503,13 @@ void draw() {
         //depotTutorial.yPos = 700;
         //depotTutorial.draw(y(200));
         text("This is a fuel depot", x(500), y(600));
-        text("BE CAREFOUL, you can damage it with the rockets", x(500), y(700));
+        text("BE CAREFUL, you can damage it with your rockets", x(500), y(700));
         text("Check here\n the fuel level →", x(850), y(450));
     }
             
     if(yMaster<=200){
       gameSpeed = DEFAULT_SPEED;
-      text("Go slowly trhough it to charge more fuel", x(500),  y(600));
+      text("Go slowly through it to charge more fuel", x(500),  y(600));
       text("Check here\n the fuel level →", x(850), y(450));
       //depotTutorial.draw(yMaster);
       
