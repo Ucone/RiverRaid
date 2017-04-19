@@ -734,33 +734,6 @@ public void Replay() {
     gameState = GameState.WELCOME;
 }
 
-
-//void controlEvent(ControlEvent theEvent) {
-//  String event_id = theEvent.getLabel();
-//  String playerName = "";
-//  if(event_id.equals("name_input") || event_id.equals("Start")){
-//    playerName = cp5.get(Textfield.class, "name_input").getText();
-    
-//    if(playerName.equals("")){
-//      playerName = "Guest";
-//    }
-//  }
-    
-//    if(event_id.equals("name_input") || event_id.equals("Two Players")){
-//    playerName = cp5.get(Textfield.class, "name_input").getText();
-    
-//    if(playerName.equals("")){
-//      playerName = "Guest";
-//    }
-//  }
-  
-//  player = new Player(playerName);
-//  scoreScreen.addPlayer(player);
-//  cp5.setVisible(false); //remove("Start");
-//  //cp5.remove("name_input");
-//  gameState = GameState.STORY;
-//}
-
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
 void keyPressed(){
   
