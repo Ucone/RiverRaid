@@ -111,8 +111,8 @@ void checkTesting(){
 
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,600);
+  //fullScreen(P2D);
+  size(1200,600,P2D);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -199,8 +199,7 @@ void setup() {
   world.resetSeed();
   world.generateSection(player.section);
   world.resetBackground();
-  jet = new Jet();
-  jet2 = new Jet(2);
+
   
     keys = new boolean[10];  // LEFT RIGTH UP DOWN.SPACE + A S D W Q (2CND PLAYER)
   //Initialization to false
@@ -698,6 +697,11 @@ void controlEvent(ControlEvent theEvent) {
 //PRESS START BUTTON ON THE WELCOME SCREEN
 public void Start() {
   //String event_id = theEvent.getLabel(); 
+  story = new Story();
+  
+  jet = new Jet();
+  jet2 = new Jet(2);
+  
   String playerName = "";   
    
   playerName = cp5.get(Textfield.class, "name_input").getText();
@@ -716,6 +720,7 @@ public void Start() {
 public void Two_Players(){
   twoPlayers = true;
   jet.xPos = 650;
+  Start();
   
 }
 
