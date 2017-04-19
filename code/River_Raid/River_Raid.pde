@@ -1,10 +1,8 @@
-import controlP5.*;
-
 import java.util.Iterator;
 import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
-//import controlP5.*;
+import controlP5.*;
 
 boolean testing = false;
 
