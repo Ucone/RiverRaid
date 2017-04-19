@@ -237,18 +237,18 @@ void setup() {
  
 } 
   
-int getDelta() {   //<>//
+int getDelta() {   
   if(lastmillis == -1) {  
     lastmillis = millis();  
     return 0; 
-  }   //<>//
+  }   
   int delta = millis() - lastmillis; 
   lastmillis = millis();
   return delta; 
 }  
  
   
-void draw() {   //<>// //<>// //<>//
+void draw() {    //<>// //<>//
   background(0); 
 
   int delta = getDelta();  
@@ -698,7 +698,7 @@ void controlEvent(ControlEvent theEvent) {
 //PRESS START BUTTON ON THE WELCOME SCREEN
 public void Start() {
   //String event_id = theEvent.getLabel(); 
-  String playerName = "";   //<>//
+  String playerName = "";   
    
   playerName = cp5.get(Textfield.class, "name_input").getText();
     
