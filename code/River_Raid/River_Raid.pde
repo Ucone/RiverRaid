@@ -183,7 +183,7 @@ void setup() {
   scoreboard.resize(viewportW/7, viewportH/5);
   reserve.resize(w(40), h(40));
   lowFuelIcon.resize(w(60), h(100));
-  fuelGauge.resize(w(50), viewportH/3 + 50);
+  fuelGauge.resize(w(50), viewportH/3 + h(50));
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
   musicOn.resize(viewportW / 20, viewportW / 20);
