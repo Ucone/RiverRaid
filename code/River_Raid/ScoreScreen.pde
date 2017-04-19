@@ -18,14 +18,13 @@ ArrayList<Player> players = new ArrayList<Player>();
     this.imageTank = new Tanker(3).image.copy();
     this.imageTank.resize(w(20),h(0));
     
-    helicopter = new Helicopter(3).image;
-    //helicopter.resize(w(20),h(0));
+    helicopter = new Helicopter(3).image.copy();
+    helicopter.resize(w(20),h(0));
     
-    enemyJet = new EnemyJet(3).image;
-    //enemyJet.resize(w(20),h(0));
+    enemyJet = new EnemyJet(3).image.copy();
+    enemyJet.resize(w(20),h(0));
     
-
-    
+    //Add some players to the list by Default
     players.add(new Player("Tom", 1200));
     players.add(new Player("Iaros", 200));
     players.add(new Player("Likai", 800));
@@ -43,8 +42,8 @@ ArrayList<Player> players = new ArrayList<Player>();
     orderArray();
     
     image(backGround, x(0), y(0));
-    float y = 480;
-    float x = 200;
+    float y = 360;
+    float x = 165;
     textSize(h(40));
     
     for (int i=0; i< 5 ; i++){ //just show the first 5 players
@@ -74,7 +73,7 @@ ArrayList<Player> players = new ArrayList<Player>();
       
       
       y = y + 100;  
-      x = 200;
+      x = 165;
     }
     
 
