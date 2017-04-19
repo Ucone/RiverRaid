@@ -35,10 +35,13 @@ class Jet extends Element{
    }
    
    public void moveLeft(){
+     if (xPos >= 0 + offsetX)
      xPos = xPos - 7;
+     
    }
    
    public void moveRight(){
+     if (xPos <= 1000 - offsetX)
      xPos = xPos + 7;
    }
    
