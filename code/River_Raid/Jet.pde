@@ -116,9 +116,9 @@ class Jet extends Element{
   
   public float getFuel(){
      return fuel;
-   } //<>// //<>//
+   }  
    
-   public void setFuel(int fuel){ //<>// //<>//
+   public void setFuel(int fuel){  
      this.fuel = fuel;
    }
    
@@ -131,7 +131,7 @@ class Jet extends Element{
   }
   
   public void removeReserveJet(){
-    if(this.reserveJets >= 0) //<>// //<>// //<>//
+    if(this.reserveJets >= 0)   
       this.reserveJets--;
       
     if (this.reserveJets < 0)
