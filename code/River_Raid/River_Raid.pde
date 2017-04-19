@@ -248,7 +248,7 @@ int getDelta() {
 }  
  
   
-void draw() {    //<>// //<>//
+void draw() {     
   background(0); 
 
   int delta = getDelta();  
