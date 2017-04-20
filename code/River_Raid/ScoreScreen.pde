@@ -19,7 +19,7 @@ ArrayList<Player> players = new ArrayList<Player>();
     this.imageTank.resize(w(20),h(0));
     
     helicopter = new Helicopter(3).image.copy();
-    helicopter.resize(w(20),h(0));
+    helicopter.resize(w(30),h(0));
     
     enemyJet = new EnemyJet(3).image.copy();
     enemyJet.resize(w(20),h(0));
@@ -54,7 +54,7 @@ ArrayList<Player> players = new ArrayList<Player>();
       text("" + (i + 1) + ".     Player: " + players.get(i).name, x(x), y(y));
       
       //tanks defeated
-      x+= 130;
+      x+= 230;
       image(imageTank, x(x), y(y - imageTank.height/2));
       text ("x" + player.tanksDestroyed , x(x + imageTank.width +20), y(y));
       
@@ -68,7 +68,7 @@ ArrayList<Player> players = new ArrayList<Player>();
       image(enemyJet, x(x), y(y - enemyJet.height));
       text ("x" + player.enemyJetsDestroyed , x(x + enemyJet.width +20), y(y));
       
-      x+=200;
+      x+=100;
       text("Total Score: " + players.get(i).score, x(x), y(y));
       
       
