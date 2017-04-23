@@ -385,8 +385,19 @@ void draw() {
       while(iter.hasNext()){
         Rocket rocket = iter.next();
         rocket.update(nD);
-        if(!rocket.visible(yMaster))
+        if(!rocket.visible(yMaster)){
           iter.remove();
+        }else{
+          if(jet.collide(rocket)){
+            jet.crashed = true;
+            jet.removeReserveJet();
+            //sound effect
+            sound.playCrashSound();
+
+            timeResetWorld=millis();
+            iter.remove();
+          } 
+        }
         rocket.draw(yMaster);
       }
       
