@@ -4,6 +4,7 @@ public class Enemy extends Element{
     public int score;
     public float lateralSpeed;
     public String kind;
+    boolean fired = false;
     
     public Enemy(String s, float w, float h) {
       super(s, w, h); 
@@ -21,7 +22,26 @@ public class Enemy extends Element{
         else
           xPos -= lateralSpeed * nD;
       }
+      
+      if(this.yPos > jet.yPos && this.yPos < 1000 && !fired)
+        if( new Random().nextDouble() <= 0.8 ){
+            this.fire();
+            fired = true;
+        }
     }
+    
+    public boolean fire() {
+     Rocket rocket = new Rocket(true);
+     rocket.xPos = this.xPos;
+     rocket.yPos = this.yPos - 700;
+     rocket.isEnemy = true;
+     enemyRockets.add(rocket);
+
+     //sound effect
+     sound.playShootSound();
+     
+     return true;
+  }
     
     public Decoration getDebris() {
       return null;

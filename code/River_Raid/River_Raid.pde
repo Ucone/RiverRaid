@@ -64,6 +64,7 @@ int lastmillis = -1;
 
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
+ArrayList<Rocket> enemyRockets = new ArrayList<Rocket>();
 
 //for blinking function
 int time=0;
@@ -381,6 +382,28 @@ void draw() {      //<>//
         }
       }
       
+      // Enemy rockets collision
+      Iterator<Rocket> iter = enemyRockets.iterator();
+      while(iter.hasNext()){
+        Rocket rocket = iter.next();
+        rocket.update(nD);
+        if(!rocket.visible(yMaster)){
+          iter.remove();
+        }else{
+          if(jet.collide(rocket)){
+            jet.crashed = true;
+            jet.removeReserveJet();
+            //sound effect
+            sound.playCrashSound();
+
+            timeResetWorld=millis();
+            iter.remove();
+          } 
+        }
+        rocket.draw(yMaster);
+      }
+      
+      
       Iterator<Rocket> i = rockets.iterator();
       while(i.hasNext()) {
         Rocket rocket = i.next();
@@ -415,10 +438,9 @@ void draw() {      //<>//
               }
 
               player.setScore(player.getScore() + en.score);
-                  if (player.getScore() % 3000 == 0){
-                     println("añado jet!");
-                     jet.addReserveJet(); 
-                  }
+              if (player.getScore() % 3000 == 0){
+                 jet.addReserveJet(); 
+              }
 
               break;
             }
