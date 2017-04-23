@@ -381,6 +381,8 @@ void draw() {
             jet2.fire();
         }
       }
+      
+      // Enemy rockets collision
       Iterator<Rocket> iter = enemyRockets.iterator();
       while(iter.hasNext()){
         Rocket rocket = iter.next();
@@ -436,10 +438,9 @@ void draw() {
               }
 
               player.setScore(player.getScore() + en.score);
-                  if (player.getScore() % 3000 == 0){
-                     println("añado jet!");
-                     jet.addReserveJet(); 
-                  }
+              if (player.getScore() % 3000 == 0){
+                 jet.addReserveJet(); 
+              }
 
               break;
             }

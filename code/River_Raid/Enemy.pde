@@ -25,7 +25,6 @@ public class Enemy extends Element{
       
       if(this.yPos > jet.yPos && this.yPos < 1000 && !fired)
         if( new Random().nextDouble() <= 0.8 ){
-            println("Fire " + this);
             this.fire();
             fired = true;
         }
