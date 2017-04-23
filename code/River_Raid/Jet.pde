@@ -96,7 +96,7 @@ class Jet extends Element{
      if(fireCooldown > 0) return false;
      
      fireCooldown += FIRE_DELAY;
-     Rocket rocket = new Rocket();
+     Rocket rocket = new Rocket(false);
      if(this.firingMode == true)
        rocket.xPos = this.xPos + jet.width - rocket.width;
      else

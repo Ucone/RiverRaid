@@ -32,9 +32,9 @@ public class Enemy extends Element{
     }
     
     public boolean fire() {
-     Rocket rocket = new Rocket();
+     Rocket rocket = new Rocket(true);
      rocket.xPos = this.xPos;
-     rocket.yPos = this.yPos - 150;
+     rocket.yPos = this.yPos + 10;
      rocket.isEnemy = true;
      enemyRockets.add(rocket);
 
