@@ -23,8 +23,8 @@ public class Enemy extends Element{
           xPos -= lateralSpeed * nD;
       }
       
-      if(this.yPos > jet.yPos && this.yPos < 1000 && !fired)
-        if( new Random().nextDouble() <= 0.8 ){
+      if(this.yPos < jet.yPos && this.yPos > jet.yPos - 800  && !fired)
+        if( new Random().nextDouble() <= 0.6 ){
             this.fire();
             fired = true;
         }
@@ -33,7 +33,7 @@ public class Enemy extends Element{
     public boolean fire() {
      Rocket rocket = new Rocket(true);
      rocket.xPos = this.xPos;
-     rocket.yPos = this.yPos - 700;
+     rocket.yPos = this.yPos + 10;
      rocket.isEnemy = true;
      enemyRockets.add(rocket);
 
