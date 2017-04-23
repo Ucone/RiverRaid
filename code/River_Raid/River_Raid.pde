@@ -64,7 +64,6 @@ int lastmillis = -1;
 
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
-ArrayList<Rocket> enemyRockets = new ArrayList<Rocket>();
 
 //for blinking function
 int time=0;
@@ -287,11 +286,6 @@ void draw() {
             Rocket rocket = i.next();
             rocket.yPos -= (yMaster - 1000);
           }
-          i = enemyRockets.iterator();
-          while(i.hasNext()) {
-            Rocket rocket = i.next();
-            rocket.yPos -= (yMaster - 1000);
-          }
           yMaster = 1000;
         }
       
@@ -363,7 +357,6 @@ void draw() {
         }
         if (keys[4]){   //SPACE      
            jet.fire();
-           world.enemies.get(1).fire();
         }
       }
       if(!jet2.crashed){
@@ -385,17 +378,6 @@ void draw() {
         }
        if (keys[9]){        
             jet2.fire();
-        }
-      }
-      
-      Iterator<Rocket> iterator = enemyRockets.iterator();
-      while(iterator.hasNext()) {
-        Rocket rocket = iterator.next();
-        rocket.update(nD);
-        if(!rocket.visible(yMaster)) {
-          iterator.remove();
-        } else {
-          rocket.draw(yMaster);
         }
       }
       
@@ -434,6 +416,7 @@ void draw() {
 
               player.setScore(player.getScore() + en.score);
                   if (player.getScore() % 3000 == 0){
+                     println("añado jet!");
                      jet.addReserveJet(); 
                   }
 
@@ -575,8 +558,6 @@ void draw() {
           //}
           if (keys[4]){   //SPACE     
               jet.fire();
-              int rand = (int)random(0, world.enemies.size() - 1);
-              world.enemies.get(rand).fire();
           }
 
        //Jet rockets interaction with credits

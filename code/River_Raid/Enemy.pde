@@ -26,24 +26,6 @@ public class Enemy extends Element{
     public Decoration getDebris() {
       return null;
     }
-    
-    public boolean fire() {
-     Rocket rocket = new Rocket();
-     rocket.xPos = this.xPos;
-     rocket.enemyRocket = true;
-
-     rocket.yPos = this.yPos + 60;
-     
-     println(rocket.yPos + " --- " + this.yPos);
-     enemyRockets.add(rocket);
-
-     //sound effect
-     sound.playShootSound();
-     
-     println("Firing !!!!");
-     return true;
-  }
-    
 }
     class Tanker extends Enemy {
       public Tanker(int section){
