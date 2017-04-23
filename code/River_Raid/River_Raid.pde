@@ -64,6 +64,7 @@ int lastmillis = -1;
 
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
+ArrayList<Rocket> enemyRockets = new ArrayList<Rocket>();
 
 //for blinking function
 int time=0;
