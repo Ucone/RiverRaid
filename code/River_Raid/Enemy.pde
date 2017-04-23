@@ -36,7 +36,7 @@ public class Enemy extends Element{
      rocket.xPos = this.xPos;
      rocket.yPos = this.yPos - 150;
      rocket.isEnemy = true;
-     rockets.add(rocket);
+     enemyRockets.add(rocket);
 
      //sound effect
      sound.playShootSound();

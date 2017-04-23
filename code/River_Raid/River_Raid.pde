@@ -381,6 +381,15 @@ void draw() {
             jet2.fire();
         }
       }
+      Iterator<Rocket> iter = enemyRockets.iterator();
+      while(iter.hasNext()){
+        Rocket rocket = iter.next();
+        rocket.update(nD);
+        if(!rocket.visible(yMaster))
+          iter.remove();
+        rocket.draw(yMaster);
+      }
+      
       
       Iterator<Rocket> i = rockets.iterator();
       while(i.hasNext()) {
