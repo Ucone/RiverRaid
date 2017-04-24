@@ -26,6 +26,7 @@ PImage fuelGauge, lowFuelIcon;
 PImage scoreboard, reserve;
 PImage progressBackground, progressIndicator;
 PImage musicOn, musicOff;
+PImage play, pause;
 
 HashMap<String, PImage> imageMap = null;
 
@@ -180,6 +181,8 @@ void setup() {
   progressIndicator = loadImage("./images/sprites/progress_cursor.png");
   musicOn = loadImage("./images/sprites/musicon.png");
   musicOff = loadImage("./images/sprites/musicoff.png");
+  play = loadImage("./images/sprites/play.png");
+  pause = loadImage("./images/sprites/pause.png");
   
   //Resize images
   startImg.resize(viewportW, viewportH);
@@ -191,6 +194,8 @@ void setup() {
   progressIndicator.resize(w(50), h(50));
   musicOn.resize(viewportW / 20, viewportW / 20);
   musicOff.resize(viewportW / 20, viewportW / 20);
+  play.resize(viewportW / 20, viewportW / 20);
+  pause.resize(viewportW / 20, viewportW / 20);
 
   //Check if we are on testing environment
   checkTesting();
@@ -306,7 +311,8 @@ void draw() { //<>//
       //Draw some elements
       drawScore();
       drawMusicIcon();
-       
+      drawPlayPauseIcon();
+      
       jet.update(nD);
       jet.draw(yMaster);
       
@@ -476,13 +482,12 @@ void draw() { //<>//
                 }
           } 
       }   
-
-      //Pause game
-      if(gamePaused) {
-        fill(255, 0, 0);
-        text("Paused!", x(500), y(400));
-      }
-
+      
+     if(gamePaused){
+       fill(255, 0, 0);
+       text("Paused!", x(500), y(400));
+     }
+      
       break;
       case END:
         twoPlayers = false; 
@@ -660,6 +665,15 @@ void draw() { //<>//
       image(musicOff, x(940), y(10));
     }
   } //<>//
+  
+  void drawPlayPauseIcon(){
+    if(gamePaused == true){
+      image(play, x(850), y(10));
+    }
+    else{
+      image(pause, x(850), y(10));
+    }
+  }
  //<>//
   //***** FUEL IMPLEMENTATION *****
   void drawFuel(Jet jet, int player){
@@ -785,7 +799,7 @@ void keyPressed(){ //<>//
   }
   
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME || gameState == gameState.CREDITS ) {
+  if (gameState == gameState.GAME && !gamePaused || gameState == gameState.CREDITS) {
     if ( key == CODED){
       switch(keyCode){
        case LEFT:
@@ -811,16 +825,6 @@ void keyPressed(){ //<>//
         case 'm':
         case 'M':
           music.toggleMusic();
-          break;
-        case 'p':
-        case 'P':
-          gamePaused = true;
-          tint(255, 126);
-          break;
-        case 's':
-        case 'S':
-          gamePaused = false;
-          noTint();
           break;
         //Second player keys
       }if(twoPlayers){
@@ -863,6 +867,9 @@ void keyPressed(){ //<>//
 void mousePressed(){
   if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
     music.toggleMusic();
+  }
+  if(mouseX > x(850) && mouseX < x(850) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
+    toggleGame();
   }
  }
 
@@ -972,3 +979,14 @@ PImage getImage(String imageName, int w, int h) {
        return img;
      }
    }
+   
+void toggleGame(){
+    if(gamePaused){
+       gamePaused = false;
+       noTint();
+    }
+    else{
+       gamePaused = true;
+       tint(255, 126);
+    }
+}
