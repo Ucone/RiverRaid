@@ -1,15 +1,15 @@
 class JetSelection{
 
-  int boxSize = 220;  
+  int boxWidth = 190, boxHeight = 220;  
   float xFirst, yFirst, xSecond, ySecond;
   int selected = 0;
   PImage firstJet, secondJet;
   
   JetSelection(){
-    xFirst = 100.0;
-    yFirst = 100.0;
-    xSecond = 400.0;
-    ySecond = 100.0;
+    xFirst = 350.0;
+    yFirst = 200.0;
+    xSecond = 700.0;
+    ySecond = 200.0;
     
     firstJet = getImage("./images/sprites/jet.png", 150, 130);
     secondJet = getImage("./images/sprites/jet_2.png", 150, 130); 
@@ -17,7 +17,7 @@ class JetSelection{
   
   void draw(){
     image(startImg, x(0), y(0));
-    fill(0, 80);
+    fill(0, 220);
     rect(x(0), y(0), w(1000), h(1000));
     
     drawBoxes();
@@ -25,11 +25,11 @@ class JetSelection{
   }
   
   void mouseHandler(){
-    if(mouseX > xFirst && mouseX < xFirst + boxSize
-      && mouseY > yFirst && mouseY < yFirst + boxSize){
+    if(mouseX > xFirst && mouseX < xFirst + boxWidth
+      && mouseY > yFirst && mouseY < yFirst + boxHeight){
       this.selected = 0;
-    }else if(mouseX > xSecond && mouseX < xSecond + boxSize
-      && mouseY > ySecond && mouseY < ySecond + boxSize){
+    }else if(mouseX > xSecond && mouseX < xSecond + boxWidth
+      && mouseY > ySecond && mouseY < ySecond + boxHeight){
       this.selected = 1;
     }
     
@@ -39,13 +39,13 @@ class JetSelection{
   void drawBoxes(){
     int xPos = 0;
     if(selected == 0){
-      xPos = 80;
+      xPos = (int)xFirst - 20;
     }
     if(selected == 1){
-      xPos = 380;
+      xPos = (int)xSecond - 20;
     }
     
-    rect(xPos, 100, boxSize, boxSize);
+    rect(xPos, yFirst, boxWidth, boxHeight);
 
     drawJets();
   }
@@ -53,6 +53,10 @@ class JetSelection{
   void drawJets(){
     image(firstJet, xFirst, yFirst);
     fill(#ffffff);
+    textFont(font, 24);
+    text("CHOOSE YOUR JET", x(500), y(100));
+    
+    textFont(font, fontSize);
     textAlign(LEFT);
     text("SPEED: High", xFirst, yFirst + 150);
     text("SHOOTING RATE: High", xFirst, yFirst + 170);
