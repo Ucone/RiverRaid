@@ -2,6 +2,7 @@ class JetSelection{
 
   int boxSize = 200;  
   float xFirst, yFirst, xSecond, ySecond;
+  int selected = 0;
   
   JetSelection(){
     xFirst = 100.0;
@@ -11,24 +12,32 @@ class JetSelection{
     
   }
   
-  void drawSelection(){
+  void draw(){
     image(startImg, x(0), y(0));
     fill(0, 80);
     rect(x(0), y(0), w(1000), h(1000));
     
+    //mouseHandler();
+    drawBoxes();
     //First box
-    if(mouseX > xFirst && mouseX < xFirst + boxSize
-      && mouseY > yFirst && mouseY < yFirst + boxSize){
-      drawBoxes(0);
-    }else if(mouseX > xSecond && mouseX < xSecond + boxSize
-      && mouseY > ySecond && mouseY < ySecond + boxSize){
-      drawBoxes(1);
-    }else{
-      drawBoxes(-1);
-    }
+    
   }
   
-  void drawBoxes(int selected){
+  void mouseHandler(){
+    if(mouseX > xFirst && mouseX < xFirst + boxSize
+      && mouseY > yFirst && mouseY < yFirst + boxSize){
+      this.selected = 0;
+    }else if(mouseX > xSecond && mouseX < xSecond + boxSize
+      && mouseY > ySecond && mouseY < ySecond + boxSize){
+      this.selected = 1;
+    }else{
+      this.selected = -1;
+    }
+    
+    drawBoxes();
+  }
+  
+  void drawBoxes(){
     if(selected == 0){
       fill(0, 0, 255);
       rect(100, 100, boxSize, boxSize);
