@@ -99,6 +99,8 @@ boolean tutorial = true;
 
 float nD;
 
+boolean gamePaused = false;
+
 // If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
 void checkTesting(){
   if(this.testing){
@@ -248,11 +250,15 @@ int getDelta() {    //<>//
 }   //<>//
   //<>//
    //<>//
-void draw() {      //<>//
+void draw() { //<>//
   background(0);  //<>//
  //<>//
   int delta = getDelta();   //<>//
-  nD = delta / TICK_MS; 
+  nD = delta / TICK_MS;
+  //Pause game
+  if(gamePaused) {
+    nD = 0.0;
+  }
   switch(gameState){ //<>//
     case WELCOME: //<>//
       image(startImg, x(0), y(0)); //<>//
@@ -471,6 +477,11 @@ void draw() {      //<>//
           } 
       }   
 
+      //Pause game
+      if(gamePaused) {
+        fill(255, 0, 0);
+        text("Paused!", x(500), y(400));
+      }
 
       break;
       case END:
@@ -800,6 +811,16 @@ void keyPressed(){ //<>//
         case 'm':
         case 'M':
           music.toggleMusic();
+          break;
+        case 'p':
+        case 'P':
+          gamePaused = true;
+          tint(255, 126);
+          break;
+        case 's':
+        case 'S':
+          gamePaused = false;
+          noTint();
           break;
         //Second player keys
       }if(twoPlayers){
