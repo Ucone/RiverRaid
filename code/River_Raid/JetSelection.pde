@@ -39,26 +39,16 @@ class JetSelection{
   }
   
   void drawBoxes(){
+    int xPos = 0;
     if(selected == 0){
-      fill(0, 0, 255);
-      rect(100, 100, boxSize, boxSize);
-    
-      fill(0, 255, 0);
-      rect(400, 100, boxSize, boxSize);
-    }else if(selected == 1){
-      fill(255, 0, 0);
-      rect(100, 100, boxSize, boxSize);
-    
-      fill(0, 0, 255);
-      rect(400, 100, boxSize, boxSize);
-    }else{
-      fill(255, 0, 0);
-      rect(100, 100, boxSize, boxSize);
-    
-      fill(0, 255, 0);
-      rect(400, 100, boxSize, boxSize);
+      xPos = 80;
+    }
+    if(selected == 1){
+      xPos = 380;
     }
     
+    rect(xPos, 100, boxSize, boxSize);
+
     drawJets();
   }
   
