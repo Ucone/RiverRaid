@@ -51,18 +51,20 @@ class JetSelection{
   }
   
   void drawJets(){
-    image(firstJet, 100, 100);
+    image(firstJet, xFirst, yFirst);
     fill(#ffffff);
-    text("SPEED: High", x(xFirst), yFirst + 150);
-    text("SHOOTING RATE: High", x(xFirst), yFirst + 170);
-    text("Speed.. Speed.. Are you ready to \nbe fast with this jet?", x(xFirst), yFirst + 190);
+    textAlign(LEFT);
+    text("SPEED: High", xFirst, yFirst + 150);
+    text("SHOOTING RATE: High", xFirst, yFirst + 170);
+    text("Speed.. Speed.. Are you ready to \nbe fast with this jet?", xFirst, yFirst + 190);
     
     
-    image(secondJet, 400, 100);
-    text("SPEED: Medium", x(xSecond), ySecond + 150);
-    text("SHOOTING RATE: Medium", x(xSecond), ySecond + 170);
-    text("You can fly with lower speed... \nbut what about shooting?", x(xSecond), ySecond + 190);
+    image(secondJet, xSecond, ySecond);
+    text("SPEED: Medium", xSecond, ySecond + 150);
+    text("SHOOTING RATE: Medium", xSecond, ySecond + 170);
+    text("You can fly with lower speed... \nbut what about shooting?", xSecond, ySecond + 190);
     
     fill(0);
+    textAlign(CENTER);
   }
 }
