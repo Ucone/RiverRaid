@@ -7,7 +7,7 @@ public class Story {
   }
   
   void draw() {
-         textSize(h(30));
+      textSize(h(30));
     switch(storyStage) { 
     case STORY_1:
       image(getImage("./images/story/"+storyStage+".png", w(1000), h(1000)), x(0), y(0));
