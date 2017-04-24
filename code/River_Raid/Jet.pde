@@ -6,10 +6,11 @@ class Jet extends Element{
 
   private int reserveJets = 3;
   private int lastFired = 0;
-  private final float FIRE_DELAY = 40.0;
+  protected float FIRE_DELAY = 40.0;
   public float fireCooldown = 0;
   public boolean firingMode = false;
 
+  public int type;
   
    Jet(){
      super("./images/sprites/jet.png", 80, 130);
@@ -17,6 +18,7 @@ class Jet extends Element{
      yPos = 800;
      xPos = 500;
      fuel = INITIAL_FUEL;
+     type = 0;
    }
    
    Jet(int jetB){
@@ -25,6 +27,7 @@ class Jet extends Element{
      yPos = 800;
      xPos = 300;
      fuel = INITIAL_FUEL;
+     type = 1;
    }
    
    public void draw(float yMaster){
@@ -140,5 +143,18 @@ class Jet extends Element{
     if (this.reserveJets < 0)
       gameState = gameState.END;     
      
+  }
+  
+  public void updateSelected(int selected){
+    type = selected;
+    if(selected == 0){
+      //jet.image = getImage("./images/sprites/jet.png", 80, 130);
+      FIRE_DELAY = 40.0;
+      DEFAULT_SPEED = 3;
+    }else{
+      jet.image = getImage("./images/sprites/jet_2.png", 90, 80);
+      FIRE_DELAY = 80.0;
+      DEFAULT_SPEED = 2.5;
+    }
   }
 }

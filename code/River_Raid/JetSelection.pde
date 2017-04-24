@@ -71,4 +71,8 @@ class JetSelection{
     fill(0);
     textAlign(CENTER);
   }
+  
+  void saveSelection(){
+    jet.updateSelected(selected);
+  }
 }

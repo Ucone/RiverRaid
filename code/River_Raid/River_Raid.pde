@@ -272,6 +272,7 @@ void draw() {      //<>// //<>// //<>//
     case JET_SELECTION:
       jetSelection.draw();
       cpSelection.setVisible(true);
+      jetSelection.saveSelection();
       break;
     case STORY:
       story.draw(); //<>// //<>// //<>//
