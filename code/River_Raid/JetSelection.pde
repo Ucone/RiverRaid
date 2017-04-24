@@ -30,8 +30,6 @@ class JetSelection{
     }else if(mouseX > xSecond && mouseX < xSecond + boxSize
       && mouseY > ySecond && mouseY < ySecond + boxSize){
       this.selected = 1;
-    }else{
-      this.selected = -1;
     }
     
     drawBoxes();
