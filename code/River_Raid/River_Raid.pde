@@ -865,11 +865,13 @@ void keyPressed(){ //<>//
 }  
 
 void mousePressed(){
-  if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
-    music.toggleMusic();
-  }
-  if(mouseX > x(850) && mouseX < x(850) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
-    toggleGame();
+  if (gameState == gameState.GAME){
+    if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
+      music.toggleMusic();
+    }
+    if(mouseX > x(850) && mouseX < x(850) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
+      toggleGame();
+    }
   }
  }
 
