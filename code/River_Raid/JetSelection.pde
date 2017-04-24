@@ -3,6 +3,7 @@ class JetSelection{
   int boxSize = 200;  
   float xFirst, yFirst, xSecond, ySecond;
   int selected = 0;
+  PImage firstJet, secondJet;
   
   JetSelection(){
     xFirst = 100.0;
@@ -10,6 +11,8 @@ class JetSelection{
     xSecond = 400.0;
     ySecond = 100.0;
     
+    firstJet = getImage("./images/sprites/jet.png", 150, 130);
+    secondJet = getImage("./images/sprites/jet_2.png", 150, 130); 
   }
   
   void draw(){
@@ -55,5 +58,13 @@ class JetSelection{
       fill(0, 255, 0);
       rect(400, 100, boxSize, boxSize);
     }
+    
+    drawJets();
+  }
+  
+  void drawJets(){
+    image(firstJet, 100, 100);
+    
+    image(secondJet, 400, 100);
   }
 }
