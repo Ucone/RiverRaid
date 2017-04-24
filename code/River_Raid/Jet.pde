@@ -9,7 +9,7 @@ class Jet extends Element{
   protected float FIRE_DELAY = 40.0;
   public float fireCooldown = 0;
   public boolean firingMode = false;
-
+  public boolean refueling = false;
   public int type;
   
    Jet(){
@@ -67,8 +67,10 @@ class Jet extends Element{
     if(world.checkCollision(this, World.C_FUEL_DEPOTS)){
         this.refuel(nD);
         VELOCITY_CONSUMPTION = 0;
+        this.refueling = true;
     }else{
         VELOCITY_CONSUMPTION = 0.1;
+        this.refueling = false;
     }
   }
   
