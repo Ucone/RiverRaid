@@ -20,9 +20,7 @@ class JetSelection{
     fill(0, 80);
     rect(x(0), y(0), w(1000), h(1000));
     
-    //mouseHandler();
     drawBoxes();
-    //First box
     
   }
   
