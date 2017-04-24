@@ -10,7 +10,7 @@ public enum GameState {WELCOME, JET_SELECTION, STORY, GAME, END, CREDITS};  // D
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
 
 // Input fields and text
-ControlP5 cp5;
+ControlP5 cp5, cpSelection;
 ControlP5 cpEnd;
 PFont font;
 PFont monoFont;
@@ -168,6 +168,15 @@ void setup() {
       
       cpEnd.setVisible(false);
       
+    cpSelection = new ControlP5(this);
+    
+    cpSelection.addButton("Continue")
+      .setPosition(x(435) - w(50), y(1000) - h(100))
+      .setSize(w(150), h(60))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+      cpSelection.setVisible(false);
   // Load images
   startImg=loadImage("./images/welcome.png");
   
@@ -262,7 +271,7 @@ void draw() {      //<>// //<>// //<>//
      //<>// //<>// //<>//
     case JET_SELECTION:
       jetSelection.draw();
-      
+      cpSelection.setVisible(true);
       break;
     case STORY:
       story.draw(); //<>// //<>// //<>//
@@ -768,6 +777,11 @@ public void Replay() { //<>// //<>// //<>//
     yMaster = 0;     //<>// //<>// //<>//
     cpEnd.setVisible(false);  //<>// //<>// //<>//
     gameState = GameState.WELCOME;
+}
+
+public void Continue(){
+    cpSelection.setVisible(false);
+    gameState = GameState.STORY;
 }
 
 /* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */ //<>// //<>// //<>//
