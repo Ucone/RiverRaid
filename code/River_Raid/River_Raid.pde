@@ -766,6 +766,10 @@ public void Start() {
      
   jet = new Jet();
   jet2 = new Jet(2);
+      
+  if (twoPlayers){
+    jet.xPos = 650;
+  }
   
   String playerName = "";   
    
@@ -784,8 +788,7 @@ public void Start() {
 }
 
 public void Two_Players(){
-  twoPlayers = true;
-  jet.xPos = 650; //<>// //<>//
+  twoPlayers = true; //<>//
   Start(); //<>// //<>//
   
 }
