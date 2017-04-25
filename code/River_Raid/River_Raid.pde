@@ -831,6 +831,10 @@ void keyPressed(){
           break;
       }
     }
+    if(key == ENTER){
+      jetSelection.saveSelection();
+      Continue();
+    }
   }
   
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
