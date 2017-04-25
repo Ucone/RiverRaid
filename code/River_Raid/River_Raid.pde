@@ -778,16 +778,18 @@ public void Start() {
   player = new Player(playerName); //<>// //<>// //<>//
   scoreScreen.addPlayer(player); //<>// //<>// //<>//
   cp5.setVisible(false); //remove("Start");   
-  //cp5.remove("name_input");   
-  gameState = GameState.JET_SELECTION;
-  jetSelection = new JetSelection();
+  //cp5.remove("name_input"); 
+  if(!twoPlayers){
+    gameState = GameState.JET_SELECTION;
+    jetSelection = new JetSelection();
+  }else
+    gameState = GameState.STORY;
 }
-
-public void Two_Players(){
+ //<>//
+public void Two_Players(){ //<>//
   twoPlayers = true;
-  jet.xPos = 650; //<>// //<>// //<>//
-  Start(); //<>// //<>// //<>//
-  
+  jet.xPos = 650; //<>// //<>//
+  Start(); //<>// //<>//
 }
 
 
