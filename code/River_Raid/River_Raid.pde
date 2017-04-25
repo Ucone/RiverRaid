@@ -665,15 +665,17 @@ void draw() {     //<>// //<>// //<>//
     //Score value
     text(player.getScore(), x(250), y(980)); //<>//
      //<>//
+    // Reserve jets indicator
+    text(jet.getReserveJets(), x(380), y(985));
+    
+
     image(dashboard, x(0), y(850));
 
        
    
     // Level indicator //<>//
     text("Level: " + player.section, x(70), y(920)); //<>//
-    // Reserve jets indicator
-    image(reserve, x(100), y(890));
-    text("x" + jet.getReserveJets(), x(140), y(920));    //<>//
+        //<>//
   }    //<>//
 
   void drawProgress(){
@@ -697,10 +699,10 @@ void draw() {     //<>// //<>// //<>//
     }
     else{
       image(pause, x(850), y(10));
-    }
-  }
- //<>//
-  //***** FUEL IMPLEMENTATION ***** //<>//
+    } //<>//
+  } //<>//
+
+  //***** FUEL IMPLEMENTATION *****
   void drawFuel(Jet jet, int player){
 
       //Fuel consumption
@@ -732,28 +734,28 @@ void draw() {     //<>// //<>// //<>//
  }
 
 /* Loads the image of the story defined by the GameState */
-/* @return The image loaded*/
-PImage loadStoryImage(GameState gameState)
-{    //<>//
+/* @return The image loaded*/ //<>//
+PImage loadStoryImage(GameState gameState) //<>//
+{   
   PImage img = loadImage("./images/story/"+gameState+".png");    //<>//
-  img.resize(viewportW, viewportH);
-  return img; //<>//
-} //<>//
+  img.resize(viewportW, viewportH); //<>//
+  return img;
+}
 
  //<>//
  //<>//
 /* Draws the text of "Press any key to continue" in the screen */
 void drawPressKey() //<>//
 {    //<>// //<>//
-   textAlign(RIGHT);    //<>//
-   fill(255,0,0);
+   textAlign(RIGHT);    //<>// //<>//
+   fill(255,0,0); //<>//
    textFont(monoFont, fontSize);    //<>// //<>//
-   text("Press any key to continue...", viewportW - w(20), y(30));    //<>// //<>//
-   textFont(font, fontSize); //<>//
-   textAlign(CENTER);
-}
+   text("Press any key to continue...", viewportW - w(20), y(30));    //<>//
+   textFont(font, fontSize);
+   textAlign(CENTER); //<>//
+} //<>//
+
  //<>//
- //<>// //<>//
 /* When the "enter key" or "Start" button is pressed, gets the name of the user. //<>//
 *  If the name is empty, set "Guest" as default name. //<>//
 */
@@ -770,23 +772,23 @@ void controlEvent(ControlEvent theEvent) {    //<>// //<>//
 }
 
 //PRESS START BUTTON ON THE WELCOME SCREEN   
-public void Start() {   
-  //String event_id = theEvent.getLabel(); 
-  story = new Story();    //<>//
+public void Start() {    //<>//
+  //String event_id = theEvent.getLabel();  //<>//
+  story = new Story();   
       //<>//
-  jet = new Jet();
-  jet2 = new Jet(2); //<>//
-       //<>//
+  jet = new Jet(); //<>//
+  jet2 = new Jet(2);
+      
   if (twoPlayers){
     jet.xPos = 650; //<>//
   } //<>//
   
   String playerName = "";    //<>//
     //<>// //<>//
-  playerName = cp5.get(Textfield.class, "name_input").getText(); //<>//
-    
-  if(playerName.equals("")){  //<>// //<>//
-      playerName = "Guest";        //<>// //<>//
+  playerName = cp5.get(Textfield.class, "name_input").getText(); //<>// //<>//
+     //<>//
+  if(playerName.equals("")){  //<>//
+      playerName = "Guest";        //<>//
     }      
    
   player = new Player(playerName);   
