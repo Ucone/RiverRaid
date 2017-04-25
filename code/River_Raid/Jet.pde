@@ -11,6 +11,7 @@ class Jet extends Element{
   public boolean firingMode = false;
   public boolean refueling = false;
   public int type;
+  Animation animation;
   
   private int lives = 3;
   int DEFAULT_LIVES = 3;
@@ -125,6 +126,11 @@ class Jet extends Element{
     if(fireCooldown > 0)
       fireCooldown -= nD;
     jet.yPos = yMaster+700;
+    if(animation != null)
+    { 
+      animation.update(nD);
+      image = animation.image();
+    }
   }
   
   public float getFuel(){
@@ -173,10 +179,10 @@ class Jet extends Element{
     lives--;
 
     if(lives > 0){    
-      int newWidth = this.image.width;
-      int newHeight = this.image.height;
       if(type == 0)
-        this.image = getImage("./images/sprites/jetDamaged"+lives+".png", w(80), h(130));
+      {
+        this.animation = new Animation("jet/damaged"+lives+"/", w(80), w(80), 50, false);
+      }
       else
         this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), h(130));
     }
@@ -184,6 +190,7 @@ class Jet extends Element{
   
   public void resetLives(){
     this.lives = DEFAULT_LIVES;
+    animation = null;
     if(this.type == 0)
       this.image = getImage("./images/sprites/jet.png", w(80), h(130));
     else
