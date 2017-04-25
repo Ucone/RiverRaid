@@ -776,20 +776,20 @@ public void Start() {     //<>//
   //String event_id = theEvent.getLabel();   //<>//
   story = new Story();   
        //<>//
-  jet = new Jet();  //<>//
-  jet2 = new Jet(2);
+  jet = new Jet();  //<>// //<>//
+  jet2 = new Jet(2); //<>//
       
-  if (twoPlayers){
-    jet.xPos = 650; 
+  if (twoPlayers){ //<>//
+    jet.xPos = 650;  //<>//
   } 
   
   String playerName = "";    
      
   playerName = cp5.get(Textfield.class, "name_input").getText();   //<>//
       //<>//
-  if(playerName.equals("")){  
-      playerName = "Guest";        
-    }      
+  if(playerName.equals("") || playerName.equals("Your name here...")){  
+      playerName = "Player";         //<>//
+    }       //<>//
    
   player = new Player(playerName);   
   scoreScreen.addPlayer(player);   
