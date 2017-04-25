@@ -774,15 +774,10 @@ void controlEvent(ControlEvent theEvent) {
 public void Start() {     
   //String event_id = theEvent.getLabel();   
   story = new Story();   
-<<<<<<< HEAD
        //<>//
   jet = new Jet();  //<>// //<>//
   jet2 = new Jet(2); //<>//
-=======
-       
-  jet = new Jet();  
-  jet2 = new Jet(2);
->>>>>>> 4546f2fb1f8567cb822469d50e42fb5bfa4480d1
+
       
   if (twoPlayers){ //<>//
     jet.xPos = 650;  //<>//
@@ -790,19 +785,13 @@ public void Start() {
   
   String playerName = "";    
      
-<<<<<<< HEAD
+
   playerName = cp5.get(Textfield.class, "name_input").getText();   //<>//
       //<>//
   if(playerName.equals("") || playerName.equals("Your name here...")){  
       playerName = "Player";         //<>//
     }       //<>//
-=======
-  playerName = cp5.get(Textfield.class, "name_input").getText();   
-      
-  if(playerName.equals("")){  
-      playerName = "Guest";        
-    }      
->>>>>>> 4546f2fb1f8567cb822469d50e42fb5bfa4480d1
+
    
   player = new Player(playerName);   
   scoreScreen.addPlayer(player);   
