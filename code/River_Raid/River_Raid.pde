@@ -554,7 +554,7 @@ void draw() {     //<>// //<>//
       text("←: move to left", x(xText - 60), y(800));
       text("SPACE BAR: shoot", x(xText + 30), y(500));
       text("↑: speed up", x(xText + 30), y(700));
-      text("↓: slow down", x(xText + 40), y(970));
+      text("↓: slow down", x(xText + 40), y(850));
       
     }
     depotTutorial.draw(yMaster);
@@ -564,7 +564,7 @@ void draw() {     //<>// //<>//
         //depotTutorial.draw(y(200));
         text("This is a fuel depot", x(500), y(600));
         text("BE CAREFUL, you can damage it with your rockets", x(500), y(700));
-        text("Check here\n the fuel level →", x(850), y(450));
+        text("Check here the\nfuel level ↓", x(10), y(750));
     }
             
     if(yMaster<=150){
