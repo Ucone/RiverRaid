@@ -75,4 +75,16 @@ class JetSelection{
   void saveSelection(){
     jet.updateSelected(selected);
   }
+  
+  void selectLeft(){
+    selected--;
+    if(selected < 0)
+      selected = 1;
+  }
+  
+  void selectRight(){
+    selected++;
+    if(selected > 1)
+      selected = 0;
+  }
 }
