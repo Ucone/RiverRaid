@@ -56,6 +56,7 @@ class Jet extends Element{
       this.fuel = (this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
      else{
         this.crashed = true;
+        this.resetLives();
         jet.removeReserveJet();
         //sound effect
         sound.playCrashSound();
@@ -93,6 +94,7 @@ class Jet extends Element{
     if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
         jet.removeReserveJet();
+        this.resetLives();
         //sound effect
         sound.playCrashSound();
 
@@ -168,11 +170,23 @@ class Jet extends Element{
   }
   
   public void removeLive(){
-    if(lives > 0)
-      lives--;
+    lives--;
+
+    if(lives > 0){    
+      int newWidth = this.image.width;
+      int newHeight = this.image.height;
+      if(type == 0)
+        this.image = getImage("./images/sprites/jetDamaged"+lives+".png", w(80), h(130));
+      else
+        this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), h(130));
+    }
   }
   
   public void resetLives(){
-    this.lives = DEFAULT_LIVES;  
+    this.lives = DEFAULT_LIVES;
+    if(this.type == 0)
+      this.image = getImage("./images/sprites/jet.png", w(80), h(130));
+    else
+      this.image = getImage("./images/sprites/jet_2.png", w(80), h(130));
   }
 }
