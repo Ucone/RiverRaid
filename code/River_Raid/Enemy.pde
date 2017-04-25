@@ -23,7 +23,7 @@ public class Enemy extends Element{
           xPos -= lateralSpeed * nD;
       }
       
-      if(this.yPos < jet.yPos && this.yPos > jet.yPos - 800  && !fired)
+      if(this.yPos < jet.yPos && this.yPos > jet.yPos - 700  && !fired)
         if( new Random().nextDouble() <= 0.6 ){
             this.fire();
             fired = true;
