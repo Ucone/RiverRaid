@@ -198,14 +198,13 @@ void setup() {
   
   //Resize images
   startImg.resize(viewportW, viewportH);
-  dashboard.resize(viewportW, h(150));
-  underDashboard.resize(viewportW, h(150));
+  dashboard.resize(viewportW, viewportH);
+  underDashboard.resize(viewportW, viewportH);
   reserve.resize(w(40), h(40));
   lowFuelIcon.resize(w(60), h(100));
   fuelGauge.resize(w(50), viewportH/3 + h(50));
-  progressBackground.resize(w(190), h(50));
-  progressCursor.resize(w(30), h(30));
-  progressBridge.resize(w(30), h(30));
+  progressCursor.resize(w(30), w(30));
+  progressBridge.resize(w(30), w(30));
   musicOn.resize(w(50), h(50));
   musicOff.resize(w(50), h(50));
   play.resize(viewportW / 20, viewportW / 20);
@@ -662,7 +661,7 @@ void draw() {
   }
    
   void drawScore (){
-    image(underDashboard, x(0), y(850));
+    image(underDashboard, x(0), y(0));
       //<>//
     fill(0, 255, 0);  //<>//
     //Score value
@@ -673,12 +672,11 @@ void draw() {
     
     drawFuel(jet, 1);
     
-    image(dashboard, x(0), y(850));
+    image(dashboard, x(0), y(0));
 
   }
 
   void drawProgress(){
-    image(progressBackground, x(10), y(600));
     float aux = 450 + (150*(-yMaster))/world.SECTION_SIZE; 
     image(progressCursor, x(aux), y(930));
     image(progressBridge, x(600), y(930));
