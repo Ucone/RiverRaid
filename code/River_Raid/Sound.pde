@@ -18,19 +18,23 @@ class Sound{
 	}
 
 	public void playCrashSound(){
-		this.playSound(crashSoundFile);
+    if(isMusicOn)
+		  this.playSound(crashSoundFile);
 	}
 
 	public void playCrossSound(){
-		this.playSound(crossSectionSoundFile);
+    if(isMusicOn)
+		  this.playSound(crossSectionSoundFile);
 	}
 
 	public void playDefeatSound(){
-		this.playSound(defeatEnemyFile);
+    if(isMusicOn)
+		  this.playSound(defeatEnemyFile);
 	}
 
 	public void playShootSound(){
-		this.playSound(shootSoundFile);
+    if(isMusicOn)
+		  this.playSound(shootSoundFile);
 	}
 
 	public void toggleMusic(){
