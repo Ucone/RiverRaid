@@ -389,19 +389,19 @@ void draw() {     //<>//
       }
       if(!jet2.crashed){
         if (keys[5]){ //A
-          jet2.moveLeft();
-          
+          jet2.moveLeft();          
         }
         if (keys[6]){ //D
-          jet2.moveRight();
-          
+          jet2.moveRight();          
         }
-       if (keys[7]){    
-          gameSpeed -= DECELERATION;
+       if (keys[7]){
+           if(!speedChanged)
+              gameSpeed -= DECELERATION;
           speedChanged = true;      
         }
-       if (keys[8]){       
-          gameSpeed += ACCELERATION;
+       if (keys[8]){   
+         if(!speedChanged)
+            gameSpeed += ACCELERATION;
           speedChanged = true;
         }
        if (keys[9]){        
