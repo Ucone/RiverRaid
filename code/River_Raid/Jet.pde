@@ -12,6 +12,9 @@ class Jet extends Element{
   public boolean refueling = false;
   public int type;
   
+  private int lives = 3;
+  int DEFAULT_LIVES = 3;
+  
    Jet(){
      super("./images/sprites/jet.png", 80, 130);
      imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
@@ -158,5 +161,18 @@ class Jet extends Element{
       FIRE_DELAY = 80.0;
       DEFAULT_SPEED = 2.5;
     }
+  }
+  
+  public int getLives(){
+    return lives;
+  }
+  
+  public void removeLive(){
+    if(lives > 0)
+      lives--;
+  }
+  
+  public void resetLives(){
+    this.lives = DEFAULT_LIVES;  
   }
 }
