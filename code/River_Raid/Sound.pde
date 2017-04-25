@@ -7,34 +7,41 @@ class Sound{
 	private String defeatEnemyFile = "sound/defeat.mp3";
 	private String shootSoundFile = "sound/shoot.mp3";
 	private String musicSoundFile = "sound/music.mp3";
-	  
+  
+  private AudioPlayer crashSound, sectionSound, defeatSound, shootSound; 	
+
 	public Sound(){
 		musicPlayer = minim.loadFile(musicSoundFile);
+
+    crashSound = minim.loadFile(crashSoundFile);
+    sectionSound = minim.loadFile(crossSectionSoundFile);
+    defeatSound = minim.loadFile(defeatEnemyFile);
+    shootSound = minim.loadFile(shootSoundFile);
 	} 
   
-	public void playSound(String fileName){
-		soundPlayer = minim.loadFile(fileName);
-		soundPlayer.play();
+	public void playSound(AudioPlayer sound){
+		sound.rewind();
+    sound.play();
 	}
 
 	public void playCrashSound(){
     if(isMusicOn)
-		  this.playSound(crashSoundFile);
+		  this.playSound(crashSound);
 	}
 
 	public void playCrossSound(){
     if(isMusicOn)
-		  this.playSound(crossSectionSoundFile);
+		  this.playSound(sectionSound);
 	}
 
 	public void playDefeatSound(){
     if(isMusicOn)
-		  this.playSound(defeatEnemyFile);
+		  this.playSound(defeatSound);
 	}
 
 	public void playShootSound(){
     if(isMusicOn)
-		  this.playSound(shootSoundFile);
+		  this.playSound(shootSound);
 	}
 
 	public void toggleMusic(){
