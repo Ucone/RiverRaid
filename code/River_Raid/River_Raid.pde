@@ -190,8 +190,8 @@ void setup() {
   lowFuelIcon = loadImage("./images/sprites/lowfuel.png");
   progressBackground = loadImage("./images/sprites/progress_background.png");
   progressIndicator = loadImage("./images/sprites/progress_cursor.png");
-  musicOn = loadImage("./images/sprites/musicon.png");
-  musicOff = loadImage("./images/sprites/musicoff.png");
+  musicOn = loadImage("./images/interface/sound_on.png");
+  musicOff = loadImage("./images/interface/sound_off.png");
   play = loadImage("./images/sprites/play.png");
   pause = loadImage("./images/sprites/pause.png");
   
@@ -204,8 +204,8 @@ void setup() {
   fuelGauge.resize(w(50), viewportH/3 + h(50));
   progressBackground.resize(w(190), h(50));
   progressIndicator.resize(w(50), h(50));
-  musicOn.resize(viewportW / 20, viewportW / 20);
-  musicOff.resize(viewportW / 20, viewportW / 20);
+  musicOn.resize(w(50), h(50));
+  musicOff.resize(w(50), h(50));
   play.resize(viewportW / 20, viewportW / 20);
   pause.resize(viewportW / 20, viewportW / 20);
 
@@ -686,10 +686,10 @@ void draw() {     //<>// //<>// //<>//
 
   void drawMusicIcon(){
     if(isMusicOn == true){
-      image(musicOn, x(940), y(10));
+      image(musicOn, x(885), y(920));
     }
     else{
-      image(musicOff, x(940), y(10));
+      image(musicOff, x(885), y(920));
     }
   } 
   
@@ -922,7 +922,8 @@ void keyPressed(){
 
 void mousePressed(){
   if (gameState == gameState.GAME){
-    if(mouseX > x(940) && mouseX < x(940) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
+    //x(885), y(920)
+    if(mouseX > x(885) && mouseX < x(885) + w(50) && mouseY > y(920) && mouseY < y(920) + h(50)){
       music.toggleMusic();
     }
     if(mouseX > x(850) && mouseX < x(850) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
