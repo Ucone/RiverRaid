@@ -12,6 +12,9 @@ class Jet extends Element{
   public boolean refueling = false;
   public int type;
   
+  private int lives = 3;
+  int DEFAULT_LIVES = 3;
+  
    Jet(){
      super("./images/sprites/jet.png", 80, 130);
      imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
@@ -53,6 +56,7 @@ class Jet extends Element{
       this.fuel = (this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
      else{
         this.crashed = true;
+        this.resetLives();
         jet.removeReserveJet();
         //sound effect
         sound.playCrashSound();
@@ -90,6 +94,7 @@ class Jet extends Element{
     if(world.checkCollision(this, World.C_OBSTACLES)){
         this.crashed = true;
         jet.removeReserveJet();
+        this.resetLives();
         //sound effect
         sound.playCrashSound();
 
@@ -158,5 +163,30 @@ class Jet extends Element{
       FIRE_DELAY = 80.0;
       DEFAULT_SPEED = 2.5;
     }
+  }
+  
+  public int getLives(){
+    return lives;
+  }
+  
+  public void removeLive(){
+    lives--;
+
+    if(lives > 0){    
+      int newWidth = this.image.width;
+      int newHeight = this.image.height;
+      if(type == 0)
+        this.image = getImage("./images/sprites/jetDamaged"+lives+".png", w(80), h(130));
+      else
+        this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), h(130));
+    }
+  }
+  
+  public void resetLives(){
+    this.lives = DEFAULT_LIVES;
+    if(this.type == 0)
+      this.image = getImage("./images/sprites/jet.png", w(80), h(130));
+    else
+      this.image = getImage("./images/sprites/jet_2.png", w(80), h(130));
   }
 }
