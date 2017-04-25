@@ -18,7 +18,7 @@ class Jet extends Element{
    Jet(){
      super("./images/sprites/jet.png", 80, 130);
      imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
-     yPos = 800;
+     yPos = 600;
      xPos = 500;
      fuel = INITIAL_FUEL;
      type = 0;
@@ -124,7 +124,7 @@ class Jet extends Element{
   public void update(float nD) {
     if(fireCooldown > 0)
       fireCooldown -= nD;
-    jet.yPos = yMaster+800;
+    jet.yPos = yMaster+700;
   }
   
   public float getFuel(){
