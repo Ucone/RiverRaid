@@ -1,18 +1,18 @@
 class JetSelection{
 
-  int boxWidth = 190, boxHeight = 220;  
+  int boxWidth = 190, boxHeight = 370;  
   float xFirst, yFirst, xSecond, ySecond;
   int selected = 0;
   PImage firstJet, secondJet;
   
   JetSelection(){
-    xFirst = 350.0;
+    xFirst = 250.0;
     yFirst = 200.0;
-    xSecond = 700.0;
+    xSecond = 600.0;
     ySecond = 200.0;
     
-    firstJet = getImage("./images/sprites/jet.png", 150, 130);
-    secondJet = getImage("./images/sprites/jet_2.png", 150, 130); 
+    firstJet = getImage("./images/sprites/jet.png", w(150), w(130));
+    secondJet = getImage("./images/sprites/jet_2.png", w(150), w(130)); 
   }
   
   void draw(){
@@ -45,28 +45,28 @@ class JetSelection{
       xPos = (int)xSecond - 20;
     }
     
-    rect(xPos, yFirst, boxWidth, boxHeight);
+    rect(x(xPos), y(yFirst), w(boxWidth), h(boxHeight));
 
     drawJets();
   }
   
   void drawJets(){
-    image(firstJet, xFirst, yFirst);
+    image(firstJet, x(xFirst), y(yFirst));
     fill(#ffffff);
     textFont(font, 24);
     text("CHOOSE YOUR JET", x(500), y(100));
     
     textFont(font, fontSize);
     textAlign(LEFT);
-    text("SPEED: High", xFirst, yFirst + 150);
-    text("SHOOTING RATE: High", xFirst, yFirst + 170);
-    text("Speed.. Speed.. Are you ready to \nbe fast with this jet?", xFirst, yFirst + 190);
+    text("SPEED: High", x(xFirst), y(yFirst + 250));
+    text("SHOOTING RATE: High", x(xFirst), y(yFirst + 270));
+    text("Speed.. Speed.. Are you ready to \nbe fast with this jet?", x(xFirst), y(yFirst + 300));
     
     
-    image(secondJet, xSecond, ySecond);
-    text("SPEED: Medium", xSecond, ySecond + 150);
-    text("SHOOTING RATE: Medium", xSecond, ySecond + 170);
-    text("You can fly with lower speed... \nbut what about shooting?", xSecond, ySecond + 190);
+    image(secondJet, x(xSecond), y(ySecond));
+    text("SPEED: Medium", x(xSecond), y(ySecond + 250));
+    text("SHOOTING RATE: Medium", x(xSecond), y(ySecond + 270));
+    text("You can fly with lower speed... \nbut what about shooting?", x(xSecond), y(ySecond + 300g));
     
     fill(0);
     textAlign(CENTER);
