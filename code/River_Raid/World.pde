@@ -8,7 +8,8 @@ public class World {
   static final int C_EVERYTHING = 0b1111;
 
   public int ENEMY_COUNT = 30;
-  public int FUEL_DEPOT_COUNT = 10;
+  public int DEPOT_SPACING = 1500;
+  public int DEPOT_FUZZ = 300;
   public int ISLAND_COUNT = 10;
   public float SECTION_SIZE = 10000;
   public float riverPosition;
@@ -85,14 +86,14 @@ public class World {
     print("Generated enemies, "+ (attempts - 1) + " failed attempts\n");
     
     attempts = 0;
-    for(int i = 0; i < FUEL_DEPOT_COUNT; i++)
+    for(int i = 0; i > -SECTION_SIZE; i -= DEPOT_SPACING)
     {
       FuelDepot fd;
       do {
         attempts++;
         fd = new FuelDepot();
-        fd.xPos = randomGen.nextFloat()* 1000;
-        fd.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
+        fd.xPos = 200 + randomGen.nextFloat() * 600;
+        fd.yPos = (float)i + DEPOT_FUZZ - DEPOT_FUZZ * 2 * randomGen.nextFloat();
       } while(checkCollision(fd, World.C_EVERYTHING));
       fuelDepots.add(fd);
     }
