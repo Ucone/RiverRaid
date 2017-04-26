@@ -18,7 +18,7 @@ class Jet extends Element{
   
    Jet(){
      super("./images/sprites/jet.png", 80, 80);
-     imageCrashed = getImage("./images/sprites/crash.png", w(80), w(80));
+     
      yPos = 600;
      xPos = 500;
      fuel = INITIAL_FUEL;
@@ -27,7 +27,6 @@ class Jet extends Element{
    
    Jet(int jetB){
      super("./images/sprites/jet_2.png", 80, 80);
-     imageCrashed = getImage("./images/sprites/crash.png", w(80), w(80));
      yPos = 800;
      xPos = 300;
      fuel = INITIAL_FUEL;
@@ -35,10 +34,12 @@ class Jet extends Element{
    }
    
    public void draw(float yMaster){
-     if(!crashed)
-       image(this.image, x(xPos), y(yPos - yMaster));
-     else
-       image(this.imageCrashed, x(xPos), y(yPos - yMaster));
+      PImage dimage;
+      if(animation != null)
+        dimage = animation.image();
+      else
+        dimage = image;
+      image(dimage, x(xPos), y(yPos - yMaster));
    }
    
    public void moveLeft(){
@@ -56,14 +57,19 @@ class Jet extends Element{
      if(this.fuel > 0)
       this.fuel = (this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
      else{
-        this.crashed = true;
-        this.resetLives();
-        jet.removeReserveJet();
-        //sound effect
-        sound.playCrashSound();
-
-        timeResetWorld=millis();
+        crash();
      }
+  }
+  
+  public void crash() {
+    this.crashed = true;
+    this.resetLives();
+    jet.removeReserveJet();
+    //sound effect
+    sound.playCrashSound();
+    this.animation = new Animation("jet/crashing", w(80), w(80), 25, true);
+    
+    timeResetWorld=millis(); 
   }
   
   /*** REFUEL ***/
@@ -93,13 +99,7 @@ class Jet extends Element{
    /* COLLISION  */
    public void checkCollision(){
     if(world.checkCollision(this, World.C_OBSTACLES)){
-        this.crashed = true;
-        jet.removeReserveJet();
-        this.resetLives();
-        //sound effect
-        sound.playCrashSound();
-
-        timeResetWorld=millis();
+       crash();
     }
   }
   
@@ -129,7 +129,6 @@ class Jet extends Element{
     if(animation != null)
     { 
       animation.update(nD);
-      image = animation.image();
     }
   }
   
@@ -176,16 +175,23 @@ class Jet extends Element{
   }
   
   public void removeLive(){
+    if(crashed)
+      return;
     lives--;
 
     if(lives > 0){    
       if(type == 0)
       {
-        this.animation = new Animation("jet/damaged"+lives+"/", w(80), w(80), 50, false);
+        this.animation = new Animation("jet/damaged"+lives+"/", w(80), w(80), 25, false);
       }
       else
         this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), w(80));
     }
+  }
+  
+  public void resurrect(){
+     animation = null;
+     crashed = false;
   }
   
   public void resetLives(){

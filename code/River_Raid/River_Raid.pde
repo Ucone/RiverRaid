@@ -425,13 +425,7 @@ void draw() {
             jet.removeLive();
             iter.remove();
             if(jet.getLives() == 0){
-              jet.crashed = true;
-              jet.removeReserveJet();
-              jet.resetLives();
-              //sound effect
-              sound.playCrashSound();
-
-              timeResetWorld=millis();
+              jet.crash();
             }
           } 
         }
@@ -648,14 +642,14 @@ void draw() {
   }    
  
   public void resetWorld(){  
-    if(millis()- timeResetWorld >= 2000){ 
+    if(millis()- timeResetWorld >= 3000){ 
       
       world.generateSection(player.section);    
       world.resetBackground();    
       yMaster = 0;
-      jet.crashed = false;    
+      jet.resurrect(); 
       jet.fuel = INITIAL_FUEL;   
-      jet2.crashed = false; 
+      jet2.resurrect();
       jet2.fuel = INITIAL_FUEL; 
       timeResetWorld = millis();
     }

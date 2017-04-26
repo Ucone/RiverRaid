@@ -31,8 +31,10 @@ class Animation {
     if(time > frames.size() * tpf)
     {
       time %= frames.size() * tpf;
-      if(oneshot)
+      if(oneshot) {
         finished = true;
+        time = (frames.size() - 1) * tpf;
+      }
     }
   }
 }
