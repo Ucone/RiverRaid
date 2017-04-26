@@ -297,6 +297,7 @@ void draw() {
       //Map movement
       background(#eeeeee);
       world.update(nD);
+      
       yMaster -= gameSpeed * nD;
         
       if(((jet.crashed == true) && !twoPlayers) || (jet.crashed == true && jet2.crashed == true)){  
@@ -771,7 +772,7 @@ public void Start() {
   story = new Story();   
        
   jet = new Jet();   
-  jet2 = new Jet(2); 
+  jet2 = new StealthJet(); 
 
       
   if (twoPlayers){ 

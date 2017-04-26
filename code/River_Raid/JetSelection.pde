@@ -25,11 +25,11 @@ class JetSelection{
   }
   
   void mouseHandler(){
-    if(mouseX > xFirst && mouseX < xFirst + boxWidth
-      && mouseY > yFirst && mouseY < yFirst + boxHeight){
+    if(mouseX > x(xFirst) && mouseX < x(xFirst) + w(boxWidth)
+      && mouseY > y(yFirst) && mouseY < y(yFirst) + h(boxHeight)){
       this.selected = 0;
-    }else if(mouseX > xSecond && mouseX < xSecond + boxWidth
-      && mouseY > ySecond && mouseY < ySecond + boxHeight){
+    }else if(mouseX > x(xSecond) && mouseX < x(xSecond) + h(boxWidth)
+      && mouseY > y(ySecond) && mouseY < y(ySecond) + h(boxHeight)){
       this.selected = 1;
     }
     
@@ -66,14 +66,17 @@ class JetSelection{
     image(secondJet, x(xSecond), y(ySecond));
     text("SPEED: Medium", x(xSecond), y(ySecond + 250));
     text("SHOOTING RATE: Medium", x(xSecond), y(ySecond + 270));
-    text("You can fly with lower speed... \nbut what about shooting?", x(xSecond), y(ySecond + 300g));
+    text("You can fly with lower speed... \nbut what about shooting?", x(xSecond), y(ySecond + 300));
     
     fill(0);
     textAlign(CENTER);
   }
   
   void saveSelection(){
-    jet.updateSelected(selected);
+    if(selected == 0)
+      jet = new Jet();
+    else
+      jet = new StealthJet();
   }
   
   void selectLeft(){

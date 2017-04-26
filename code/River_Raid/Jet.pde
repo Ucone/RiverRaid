@@ -1,37 +1,32 @@
 class Jet extends Element{
   
   PImage imageCrashed;
-  private float fuel;
-  private boolean crashed = false;
+  float fuel;
+  boolean crashed = false;
 
-  private int reserveJets = 3;
-  private int lastFired = 0;
+   int reserveJets = 3;
+  int lastFired = 0;
   protected float FIRE_DELAY = 40.0;
   public float fireCooldown = 0;
   public boolean firingMode = false;
   public boolean refueling = false;
-  public int type;
+  String jet_name;
   Animation animation;
   
   private int lives = 3;
   int DEFAULT_LIVES = 3;
   
    Jet(){
-     super("./images/sprites/jet.png", 80, 80);
+     super("./images/sprites/jet.png", 80, 120);
+     jet_name = "jet";
+     FIRE_DELAY = 40.0;
+     DEFAULT_SPEED = 3;
      
      yPos = 600;
      xPos = 500;
      fuel = INITIAL_FUEL;
-     type = 0;
    }
    
-   Jet(int jetB){
-     super("./images/sprites/jet_2.png", 80, 80);
-     yPos = 800;
-     xPos = 300;
-     fuel = INITIAL_FUEL;
-     type = 1;
-   }
    
    public void draw(float yMaster){
       PImage dimage;
@@ -67,7 +62,7 @@ class Jet extends Element{
     jet.removeReserveJet();
     //sound effect
     sound.playCrashSound();
-    this.animation = new Animation("jet/crashing", w(80), w(80), 25, true);
+    this.animation = new Animation(jet_name + "/crashing", w(80), w(80), 25, true);
     
     timeResetWorld=millis(); 
   }
@@ -157,19 +152,6 @@ class Jet extends Element{
      
   }
   
-  public void updateSelected(int selected){
-    type = selected;
-    if(selected == 0){
-      jet.image = getImage("./images/sprites/jet.png", w(80), w(80));
-      FIRE_DELAY = 40.0;
-      DEFAULT_SPEED = 3;
-    }else{
-      jet.image = getImage("./images/sprites/jet_2.png", w(80), w(80));
-      FIRE_DELAY = 80.0;
-      DEFAULT_SPEED = 2.5;
-    }
-  }
-  
   public int getLives(){
     return lives;
   }
@@ -180,12 +162,8 @@ class Jet extends Element{
     lives--;
 
     if(lives > 0){    
-      if(type == 0)
-      {
-        this.animation = new Animation("jet/damaged"+lives+"/", w(80), w(80), 25, false);
-      }
-      else
-        this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), w(80));
+      print(jet_name + "/damaged"+lives);
+      this.animation = new Animation(jet_name + "/damaged"+lives, w(80), w(80), 25, false);
     }
   }
   
@@ -197,9 +175,6 @@ class Jet extends Element{
   public void resetLives(){
     this.lives = DEFAULT_LIVES;
     animation = null;
-    if(this.type == 0)
-      this.image = getImage("./images/sprites/jet.png", w(80), w(80));
-    else
-      this.image = getImage("./images/sprites/jet_2.png", w(80), w(80));
+      this.image = getImage("./images/sprites/"+jet_name+".png", w(80), w(80));
   }
 }
