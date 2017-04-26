@@ -17,8 +17,8 @@ class Jet extends Element{
   int DEFAULT_LIVES = 3;
   
    Jet(){
-     super("./images/sprites/jet.png", 80, 130);
-     imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
+     super("./images/sprites/jet.png", 80, 80);
+     imageCrashed = getImage("./images/sprites/crash.png", w(80), w(80));
      yPos = 600;
      xPos = 500;
      fuel = INITIAL_FUEL;
@@ -26,8 +26,8 @@ class Jet extends Element{
    }
    
    Jet(int jetB){
-     super("./images/sprites/jet_2.png", 80, 130);
-     imageCrashed = getImage("./images/sprites/crash.png", 80, 130);
+     super("./images/sprites/jet_2.png", 80, 80);
+     imageCrashed = getImage("./images/sprites/crash.png", w(80), w(80));
      yPos = 800;
      xPos = 300;
      fuel = INITIAL_FUEL;
@@ -161,11 +161,11 @@ class Jet extends Element{
   public void updateSelected(int selected){
     type = selected;
     if(selected == 0){
-      //jet.image = getImage("./images/sprites/jet.png", 80, 130);
+      jet.image = getImage("./images/sprites/jet.png", 80, 80);
       FIRE_DELAY = 40.0;
       DEFAULT_SPEED = 3;
     }else{
-      jet.image = getImage("./images/sprites/jet_2.png", 90, 80);
+      jet.image = getImage("./images/sprites/jet_2.png", 80, 80);
       FIRE_DELAY = 80.0;
       DEFAULT_SPEED = 2.5;
     }
@@ -184,7 +184,7 @@ class Jet extends Element{
         this.animation = new Animation("jet/damaged"+lives+"/", w(80), w(80), 50, false);
       }
       else
-        this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), h(130));
+        this.image = getImage("./images/sprites/jet_2Damaged"+lives+".png", w(80), w(80));
     }
   }
   
@@ -192,8 +192,8 @@ class Jet extends Element{
     this.lives = DEFAULT_LIVES;
     animation = null;
     if(this.type == 0)
-      this.image = getImage("./images/sprites/jet.png", w(80), h(130));
+      this.image = getImage("./images/sprites/jet.png", w(80), w(80));
     else
-      this.image = getImage("./images/sprites/jet_2.png", w(80), h(130));
+      this.image = getImage("./images/sprites/jet_2.png", w(80), w(80));
   }
 }
