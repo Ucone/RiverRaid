@@ -540,21 +540,21 @@ void draw() {
       if(twoPlayers){
         xText = 300;   
         fill(237,28,36);    
-        text("D: move to right", x(xText + 150), y(800));
-        text("A: move to left", x(xText - 60), y(800));
-        text("Q: shoot", x(xText + 40), y(500));
-        text("W: speed up", x(xText + 40), y(700));
-        text("S: slow down", x(xText + 40), y(970));
+        text("D: move to right", x(xText + 150), y(790));
+        text("A: move to left", x(xText - 60), y(790));
+        text("Q: shoot", x(xText + 40), y(490));
+        text("W: speed up", x(xText + 40), y(690));
+        text("S: slow down", x(xText + 40), y(960));
         xText = 650;
       }
       
       textSize(h(25));
       fill(0);
-      text("→: move to right", x(xText + 150), y(800));
-      text("←: move to left", x(xText - 60), y(800));
-      text("SPACE BAR: shoot", x(xText + 30), y(500));
-      text("↑: speed up", x(xText + 30), y(700));
-      text("↓: slow down", x(xText + 40), y(850));
+      text("→: move to right", x(xText + 150), y(790));
+      text("←: move to left", x(xText - 80), y(790));
+      text("SPACE BAR: shoot", x(xText + 30), y(790));
+      text("↑: speed up", x(xText + 30), y(690));
+      text("↓: slow down", x(xText + 40), y(840));
       
     }
     depotTutorial.draw(yMaster);
@@ -564,7 +564,7 @@ void draw() {
         //depotTutorial.draw(y(200));
         text("This is a fuel depot", x(500), y(600));
         text("BE CAREFUL, you can damage it with your rockets", x(500), y(700));
-        text("Check here the\nfuel level ↓", x(10), y(750));
+        text("Check here the\nfuel level ↓", x(70), y(750));
     }
             
     if(yMaster<=150){
@@ -666,10 +666,10 @@ void draw() {
       
     fill(0, 255, 0);  
     //Score value
-    text(player.getScore(), x(250), y(980));
+    text(player.getScore(), x(250), y(970));
     
     // Reserve jets indicator
-    text(jet.getReserveJets(), x(380), y(985));
+    text(jet.getReserveJets(), x(380), y(975));
     
     drawFuel(jet, 1);
     
@@ -679,16 +679,16 @@ void draw() {
 
   void drawProgress(){
     float aux = 450 + (150*(-yMaster))/world.SECTION_SIZE; 
-    image(progressCursor, x(aux), y(930));
-    image(progressBridge, x(600), y(930));
+    image(progressCursor, x(aux), y(920));
+    image(progressBridge, x(600), y(920));
   }
 
   void drawMusicIcon(){
     if(isMusicOn == true){
-      image(musicOn, x(885), y(920));
+      image(musicOn, x(885), y(910));
     }
     else{
-      image(musicOff, x(885), y(920));
+      image(musicOff, x(885), y(910));
     }
   } 
   
@@ -706,14 +706,15 @@ void draw() {
 
       //Fuel consumption
       fill(#00ff4e);
-      int xDepot = 10; 
-      int yDepot = 930; 
+      stroke(#00ff4e);
+      int xDepot = 5; 
+      int yDepot = 900; 
       
       if (player == 2){        
          xDepot = 60;    
       }    
       if(jet.getFuel() > 0){
-        rect( x(xDepot), y(yDepot), w((jet.getFuel() * 170)/INITIAL_FUEL), h(40));
+        rect( x(xDepot), y(yDepot), w((jet.getFuel() * 180)/INITIAL_FUEL), h(60));
       }
       
       //Fuel actions
