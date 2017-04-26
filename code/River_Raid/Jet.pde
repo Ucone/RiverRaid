@@ -161,11 +161,11 @@ class Jet extends Element{
   public void updateSelected(int selected){
     type = selected;
     if(selected == 0){
-      jet.image = getImage("./images/sprites/jet.png", 80, 80);
+      jet.image = getImage("./images/sprites/jet.png", w(80), w(80));
       FIRE_DELAY = 40.0;
       DEFAULT_SPEED = 3;
     }else{
-      jet.image = getImage("./images/sprites/jet_2.png", 80, 80);
+      jet.image = getImage("./images/sprites/jet_2.png", w(80), w(80));
       FIRE_DELAY = 80.0;
       DEFAULT_SPEED = 2.5;
     }
