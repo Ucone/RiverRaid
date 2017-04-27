@@ -1,7 +1,7 @@
 class Animation {
   float time = 0.0;
   ArrayList<PImage> frames;
-  boolean finished;
+  public boolean finished;
   boolean oneshot;
   float tpf;
   
