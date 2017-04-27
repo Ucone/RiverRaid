@@ -5,30 +5,58 @@ public class Enemy extends Element{
     public float lateralSpeed;
     public String kind;
     boolean fired = false;
+    public EnemyState state = EnemyState.ACTIVE;
+    Animation deathAnimation;
     
     public Enemy(String s, float w, float h) {
       super(s, w, h); 
     }
     
     public void update(float nD){
-      if(this.direction)
-        xPos += lateralSpeed * nD;
-      else
-        xPos -= lateralSpeed * nD;
-      if(world.checkCollision(this, World.C_EVERYTHING)) {
-        this.direction = !this.direction;
+      switch(state) {
+      case ACTIVE:
         if(this.direction)
           xPos += lateralSpeed * nD;
         else
           xPos -= lateralSpeed * nD;
+        if(world.checkCollision(this, World.C_EVERYTHING)) {
+          this.direction = !this.direction;
+          if(this.direction)
+            xPos += lateralSpeed * nD;
+          else
+            xPos -= lateralSpeed * nD;
+        }
+        
+        if(this.yPos < jet.yPos && this.yPos > jet.yPos - 700  && !fired)
+          if( new Random().nextDouble() <= 0.6 ){
+              this.fire();
+              fired = true;
+          }
+      break;
+      case CRASHING:
+        deathAnimation.update(nD);
+        if(deathAnimation.finished) {
+          state = EnemyState.CRASHED; 
+        }
+      break;
+      case CRASHED:
+      break;
       }
       
-      if(this.yPos < jet.yPos && this.yPos > jet.yPos - 700  && !fired)
-        if( new Random().nextDouble() <= 0.6 ){
-            this.fire();
-            fired = true;
-        }
     }
+    
+     public void draw(float yMaster) {
+       switch(state) {
+       case ACTIVE:
+         image(image, x(xPos), y(yPos - yMaster));
+       break;
+       case CRASHING:
+         image(deathAnimation.image(), x(xPos), y(yPos - yMaster));
+       break;
+       case CRASHED:
+       }
+     };
+    
     
     public boolean fire() {
      Rocket rocket = new Rocket(true);
@@ -46,11 +74,18 @@ public class Enemy extends Element{
     public Decoration getDebris() {
       return null;
     }
+    
+    public void crash() {
+      if(state == EnemyState.ACTIVE) {
+        state = EnemyState.CRASHING;
+        deathAnimation = new Animation(kind + "/crashing", w(this.width), h(this.height), 25, true);
+      }
+    }
 }
     class Tanker extends Enemy {
       public Tanker(int section){
         super("./images/sprites/enemy_tanker.png", 50, 200);
-        this.kind = "Tank";
+        this.kind = "tanker";
         this.lateralSpeed = section;
         this.score = 200;
       }
@@ -58,7 +93,7 @@ public class Enemy extends Element{
     class Helicopter extends Enemy {
       public Helicopter(int section){
         super("./images/sprites/enemy_chopper.png", 50, 100);
-        this.kind = "Helicopter";
+        this.kind = "enemy_chopper";
         this.lateralSpeed = 1 + section;
         this.score = 200;
       }
@@ -67,7 +102,7 @@ public class Enemy extends Element{
     class EnemyJet extends Enemy {
       public EnemyJet(int section){
         super("./images/sprites/enemy_jet.png", 50, 100);
-        this.kind = "EnemyJet";
+        this.kind = "enemy_jet";
         this.lateralSpeed = 2 + section;
         this.score = 200;
     }

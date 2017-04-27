@@ -9,6 +9,7 @@ boolean testing = false;
 
 public enum GameState {WELCOME, JET_SELECTION, STORY, GAME, END, CREDITS};  // Different states of the game
 public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
+public enum EnemyState {ACTIVE, CRASHING, CRASHED}
 
 // Input fields and text
 ControlP5 cp5, cpSelection;
@@ -445,7 +446,7 @@ void draw() {
           while(ie.hasNext()) {
             Enemy en = ie.next();
             if (en.collide(rocket)) {
-
+              en.crash();
               //sound effect
               sound.playDefeatSound();
               if(en.kind == "Tank"){
@@ -458,7 +459,6 @@ void draw() {
                  player.enemyJetsDestroyed ++;
               }
               
-              ie.remove();
               i.remove();
               Decoration dec = en.getDebris();
               if(dec != null) {
@@ -500,7 +500,16 @@ void draw() {
                 }  
           }   
       }         
-            
+      
+      // Garbage-collect crashed enemies
+      Iterator<Enemy> ie = world.enemies.iterator();
+      while(ie.hasNext()) {
+        Enemy en = ie.next();
+        if(en.state == EnemyState.CRASHED)
+          ie.remove();
+      }
+          
+     
      if(gamePaused){ 
        fill(255, 0, 0); 
        text("Paused!", x(500), y(400)); 
