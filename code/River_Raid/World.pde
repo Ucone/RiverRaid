@@ -137,8 +137,10 @@ public class World {
         if(el.collide(th)) return true;
       };
     if((cflag & C_ENEMIES) != 0)
-      for (Element th : enemies) {
-        if(th == el) continue;
+      for (Enemy th : enemies) {
+        if((Element)th == el) continue;
+        // Crashed enemies no longer collide
+        if(th.state != EnemyState.ACTIVE) continue;
         if(el.collide(th)) return true;
       };
     return false;

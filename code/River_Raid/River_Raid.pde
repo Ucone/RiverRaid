@@ -445,7 +445,7 @@ void draw() {
           Iterator<Enemy> ie = world.enemies.iterator();
           while(ie.hasNext()) {
             Enemy en = ie.next();
-            if (en.collide(rocket)) {
+            if (en.state == EnemyState.ACTIVE && en.collide(rocket)) {
               en.crash();
               //sound effect
               sound.playDefeatSound();
