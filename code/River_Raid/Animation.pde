@@ -15,12 +15,18 @@ class Animation {
       frameId++;
     }
     
+    if(frameId == 0)
+      print("loaded animation ",name," with no frames\n");
     this.oneshot = oneshot;
     this.finished = false;
     this.tpf = tpf;
   }
   
   public PImage image() {
+    if(frames.size()-1 < (int)(time / tpf))
+    {
+      return getImage("./images/interface/error.png", w(50), w(50));
+    }
     return frames.get((int)(time / tpf));
   }
   
