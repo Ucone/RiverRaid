@@ -591,6 +591,8 @@ void draw() {
         text("This is a fuel depot", x(500), y(500));
         text("BE CAREFUL, you can damage it with your rockets", x(500), y(550));
         text("Check here the\nfuel level ↓", x(70), y(720));
+        if(twoPlayers)
+          text("← PLAYER 2 \nfuel level", x(100), y(500));
     }
             
     if(yMaster<=150){
@@ -599,7 +601,8 @@ void draw() {
       textAlign(LEFT);
       text("Check here the\nfuel level ↓", x(70), y(720));
       textAlign(CENTER);
-      
+      if(twoPlayers)
+        text("← PLAYER 2 \nfuel level", x(70), y(500));
     }  
       
       
@@ -730,15 +733,13 @@ void draw() {
   //***** FUEL IMPLEMENTATION *****
   void drawFuel(Jet jet, int player){
 
+      if(player == 1){
       //Fuel consumption
       fill(#00ff4e);
       stroke(#00ff4e);
       int xDepot = 5; 
       int yDepot = 900; 
-      
-      if (player == 2){        
-         xDepot = 60;    
-      }    
+         
       if(jet.getFuel() > 0){
         rect( x(xDepot), y(yDepot), w((jet.getFuel() * 180)/INITIAL_FUEL), h(60));
       }
@@ -748,6 +749,14 @@ void draw() {
             fill(255, 0, 0, 80);
             rect(x(0), y(0), w(1000), h(1000));
       }
+      
+      }else{
+        if(jet.getFuel() > 0){
+          rect( x(20), y(200) + fuelGauge.height - w(20) , w(25), -(jet.getFuel() * 180)/INITIAL_FUEL);
+        }
+        image(fuelGauge, x(12), y(200));
+         //xDepot = 60;    
+      } 
   }
 
 
