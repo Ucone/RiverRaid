@@ -602,7 +602,7 @@ void draw() {
       text("Check here the\nfuel level ↓", x(70), y(720));
       textAlign(CENTER);
       if(twoPlayers)
-        text("← PLAYER 2 \nfuel level", x(70), y(500));
+        text("← PLAYER 2 \nfuel level", x(100), y(500));
     }  
       
       
