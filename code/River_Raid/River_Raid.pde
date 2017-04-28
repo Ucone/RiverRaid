@@ -111,6 +111,15 @@ void checkTesting(){
     //cp5.remove("Start");
     cp5.setVisible(false);
     player = new Player("tester player");
+    
+  //sound player
+  minim = new Minim(this);
+  sound = new Sound();
+
+  //background music
+  music = new Sound();
+  isMusicOn = false;
+  music.toggleMusic();
     gameState = GameState.GAME;
   }
 }
@@ -118,8 +127,8 @@ void checkTesting(){
 
 
 void setup() {
-  fullScreen(P2D);
-  //size(1200,600,P2D);
+  //fullScreen(P2D);
+  size(1200,600,P2D);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -338,7 +347,7 @@ void draw() {
       jet.draw(yMaster);
       
       if(twoPlayers){
-         jet2.yPos = yMaster + 800;
+         jet2.yPos = yMaster + 700;
          jet2.update(nD);
          jet2.draw(yMaster);
       }
@@ -546,17 +555,17 @@ void draw() {
         fill(237,28,36);    
         text("D: move to right", x(xText + 150), y(790));
         text("A: move to left", x(xText - 60), y(790));
-        text("Q: shoot", x(xText + 40), y(490));
+        text("Q: shoot", x(xText + 40), y(600));
         text("W: speed up", x(xText + 40), y(690));
-        text("S: slow down", x(xText + 40), y(960));
+        text("S: slow down", x(xText + 40), y(850));
         xText = 650;
       }
       
       textSize(h(25));
       fill(0);
-      text("→: move to right", x(xText + 150), y(790));
-      text("←: move to left", x(xText - 80), y(790));
-      text("SPACE BAR: shoot", x(xText + 30), y(790));
+      text("→: move to right", x(xText + 170), y(750));
+      text("←: move to left", x(xText - 100), y(740));
+      text("SPACE BAR: shoot", x(xText + 30), y(600));
       text("↑: speed up", x(xText + 30), y(690));
       text("↓: slow down", x(xText + 40), y(840));
       
@@ -566,9 +575,9 @@ void draw() {
     if(yMaster <= 500 && yMaster > 150){ 
         //depotTutorial.yPos = 700;
         //depotTutorial.draw(y(200));
-        text("This is a fuel depot", x(500), y(600));
-        text("BE CAREFUL, you can damage it with your rockets", x(500), y(700));
-        text("Check here the\nfuel level ↓", x(70), y(750));
+        text("This is a fuel depot", x(500), y(500));
+        text("BE CAREFUL, you can damage it with your rockets", x(500), y(550));
+        text("Check here the\nfuel level ↓", x(70), y(720));
     }
             
     if(yMaster<=150){
@@ -583,7 +592,7 @@ void draw() {
       
     if(yMaster <= -400){
       tutorial= false;
-      println("fin tutorial"); 
+      println("End tutorial"); 
        
     }   
   }  
@@ -786,6 +795,7 @@ public void Start() {
       
   if (twoPlayers){ 
     jet.xPos = 650;  
+    jet2.xPos = 300;
   } 
   
   String playerName = "";    
