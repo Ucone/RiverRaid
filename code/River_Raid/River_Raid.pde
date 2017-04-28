@@ -618,11 +618,13 @@ void draw() {
 //CREDITS METHOD  
   public void credits(){   
      
+        
+    
          tint(255, 80);  
          image(startImg, x(0), y(0));     
              
          tint(255);
-         jet.crashed = false;     
+         jet.resurrect();
          yMaster -= 2 * nD;     
          
          //background(0, 162, 232); 
