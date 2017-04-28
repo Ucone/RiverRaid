@@ -437,8 +437,17 @@ void draw() {
             iter.remove();
             if(jet.getLives() == 0){
               jet.crash();
+            }            
+          }else{
+            //It need to be like this to avoid two jet crash with the same rocket [error]
+            if(jet2.collide(rocket)){
+              jet2.removeLive();
+              iter.remove();
+              if(jet2.getLives() == 0){
+                jet2.crash();
+              }
             }
-          } 
+          }
         }
         rocket.draw(yMaster);
       }
@@ -523,6 +532,10 @@ void draw() {
        fill(255, 0, 0); 
        text("Paused!", x(500), y(400)); 
      } 
+     
+     if (twoPlayers){
+       
+     }
             
       break;      
       case END:    
@@ -584,7 +597,7 @@ void draw() {
       gameSpeed = DEFAULT_SPEED;
       text("Go slowly through it to charge more fuel", x(500),  y(600));
       textAlign(LEFT);
-      text("Check here the\nfuel level ↓", x(10), y(750));
+      text("Check here the\nfuel level ↓", x(70), y(720));
       textAlign(CENTER);
       
     }  
