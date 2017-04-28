@@ -42,7 +42,7 @@ public class Story {
     case STORY_4D:
          image(getImage("./images/story/STORY_4.png", w(1000), h(1000)), x(0), y(0));
          fill(255, 255, 255);
-         text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid AAA.", x(600), y(400));
+         text("G: Not so fast, hotshot.\nEnemy will protect the assets\n with their local numerous forces,\nand also you'll need to fly low to avoid\nAnti Aircraft Artillery.", x(600), y(400));
       break;
     case STORY_4E:
          image(getImage("./images/story/STORY_4.png", w(1000), h(1000)), x(0), y(0));
