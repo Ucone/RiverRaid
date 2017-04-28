@@ -25,11 +25,11 @@ ArrayList<Player> players = new ArrayList<Player>();
     enemyJet.resize(w(20),h(0));
     
     //Add some players to the list by Default
-    players.add(new Player("Tom", 1200));
-    players.add(new Player("Iaros", 200));
-    players.add(new Player("Likai", 800));
-    players.add(new Player("viti", 600));
-    players.add(new Player("Uko", 1200));
+    //players.add(new Player("Tom", 1200));
+    //players.add(new Player("Iaros", 200));
+    //players.add(new Player("Likai", 800));
+    //players.add(new Player("viti", 600));
+    //players.add(new Player("Uko", 1200));
     
   }
 
@@ -46,7 +46,7 @@ ArrayList<Player> players = new ArrayList<Player>();
     float x = 165;
     textSize(h(40));
     
-    for (int i=0; i< 5 ; i++){ //just show the first 5 players
+    for (int i=0; (i< players.size() && i < 5) ; i++){ //just show the first 5 players
        
       fill(0);
       
