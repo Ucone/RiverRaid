@@ -457,6 +457,10 @@ void draw() {
         }
         rocket.draw(yMaster);
       }
+      //***************************************************++
+      
+      
+    // ^***************
       
       
       Iterator<Rocket> i = rockets.iterator();
@@ -522,8 +526,21 @@ void draw() {
                        ifd.remove();  
                     } 
                 }  
-          }   
-      }         
+          }  
+          
+      //Jet rockets interaction with other rockets
+      Iterator<Rocket> enemyRocketRock = enemyRockets.iterator();
+      while(enemyRocketRock.hasNext()) {
+                Rocket rk =enemyRocketRock.next();
+                if (rk.collide(rocket)) {
+                    enemyRocketRock.remove();
+                    sound.playDefeatSound();
+                    i.remove();  
+                }  
+          } 
+      }
+      
+    
       
       // Garbage-collect crashed enemies
       Iterator<Enemy> ie = world.enemies.iterator();
@@ -676,7 +693,9 @@ void draw() {
               }       
               rocket.draw(yMaster);  
             }
-          }      
+          } 
+            
+          
   }    
  
   public void resetWorld(){  
