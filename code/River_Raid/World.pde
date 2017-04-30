@@ -120,7 +120,8 @@ public class World {
         il.xPos = randomGen.nextFloat()* 1000;
         il.yPos = i + randomGen.nextFloat() * (sectionSize / islandCount) * 2 - sectionSize / islandCount;
       } while(checkCollision(il, World.C_EVERYTHING) || il.yPos > -100 || il.yPos < - sectionSize);
-      islands.add(il);
+      if(il.yPos > blocks.get(blocks.size()-3).yPos)
+        islands.add(il);
     }
     print("Generated islands, "+ (attempts - 1) + " failed attempts\n");
     
