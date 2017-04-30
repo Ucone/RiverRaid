@@ -895,6 +895,11 @@ public void Replay() {
     yMaster = 0;       
     cpEnd.setVisible(false);    
     errorBoolean = true;
+    player.section = 1;
+    palyer.score = 0;
+    world.resetSeed();
+    world.generateSection(player.section);
+    world.resetBackground();
     gameState = GameState.WELCOME;
 }
 
