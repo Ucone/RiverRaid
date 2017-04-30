@@ -254,8 +254,8 @@ void setup() {
   isMusicOn = true;
   music.toggleMusic();
   
-  if(!testing)
-     music.toggleMusic();
+  //if(!testing)
+  //   music.toggleMusic();
   
   depotTutorial = new FuelDepot();  
   depotTutorial.yPos = 400;  
@@ -298,6 +298,7 @@ void draw() {
       jetSelection.draw();
       cpSelection.setVisible(true);
       jetSelection.saveSelection();
+      errorBoolean = false;
       break;
     case STORY:
       story.draw();   
@@ -457,10 +458,7 @@ void draw() {
         }
         rocket.draw(yMaster);
       }
-      //***************************************************++
-      
-      
-    // ^***************
+
       
       
       Iterator<Rocket> i = rockets.iterator();
@@ -836,9 +834,10 @@ void controlEvent(ControlEvent theEvent) {
     if(cp5.get(Textfield.class, "name_input").isFocus()){ 
       println("Start....");    
       Start();    
+      this.theEvent=theEvent;
     }
   }
-  this.theEvent=theEvent;
+
 }
 
 //PRESS START BUTTON ON THE WELCOME SCREEN   
@@ -894,8 +893,9 @@ public void End() {
 public void Replay() {   
     yMaster = 0;       
     cpEnd.setVisible(false);    
-    errorBoolean = true;
+    
     gameState = GameState.WELCOME;
+    errorBoolean = true;
 }
 
 public void Continue(){
