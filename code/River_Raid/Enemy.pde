@@ -87,13 +87,9 @@ public class Enemy extends Element{
       public Tanker(int section){
         super("./images/sprites/enemy_tanker.png", 50, 200);
         this.kind = "tanker";
-<<<<<<< HEAD
         this.lateralSpeed = section;
         if (this.lateralSpeed > 7)
           this.lateralSpeed = 7;
-=======
-        this.lateralSpeed = section > 5 ? 5 : section;
->>>>>>> 98cc9357ca0a4cdfe6c8894546ac5c9c04758ef4
         this.score = 200;
       }
     }
@@ -101,13 +97,9 @@ public class Enemy extends Element{
       public Helicopter(int section){
         super("./images/sprites/enemy_chopper.png", 50, 100);
         this.kind = "enemy_chopper";
-<<<<<<< HEAD
-        this.lateralSpeed =  section;
+        this.lateralSpeed =  1.2 * section;
         if (this.lateralSpeed > 7)
-          this.lateralSpeed = 7;
-=======
-        this.lateralSpeed = section > 5 ? 6 : section;
->>>>>>> 98cc9357ca0a4cdfe6c8894546ac5c9c04758ef4
+          this.lateralSpeed = 1.2 * 7;
         this.score = 200;
       }
     }
@@ -116,13 +108,9 @@ public class Enemy extends Element{
       public EnemyJet(int section){
         super("./images/sprites/enemy_jet.png", 50, 100);
         this.kind = "enemy_jet";
-<<<<<<< HEAD
-        this.lateralSpeed =  1.3* section;
+        this.lateralSpeed =  1.4 * section;
         if (this.lateralSpeed > 7)
-          this.lateralSpeed = 7;
-=======
-        this.lateralSpeed = section > 5 ? 7 : section;
->>>>>>> 98cc9357ca0a4cdfe6c8894546ac5c9c04758ef4
+          this.lateralSpeed = 1.4 *7;
         this.score = 200;
     }
     }
