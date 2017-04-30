@@ -111,14 +111,14 @@ public class World {
     
     //Island creation
     attempts = 0;
-    for(int i = 0; i < islandCount; i++)
+    for(int i = 0; i > -sectionSize; i -= sectionSize / islandCount)
     {
       Island il;
       do {
         attempts++;
         il = new Island();
         il.xPos = randomGen.nextFloat()* 1000;
-        il.yPos = -randomGen.nextFloat()*(sectionSize - 1000);
+        il.yPos = i + randomGen.nextFloat() * (sectionSize / islandCount) * 2 - sectionSize / islandCount;
       } while(checkCollision(il, World.C_EVERYTHING) || il.yPos > -100);
       islands.add(il);
     }
