@@ -10,8 +10,8 @@ public class World {
   public int ENEMY_COUNT = 3;
   public int DEPOT_SPACING = 1500;
   public int DEPOT_FUZZ = 300;
-  public int ISLAND_COUNT = 2;
-  public float SECTION_SIZE = 1000;
+  public int ISLAND_COUNT = 3;
+  public float SECTION_SIZE = 2000;
   public float sectionSize;
   public float islandCount;
   public float enemyCount;
@@ -33,10 +33,7 @@ public class World {
   }
   
   public void resetSeed() {
-      //Dificulty actualization
-      
       seed = (long)random(90e9); 
-
   }
   
   public void resetBackground() {
