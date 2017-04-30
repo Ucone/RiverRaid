@@ -11,7 +11,7 @@ public class World {
   public int DEPOT_SPACING = 1000;
   public int DEPOT_FUZZ = 300;
   public int ISLAND_COUNT = 3;
-  public float SECTION_SIZE = 2000;
+  public float SECTION_SIZE = 1000;
   public float sectionSize;
   public float islandCount;
   public float enemyCount;
@@ -50,7 +50,7 @@ public class World {
     islands = new ArrayList<Island>();
     decorations = new ArrayList<Decoration>();
     
-    sectionSize = section * SECTION_SIZE;
+    sectionSize = 2000 + (section - 1) * SECTION_SIZE;
     islandCount = section * ISLAND_COUNT;
     enemyCount = section * ENEMY_COUNT;
     
