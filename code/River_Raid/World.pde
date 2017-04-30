@@ -104,7 +104,7 @@ public class World {
         fd = new FuelDepot();
         fd.xPos = 200 + randomGen.nextFloat() * 600;
         fd.yPos = (float)i + DEPOT_FUZZ - DEPOT_FUZZ * 2 * randomGen.nextFloat();
-      } while(checkCollision(fd, World.C_EVERYTHING));
+      } while(checkCollision(fd, World.C_EVERYTHING) || fd.yPos > -100);
       fuelDepots.add(fd);
     }
     print("Generated fuel depots, "+ (attempts - 1) + " failed attempts\n");
@@ -119,7 +119,7 @@ public class World {
         il = new Island();
         il.xPos = randomGen.nextFloat()* 1000;
         il.yPos = -randomGen.nextFloat()*(sectionSize - 1000);
-      } while(checkCollision(il, World.C_EVERYTHING));
+      } while(checkCollision(il, World.C_EVERYTHING) || il.yPos > -100);
       islands.add(il);
     }
     print("Generated islands, "+ (attempts - 1) + " failed attempts\n");
