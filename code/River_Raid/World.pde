@@ -30,6 +30,7 @@ public class World {
   }
   
   public void resetSeed() {
+      //Dificulty actualization
       sectionSize += 1000;
       islandCount +=2;
       enemy_count += 3;
@@ -42,9 +43,7 @@ public class World {
   }
   
   public void generateSection(int section) {
-    //Dificulty actualization
 
-    
     randomGen = new Random(seed);
     
     enemies = new ArrayList<Enemy>();
@@ -53,6 +52,7 @@ public class World {
     islands = new ArrayList<Island>();
     decorations = new ArrayList<Decoration>();
     
+    //Block creation
     for(float i = 0; i > -sectionSize; i-= new Block(true).height)
     {
       Block block = new Block(false);
@@ -65,6 +65,7 @@ public class World {
       blocks.add(block);
     }
     
+    //Enemy creation
     int attempts = 0;
     for(int i = 0; i < enemy_count; i++)
     {
@@ -91,6 +92,7 @@ public class World {
     }
     print("Generated enemies, "+ (attempts - 1) + " failed attempts\n");
     
+    //Fuel depot creation
     attempts = 0;
     for(int i = 0; i > -sectionSize; i -= DEPOT_SPACING)
     {
@@ -105,6 +107,7 @@ public class World {
     }
     print("Generated fuel depots, "+ (attempts - 1) + " failed attempts\n");
     
+    //Island creation
     attempts = 0;
     for(int i = 0; i < islandCount; i++)
     {
@@ -129,7 +132,8 @@ public class World {
     FuelDepot lastFuelDepot = new FuelDepot();
     lastFuelDepot.xPos = 500;
     lastFuelDepot.yPos = bridge.yPos + 700;
-    fuelDepots.add(lastFuelDepot);
+    if (!checkCollision(lastFuelDepot, World.C_EVERYTHING))
+      fuelDepots.add(lastFuelDepot);
     
     FuelDepot lastFuelDepot2 = new FuelDepot();
     lastFuelDepot2.xPos = 500;

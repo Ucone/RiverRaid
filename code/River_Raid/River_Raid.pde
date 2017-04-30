@@ -127,8 +127,8 @@ void checkTesting(){
 
 
 void setup() {
-  //fullScreen(P2D);
-  size(1200,600,P2D);
+  fullScreen(P2D);
+  //size(1200,600,P2D);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -328,7 +328,7 @@ void draw() {
             Rocket rocket = i.next();   
             rocket.yPos -= (yMaster - 1000);
           }
-          yMaster = 200;
+          yMaster = 300;
         }
       
 
