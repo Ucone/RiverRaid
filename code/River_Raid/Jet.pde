@@ -52,17 +52,17 @@ class Jet extends Element{
      if(this.fuel > 0)
       this.fuel = (this.fuel - VELOCITY_CONSUMPTION*gameSpeed*2*nD);
      else{
-        crash();
+        crash("outoffuel");
      }
   }
   
-  public void crash() {
+  public void crash(String reason) {
     this.crashed = true;
     this.resetLives();
     jet.removeReserveJet();
     //sound effect
     sound.playCrashSound();
-    this.animation = new Animation(jet_name + "/crashing", w(80), w(80), 25, true);
+    this.animation = new Animation(jet_name + "/crashing/" + reason, w(80), w(80), 25, true);
     
     timeResetWorld=millis(); 
   }
@@ -94,7 +94,7 @@ class Jet extends Element{
    /* COLLISION  */
    public void checkCollision(){
     if(world.checkCollision(this, World.C_OBSTACLES)){
-       crash();
+       crash("destroyed");
     }
   }
   

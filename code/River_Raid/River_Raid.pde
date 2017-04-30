@@ -442,7 +442,7 @@ void draw() {
             jet.removeLive();
             iter.remove();
             if(jet.getLives() == 0){
-              jet.crash();
+              jet.crash("destroyed");
             }            
           }else{
             //It need to be like this to avoid two jet crash with the same rocket [error]
@@ -450,7 +450,7 @@ void draw() {
               jet2.removeLive();
               iter.remove();
               if(jet2.getLives() == 0){
-                jet2.crash();
+                jet2.crash("destroyed");
               }
             }
           }
