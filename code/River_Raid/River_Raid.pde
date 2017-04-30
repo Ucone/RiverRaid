@@ -313,7 +313,7 @@ void draw() {
       if(((jet.crashed == true) && !twoPlayers) || (jet.crashed == true && jet2.crashed == true)){  
         resetWorld();  
       }else  
-        if(yMaster < -world.SECTION_SIZE-1000)     
+        if(yMaster < -world.sectionSize-1000)     
         {     
           world.resetSeed();
           player.section++;
@@ -704,7 +704,7 @@ void draw() {
   }
 
   void drawProgress(){
-    float aux = 450 + (150*(-yMaster))/world.SECTION_SIZE; 
+    float aux = 450 + (150*(-yMaster))/world.sectionSize; 
     image(progressCursor, x(aux), y(920));
     image(progressBridge, x(600), y(920));
   }
