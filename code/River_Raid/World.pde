@@ -7,11 +7,11 @@ public class World {
   static final int C_OBSTACLES = 0b1101;
   static final int C_EVERYTHING = 0b1111;
 
-  public int ENEMY_COUNT = 30;
+  public int enemy_count = 6;
   public int DEPOT_SPACING = 1500;
   public int DEPOT_FUZZ = 300;
-  public int ISLAND_COUNT = 10;
-  public float SECTION_SIZE = 10000;
+  public int islandCount = 4;
+  public float sectionSize = 2000;
   public float riverPosition;
   
   public ArrayList<Enemy> enemies;
@@ -30,7 +30,12 @@ public class World {
   }
   
   public void resetSeed() {
-     seed = (long)random(90e9); 
+      //Dificulty actualization
+      sectionSize += 1000;
+      islandCount +=2;
+      enemy_count += 3;
+      seed = (long)random(90e9); 
+
   }
   
   public void resetBackground() {
@@ -38,7 +43,7 @@ public class World {
   }
   
   public void generateSection(int section) {
-    
+
     randomGen = new Random(seed);
     
     enemies = new ArrayList<Enemy>();
@@ -47,7 +52,8 @@ public class World {
     islands = new ArrayList<Island>();
     decorations = new ArrayList<Decoration>();
     
-    for(float i = 0; i > -SECTION_SIZE; i-= new Block(true).height)
+    //Block creation
+    for(float i = 0; i > -sectionSize; i-= new Block(true).height)
     {
       Block block = new Block(false);
       block.xPos = - 0.75*block.width + randomGen.nextFloat()*block.width * 0.5;
@@ -59,8 +65,9 @@ public class World {
       blocks.add(block);
     }
     
+    //Enemy creation
     int attempts = 0;
-    for(int i = 0; i < ENEMY_COUNT; i++)
+    for(int i = 0; i < enemy_count; i++)
     {
       Enemy en;
       do {
@@ -79,14 +86,15 @@ public class World {
           
         }
         en.xPos = randomGen.nextFloat()* 1000;
-        en.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
+        en.yPos = -randomGen.nextFloat()*(sectionSize - 1000);
       } while(checkCollision(en, World.C_EVERYTHING));
       enemies.add(en);
     }
     print("Generated enemies, "+ (attempts - 1) + " failed attempts\n");
     
+    //Fuel depot creation
     attempts = 0;
-    for(int i = 0; i > -SECTION_SIZE; i -= DEPOT_SPACING)
+    for(int i = 0; i > -sectionSize; i -= DEPOT_SPACING)
     {
       FuelDepot fd;
       do {
@@ -99,24 +107,39 @@ public class World {
     }
     print("Generated fuel depots, "+ (attempts - 1) + " failed attempts\n");
     
+    //Island creation
     attempts = 0;
-    for(int i = 0; i < ISLAND_COUNT; i++)
+    for(int i = 0; i < islandCount; i++)
     {
       Island il;
       do {
         attempts++;
         il = new Island();
         il.xPos = randomGen.nextFloat()* 1000;
-        il.yPos = -randomGen.nextFloat()*(SECTION_SIZE - 1000);
+        il.yPos = -randomGen.nextFloat()*(sectionSize - 1000);
       } while(checkCollision(il, World.C_EVERYTHING));
       islands.add(il);
     }
     print("Generated islands, "+ (attempts - 1) + " failed attempts\n");
     
+    //Bridge implementaion
     Bridge bridge = new Bridge();
     bridge.xPos = 0;
-    bridge.yPos = -SECTION_SIZE;
+    bridge.yPos = -sectionSize;
     enemies.add(bridge);
+    
+    //To ensure fuel between sections
+    FuelDepot lastFuelDepot = new FuelDepot();
+    lastFuelDepot.xPos = 500;
+    lastFuelDepot.yPos = bridge.yPos + 700;
+    if (!checkCollision(lastFuelDepot, World.C_EVERYTHING))
+      fuelDepots.add(lastFuelDepot);
+    
+    FuelDepot lastFuelDepot2 = new FuelDepot();
+    lastFuelDepot2.xPos = 500;
+    lastFuelDepot2.yPos = bridge.yPos - 100;
+    fuelDepots.add(lastFuelDepot2);
+
   }
   
   

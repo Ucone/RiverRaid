@@ -7,6 +7,7 @@ public class Enemy extends Element{
     boolean fired = false;
     public EnemyState state = EnemyState.ACTIVE;
     Animation deathAnimation;
+    public boolean isBridge = false;
     
     public Enemy(String s, float w, float h) {
       super(s, w, h); 
@@ -27,7 +28,7 @@ public class Enemy extends Element{
             xPos -= lateralSpeed * nD;
         }
         
-        if(this.yPos < jet.yPos && this.yPos > jet.yPos - 700  && !fired)
+        if(this.yPos < jet.yPos && this.yPos > jet.yPos - 700  && !fired && !isBridge)
           if( new Random().nextDouble() <= 0.6 ){
               this.fire();
               fired = true;
