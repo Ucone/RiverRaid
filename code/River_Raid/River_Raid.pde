@@ -328,7 +328,7 @@ void draw() {
             Rocket rocket = i.next();   
             rocket.yPos -= (yMaster - 1000);
           }
-          yMaster = 1000;
+          yMaster = 200;
         }
       
 
