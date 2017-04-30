@@ -477,13 +477,13 @@ void draw() {
               en.crash();
               //sound effect
               sound.playDefeatSound();
-              if(en.kind == "Tank"){
+              if(en.kind == "tanker"){
                  player.tanksDestroyed ++;
               }
-              if(en.kind == "Helicopter"){
+              if(en.kind == "enemy_chopper"){
                  player.helicoptersDestroyed ++;
               }
-              if(en.kind == "EnemyJet"){
+              if(en.kind == "enemy_jet"){
                  player.enemyJetsDestroyed ++;
               }
               
@@ -536,6 +536,7 @@ void draw() {
                     enemyRocketRock.remove();
                     sound.playDefeatSound();
                     i.remove();  
+                    
                 }  
           } 
       }
