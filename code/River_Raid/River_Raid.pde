@@ -832,7 +832,7 @@ void drawPressKey()
       
 ControlEvent theEvent;      
 void controlEvent(ControlEvent theEvent) {     
-  if (gameState == gameState.WELCOME){ 
+  if (gameState == gameState.WELCOME && errorBoolean){ 
     if(cp5.get(Textfield.class, "name_input").isFocus()){ 
       println("Start....");    
       Start();    
@@ -874,6 +874,7 @@ public void Start() {
     jetSelection = new JetSelection(); 
   }else 
     gameState = GameState.STORY;
+    errorBoolean = false;
 }
 
 public void Two_Players(){
@@ -888,11 +889,12 @@ public void End() {
     yMaster = 0;  
     cpEnd.setVisible(false);  
 } 
+   boolean errorBoolean = true;
    
 public void Replay() {   
-
     yMaster = 0;       
     cpEnd.setVisible(false);    
+    errorBoolean = true;
     gameState = GameState.WELCOME;
 }
 
