@@ -33,10 +33,7 @@ public class World {
   }
   
   public void resetSeed() {
-      //Dificulty actualization
-      
       seed = (long)random(90e9); 
-
   }
   
   public void resetBackground() {
