@@ -8,7 +8,7 @@ public class World {
   static final int C_EVERYTHING = 0b1111;
 
   public int ENEMY_COUNT = 3;
-  public int DEPOT_SPACING = 1500;
+  public int DEPOT_SPACING = 1000;
   public int DEPOT_FUZZ = 300;
   public int ISLAND_COUNT = 3;
   public float SECTION_SIZE = 2000;
