@@ -829,8 +829,8 @@ void drawPressKey()
 */
       
 ControlEvent theEvent;      
-void controlEvent(ControlEvent theEvent) {     
-  if (gameState == gameState.WELCOME && errorBoolean){ 
+void controlEvent(ControlEvent theEvent) {  
+  if (gameState == gameState.WELCOME && (theEvent.getName() == "Start" || theEvent.getName() == "name_input")){ 
     if(cp5.get(Textfield.class, "name_input").isFocus()){ 
       println("Start....");    
       Start();    
@@ -860,7 +860,7 @@ public void Start() {
   playerName = cp5.get(Textfield.class, "name_input").getText();   
       
   if(playerName.equals("") || playerName.equals("Your name here...")){  
-      playerName = "Player";         
+      playerName = "Guest";         
     }       
 
    
@@ -893,7 +893,9 @@ public void End() {
 public void Replay() {   
     yMaster = 0;       
     cpEnd.setVisible(false);    
-    
+    world.resetSeed();
+    world.generateSection(1);
+    world.resetBackground();
     gameState = GameState.WELCOME;
     errorBoolean = true;
 }
