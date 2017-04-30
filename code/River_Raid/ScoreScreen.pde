@@ -51,11 +51,11 @@ ArrayList<Player> players = new ArrayList<Player>();
       fill(0);
       
       textAlign(LEFT);
-      text("" + (i + 1) + ".     Player: " + players.get(i).name, x(x), y(y));
+      text("" + (i + 1) + ".  " + players.get(i).name, x(x), y(y));
       
       //tanks defeated
-      x+= 230;
-      image(imageTank, x(x), y(y - imageTank.height/2));
+      x+= 170;
+      image(imageTank, x(x), y(y - imageTank.height));
       text ("x" + player.tanksDestroyed , x(x + imageTank.width +20), y(y));
       
       //Helicopters defeated
