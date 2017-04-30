@@ -124,10 +124,17 @@ public class World {
     bridge.xPos = 0;
     bridge.yPos = -sectionSize;
     enemies.add(bridge);
+    
     //To ensure fuel between sections
-    //FuelDepot lastFuelDepot = new FuelDepot();
-    //lastFuelDepot.yPos = -sectionSize + 200;
-    //fuelDepots.add(lastFuelDepot);
+    FuelDepot lastFuelDepot = new FuelDepot();
+    lastFuelDepot.xPos = 500;
+    lastFuelDepot.yPos = bridge.yPos + 700;
+    fuelDepots.add(lastFuelDepot);
+    
+    FuelDepot lastFuelDepot2 = new FuelDepot();
+    lastFuelDepot2.xPos = 500;
+    lastFuelDepot2.yPos = bridge.yPos - 100;
+    fuelDepots.add(lastFuelDepot2);
 
   }
   
