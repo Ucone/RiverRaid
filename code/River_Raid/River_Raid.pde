@@ -346,11 +346,17 @@ void draw() {
       jet.update(nD);
       jet.draw(yMaster);
       
+      
       if(twoPlayers){
          jet2.yPos = yMaster + 700;
          jet2.update(nD);
          jet2.draw(yMaster);
       }
+      
+       if((int)yMaster % 20 == 0){
+         
+         player.setScore(player.getScore() + 1);
+       }
        
       //Draw more elements
       if(jet.crashed == false){
