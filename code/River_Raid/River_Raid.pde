@@ -118,7 +118,7 @@ void checkTesting(){
 
   //background music
   music = new Sound();
-  isMusicOn = false;
+  isMusicOn = true;
   music.toggleMusic();
     gameState = GameState.GAME;
   }
@@ -251,7 +251,7 @@ void setup() {
 
   //background music
   music = new Sound();
-  isMusicOn = false;
+  isMusicOn = true;
   music.toggleMusic();
   
   if(!testing)
