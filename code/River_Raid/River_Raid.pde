@@ -731,6 +731,8 @@ void draw() {
 
   void drawProgress(){
     float aux = 430. + (150.0)/(1000. + world.sectionSize) * (1000.0 - yMaster); 
+    if (aux>600)
+      aux = 600;
     image(progressCursor, x(aux), y(920));
     image(progressBridge, x(600), y(920));
   }
