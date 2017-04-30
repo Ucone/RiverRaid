@@ -254,8 +254,8 @@ void setup() {
   isMusicOn = true;
   music.toggleMusic();
   
-  //if(!testing)
-  //   music.toggleMusic();
+  if(!testing)
+     music.toggleMusic();
   
   depotTutorial = new FuelDepot();  
   depotTutorial.yPos = 400;  
