@@ -710,7 +710,7 @@ void draw() {
   }
 
   void drawProgress(){
-    float aux = 450 + (150*(-yMaster))/world.sectionSize; 
+    float aux = 450. + (150.0)/(1000. + world.sectionSize) * (1000.0 - yMaster); 
     image(progressCursor, x(aux), y(920));
     image(progressBridge, x(600), y(920));
   }
