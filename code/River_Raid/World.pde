@@ -7,11 +7,14 @@ public class World {
   static final int C_OBSTACLES = 0b1101;
   static final int C_EVERYTHING = 0b1111;
 
-  public int enemy_count = 6;
+  public int ENEMY_COUNT = 3;
   public int DEPOT_SPACING = 1500;
   public int DEPOT_FUZZ = 300;
-  public int islandCount = 4;
-  public float sectionSize = 2000;
+  public int ISLAND_COUNT = 2;
+  public float SECTION_SIZE = 1000;
+  public float sectionSize;
+  public float islandCount;
+  public float enemyCount;
   public float riverPosition;
   
   public ArrayList<Enemy> enemies;
@@ -31,9 +34,7 @@ public class World {
   
   public void resetSeed() {
       //Dificulty actualization
-      sectionSize += 1000;
-      islandCount +=2;
-      enemy_count += 3;
+      
       seed = (long)random(90e9); 
 
   }
@@ -52,6 +53,10 @@ public class World {
     islands = new ArrayList<Island>();
     decorations = new ArrayList<Decoration>();
     
+    sectionSize = section * SECTION_SIZE;
+    islandCount = section * ISLAND_COUNT;
+    enemyCount = section * ENEMY_COUNT;
+    
     //Block creation
     for(float i = 0; i > -sectionSize; i-= new Block(true).height)
     {
@@ -67,7 +72,7 @@ public class World {
     
     //Enemy creation
     int attempts = 0;
-    for(int i = 0; i < enemy_count; i++)
+    for(int i = 0; i < enemyCount; i++)
     {
       Enemy en;
       do {
