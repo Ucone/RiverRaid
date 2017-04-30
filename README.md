@@ -4,4 +4,7 @@
 
 River Raid, group Cygnus 2022
 
-NOTE: It is required the library ControlP5 (see more in: http://www.sojamo.de/libraries/controlP5/)
+NOTE: Some libraries are required:
+
+- ControlP5 (see more in: http://www.sojamo.de/libraries/controlP5/)
+- Minim (see more in:  http://code.compartmental.net/tools/minim/)

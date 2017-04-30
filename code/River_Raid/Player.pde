@@ -3,6 +3,9 @@ public class Player {
 
   private int score = 0;;
   public int section = 1;
+  int tanksDestroyed = 0;
+  int helicoptersDestroyed = 0;
+  int enemyJetsDestroyed = 0;
   
   public Player(String name){
     this.name = name;

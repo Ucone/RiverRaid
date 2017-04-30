@@ -2,14 +2,18 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.HashMap;
 import ddf.minim.*;
+import controlP5.*;
+import java.nio.file.Paths;
 
 boolean testing = false;
 
-public enum GameState {WELCOME, STORY, GAME, END};  // Different states of the game
-public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4, END}
+public enum GameState {WELCOME, JET_SELECTION, STORY, GAME, END, CREDITS};  // Different states of the game
+public enum StoryStage {STORY_1, STORY_2, STORY_3, STORY_4A, STORY_4B, STORY_4C, STORY_4D, STORY_4E, STORY_4F, STORY_4G, END}
+public enum EnemyState {ACTIVE, CRASHING, CRASHED}
 
 // Input fields and text
-ControlP5 cp5;
+ControlP5 cp5, cpSelection;
+ControlP5 cpEnd;
 PFont font;
 PFont monoFont;
 int fontSize;
@@ -21,15 +25,18 @@ GameState gameState = GameState.WELCOME;
 PImage startImg;
 PImage river;
 PImage fuelGauge, lowFuelIcon;
-PImage scoreboard, reserve;
-PImage progressBackground, progressIndicator;
+PImage dashboard, underDashboard, reserve;
+PImage progressBackground, progressCursor, progressBridge;
 PImage musicOn, musicOff;
+PImage play, pause;
 
 HashMap<String, PImage> imageMap = null;
 
 // Objects
+JetSelection jetSelection;
 Player player;
 Jet jet;
+Jet jet2;
 World world;
 
 // Aspect ratio variables
@@ -52,7 +59,7 @@ float DECELERATION = 2; //low speed = speed - DECELERATION
 
 //Fuel constants
 int INITIAL_FUEL= 600; //normally at 600
-float VELOCITY_CONSUMPTION = 0.01;
+float VELOCITY_CONSUMPTION = 0.005;
 float distance = y;
 
 // timekeeping
@@ -61,15 +68,12 @@ int lastmillis = -1;
 
 // For movement simultaneous
 ArrayList<Rocket> rockets = new ArrayList<Rocket>();
+ArrayList<Rocket> enemyRockets = new ArrayList<Rocket>();
 
 //for blinking function
 int time=0;
 boolean booleanDelay = false;
 int timeDelay= 400;
-
-//for time between roquets
-int shootTime = 600;
-int rocketTime;
 
 //for delay when reset world
 int timeResetWorld = 0;
@@ -77,7 +81,7 @@ int timeResetWorld = 0;
 boolean keys [];
 
 //finalScreen
-ScoreScreen finalScreen;
+ScoreScreen scoreScreen;
 
 Story story;
 
@@ -89,9 +93,42 @@ Sound sound, music;
 //background music
 boolean isMusicOn;
 
+//Credits
+FinalCredits finalCredits;
+Enemy finalEnemy;
+
+boolean twoPlayers = false;
+
+boolean tutorial = true;
+
+float nD;
+
+boolean gamePaused = false;
+
+// If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
+void checkTesting(){
+  if(this.testing){
+    //cp5.remove("Start");
+    cp5.setVisible(false);
+    player = new Player("tester player");
+    
+  //sound player
+  minim = new Minim(this);
+  sound = new Sound();
+
+  //background music
+  music = new Sound();
+  isMusicOn = true;
+  music.toggleMusic();
+    gameState = GameState.GAME;
+  }
+}
+
+
+
 void setup() {
   fullScreen(P2D);
-  //size(1200,800);
+  //size(1200,600,P2D);
   setViewports();
   
   fontSize = (int)(20. / 1920. * (float)viewportW);
@@ -102,10 +139,11 @@ void setup() {
   fill(0);
   
   cp5 = new ControlP5(this);
+  
   /* Input field */
   cp5.addTextfield("name_input")
-      .setPosition(x(500) - w(50),  y(1000) - h(130))
-      .setSize(w(100), h(40))
+      .setPosition(x(435) - w(50),  y(1000) - h(220))
+      .setSize(w(200), h(60))
       .setFocus(true)
       .setFont(font)
       .setValue("Your name here...")
@@ -115,54 +153,94 @@ void setup() {
   cp5.getController("name_input").getCaptionLabel().setVisible(false);
   
   /* Start button */
-  cp5.addBang("Start")
-      .setPosition(x(500) - w(50), y(1000) - h(70))
-      .setSize(w(100), h(40))
+  cp5.addButton("Start")
+      .setPosition(x(435) - w(50), y(1000) - h(150))
+      .setSize(w(200), h(60))
       .setFont(font)
       .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
       
+  cp5.addButton("Two_Players")
+      .setPosition(x(435) - w(50), y(1000) - h(70))
+      .setSize(w(200), h(60))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+    //controler fro the SCOREBOARD screen
+    cpEnd = new ControlP5(this);
+    
+    cpEnd.addButton("Replay")
+      .setPosition(x(350) - w(50), y(1000) - h(100))
+      .setSize(w(150), h(60))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+   cpEnd.addButton("End")
+      .setPosition(x(600) - w(50), y(1000) - h(100))
+      .setSize(w(150), h(60))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+      cpEnd.setVisible(false);
+      
+    cpSelection = new ControlP5(this);
+    
+    cpSelection.addButton("Continue")
+      .setPosition(x(435) - w(50), y(1000) - h(100))
+      .setSize(w(150), h(60))
+      .setFont(font)
+      .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER);
+      
+      cpSelection.setVisible(false);
   // Load images
   startImg=loadImage("./images/welcome.png");
   
-  scoreboard = loadImage("./images/sprites/scoreboard.png");
+  dashboard = loadImage("./images/interface/dashboard.png");
+  underDashboard = loadImage("./images/interface/dashboard_under.png");
   reserve = loadImage("./images/sprites/progress_cursor.png");
   fuelGauge = loadImage("./images/sprites/fuelgauge.png");
   lowFuelIcon = loadImage("./images/sprites/lowfuel.png");
   progressBackground = loadImage("./images/sprites/progress_background.png");
-  progressIndicator = loadImage("./images/sprites/progress_cursor.png");
-  musicOn = loadImage("./images/sprites/musicon.png");
-  musicOff = loadImage("./images/sprites/musicoff.png");
+  progressCursor = loadImage("./images/interface/progress_cursor.png");
+  progressBridge = loadImage("./images/interface/progress_bridge.png");
+  musicOn = loadImage("./images/interface/sound_on.png");
+  musicOff = loadImage("./images/interface/sound_off.png");
+  play = loadImage("./images/sprites/play.png");
+  pause = loadImage("./images/sprites/pause.png");
   
   //Resize images
   startImg.resize(viewportW, viewportH);
-  scoreboard.resize(viewportW/7, viewportH/5);
+  dashboard.resize(viewportW, viewportH);
+  underDashboard.resize(viewportW, viewportH);
   reserve.resize(w(40), h(40));
   lowFuelIcon.resize(w(60), h(100));
-  fuelGauge.resize(w(50), viewportH/3 + 50);
-  progressBackground.resize(w(190), h(50));
-  progressIndicator.resize(w(50), h(50));
+  fuelGauge.resize(w(50), viewportH/3 + h(50));
+  progressCursor.resize(w(30), w(30));
+  progressBridge.resize(w(30), w(30));
   musicOn.resize(w(50), h(50));
   musicOff.resize(w(50), h(50));
+  play.resize(viewportW / 20, viewportW / 20);
+  pause.resize(viewportW / 20, viewportW / 20);
 
   //Check if we are on testing environment
   checkTesting();
 
+  player = new Player("");
+
   // Instances of objects
-  player = new Player();
-  
   world = new World();
   world.resetSeed();
   world.generateSection(player.section);
   world.resetBackground();
-  jet = new Jet();
-    keys = new boolean[5];  // LEFT RIGTH UP DOWN.SPACE
+
+  
+    keys = new boolean[10];  // LEFT RIGTH UP DOWN.SPACE + A S D W Q (2CND PLAYER)
   //Initialization to false
   for (int cont=0; cont< keys.length; cont++){
     keys[cont]= false;
   }
   
   //Final ScoreBoard
-  finalScreen = new ScoreScreen();
+  scoreScreen = new ScoreScreen();
   
   // Story
   story = new Story();
@@ -173,44 +251,71 @@ void setup() {
 
   //background music
   music = new Sound();
-  isMusicOn = false;
+  isMusicOn = true;
   music.toggleMusic();
-
-}
-
-int getDelta() {
-  if(lastmillis == -1) {
-    lastmillis = millis();
-    return 0;
+  
+  if(!testing)
+     music.toggleMusic();
+  
+  depotTutorial = new FuelDepot();  
+  depotTutorial.yPos = 400;  
+  depotTutorial.xPos = 400; 
+  world.fuelDepots.add(depotTutorial); 
+  //ifd.add(depotTutorial);     
+       
+  //credits  
+  finalCredits = new FinalCredits();  
+   
+}   
+         
+int getDelta() {             
+  if(lastmillis == -1) {            
+    lastmillis = millis();         
+    return 0;        
+  }        
+  int delta = millis() - lastmillis;        
+  lastmillis = millis();        
+  return delta;         
+}     
+         
+          
+void draw() {      
+  background(0);       
+      
+  int delta = getDelta();        
+  nD = delta / TICK_MS;
+  //Pause game
+  if(gamePaused) {  
+    nD = 0.0;  
   }
-  int delta = millis() - lastmillis;
-  lastmillis = millis();
-  return delta;
-}
-
-void draw() {
-  int delta = getDelta();
-  float nD = delta / TICK_MS;
-  switch(gameState){
-    case WELCOME:
-      image(startImg, x(0), y(0));
+  switch(gameState){ 
+    case WELCOME:      
+      image(startImg, x(0), y(0));      
+      cp5.setVisible(true); 
+      break; 
+     
+    case JET_SELECTION:
+      jetSelection.draw();
+      cpSelection.setVisible(true);
+      jetSelection.saveSelection();
+      errorBoolean = false;
       break;
-    
     case STORY:
-      story.draw();
-      drawPressKey();
+      story.draw();   
+      drawPressKey();   
       break;
     case GAME:
       //Map movement
-      //image(map1, x(0), y(y));
-      //image(map1, x(0), y(y) - map1.height);
       background(#eeeeee);
       world.update(nD);
-      yMaster -= gameSpeed * nD;
       
-      if(jet.crashed == false){
-        if(yMaster < -world.SECTION_SIZE-1000)
-        {
+      yMaster -= gameSpeed * nD;
+        
+      if(((jet.crashed == true) && !twoPlayers) || (jet.crashed == true && jet2.crashed == true)){  
+        resetWorld();  
+      }else  
+        if(yMaster < -world.sectionSize-1000)     
+        {     
           world.resetSeed();
           player.section++;
 
@@ -220,71 +325,141 @@ void draw() {
           jet.addReserveJet();
           world.generateSection(player.section);
           Iterator<Rocket> i = rockets.iterator();
-          while(i.hasNext()) {
-            Rocket rocket = i.next();
+          while(i.hasNext()) {   
+            Rocket rocket = i.next();   
             rocket.yPos -= (yMaster - 1000);
           }
-          yMaster = 1000;
+          yMaster = 300;
         }
-      }
-      else{
-        resetWorld();
-      }
+      
+
       world.draw();
+      
+     if(tutorial){
+          tutorial();
+     }
       
       //Draw some elements
       drawScore();
       drawMusicIcon();
-         
-      if (speedChanged){
-           gameSpeed = DEFAULT_SPEED;
-           speedChanged = false;
+      drawPlayPauseIcon();
+      
+      jet.update(nD);
+      jet.draw(yMaster);
+      
+      
+      if(twoPlayers){
+         jet2.yPos = yMaster + 700;
+         jet2.update(nD);
+         jet2.draw(yMaster);
       }
+      
+       if((int)yMaster % 20 == 0){
+         
+         player.setScore(player.getScore() + 1);
+       }
        
       //Draw more elements
       if(jet.crashed == false){
         drawProgress();
-        drawFuel();
-        jet.consume(nD);
+
+        //if(!tutorial)
+          jet.consume(nD);
         jet.checkRefuel(nD);
-        //jet.yPos = yMaster+800; //moved two lined below
         jet.checkCollision();
       }
-      jet.yPos = yMaster+800;
-      jet.draw(yMaster);
       
+      if(twoPlayers){
+        if(jet2.crashed == false){
+          //Jet two should consume also
+          drawFuel(jet2, 2);
+          //if(!tutorial)
+            jet2.consume(nD);
+          jet2.checkRefuel(nD);
+          jet2.checkCollision();
+        }
+      }
       //blinking function
       blinkFunction();
       
-      //Jet efficient movement
-      if (keys[0]){  //LEFT
-          jet.moveLeft();
+     if (speedChanged){
+         gameSpeed = DEFAULT_SPEED;
+         speedChanged = false;
       }
-      if (keys[1]){  //RIGTH
-          jet.moveRight();
-      }
-      if (keys[2]){  //UP
-          gameSpeed += ACCELERATION;
-          speedChanged = true;
-      }
-      if (keys[3]){   //DOWN
-          gameSpeed -= DECELERATION;
-          speedChanged = true;      
-      }
-      if (keys[4]){   //SPACE      
-            if (millis() - rocketTime > shootTime){
-              rocketTime=millis();
-              
-              Rocket rocket = new Rocket();
-              rocket.xPos = jet.xPos;
-              rocket.yPos = jet.yPos;
-              rockets.add(rocket);
-
-              //sound effect
-              sound.playShootSound();
+      
+      //Jet only response when is not crashed
+      if(!jet.crashed){
+        
+        //Jet efficient movement
+        if (keys[0]){  //LEFT        
+            jet.moveLeft();
+        }
+        if (keys[1]){  //RIGTH
+            jet.moveRight();
+        }
+        if (keys[2]){  //UP
+            gameSpeed += ACCELERATION;
+            speedChanged = true;
+        }
+        if (keys[3]){   //DOWN
+            gameSpeed -= DECELERATION;
+            speedChanged = true;      
+        }
+        if (keys[4]){   //SPACE      
+           jet.fire();
         }
       }
-   
+      if(!jet2.crashed){
+        if (keys[5]){ //A
+          jet2.moveLeft();          
+        }
+        if (keys[6]){ //D
+          jet2.moveRight();          
+        }
+       if (keys[7]){
+           if(!speedChanged)
+              gameSpeed -= DECELERATION;
+          speedChanged = true;      
+        }
+       if (keys[8]){   
+         if(!speedChanged)
+            gameSpeed += ACCELERATION;
+          speedChanged = true;
+        }
+       if (keys[9]){        
+            jet2.fire();
+        }
+      }
+      
+      // Enemy rockets collision
+      Iterator<Rocket> iter = enemyRockets.iterator();
+      while(iter.hasNext()){
+        Rocket rocket = iter.next();
+        rocket.update(nD);
+        if(!rocket.visible(yMaster)){
+          iter.remove();
+        }else{
+          if(jet.collide(rocket)){
+            jet.removeLive();
+            iter.remove();
+            if(jet.getLives() == 0){
+              jet.crash("destroyed");
+            }            
+          }else{
+            //It need to be like this to avoid two jet crash with the same rocket [error]
+            if(jet2.collide(rocket)){
+              jet2.removeLive();
+              iter.remove();
+              if(jet2.getLives() == 0){
+                jet2.crash("destroyed");
+              }
+            }
+          }
+        }
+        rocket.draw(yMaster);
+      }
+
+      
       
       Iterator<Rocket> i = rockets.iterator();
       while(i.hasNext()) {
@@ -296,12 +471,20 @@ void draw() {
           Iterator<Enemy> ie = world.enemies.iterator();
           while(ie.hasNext()) {
             Enemy en = ie.next();
-            if (en.collide(rocket)) {
-
+            if (en.state == EnemyState.ACTIVE && en.collide(rocket)) {
+              en.crash();
               //sound effect
               sound.playDefeatSound();
-
-              ie.remove();
+              if(en.kind == "tanker"){
+                 player.tanksDestroyed ++;
+              }
+              if(en.kind == "enemy_chopper"){
+                 player.helicoptersDestroyed ++;
+              }
+              if(en.kind == "enemy_jet"){
+                 player.enemyJetsDestroyed ++;
+              }
+              
               i.remove();
               Decoration dec = en.getDebris();
               if(dec != null) {
@@ -311,100 +494,307 @@ void draw() {
               }
 
               player.setScore(player.getScore() + en.score);
-                  if (player.getScore() % 3000 == 0){
-                     println("añado jet!");
-                     jet.addReserveJet(); 
-                  }
+              if (player.getScore() % 3000 == 0){
+                 jet.addReserveJet(); 
+              }
 
               break;
             }
           }
+              
           rocket.draw(yMaster);
         }
-      }  
-
-      
-      if(jet.crashed){
-         resetWorld(); 
+        
+        //Fuel rocket collision implementation
+          Iterator<FuelDepot> ifd = world.fuelDepots.iterator();
+          while(ifd.hasNext()) {
+                FuelDepot fd =ifd.next();
+                if (fd.collide(rocket) && !jet.refueling) {
+                    fd.removeLive();
+                    sound.playDefeatSound();
+                    i.remove();
+                    
+                    if (fd.getLives() == 4){
+                       fd.damaged(1); 
+                    }
+                    if (fd.getLives() == 2){  
+                       fd.damaged(2);   
+                    }
+                    if (fd.getLives() == 0){
+                       ifd.remove();  
+                    } 
+                }  
+          }  
+          
+      //Jet rockets interaction with other rockets
+      Iterator<Rocket> enemyRocketRock = enemyRockets.iterator();
+      while(enemyRocketRock.hasNext()) {
+                Rocket rk =enemyRocketRock.next();
+                if (rk.collide(rocket)) {
+                    enemyRocketRock.remove();
+                    sound.playDefeatSound();
+                    i.remove();  
+                    
+                }  
+          } 
       }
-
-      break;
-      case END:
-         finalScreen.drawScoreScreen();         
-      break;
+      
+    
+      
+      // Garbage-collect crashed enemies
+      Iterator<Enemy> ie = world.enemies.iterator();
+      while(ie.hasNext()) {
+        Enemy en = ie.next();
+        if(en.state == EnemyState.CRASHED)
+          ie.remove();
+      }
+          
+     
+     if(gamePaused){ 
+       fill(255, 0, 0); 
+       text("Paused!", x(500), y(400)); 
+     } 
+     
+     if (twoPlayers){
+       
+     }
+            
+      break;      
+      case END:    
+        twoPlayers = false;     
+         scoreScreen.drawScoreScreen();    
+         //cpEND has the buttons and controllers for restart/end    
+         cpEnd.setVisible(true); 
+       break;
+            
+       case CREDITS:            
+         //Credits game   
+         credits();    
+         //rocketTime = millis();     
+       break;    
   }
-}
-
-
-
-  public void resetWorld(){
-    if(millis()- timeResetWorld >= 2000){
-      jet.removeReserveJet();
-      world.generateSection(player.section);
-      world.resetBackground();
+} 
+    
+   
+   
+  //Tutorial, just appear the first time   
+  public void tutorial(){
+    
+    gameSpeed = 1;
+    fill(0);
+       
+    int xText = 500;   
+    if(yMaster >= 500){      
+      if(twoPlayers){
+        xText = 300;   
+        fill(237,28,36);    
+        text("D: move to right", x(xText + 150), y(790));
+        text("A: move to left", x(xText - 60), y(790));
+        text("Q: shoot", x(xText + 40), y(600));
+        text("W: speed up", x(xText + 40), y(690));
+        text("S: slow down", x(xText + 40), y(850));
+        xText = 650;
+      }
+      
+      textSize(h(25));
+      fill(0);
+      text("→: move to right", x(xText + 170), y(750));
+      text("←: move to left", x(xText - 100), y(740));
+      text("SPACE BAR: shoot", x(xText + 30), y(600));
+      text("↑: speed up", x(xText + 30), y(690));
+      text("↓: slow down", x(xText + 40), y(840));
+      
+    }
+    depotTutorial.draw(yMaster);
+    
+    if(yMaster <= 500 && yMaster > 150){ 
+        //depotTutorial.yPos = 700;
+        //depotTutorial.draw(y(200));
+        text("This is a fuel depot", x(500), y(500));
+        text("BE CAREFUL, you can damage it with your rockets", x(500), y(550));
+        text("Check here the\nfuel level ↓", x(70), y(720));
+    }
+            
+    if(yMaster<=150){
+      gameSpeed = DEFAULT_SPEED;
+      text("Go slowly through it to charge more fuel", x(500),  y(600));
+      text("Check here the\nfuel level ↓", x(70), y(720));
+      textAlign(CENTER);
+    }  
+      
+      
+    if(yMaster <= -400){
+      tutorial= false;
+      println("End tutorial"); 
+       
+    }   
+  }  
+      
+  FuelDepot depotTutorial;      
+      
+//CREDITS METHOD  
+  public void credits(){   
+     
+        
+    
+         tint(255, 80);  
+         image(startImg, x(0), y(0));     
+             
+         tint(255);
+         jet.resurrect();
+         yMaster -= 2 * nD;     
+         
+         //background(0, 162, 232); 
+         fill(255); 
+         
+         //Draw the jet and the credits map   
+            
+         finalCredits.draw();   
+         
+         jet.update(nD);
+         jet.yPos = yMaster+800;
+         jet.draw(yMaster);
+   
+         //Jet movement   
+         if (keys[0]){  //LEFT
+            jet.moveLeft();   
+          }   
+          if (keys[1]){  //RIGTH  
+              jet.moveRight();  
+          }
+          //if (keys[2]){  //UP
+          //    yMaster -= ACCELERATION;  
+          //    speedChanged = true;   
+          //} 
+          if (keys[4]){   //SPACE     
+              jet.fire();
+          }     
+     
+       //Jet rockets interaction with credits
+          Iterator<Rocket> finalRoquets = rockets.iterator(); 
+          while(finalRoquets.hasNext()) {     
+            Rocket rocket = finalRoquets.next();    
+            rocket.update(nD);
+            if(!rocket.visible(yMaster)) {  
+              finalRoquets.remove();   
+            } else {  
+              //see iterator content in finalWorld Class
+              Iterator<Enemy> finalEnemiIterator = finalCredits.finalEnemies.iterator();
+              while(finalEnemiIterator.hasNext()) {
+                Enemy en = finalEnemiIterator.next(); 
+                if (en.collide(rocket)) { 
+                  //sound effect  
+                  sound.playDefeatSound();         
+                  finalEnemiIterator.remove();       
+                  finalRoquets.remove();     
+                  break;
+                }     
+              }       
+              rocket.draw(yMaster);  
+            }
+          } 
+            
+          
+  }    
+ 
+  public void resetWorld(){  
+    if(millis()- timeResetWorld >= 3000){ 
+      
+      world.generateSection(player.section);    
+      world.resetBackground();    
       yMaster = 0;
-      jet.crashed = false;
-      jet.fuel = INITIAL_FUEL;
-      //Iterator<Rocket> i = rockets.iterator();
-      //while(i.hasNext()) {
-      //  Rocket rocket = i.next();
-      //  rocket.yPos -= (yMaster - 1000);
-      //} 
+      jet.resurrect(); 
+      jet.fuel = INITIAL_FUEL;   
+      jet2.resurrect();
+      jet2.fuel = INITIAL_FUEL; 
       timeResetWorld = millis();
     }
   }
-
+   
   void drawScore (){
-    image(scoreboard, x(30), y(800));
-    fill(0);
-    // Score value
-
-    text(player.getScore(), x(100), y(880));
-
-    // Level indicator
-    text("Level: " + player.section, x(70), y(920));
+    image(underDashboard, x(0), y(0));
+      
+    fill(0, 255, 0);  
+    //Score value
+    text(player.getScore(), x(250), y(970));
+    
     // Reserve jets indicator
-    image(reserve, x(100), y(890));
-    text("x" + jet.getReserveJets(), x(140), y(920));
+    text(jet.getReserveJets(), x(380), y(975));
+    
+    drawFuel(jet, 1);
+    
+    image(dashboard, x(0), y(0));
+
   }
 
   void drawProgress(){
-    image(progressBackground, x(10), y(600));
-    float aux = (150*(-yMaster))/world.SECTION_SIZE;
-    image(progressIndicator, x(aux), y(600));
+    float aux = 430. + (150.0)/(1000. + world.sectionSize) * (1000.0 - yMaster); 
+    if (aux>600)
+      aux = 600;
+    image(progressCursor, x(aux), y(920));
+    image(progressBridge, x(600), y(920));
   }
 
   void drawMusicIcon(){
     if(isMusicOn == true){
-      image(musicOn, x(940), y(10));
+      image(musicOn, x(885), y(910));
     }
     else{
-      image(musicOff, x(940), y(10));
+      image(musicOff, x(885), y(910));
     }
-  }
+  } 
+  
+  void drawPlayPauseIcon(){
+    if(gamePaused == true){
+      image(play, x(850), y(10));
+    }
+    else{
+      image(pause, x(850), y(10));
+    }  
+  }  
 
   //***** FUEL IMPLEMENTATION *****
-  void drawFuel(){
+  void drawFuel(Jet jet, int player){
 
+      if(player == 1){
       //Fuel consumption
+      
+      stroke(#00ff4e);
+      int xDepot = 5; 
+      int yDepot = 900;
+      int rectHeight = 60;
+         
+      if(twoPlayers){
+        rectHeight = 30;
+        if(jet2.getFuel() > 0){
+          fill(#482597);
+          rect( x(xDepot), y(yDepot) + h(30), w((jet2.getFuel() * 180)/INITIAL_FUEL), h(rectHeight));
+        }
+      }
       fill(#00ff4e);
-      
       if(jet.getFuel() > 0){
-        rect( x(940), y(930), w(25), h((int)-jet.getFuel()/2));
+        rect( x(xDepot), y(yDepot), w((jet.getFuel() * 180)/INITIAL_FUEL), h(rectHeight));
       }
       
-      //Fuel actions
+      //Fuel alert
       if ((jet.getFuel() < INITIAL_FUEL / 3)&&(booleanDelay)){
-            image(lowFuelIcon, x(930), y(800 - fuelGauge.height));
-        if (jet.getFuel() <= 0)
-            text("GAME OVER, LOSER!!", x(400), y(500));
+            fill(255, 0, 0, 80);
+            rect(x(0), y(0), w(1000), h(1000));
       }
-      image(fuelGauge, x(930), y(900 - fuelGauge.height));
+      
+      }
+      //else{
+      //  if(jet.getFuel() > 0){
+      //    rect( x(20), y(200) + fuelGauge.height - w(20) , w(25), -(jet.getFuel() * 180)/INITIAL_FUEL);
+      //  }
+      //  image(fuelGauge, x(12), y(200));
+      //   //xDepot = 60;    
+      //} 
   }
 
 
-  
-   public void blinkFunction(){
+   
+   public void blinkFunction(){ 
      if(millis()-time>=timeDelay){
         booleanDelay = !booleanDelay;
         time = millis(); 
@@ -412,52 +802,138 @@ void draw() {
  }
 
 /* Loads the image of the story defined by the GameState */
-/* @return The image loaded*/
-PImage loadStoryImage(GameState gameState)
-{
-  PImage img = loadImage("./images/story/"+gameState+".png");
-  img.resize(viewportW, viewportH);
+/* @return The image loaded*/  
+PImage loadStoryImage(GameState gameState)  
+{   
+  PImage img = loadImage("./images/story/"+gameState+".png");     
+  img.resize(viewportW, viewportH);  
   return img;
 }
 
-
-
+ 
+ 
 /* Draws the text of "Press any key to continue" in the screen */
-void drawPressKey()
-{
-   textAlign(RIGHT);
-   fill(255,0,0);
-   textFont(monoFont, fontSize);
-   text("Press any key to continue...", viewportW - w(20), y(30));
+void drawPressKey() 
+{     
+   textAlign(RIGHT);      
+   fill(255,0,0);  
+   textFont(monoFont, fontSize);      
+   text("Press any key to continue...", viewportW - w(20), y(30));    
    textFont(font, fontSize);
-   textAlign(CENTER);
+   textAlign(CENTER);  
+}  
+
+ 
+/* When the "enter key" or "Start" button is pressed, gets the name of the user. 
+*  If the name is empty, set "Guest" as default name. 
+*/
+      
+ControlEvent theEvent;      
+void controlEvent(ControlEvent theEvent) {  
+  if (gameState == gameState.WELCOME && (theEvent.getName() == "Start" || theEvent.getName() == "name_input")){ 
+    if(cp5.get(Textfield.class, "name_input").isFocus()){ 
+      println("Start....");    
+      Start();    
+      this.theEvent=theEvent;
+    }
+  }
+
+}
+
+//PRESS START BUTTON ON THE WELCOME SCREEN   
+public void Start() {     
+  //String event_id = theEvent.getLabel();   
+  story = new Story();   
+       
+  jet = new Jet();   
+  jet2 = new StealthJet(); 
+
+      
+  if (twoPlayers){ 
+    jet.xPos = 650;  
+    jet2.xPos = 300;
+  } 
+  
+  String playerName = "";    
+     
+
+  playerName = cp5.get(Textfield.class, "name_input").getText();   
+      
+  if(playerName.equals("") || playerName.equals("Your name here...")){  
+      playerName = "Guest";         
+    }       
+
+   
+  player = new Player(playerName);   
+  scoreScreen.addPlayer(player);   
+  cp5.setVisible(false); //remove("Start");    
+  //cp5.remove("name_input");  
+  if(!twoPlayers){
+    gameState = GameState.JET_SELECTION;
+    jetSelection = new JetSelection(); 
+  }else 
+    gameState = GameState.STORY;
+    errorBoolean = false;
+}
+
+public void Two_Players(){
+  twoPlayers = true; 
+  Start();  
 }
 
 
-/* When the "enter key" or "Start" button is pressed, gets the name of the user.
-*  If the name is empty, set "Guest" as default name.
-*/
-void controlEvent(ControlEvent theEvent) {
-  String event_id = theEvent.getLabel();
-  String playerName = "";
-  if(event_id.equals("name_input") || event_id.equals("Start")){
-    playerName = cp5.get(Textfield.class, "name_input").getText();
-    
-    if(playerName.equals("")){
-      playerName = "Guest";
+//PRESS END BUTTON ON THE SCORE SCREEN
+public void End() { 
+    gameState = GameState.CREDITS; 
+    yMaster = 0;  
+    cpEnd.setVisible(false);  
+} 
+   boolean errorBoolean = true;
+   
+public void Replay() {   
+    yMaster = 0;       
+    cpEnd.setVisible(false);    
+    world.resetSeed();
+    world.generateSection(1);
+    world.resetBackground();
+    gameState = GameState.WELCOME;
+    errorBoolean = true;
+}
+
+public void Continue(){
+    cpSelection.setVisible(false);
+    gameState = GameState.STORY;
+}
+
+/* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */   
+void keyPressed(){   
+  
+  if (gameState == gameState.WELCOME){
+       //Retrocess (delete)
+         if (key == 8){
+            cp5.get(Textfield.class, "name_input").setText("");
+     } 
+  }
+  
+  if (gameState == gameState.JET_SELECTION){
+    if(key == CODED){
+      switch(keyCode){
+        case LEFT:
+          jetSelection.selectLeft();
+          break;
+        case RIGHT:
+          jetSelection.selectRight();
+          break;
+      }
+    }
+    if(key == ENTER){
+      jetSelection.saveSelection();
+      Continue();
     }
   }
   
-  player.setName(playerName);
-  cp5.remove("Start");
-  cp5.remove("name_input");
-  gameState = GameState.STORY;
-}
-
-/* Controller to switch between the different screens. It changes the GameState and draw() function is launched automatically */
-void keyPressed(){
   // I put this here as is more efficient (mostly the state is GAME, so don't need to do the swich)
-  if (gameState == gameState.GAME) {
+  if (gameState == gameState.GAME && !gamePaused || gameState == gameState.CREDITS) {
     if ( key == CODED){
       switch(keyCode){
        case LEFT:
@@ -474,9 +950,6 @@ void keyPressed(){
        //speedChanged = true;  
           keys[3]= true;
           break; 
-
-
-
       }
     } else {
       switch(key){
@@ -484,8 +957,34 @@ void keyPressed(){
           keys[4]=true;
           break;
         case 'm':
+        case 'M':
           music.toggleMusic();
+          break;
+        //Second player keys
+      }if(twoPlayers){
+       switch(key){
+        case 'a':
+        case 'A':
+          keys[5] = true;
+        break;
+        case 'd':
+        case 'D':
+          keys[6] = true;
+        break;
+         case 's':
+         case 'S':
+          keys[7] = true;
+        break;
+        case 'w':
+        case 'W':
+          keys[8] = true;
+        break;
+        case 'q':
+        case 'Q':
+          keys[9] = true;
+        break;
       }
+     }
     }
   } else {
     switch(gameState){
@@ -500,22 +999,20 @@ void keyPressed(){
 }  
 
 void mousePressed(){
-  if(mouseX > x(940) && mouseX < x(990) && mouseY > y(10) && mouseY < y(60)){
-    music.toggleMusic();
+  if (gameState == gameState.GAME){
+    //x(885), y(920)
+    if(mouseX > x(885) && mouseX < x(885) + w(50) && mouseY > y(920) && mouseY < y(920) + h(50)){
+      music.toggleMusic();
+    }
+    if(mouseX > x(850) && mouseX < x(850) + viewportW / 20 && mouseY > y(10) && mouseY < y(10) + viewportW / 20){
+      toggleGame();
+    }
   }
-}
-
-
-// If testing mode is enabled (variable testing), the game skips the story and goes directly to the map 
-void checkTesting(){
-  if(this.testing){
-    cp5.remove("Start");
-    cp5.remove("name_input");
-    player = new Player("tester player");
-    gameState = GameState.GAME;
-    player = new Player("");
+  
+  if(gameState == GameState.JET_SELECTION){
+      jetSelection.mouseHandler();
   }
-}
+ }
 
 
 //For jet movement, to know when the key is released and stop movement.
@@ -539,6 +1036,30 @@ void keyReleased(){
        switch(key){
          case ' ':
            keys[4] = false;
+         break;
+       } if (twoPlayers){
+        switch(key){
+        case 'a':
+        case 'A':
+          keys[5] = false;
+          break;
+        case 'd':
+        case 'D':
+          keys[6] = false;
+          break;
+        case 's':
+        case 'S':
+          keys[7] = false;
+          break;
+        case 'w':
+        case 'W':
+          keys[8] = false;
+          break;
+        case 'q':
+        case 'Q':
+          keys[9] = false;
+          break;
+        }
        }
      }
 }
@@ -599,3 +1120,14 @@ PImage getImage(String imageName, int w, int h) {
        return img;
      }
    }
+   
+void toggleGame(){
+    if(gamePaused){
+       gamePaused = false;
+       noTint();
+    }
+    else{
+       gamePaused = true;
+       tint(255, 126);
+    }
+}
