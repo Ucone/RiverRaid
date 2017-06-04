@@ -1,0 +1,30 @@
+!story1.png!
+
+Text: none
+
+!story2.png!
+
+top: 00:32, border Air Force base
+
+!story3.png!
+
+bottom: Pilot <playername>, to the general!
+
+!story4.png!
+
+(split over two instances of image?)
+
+left: Yes, general!
+right: <playername>, you're our best pilot. Our neighbors, <countryname>, are amassing military forces across the border canyon.
+
+Our only hope is preemptive strike against them. You will pilot an experimental prototype jet, destroying all bridges...
+
+left: It's easy to shoot a bridge sir! It doesn't move! It also doesn't shoot back, sir!
+
+right: Not so fast, hotshot. Enemy will protect the assets with their local numerous forces, and also you'll need to fly low to avoid AAA.
+
+left: Did anybody try this experimental jet yet?
+
+right: No, we can't risk warning the enemy. You're our best hope
+
+left: Yes sir, ready to serve!
